@@ -113,6 +113,12 @@
     align-items: center;
     text-align: left;
     gap: 15px;
+    border-right: 1px solid rgba(197, 168, 128, 0.25);
+    padding-right: 15px;
+  }
+  .badge-item:last-child {
+    border-right: none;
+    padding-right: 0;
   }
   .badge-item i {
     font-size: 28px;
@@ -142,6 +148,10 @@
     .badges-grid {
       grid-template-columns: repeat(3, 1fr);
       gap: 20px;
+    }
+    .badge-item {
+      border-right: none;
+      padding-right: 0;
     }
   }
   @media (max-width: 768px) {
@@ -204,44 +214,53 @@
     margin: 0 auto;
   }
   .collection-card {
-    background-color: #000000;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    overflow: hidden;
-    align-items: stretch;
-    transition: transform 0.3s ease;
-  }
-  .collection-card-img-wrap {
-    width: 100%;
-    aspect-ratio: 1/1;
-    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1/1; /* Square card */
     background-color: #000;
+    overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
+    text-decoration: none;
   }
-  .collection-card-img-wrap img {
+  .collection-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
   }
-  .collection-card:hover .collection-card-img-wrap img {
+  .collection-card:hover img {
     transform: scale(1.05);
   }
+  /* Subtle bottom gradient shadow to ensure text readability */
+  .collection-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 60%, rgba(0,0,0,0) 100%);
+    pointer-events: none;
+    z-index: 1;
+  }
   .collection-card-content {
-    padding: 15px 10px 15px 10px;
+    position: relative;
+    z-index: 2;
+    padding: 20px 10px;
     text-align: center;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background-color: #000000;
+    gap: 6px;
   }
   .collection-card-content h4 {
     color: #ffffff;
     font-size: 11px;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 1px;
     text-transform: uppercase;
     margin: 0;
@@ -467,45 +486,35 @@
     
     <div class="collections-grid">
       <a href="/collections/engagement-rings" class="collection-card">
-        <div class="collection-card-img-wrap">
-          <img src="{{ 'product-1.png' | asset_url }}" alt="Engagement Rings">
-        </div>
+        <img src="{{ 'product-1.png' | asset_url }}" alt="Engagement Rings">
         <div class="collection-card-content">
           <h4>Engagement Rings</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/wedding-bands" class="collection-card">
-        <div class="collection-card-img-wrap">
-          <img src="{{ 'product-2.png' | asset_url }}" alt="Wedding Bands">
-        </div>
+        <img src="{{ 'product-2.png' | asset_url }}" alt="Wedding Bands">
         <div class="collection-card-content">
           <h4>Wedding Bands</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/earrings" class="collection-card">
-        <div class="collection-card-img-wrap">
-          <img src="{{ 'product-3.png' | asset_url }}" alt="Earrings">
-        </div>
+        <img src="{{ 'product-3.png' | asset_url }}" alt="Earrings">
         <div class="collection-card-content">
           <h4>Earrings</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/pendants" class="collection-card">
-        <div class="collection-card-img-wrap">
-          <img src="{{ 'hero.png' | asset_url }}" alt="Pendants">
-        </div>
+        <img src="{{ 'hero.png' | asset_url }}" alt="Pendants">
         <div class="collection-card-content">
           <h4>Pendants</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/bracelets" class="collection-card">
-        <div class="collection-card-img-wrap">
-          <img src="{{ 'product-1.png' | asset_url }}" alt="Bracelets">
-        </div>
+        <img src="{{ 'product-1.png' | asset_url }}" alt="Bracelets">
         <div class="collection-card-content">
           <h4>Bracelets</h4>
           <span>View Collection</span>
