@@ -70,5 +70,30 @@
         }, 50);
       })();
     </script>
-    {% endif %}</body>
+    {% endif %}
+    
+    <!-- Temporary redirect for client testing: Redirect collection links to /collections/all -->
+    <script>
+      (function() {
+        function redirectCollections() {
+          document.querySelectorAll('a').forEach(function(link) {
+            var href = link.getAttribute('href');
+            if (href && href.startsWith('/collections/') && href !== '/collections/all') {
+              link.href = '/collections/all';
+            }
+          });
+        }
+        document.addEventListener('DOMContentLoaded', redirectCollections);
+        document.addEventListener('click', function(e) {
+          var anchor = e.target.closest('a');
+          if (anchor) {
+            var href = anchor.getAttribute('href');
+            if (href && href.startsWith('/collections/') && href !== '/collections/all') {
+              anchor.href = '/collections/all';
+            }
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
