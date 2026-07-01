@@ -19,7 +19,7 @@
     height: 90vh;
     min-height: 500px;
     background-color: #0b0b0b;
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ 'hero.png' | asset_url }}');
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ 'hero_jewelry.png' | asset_url }}');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -276,11 +276,16 @@
   @media (max-width: 991px) {
     .collections-grid {
       grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
     }
   }
   @media (max-width: 575px) {
     .collections-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .collections-grid a:last-child {
+      grid-column: span 2;
     }
   }
 
@@ -552,35 +557,35 @@
     
     <div class="collections-grid">
       <a href="/collections/engagement-rings" class="collection-card">
-        <img src="{{ 'product-1.png' | asset_url }}" alt="Engagement Rings">
+        <img src="{{ 'cat_engagement.png' | asset_url }}" alt="Engagement Rings" loading="lazy">
         <div class="collection-card-content">
           <h4>Engagement Rings</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/wedding-bands" class="collection-card">
-        <img src="{{ 'product-2.png' | asset_url }}" alt="Wedding Bands">
+        <img src="{{ 'cat_wedding.png' | asset_url }}" alt="Wedding Bands" loading="lazy">
         <div class="collection-card-content">
           <h4>Wedding Bands</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/earrings" class="collection-card">
-        <img src="{{ 'product-3.png' | asset_url }}" alt="Earrings">
+        <img src="{{ 'cat_earrings.png' | asset_url }}" alt="Earrings" loading="lazy">
         <div class="collection-card-content">
           <h4>Earrings</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/pendants" class="collection-card">
-        <img src="{{ 'hero.png' | asset_url }}" alt="Pendants">
+        <img src="{{ 'cat_pendants.png' | asset_url }}" alt="Pendants" loading="lazy">
         <div class="collection-card-content">
           <h4>Pendants</h4>
           <span>View Collection</span>
         </div>
       </a>
       <a href="/collections/bracelets" class="collection-card">
-        <img src="{{ 'product-1.png' | asset_url }}" alt="Bracelets">
+        <img src="{{ 'cat_bracelets.png' | asset_url }}" alt="Bracelets" loading="lazy">
         <div class="collection-card-content">
           <h4>Bracelets</h4>
           <span>View Collection</span>
