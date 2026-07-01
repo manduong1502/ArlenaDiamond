@@ -2,15 +2,23 @@
   <style>
     /* Angara-style Collection Page Styles */
     .angara-collection {
-      max-width: 1200px;
-      margin: 110px auto 40px auto;
-      padding: 0 20px;
+      max-width: 1500px; /* Expanded from 1200px to reduce blank sides */
+      margin: 150px auto 40px auto; /* Increased top margin from 110px to 150px to prevent header cover */
+      padding: 0 40px;
       font-family: var(--font-base);
       color: #111;
+      box-sizing: border-box;
+    }
+    .angara-collection.post-banner {
+      margin-top: 40px; /* Reduced spacing after banner */
     }
     @media (max-width: 991px) {
       .angara-collection {
-        margin-top: 85px;
+        margin-top: 110px;
+        padding: 0 20px;
+      }
+      .angara-collection.post-banner {
+        margin-top: 30px;
       }
     }
 
@@ -19,7 +27,7 @@
       font-size: 10px;
       color: #777;
       letter-spacing: 1px;
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       text-transform: uppercase;
       font-weight: 500;
     }
@@ -36,15 +44,14 @@
       color: #ccc;
     }
 
-    /* Panoramic Sale Event Banner */
+    /* Panoramic Sale Event Banner - Full screen width */
     .sale-event-banner {
       width: 100%;
       height: auto;
-      border: 1px solid #e2deda;
-      border-radius: 4px;
       margin-bottom: 30px;
       overflow: hidden;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
     }
     .sale-event-banner img {
       width: 100%;
@@ -369,48 +376,62 @@
       color: #cc0000;
     }
     
-    /* Product Details - Left Aligned to match Mockup */
+    /* Product Details - Left Aligned to match Mockup (Image 4) */
     .product-details-wrap {
-      padding: 12px 0;
+      padding: 10px 0;
       text-align: left;
     }
-    .product-brand-name {
-      font-size: 9px;
-      text-transform: uppercase;
-      color: #888;
-      letter-spacing: 1px;
-      display: block;
-      margin-bottom: 4px;
-      font-weight: 600;
+    
+    /* Gemstone Swatches matching Example Card */
+    .product-swatches {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+      margin-bottom: 6px;
     }
+    .swatch-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .swatch-dot-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: block;
+    }
+    .swatch-dot.active {
+      border-color: #333;
+    }
+    .swatch-more-text {
+      font-size: 10px;
+      color: #666;
+      margin-left: 2px;
+      font-weight: 500;
+    }
+
     .product-title-text {
       font-size: 12px;
-      font-weight: 500;
-      color: #111;
+      font-weight: 400;
+      color: #333;
       line-height: 1.5;
       height: 36px;
       overflow: hidden;
       display: block;
-      margin-bottom: 5px;
-    }
-    
-    /* Elegant gold star ratings block */
-    .product-rating {
-      display: flex;
-      align-items: center;
-      gap: 3px;
       margin-bottom: 8px;
-      font-size: 10px;
-      color: #c5a880; /* Diamond Gold color */
+      margin-top: 2px;
     }
-    .product-rating .text-muted {
-      color: #e0e0e0;
-    }
-    
     .product-price-info {
       font-size: 13px;
       font-weight: 600;
-      color: #000;
+      color: #111;
       display: flex;
       justify-content: flex-start;
       gap: 8px;
@@ -445,8 +466,8 @@
     }
   </style>
 
+  <!-- 1. BREADCRUMBS BLOCK (Above Banner, with corrected margins) -->
   <div class="angara-collection">
-    <!-- BREADCRUMBS -->
     <div class="collection-breadcrumbs">
       <a href="/">Home</a>
       <span>/</span>
@@ -454,12 +475,15 @@
       <span>/</span>
       <span style="color: #111;">{{ collection.title | default: 'Rings' }}</span>
     </div>
+  </div>
 
-    <!-- SALE EVENT BANNER -->
-    <section class="sale-event-banner">
-      <img src="{{ 'collection_banner.png' | asset_url }}" alt="4th of July Sale | 10% Off Sitewide">
-    </section>
+  <!-- 2. PANORAMIC SALE EVENT BANNER (Stretched Full Screen Width) -->
+  <section class="sale-event-banner">
+    <img src="{{ 'collection_banner.png' | asset_url }}" alt="4th of July Sale | 10% Off Sitewide">
+  </section>
 
+  <!-- 3. MAIN CONTENT CONTAINER -->
+  <div class="angara-collection post-banner">
     <!-- COLLECTION HEADER & INFO -->
     <header class="collection-header-info">
       <h1 class="collection-main-title">{{ collection.title | default: 'Rings' }} <span style="font-size: 16px; color: #888; font-weight: 400;">({{ collection.all_products_count | default: 2477 }})</span></h1>
@@ -600,16 +624,50 @@
             </div>
 
             <a href="{{ product.url }}" class="product-details-wrap">
-              <span class="product-brand-name">{{ product.vendor | default: shop.name }}</span>
-              <span class="product-title-text">{{ product.title }}</span>
-              <div class="product-rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-solid fa-star"></i>
-                <span style="font-size: 10px; color: #888; margin-left: 5px;">(5.0)</span>
+              <!-- Swatches row matching mockup Image 4 -->
+              {%- assign stone_option = nil -%}
+              {%- for option in product.options_with_values -%}
+                {%- assign opt_name = option.name | downcase -%}
+                {%- if opt_name == 'color' or opt_name == 'stone' or opt_name == 'gemstone' or opt_name == 'metal' -%}
+                  {%- assign stone_option = option -%}
+                  {%- assign stone_opt_index = forloop.index0 -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              <div class="product-swatches">
+                {%- if stone_option -%}
+                  {%- for value in stone_option.values limit: 4 -%}
+                    {%- assign is_active = false -%}
+                    {%- if forloop.first -%}{%- assign is_active = true -%}{%- endif -%}
+                    <div class="swatch-dot {% if is_active %}active{% endif %}" title="{{ value }}">
+                      {%- assign val_color = value | handleize -%}
+                      <span class="swatch-dot-inner" style="background-color: {{ val_color }};"></span>
+                    </div>
+                  {%- endfor -%}
+                  {%- if stone_option.values.size > 4 -%}
+                    <span class="swatch-more-text">+{{ stone_option.values.size | minus: 4 }}</span>
+                  {%- endif -%}
+                {%- else -%}
+                  <!-- Mock swatches for showcase consistency -->
+                  <div class="swatch-dot active">
+                    <span class="swatch-dot-inner" style="background-color: #a8d8ea;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #005086;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #e4b7a0;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #f4e0c4;"></span>
+                  </div>
+                  <span class="swatch-more-text">+14</span>
+                {%- endif -%}
               </div>
+
+              <span class="product-title-text">{{ product.title }}</span>
+              
               <div class="product-price-info">
                 {% if product.compare_at_price > product.price %}
                   <span class="product-compare-price">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
@@ -639,16 +697,24 @@
               </div>
 
               <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
-                <span class="product-brand-name">ARLENA</span>
-                <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
-                <div class="product-rating">
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <i class="fa-solid fa-star"></i>
-                  <span style="font-size: 10px; color: #888; margin-left: 5px;">(5.0)</span>
+                <!-- Swatches row matching mockup Image 4 -->
+                <div class="product-swatches">
+                  <div class="swatch-dot active">
+                    <span class="swatch-dot-inner" style="background-color: #a8d8ea;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #005086;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #e4b7a0;"></span>
+                  </div>
+                  <div class="swatch-dot">
+                    <span class="swatch-dot-inner" style="background-color: #f4e0c4;"></span>
+                  </div>
+                  <span class="swatch-more-text">+14</span>
                 </div>
+
+                <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
                 <div class="product-price-info">
                   <span class="product-compare-price">$2,669</span>
                   <span style="color:#e8000d;">$2,402</span>
