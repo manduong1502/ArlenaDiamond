@@ -3,22 +3,31 @@
     /* Angara-style Collection Page Styles */
     .angara-collection {
       max-width: 1500px; /* Expanded from 1200px to reduce blank sides */
-      margin: 150px auto 40px auto; /* Increased top margin from 110px to 150px to prevent header cover */
+      margin: 0 auto 40px auto; /* Removed top margin, handled by container or post-banner */
       padding: 0 40px;
       font-family: var(--font-base);
       color: #111;
       box-sizing: border-box;
     }
+    .collection-breadcrumbs-container {
+      max-width: 1500px;
+      margin: 140px auto 12px auto; /* Comfortable clearance for fixed header, tight bottom margin */
+      padding: 0 40px;
+      box-sizing: border-box;
+    }
     .angara-collection.post-banner {
-      margin-top: 40px; /* Reduced spacing after banner */
+      margin-top: 25px; /* Tighter gap after banner */
     }
     @media (max-width: 991px) {
       .angara-collection {
-        margin-top: 110px;
+        padding: 0 20px;
+      }
+      .collection-breadcrumbs-container {
+        margin: 110px auto 10px auto;
         padding: 0 20px;
       }
       .angara-collection.post-banner {
-        margin-top: 30px;
+        margin-top: 20px;
       }
     }
 
@@ -27,7 +36,7 @@
       font-size: 10px;
       color: #777;
       letter-spacing: 1px;
-      margin-bottom: 25px;
+      margin: 0; /* Cleared margin to allow container control */
       text-transform: uppercase;
       font-weight: 500;
     }
@@ -48,7 +57,7 @@
     .sale-event-banner {
       width: 100%;
       height: auto;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
       overflow: hidden;
       border-top: 1px solid #eaeaea;
       border-bottom: 1px solid #eaeaea;
@@ -450,7 +459,7 @@
   </style>
 
   <!-- 1. BREADCRUMBS BLOCK (Above Banner, with corrected margins) -->
-  <div class="angara-collection">
+  <div class="collection-breadcrumbs-container">
     <div class="collection-breadcrumbs">
       <a href="/">Home</a>
       <span>/</span>
