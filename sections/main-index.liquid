@@ -426,12 +426,12 @@
 
   /* Life moments section */
   .moments-section {
-    padding: 80px 20px;
-    background-color: #fcfbfa;
+    padding: 60px 20px;
+    background-color: #fdfaf6; /* Luxury light warm cream background */
   }
   .moments-grid {
     display: grid;
-    grid-template-columns: 1.2fr 3fr;
+    grid-template-columns: 0.9fr 3.1fr; /* Text is ~22%, images ~78% */
     gap: 40px;
     max-width: 1200px;
     margin: 0 auto;
@@ -440,19 +440,23 @@
   .moments-text-col {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
+    text-align: left;
   }
   .moments-text-col h3 {
     font-family: 'Cinzel', serif;
-    font-size: 24px;
-    letter-spacing: 2px;
-    line-height: 1.4;
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 1.35;
+    text-transform: uppercase;
+    color: #111;
   }
   .moments-signature {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 28px;
+    font-family: 'Mr De Haviland', cursive;
+    font-size: 52px; /* Calligraphy looks best when large */
     color: #c5a880;
+    margin-top: -10px;
+    font-weight: normal;
   }
   .moments-images-col {
     display: grid;
@@ -460,8 +464,9 @@
     gap: 15px;
   }
   .moment-img-card {
-    aspect-ratio: 1/1;
+    aspect-ratio: 3/4; /* Vertical rectangle like Arlena Diamond mockup */
     overflow: hidden;
+    background-color: #000;
   }
   .moment-img-card img {
     width: 100%;
@@ -628,7 +633,7 @@
   </section>
 
   <!-- 5. Our Promise to You -->
-  <section class="badges-row" style="background-color: #fff; border-bottom: none;">
+  <section class="badges-row">
     <div style="text-align: center; margin-bottom: 45px;">
       <span class="section-label">Our Promise to You</span>
       <h3 class="section-title" style="margin-bottom: 0;">Quality You Can Trust</h3>
@@ -636,7 +641,7 @@
     
     <div class="badges-grid">
       <div class="badge-item">
-        <i class="fa-solid fa-circle-check"></i>
+        <i class="fa-regular fa-star"></i>
         <div class="badge-item-text">
           <h5>Certified Diamonds</h5>
         </div>
@@ -648,13 +653,13 @@
         </div>
       </div>
       <div class="badge-item">
-        <i class="fa-solid fa-shield"></i>
+        <i class="fa-regular fa-circle-check"></i>
         <div class="badge-item-text">
           <h5>Lifetime Warranty</h5>
         </div>
       </div>
       <div class="badge-item">
-        <i class="fa-solid fa-rotate"></i>
+        <i class="fa-solid fa-arrows-rotate"></i>
         <div class="badge-item-text">
           <h5>Easy Returns & Exchanges</h5>
         </div>
@@ -681,16 +686,16 @@
       </div>
       <div class="moments-images-col">
         <div class="moment-img-card">
-          <img src="{{ 'product-1.png' | asset_url }}" alt="Moments 1">
+          <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="Moments 1">
         </div>
         <div class="moment-img-card">
-          <img src="{{ 'product-2.png' | asset_url }}" alt="Moments 2">
+          <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="Moments 2">
         </div>
         <div class="moment-img-card">
-          <img src="{{ 'product-3.png' | asset_url }}" alt="Moments 3">
+          <img src="{{ 'moments_necklace.png' | asset_url }}" alt="Moments 3">
         </div>
         <div class="moment-img-card">
-          <img src="{{ 'hero.png' | asset_url }}" alt="Moments 4">
+          <img src="{{ 'moments_wedding_bands.png' | asset_url }}" alt="Moments 4">
         </div>
       </div>
     </div>
