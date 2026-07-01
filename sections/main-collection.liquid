@@ -1,1478 +1,660 @@
 <main class="main-collection full-width">
   <style>
-    /* ─── HEADER AREA ─── */
-    .collection-page-header {
-      max-width: 100%;
-      margin: 80px auto 0 auto;
-      padding: 20px 60px 20px 60px;
-    }
-    .collection-pill {
-      border: 1px solid #000;
-      border-radius: 20px;
-      padding: 7px 18px;
-      font-size: 14px;
-      text-transform: uppercase;
-      color: #000;
-      text-decoration: none;
-      letter-spacing: 0.5px;
+    /* Angara-style Collection Page Styles */
+    .angara-collection {
+      max-width: 1200px;
+      margin: 110px auto 40px auto;
+      padding: 0 20px;
       font-family: var(--font-base);
-      transition: all 0.2s ease;
-      white-space: nowrap;
-      display: inline-block;
+      color: #111;
     }
-    .collection-pill:hover {
-      background-color: #000;
-      color: #fff;
+    @media (max-width: 991px) {
+      .angara-collection {
+        margin-top: 85px;
+      }
     }
 
-    /* ─── GRID ─── */
-    .main-collection {
-      background: #fff;
+    /* Breadcrumbs */
+    .collection-breadcrumbs {
+      font-size: 11px;
+      color: #666;
+      letter-spacing: 0.5px;
+      margin-bottom: 20px;
+      text-transform: uppercase;
     }
-    .collection-grid {
+    .collection-breadcrumbs a {
+      color: #666;
+      text-decoration: none;
+    }
+    .collection-breadcrumbs a:hover {
+      color: #000;
+    }
+    .collection-breadcrumbs span {
+      margin: 0 5px;
+    }
+
+    /* Event Banner */
+    .sale-event-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #091a3c 0%, #1e3a6d 100%);
+      border: 2px solid #c5a880; /* Gold border */
+      color: #fff;
+      padding: 25px;
+      text-align: center;
+      border-radius: 4px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .sale-event-banner::before {
+      content: '★ ★ ★';
+      position: absolute;
+      top: 5px;
+      left: 15px;
+      color: #c5a880;
+      font-size: 14px;
+      opacity: 0.3;
+    }
+    .sale-event-banner::after {
+      content: '★ ★ ★';
+      position: absolute;
+      bottom: 5px;
+      right: 15px;
+      color: #c5a880;
+      font-size: 14px;
+      opacity: 0.3;
+    }
+    .sale-title {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      letter-spacing: 2px;
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .sale-subtitle {
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #c5a880;
+    }
+
+    /* Collection Info Area */
+    .collection-header-info {
+      text-align: center;
+      margin-bottom: 40px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .collection-main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      letter-spacing: 2px;
+      font-weight: 400;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      color: #111;
+    }
+    .collection-main-desc {
+      font-size: 12px;
+      line-height: 1.6;
+      color: #555;
+    }
+    .collection-readmore {
+      background: none;
+      border: none;
+      font-size: 11px;
+      color: #c5a880;
+      text-decoration: underline;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: 5px;
+    }
+
+    /* Subcategories Grid */
+    .subcategories-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 15px;
+      margin-bottom: 45px;
+    }
+    @media (max-width: 991px) {
+      .subcategories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+      }
+    }
+    @media (max-width: 575px) {
+      .subcategories-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+    }
+    .subcategory-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      text-decoration: none;
+      color: #111;
+    }
+    .subcategory-img-wrap {
+      width: 100%;
+      aspect-ratio: 1/1;
+      border-radius: 4px;
+      background-color: #faf9f8;
+      border: 1px solid #f0efee;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 8px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .subcategory-card:hover .subcategory-img-wrap {
+      transform: translateY(-3px);
+      border-color: #c5a880;
+    }
+    .subcategory-img-wrap img {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+    }
+    .subcategory-name {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      line-height: 1.3;
+      height: 30px;
+      overflow: hidden;
+    }
+
+    /* Filter and Sort Bar */
+    .filter-sort-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-top: 1px solid #eaeaea;
+      border-bottom: 1px solid #eaeaea;
+      margin-bottom: 35px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .filter-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .filter-btn-main {
+      background-color: #000;
+      color: #fff;
+      border: none;
+      padding: 10px 18px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-transform: uppercase;
+    }
+    .filter-btn-main i {
+      font-size: 13px;
+    }
+    .filter-dropdown {
+      position: relative;
+    }
+    .filter-dropdown-btn {
+      background: none;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      font-size: 11px;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .filter-dropdown-btn:hover {
+      border-color: #000;
+    }
+    
+    .filter-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    /* Toggle switch style */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+    .toggle-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #333;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 22px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider::before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #c5a880; /* Gold check color */
+    }
+    input:checked + .slider::before {
+      transform: translateX(18px);
+    }
+
+    /* Product List Grid */
+    .grid-products-angara {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
-      padding: 0 60px;
       margin-bottom: 60px;
-      background: #fff;
     }
-    @media (max-width: 1024px) {
-      .collection-grid {
+    @media (max-width: 991px) {
+      .grid-products-angara {
         grid-template-columns: repeat(3, 1fr);
-        padding: 0 40px;
+      }
+    }
+    @media (max-width: 575px) {
+      .grid-products-angara {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
     }
 
-    /* ─── CARD ─── */
-    .grid-item {
-      text-decoration: none;
+    /* Product Card with Dual Image Hover Fade Effect */
+    .product-card-angara {
       display: flex;
       flex-direction: column;
+      text-decoration: none;
+      color: inherit;
       position: relative;
-      border-radius: 4px;
-      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      background: #fff;
     }
-    .image-wrapper {
+    .product-image-container {
       position: relative;
+      aspect-ratio: 1/1;
+      background-color: #faf9f8;
+      border: 1px solid #f3f3f3;
       overflow: hidden;
-      aspect-ratio: 3/4;
-      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .product-image-container a {
       display: block;
-    }
-    .image-wrapper img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease;
+      position: relative;
     }
-    .img-secondary {
+    .product-image-container img.img-primary {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
       position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-    }
-    .grid-item:hover .img-primary {
-      opacity: 0;
-    }
-    .grid-item:hover .img-secondary {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
       opacity: 1;
+      z-index: 1;
     }
-    .bookmark-icon {
+    .product-image-container img.img-hover {
+      max-width: 85%;
+      max-height: 85%;
+      object-fit: contain;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      opacity: 0;
+      z-index: 2;
+    }
+    /* Show secondary hover image on hover */
+    .product-card-angara:hover .img-primary {
+      opacity: 0;
+    }
+    .product-card-angara:hover .img-hover {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.04);
+    }
+    
+    .product-quality-badge {
       position: absolute;
       top: 10px;
       left: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid #ddd;
+      color: #666;
+      font-size: 8px;
+      font-weight: 600;
+      padding: 3px 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       z-index: 10;
-      cursor: pointer;
-      color: #111;
     }
-
-    /* ─── SIZE OVERLAY ─── */
-    .size-overlay {
+    .product-wishlist-heart {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 10px 8px;
-      text-align: center;
-      transform: translateY(100%);
-      transition: transform 0.25s ease, opacity 0.25s ease;
-      opacity: 0;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #888;
+      font-size: 16px;
       z-index: 10;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+    .product-wishlist-heart:hover,
+    .product-wishlist-heart.active {
+      color: #cc0000;
+    }
+    .product-details-wrap {
+      padding: 12px 5px;
+      text-align: center;
+    }
+    .product-brand-name {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: #888;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 4px;
+    }
+    .product-title-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: #111;
+      line-height: 1.5;
+      height: 36px;
+      overflow: hidden;
+      display: block;
+      margin-bottom: 6px;
+    }
+    .product-price-info {
+      font-size: 13px;
+      font-weight: 600;
+      color: #000;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 8px;
     }
-    .grid-item:hover .size-overlay {
-      transform: translateY(0);
-      opacity: 1;
-    }
-    .size-overlay span {
-      font-size: 14px;
-      font-family: var(--font-base);
-    }
-    .size-avail {
-      color: #111;
-      font-weight: 700;
-      cursor: pointer;
-    }
-    .size-avail:hover {
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .size-unavail {
-      color: #bbb;
-      font-weight: 400;
-      pointer-events: none;
-    }
-
-    /* ─── CARD INFO ─── */
-    .item-info {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-      background: #fff;
-      padding: 10px;
-    }
-    .item-vendor {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: #5d5c5c;
-      letter-spacing: 0.8px;
-    }
-    .item-title {
-      font-size: 14px;
-      font-weight: 400;
-      color: #111;
-      line-height: 1.4;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-    .item-price {
+    .product-compare-price {
       font-size: 12px;
-      font-weight: 600;
-      color: #111;
-      display: flex;
-      gap: 8px;
-      margin-top: 3px;
-    }
-    .price-compare {
       text-decoration: line-through;
-      color: #aaa;
+      color: #888;
       font-weight: 400;
     }
-    .price-sale {
-      color: #e8000d;
+
+    /* Load more / Pagination */
+    .load-more-container {
+      text-align: center;
+      margin: 30px 0 50px 0;
     }
-    .price-regular {
-      color: #111;
-    }
-    .item-swatches {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
-    .swatch {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      border: 1.5px solid #ddd;
+    .btn-black {
+      background-color: #000;
+      color: #fff;
+      border: 1px solid #000;
+      padding: 12px 35px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
       cursor: pointer;
-      transition: border-color 0.2s, transform 0.2s;
-      background-size: cover;
-      background-position: center;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
     }
-    .swatch:hover {
-      border-color: #000;
-      transform: scale(1.08);
-    }
-
-    /* ══════════════════════════════════ */
-    /* MOBILE  ≤ 768px                    */
-    /* ══════════════════════════════════ */
-    @media (max-width: 768px) {
-      /* Header */
-      .collection-page-header {
-        margin-top: 70px;
-        padding: 16px 16px 12px 16px;
-      }
-      .collection-main-title {
-        font-size: 16px !important;
-        font-weight: 600 !important;
-        color: #111 !important;
-        margin-bottom: 3px !important;
-      }
-      .collection-breadcrumbs {
-        font-size: 11px !important;
-        color: #999 !important;
-        margin-bottom: 14px !important;
-      }
-
-      /* Pills – horizontal scroll */
-      .collection-pills {
-        display: flex !important;
-        flex-wrap: nowrap !important;
-        overflow-x: auto !important;
-        gap: 8px !important;
-        scrollbar-width: none;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: 2px;
-      }
-      .collection-pills::-webkit-scrollbar {
-        display: none;
-      }
-      .collection-pill {
-        font-size: 11px !important;
-        padding: 5px 14px !important;
-        border-radius: 20px;
-        white-space: nowrap;
-      }
-
-      /* Controls row */
-      .collection-controls-row {
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: space-between;
-        gap: 10px !important;
-        border-top: 1px solid #e8e8e8;
-        margin-top: 12px;
-        padding-top: 10px;
-      }
-      .product-count {
-        font-size: 12px !important;
-        color: #999 !important;
-        font-weight: 400 !important;
-      }
-      .collection-actions {
-        gap: 14px !important;
-        font-size: 12px !important;
-      }
-      .sort-by,
-      .filter-action {
-        font-size: 12px !important;
-        font-weight: 600 !important;
-        color: #111 !important;
-      }
-
-      /* Grid */
-      .collection-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        padding: 10px 12px 40px !important;
-        gap: 12px 8px !important;
-      }
-
-      /* Card */
-      .image-wrapper {
-        margin-bottom: 8px;
-      }
-      .item-vendor {
-        font-size: 8px !important;
-        letter-spacing: 0.5px;
-      }
-      .item-title {
-        font-size: 11px !important;
-      }
-      .item-price {
-        font-size: 11px !important;
-        margin-top: 2px;
-      }
-      .swatch {
-        width: 28px !important;
-        height: 28px !important;
-      }
-      .bookmark-icon {
-        top: 6px;
-        left: 6px;
-      }
-      .size-overlay {
-        display: none;
-      } /* on mobile no hover, hide size */
+    .btn-black:hover {
+      background-color: #fff;
+      color: #000;
     }
   </style>
 
-  <!-- NEW COLLECTION PAGE HEADER -->
-  <div class="collection-page-header">
-    {% capture display_title %}
-      {% if collection.handle == 'women' %}
-        {% if current_tags.first == 'top' %}WOMENS TOPS
-        {% elsif current_tags.first == 'bottom' %}WOMENS BOTTOMS
-        {% elsif current_tags.first == 'dresses' %}WOMENS DRESSES
-        {% elsif current_tags.first == 'streetwear' %}WOMENS STREETWEAR
-        {% else %}Shop All Womens Clothing{% endif %}
-      {% elsif collection.handle == 'men' %}
-        {% if current_tags.first == 'top' %}MENS TOPS
-        {% elsif current_tags.first == 'bottom' %}MENS BOTTOMS
-        {% elsif current_tags.first == 'streetwear' %}MENS STREETWEAR
-        {% else %}Shop All Mens Clothing{% endif %}
-      {% else %}
-        {{ collection.title }}
-      {% endif %}
-    {% endcapture %}
-
-    <h1
-      class="collection-main-title"
-      style="font-size: 24px; font-weight: 500; font-family: var(--font-base); margin-bottom: 5px; letter-spacing: 0; color: #1a1a1a;"
-    >
-      {{ display_title | strip }}
-    </h1>
-
-    <div
-      class="collection-breadcrumbs"
-      style="font-size: 12px; color: #777; margin-bottom: 25px; font-family: var(--font-base);"
-    >
-      <a href="/" style="color: #777; text-decoration: none;">Home</a>
-      {% if current_tags.first %}
-        <span style="margin: 0 4px;">/</span>
-        <a href="{{ collection.url }}" style="color: #777; text-decoration: none; text-transform: capitalize;">
-          {{- collection.title -}}
-        </a>
-        <span style="margin: 0 4px;">/</span> <span style="color: #777;">Clothing</span>
-        <span style="margin: 0 4px;">/</span>
-        <span style="color: #777; text-transform: capitalize;">{{ current_tags.first }}</span>
-      {% else %}
-        <span style="margin: 0 4px;">/</span> <span style="color: #777;">{{ display_title | strip }}</span>
-      {% endif %}
+  <div class="angara-collection">
+    <!-- BREADCRUMBS -->
+    <div class="collection-breadcrumbs">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/collections/all">Jewelry</a>
+      <span>/</span>
+      <span style="color: #111;">{{ collection.title | default: 'Rings' }}</span>
     </div>
 
-    <div
-      class="collection-controls-row"
-      style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 5px;"
-    >
-      <div class="collection-pills" style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <!-- Luôn hiển thị Best Seller -->
-        <a
-          href="{{ collection.url }}?sort_by=best-selling"
-          class="collection-pill {% if request.url contains 'sort_by=best-selling' %}active-pill{% endif %}"
-          >BEST SELLER</a
-        >
+    <!-- SALE EVENT BANNER -->
+    <section class="sale-event-banner">
+      <h2 class="sale-title">4TH OF JULY SALE | 10% OFF SITEWIDE</h2>
+      <p class="sale-subtitle">Coupon code auto applied at checkout</p>
+    </section>
 
-        <!-- Tự động load các tag đang có trong Collection -->
-        {% for tag in collection.all_tags %}
-          {% if tag contains '_' %}{% continue %}{% endif %}
-          <!-- Bỏ qua các tag hệ thống bắt đầu bằng dấu gạch dưới -->
-          {% assign tag_handle = tag | handleize %}
+    <!-- COLLECTION HEADER & INFO -->
+    <header class="collection-header-info">
+      <h1 class="collection-main-title">{{ collection.title | default: 'Rings' }} <span style="font-size: 16px; color: #888; font-weight: 400;">({{ collection.all_products_count | default: 2477 }})</span></h1>
+      <p class="collection-main-desc">
+        {% if collection.description != blank %}
+          {{ collection.description }}
+        {% else %}
+          Angara's rings bring together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum. Customize gemstone quality, carat... <button class="collection-readmore">Read More</button>
+        {% endif %}
+      </p>
+    </header>
 
-          {% if current_tags contains tag %}
-            <a
-              href="{{ collection.url }}"
-              class="collection-pill"
-              style="background:#000; color:#fff;"
-              title="Remove filter"
-            >
-              {{- tag | upcase }} ✕</a
-            >
-          {% else %}
-            <a href="{{ collection.url }}/{{ tag_handle }}" class="collection-pill">{{ tag | upcase }}</a>
-          {% endif %}
-        {% endfor %}
+    <!-- SUB-CATEGORIES LIST -->
+    <section class="subcategories-grid">
+      <a href="/collections/colored-gems" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-1.png' | asset_url }}" alt="Colored Gems">
+        </div>
+        <span class="subcategory-name">Colored Gems</span>
+      </a>
+      <a href="/collections/diamond" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-2.png' | asset_url }}" alt="Diamond">
+        </div>
+        <span class="subcategory-name">Diamond</span>
+      </a>
+      <a href="/collections/infinity" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-3.png' | asset_url }}" alt="Infinity">
+        </div>
+        <span class="subcategory-name">Infinity</span>
+      </a>
+      <a href="/collections/side-stones" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'hero.png' | asset_url }}" alt="Side Stones">
+        </div>
+        <span class="subcategory-name">Side Stones</span>
+      </a>
+      <a href="/collections/classic" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-1.png' | asset_url }}" alt="Classic">
+        </div>
+        <span class="subcategory-name">Classic</span>
+      </a>
+      <a href="/collections/lab-grown" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-2.png' | asset_url }}" alt="Lab-Grown">
+        </div>
+        <span class="subcategory-name">Lab-Grown</span>
+      </a>
+      <a href="/collections/gia-certified" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'product-3.png' | asset_url }}" alt="GIA Certified">
+        </div>
+        <span class="subcategory-name">GIA Certified</span>
+      </a>
+      <a href="/collections/mens-rings" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'hero.png' | asset_url }}" alt="Men's Rings">
+        </div>
+        <span class="subcategory-name">Men's Rings</span>
+      </a>
+    </section>
+
+    <!-- FILTER & SORT BAR -->
+    <section class="filter-sort-bar">
+      <div class="filter-left">
+        <button class="filter-btn-main">
+          <i class="fa-solid fa-sliders"></i>
+          <span>Filter & Sort</span>
+        </button>
+
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Metal Type <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Natural Gemstones <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Lab Grown Gemstones <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Gemstone Shape <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Jewelry Styles <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
+        <div class="filter-dropdown">
+          <button class="filter-dropdown-btn">Price <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+        </div>
       </div>
 
-      <div
-        class="collection-actions"
-        style="display: flex; align-items: center; gap: 25px; font-size: 14px; font-family: var(--font-base);"
-      >
-        <span class="product-count" style="color: #333;">
-          {{- collection.products_count | default: '1,068' }} products</span
-        >
-        <span class="sort-by" style="font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-          Sort By
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-            <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-        </span>
-        <span
-          class="filter-action"
-          style="font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px;"
-        >
-          <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
-            <path d="M2 4H14M5 8H11M7.5 12H8.5" stroke="black" stroke-width="1.5" stroke-linecap="round" />
-          </svg>
-          Filter
-        </span>
+      <div class="filter-right">
+        <div class="toggle-container" id="lab-grown-toggle">
+          <span class="toggle-label">Lab Grown Only</span>
+          <label class="switch">
+            <input type="checkbox" id="labgrown-checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
       </div>
-    </div>
-  </div>
+    </section>
 
-  <!-- PRODUCT GRID -->
-  <section class="collection-grid" id="product-grid-container">
-    {% for product in collection.products %}
-      {%- comment -%} --- Detect color option --- {%- endcomment -%}
-      {%- assign col_opt = null -%}
-      {%- for opt in product.options_with_values -%}
-        {%- assign opt_lc = opt.name | downcase -%}
-        {%- if opt_lc == 'color' or opt_lc == 'colour' -%}
-          {%- assign col_opt = opt -%}
-          {%- assign col_opt_pos = opt.position -%}
-        {%- endif -%}
-      {%- endfor -%}
-
-      {%- comment -%} Build unique color list {%- endcomment -%}
-      {%- assign unique_colors = '' -%}
-      {%- if col_opt -%}
-        {%- for variant in product.variants -%}
-          {%- if col_opt_pos == 1 -%}{%- assign vcol = variant.option1 -%}{%- endif -%}
-          {%- if col_opt_pos == 2 -%}{%- assign vcol = variant.option2 -%}{%- endif -%}
-          {%- if col_opt_pos == 3 -%}{%- assign vcol = variant.option3 -%}{%- endif -%}
-          {%- unless unique_colors contains vcol -%}
-            {%- assign unique_colors = unique_colors | append: vcol | append: '||' -%}
-          {%- endunless -%}
-        {%- endfor -%}
-      {%- endif -%}
-      {%- assign unique_color_arr = unique_colors | split: '||' -%}
-
-      {%- comment -%} If no color option or only 1 color → normal single card logic {%- endcomment -%}
-      {%- assign render_colors = unique_color_arr -%}
-      {%- if col_opt == null or unique_color_arr.size <= 1 -%}
-        {%- assign render_colors = '' | split: '' -%}
-        {%- comment -%} empty → render once {%- endcomment -%}
-      {%- endif -%}
-
-      {%- comment -%} Render once for no-color products {%- endcomment -%}
-      {%- if render_colors.size == 0 -%}
-        {%- assign render_colors_list = '___single___' | split: '||' -%}
-      {%- else -%}
-        {%- assign render_colors_list = render_colors -%}
-      {%- endif -%}
-
-      {% for active_color in render_colors_list %}
-        {%- assign is_single = false -%}
-        {%- if active_color == '___single___' -%}{%- assign is_single = true -%}{%- endif -%}
-
-        {%- comment -%} Pick card image for this color {%- endcomment -%}
-        {%- assign card_img = product.featured_image -%}
-        {%- assign card_img2 = product.images[1] -%}
-        {%- assign card_link = product.url -%}
-        {%- unless is_single -%}
-          {%- assign card_link = product.url -%}
-          {%- assign encoded_color = active_color | url_encode -%}
-          {%- assign card_link = card_link | append: '?color=' | append: encoded_color -%}
-          {%- assign active_color_lower = active_color | downcase | strip -%}
-
-          {%- comment -%} Step 1: try variant.featured_image for card_img {%- endcomment -%}
-          {%- assign card_img_from_variant = null -%}
-          {%- for variant in product.variants -%}
-            {%- if col_opt_pos == 1 -%}{%- assign vcol2 = variant.option1 -%}{%- endif -%}
-            {%- if col_opt_pos == 2 -%}{%- assign vcol2 = variant.option2 -%}{%- endif -%}
-            {%- if col_opt_pos == 3 -%}{%- assign vcol2 = variant.option3 -%}{%- endif -%}
-            {%- if vcol2 == active_color and variant.featured_image -%}
-              {%- assign card_img_from_variant = variant.featured_image -%}
-              {%- break -%}
-            {%- endif -%}
-          {%- endfor -%}
-
-          {%- comment -%} Step 2: if no variant image, scan alt text for first matching image {%- endcomment -%}
-          {%- if card_img_from_variant -%}
-            {%- assign card_img = card_img_from_variant -%}
-          {%- else -%}
-            {%- for img in product.images -%}
-              {%- assign img_alt_lc = img.alt | downcase | strip -%}
-              {%- if img_alt_lc contains active_color_lower -%}
-                {%- assign card_img = img -%}
-                {%- break -%}
-              {%- endif -%}
-            {%- endfor -%}
-          {%- endif -%}
-
-          {%- comment -%} Step 3: find secondary image (2nd image for this color) via alt text {%- endcomment -%}
-          {%- assign card_img2_found = false -%}
-          {%- assign card_img2_count = 0 -%}
-          {%- for img in product.images -%}
-            {%- assign img_alt_lc2 = img.alt | downcase | strip -%}
-            {%- if img_alt_lc2 contains active_color_lower -%}
-              {%- if card_img2_count == 0 -%}
-                {%- comment -%} First match = primary, skip {%- endcomment -%}
-                {%- assign card_img2_count = 1 -%}
-              {%- elsif card_img2_found == false -%}
-                {%- assign card_img2 = img -%}
-                {%- assign card_img2_found = true -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-
-          {%- comment -%} Fallback: try variant images for secondary {%- endcomment -%}
-          {%- unless card_img2_found -%}
-            {%- for variant in product.variants -%}
-              {%- if col_opt_pos == 1 -%}{%- assign vcol3 = variant.option1 -%}{%- endif -%}
-              {%- if col_opt_pos == 2 -%}{%- assign vcol3 = variant.option2 -%}{%- endif -%}
-              {%- if col_opt_pos == 3 -%}{%- assign vcol3 = variant.option3 -%}{%- endif -%}
-              {%- if vcol3 == active_color and variant.image and card_img2_found == false -%}
-                {%- if variant.image != card_img -%}
-                  {%- assign card_img2 = variant.image -%}
-                  {%- assign card_img2_found = true -%}
+    <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION -->
+    {% paginate collection.products by 16 %}
+      <section class="grid-products-angara">
+        {% for product in collection.products %}
+          <div class="product-card-angara">
+            <div class="product-image-container">
+              {%- assign badge_text = "" -%}
+              {%- for tag in product.tags -%}
+                {%- assign tag_lc = tag | downcase -%}
+                {%- if tag_lc contains 'lab-grown' or tag_lc contains 'lab grown' -%}
+                  {%- assign badge_text = "LAB GROWN" -%}
+                  {%- break -%}
+                {%- elsif tag_lc contains 'best' or tag_lc contains 'hot' -%}
+                  {%- assign badge_text = "BEST SELLER" -%}
                 {%- endif -%}
+              {%- endfor -%}
+              {%- if badge_text != "" -%}
+                <span class="product-quality-badge">{{ badge_text }}</span>
               {%- endif -%}
-            {%- endfor -%}
-          {%- endunless -%}
-        {%- endunless -%}
-
-        <div class="grid-item">
-          <div class="image-wrapper relative">
-            <!-- Main Image -->
-            {% if card_img %}
-                <a href="{{ card_link }}"
-                  ><img
-                    src="{{ card_img | img_url: '600x' }}"
-                    class="img-primary main-product-image"
-                    alt="{{ product.title }}"
-                    data-main-image
-                ></a>
-            {% else %}
-                <a href="{{ card_link }}">{{ 'product-1' | placeholder_svg_tag }}</a>
-            {% endif %}
-
-            <!-- Secondary Hover Image -->
-            {% if card_img2 and card_img2 != card_img %}
-                <a href="{{ card_link }}"
-                  ><img src="{{ card_img2 | img_url: '600x' }}" class="img-secondary" alt="{{ product.title }}"
-                ></a>
-            {% endif %}
-
-            <div
-              class="bookmark-icon"
-              data-product-id="{{ product.id }}"
-              data-title="{{ product.title | escape }}"
-              data-vendor="{{ product.vendor | escape }}"
-              data-price="{{ product.price }}"
-              data-image="{{ card_img | img_url: '600x' }}"
-              data-url="{{ card_link }}"
-              title="Add to Wishlist"
-            >
-              <svg width="14" height="18" viewBox="0 0 14 18" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M1 1v16l6-4 6 4V1H1z"/>
-              </svg>
-            </div>
-
-            <div class="size-overlay">
-              {% assign size_option_index = -1 %}
-              {% for option in product.options_with_values %}
-                {% assign downcased_name = option.name | downcase | strip %}
-                {% if downcased_name == 'size' %}
-                  {% assign size_option_index = forloop.index0 %}
-                  {% for value in option.values %}
-                    {% assign is_avail = false %}
-                    {% assign avail_variant_id = '' %}
-                    {% for variant in product.variants %}
-                      {% if variant.options[size_option_index] == value and variant.available %}
-                        {%- unless is_single -%}
-                          {%- if col_opt_pos == 1 -%}{%- assign vcol_sz = variant.option1 -%}{%- endif -%}
-                          {%- if col_opt_pos == 2 -%}{%- assign vcol_sz = variant.option2 -%}{%- endif -%}
-                          {%- if col_opt_pos == 3 -%}{%- assign vcol_sz = variant.option3 -%}{%- endif -%}
-                          {%- if vcol_sz == active_color -%}
-                            {% assign is_avail = true %}
-                            {% assign avail_variant_id = variant.id %}
-                            {% break %}
-                          {%- endif -%}
-                        {%- else -%}
-                          {% assign is_avail = true %}
-                          {% assign avail_variant_id = variant.id %}
-                          {% break %}
-                        {%- endunless -%}
-                      {% endif %}
-                    {% endfor %}
-                    {% if is_avail %}
-                      <span class="size-avail" data-variant-id="{{ avail_variant_id }}">{{ value }}</span>
-                    {% else %}
-                      <span class="size-unavail">{{ value }}</span>
-                    {% endif %}
-                  {% endfor %}
+              
+              <button type="button" class="product-wishlist-heart" title="Add to Wishlist" data-id="{{ product.id }}">
+                <i class="fa-regular fa-heart"></i>
+              </button>
+              
+              <a href="{{ product.url }}">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '600x' }}" class="img-primary" alt="{{ product.title | escape }}">
+                  {% if product.images[1] %}
+                    <img src="{{ product.images[1] | img_url: '600x' }}" class="img-hover" alt="{{ product.title | escape }}">
+                  {% endif %}
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'img-primary' }}
                 {% endif %}
-              {% endfor %}
-            </div>
-          </div>
-
-          <div class="item-info">
-            <div class="item-vendor">{{ product.vendor | default: shop.name }}</div>
-            <div class="item-title">
-                <a href="{{ card_link }}" style="text-decoration: none; color: inherit;">
-                  {{- product.title -}}
-                  {%- unless is_single %} — {{ active_color }}{% endunless -%}
-                </a>
-            </div>
-            <div class="item-price">
-              {% if product.compare_at_price > product.price %}
-                <span class="price-compare">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
-                <span class="price-sale">{{ product.price | money_without_trailing_zeros }}</span>
-              {% else %}
-                <span class="price-regular">{{ product.price | money_without_trailing_zeros }}</span>
-              {% endif %}
+              </a>
             </div>
 
-            {%- comment -%} Color swatches — each links to ?color=X {%- endcomment -%}
-            <div class="item-swatches">
-              {%- if col_opt and unique_color_arr.size > 1 -%}
-                {%- assign sw_shown = 0 -%}
-                {%- for sw_color in unique_color_arr -%}
-                  {%- if sw_shown < 4 -%}
-                    {%- assign sw_img = '' -%}
-                    {%- for variant in product.variants -%}
-                      {%- if col_opt_pos == 1 -%}{%- assign vcol_sw = variant.option1 -%}{%- endif -%}
-                      {%- if col_opt_pos == 2 -%}{%- assign vcol_sw = variant.option2 -%}{%- endif -%}
-                      {%- if col_opt_pos == 3 -%}{%- assign vcol_sw = variant.option3 -%}{%- endif -%}
-                      {%- if vcol_sw == sw_color and variant.image -%}
-                        {%- assign sw_img = variant.image | img_url: '600x' -%}
-                        {%- break -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                    {%- assign sw_enc = sw_color | url_encode -%}
-                    {%- assign sw_href = product.url | append: '?color=' | append: sw_enc -%}
-                    {%- if active_color == sw_color -%}
-                      <a
-                        href="{{ sw_href }}"
-                        class="swatch swatch-active"
-                        style="background-color: {{ sw_color | handleize }}; {% if sw_img != '' %}background-image: url({{ sw_img }});{% endif %}"
-                        title="{{ sw_color }}"
-                      ></a>
-                    {%- else -%}
-                      <a
-                        href="{{ sw_href }}"
-                        class="swatch"
-                        style="background-color: {{ sw_color | handleize }}; {% if sw_img != '' %}background-image: url({{ sw_img }});{% endif %}"
-                        title="{{ sw_color }}"
-                      ></a>
-                    {%- endif -%}
-                    {%- assign sw_shown = sw_shown | plus: 1 -%}
-                  {%- endif -%}
-                {%- endfor -%}
-                {%- if unique_color_arr.size > 4 -%}
-                  <span style="font-size:10px;color:#888;margin-left:4px;"
-                    >+{{ unique_color_arr.size | minus: 4 -}}
-                  </span>
-                {%- endif -%}
-              {%- else -%}
-                {%- comment -%} No color option → original swatch logic {%- endcomment -%}
-                {%- assign color_option_index = -1 -%}
-                {%- assign colors_shown = 0 -%}
-                {%- for option in product.options_with_values -%}
-                  {%- assign downcased_name = option.name | downcase -%}
-                  {%- if downcased_name == 'color' or downcased_name == 'colour' -%}
-                    {%- assign color_option_index = forloop.index0 -%}
-                    {%- for value in option.values -%}
-                      {%- if colors_shown < 4 -%}
-                        {%- assign variant_image = '' -%}
-                        {%- for variant in product.variants -%}
-                          {%- if variant.options[color_option_index] == value and variant.image -%}
-                            {%- assign variant_image = variant.image | img_url: '600x' -%}
-                            {%- break -%}
-                          {%- endif -%}
-                        {%- endfor -%}
-                        <div
-                          class="swatch"
-                          style="background-color: {{ value | handleize }}; {% if variant_image != '' %}background-image: url({{ variant_image }});{% endif %}"
-                          title="{{ value }}"
-                          {% if variant_image != '' %}
-                            data-image="{{ variant_image }}"
-                          {% endif %}
-                        ></div>
-                        {%- assign colors_shown = colors_shown | plus: 1 -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                  {%- endif -%}
-                {%- endfor -%}
-              {%- endif -%}
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-      {%- comment -%} end render_colors_list loop {%- endcomment -%}
-
-    {% else %}
-      <p style="padding: 0 60px;">No products found in this collection.</p>
-    {% endfor %}
-    {%- comment -%} end products loop {%- endcomment -%}
-  </section>
-
-  {% if paginate.pages > 1 %}
-    <div class="load-more-container">
-      <button class="btn-black">LOAD MORE</button>
-    </div>
-  {% endif %}
-
-  <!-- ADD TO CART TOAST -->
-  <div
-    id="atc-toast"
-    style="
-      position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(20px);
-      background: #111; color: #fff; padding: 12px 24px; border-radius: 4px;
-      font-family: var(--font-base); font-size: 13px; letter-spacing: 0.5px;
-      opacity: 0; transition: all 0.3s ease; z-index: 9999; pointer-events: none;
-      white-space: nowrap;
-    "
-  >
-    Added to bag ✓
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      /* ── Format money (AUD) ── */
-      function formatMoney(cents) {
-        return 'A$' + Math.round(cents / 100).toLocaleString('en-AU');
-      }
-
-      /* ── Update cart badge ── */
-      function updateCartBadge(count) {
-        var badge = document.querySelector('.cart-badge');
-        var cartBtn = document.getElementById('cartBtn');
-        if (!cartBtn) return;
-        if (count > 0) {
-          if (badge) {
-            badge.textContent = count;
-          } else {
-            badge = document.createElement('span');
-            badge.className = 'cart-badge';
-            badge.textContent = count;
-            cartBtn.appendChild(badge);
-          }
-        } else {
-          if (badge) badge.remove();
-        }
-      }
-
-      /* ── Render cart items into overlay ── */
-      function renderCartItems(cart) {
-        var itemsContainer = document.querySelector('.cart-items');
-        var headerCount = document.querySelector('.cart-header span span');
-        var totalEl = document.querySelector('.cart-footer .cart-total-price');
-
-        if (headerCount) {
-          headerCount.textContent = String(cart.item_count).padStart(2, '0');
-        }
-
-        if (!itemsContainer) return;
-
-        if (cart.items.length === 0) {
-          itemsContainer.innerHTML =
-            '<div style="font-size:11px;border-bottom:1px solid #000;padding:15px 20px;text-transform:uppercase;">YOUR SHOPPING BAG IS EMPTY</div>';
-          return;
-        }
-
-        var html = '';
-        cart.items.forEach(function (item, idx) {
-          var imgHtml = item.image
-            ? '<img src="' +
-              item.image +
-              '" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;" />'
-            : '';
-          var optionsHtml = '';
-          item.options_with_values.forEach(function (opt) {
-            if (opt.value !== 'Default Title') {
-              optionsHtml +=
-                '<div style="margin-bottom:6px;">' + opt.name.toUpperCase() + ': ' + opt.value.toUpperCase() + '</div>';
-            }
-          });
-          html +=
-            '<div class="cart-item" style="display:flex;flex-direction:column;width:100%;font-size:11px;text-transform:uppercase;border-bottom:1px solid #000;">' +
-            '<div style="display:flex;justify-content:space-between;padding:10px;">' +
-            '<a href="' +
-            item.url +
-            '" style="color:blue;text-decoration:none;">' +
-            item.product_title +
-            '</a>' +
-            '<span>' +
-            formatMoney(item.final_line_price) +
-            '</span>' +
-            '</div>' +
-            '<div style="display:flex;gap:15px;">' +
-            '<div style="width:120px;height:160px;flex-shrink:0;background:#e0e6ed;display:flex;align-items:center;justify-content:center;">' +
-            imgHtml +
-            '</div>' +
-            '<div style="flex:1;display:flex;flex-direction:column;">' +
-            optionsHtml +
-            '<div style="display:flex;background:#fff;text-align:center;font-size:11px;margin-top:auto;border-top:1px solid #eaeaea;width:100%;">' +
-            '<button onclick="changeQty(' +
-            (idx + 1) +
-            ',' +
-            (item.quantity - 1) +
-            ')" style="flex:1;padding:8px 0;cursor:pointer;border:none;background:none;font-size:16px;">–</button>' +
-            '<span style="flex:1;padding:8px 0;background:#f4f4f4;">' +
-            item.quantity +
-            '</span>' +
-            '<button onclick="changeQty(' +
-            (idx + 1) +
-            ',' +
-            (item.quantity + 1) +
-            ')" style="flex:1;padding:8px 0;cursor:pointer;border:none;background:none;font-size:16px;">+</button>' +
-            '</div></div></div>' +
-            '<div style="display:flex;justify-content:space-between;padding:5px;color:blue;cursor:pointer;">' +
-            '<span style="color:blue;cursor:pointer;">+ MOVE TO WISHLIST</span>' +
-            '<a href="/cart/change?line=' +
-            (idx + 1) +
-            '&quantity=0" style="text-decoration:none;color:blue;">X REMOVE</a>' +
-            '</div></div>';
-        });
-        itemsContainer.innerHTML = html;
-
-        if (totalEl) totalEl.textContent = formatMoney(cart.total_price);
-      }
-
-      /* ── Change qty helper ── */
-      window.changeQty = function (line, qty) {
-        fetch('/cart/change.js', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ line: line, quantity: qty }),
-        })
-          .then(function (r) {
-            return r.json();
-          })
-          .then(function (cart) {
-            renderCartItems(cart);
-            updateCartBadge(cart.item_count);
-          });
-      };
-
-      /* ── Open cart overlay ── */
-      function openCart() {
-        var overlay = document.getElementById('cartOverlay');
-        if (overlay) {
-          overlay.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-      }
-
-      /* ── Show toast ── */
-      function showToast(msg) {
-        var toast = document.getElementById('atc-toast');
-        if (!toast) return;
-        toast.textContent = msg || 'Added to bag ✓';
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateX(-50%) translateY(0)';
-        setTimeout(function () {
-          toast.style.opacity = '0';
-          toast.style.transform = 'translateX(-50%) translateY(20px)';
-        }, 2500);
-      }
-
-      /* ── Handle size click → add to cart ── */
-      document.querySelectorAll('.size-avail').forEach(function (span) {
-        span.addEventListener('click', function (e) {
-          e.preventDefault();
-          e.stopPropagation();
-
-          var variantId = this.dataset.variantId;
-          if (!variantId) return;
-
-          // Visual: underline selected
-          var overlay = this.closest('.size-overlay');
-          if (overlay) {
-            overlay.querySelectorAll('.size-avail').forEach(function (s) {
-              s.style.textDecoration = 'none';
-            });
-          }
-          this.style.textDecoration = 'underline';
-          this.style.textUnderlineOffset = '3px';
-
-          var clickedSpan = this;
-          clickedSpan.style.pointerEvents = 'none';
-          clickedSpan.textContent = '...';
-
-          // Add to cart
-          fetch('/cart/add.js', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: parseInt(variantId), quantity: 1 }),
-          })
-            .then(function (res) {
-              return res.json();
-            })
-            .then(function () {
-              return fetch('/cart.js');
-            })
-            .then(function (res) {
-              return res.json();
-            })
-            .then(function (cart) {
-              updateCartBadge(cart.item_count);
-              renderCartItems(cart);
-              openCart();
-            })
-            .catch(function (err) {
-              console.error('Cart error:', err);
-              showToast('Could not add to bag');
-            })
-            .finally(function () {
-              clickedSpan.style.pointerEvents = 'auto';
-            });
-        });
-      });
-    });
-  </script>
-<style>
-  /* Angara-style Collection Page Styles */
-  .angara-collection {
-    max-width: 1200px;
-    margin: 110px auto 40px auto;
-    padding: 0 20px;
-    font-family: var(--font-base);
-    color: #111;
-  }
-  @media (max-width: 991px) {
-    .angara-collection {
-      margin-top: 85px;
-    }
-  }
-
-  /* Breadcrumbs */
-  .collection-breadcrumbs {
-    font-size: 11px;
-    color: #666;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  .collection-breadcrumbs a {
-    color: #666;
-    text-decoration: none;
-  }
-  .collection-breadcrumbs a:hover {
-    color: #000;
-  }
-  .collection-breadcrumbs span {
-    margin: 0 5px;
-  }
-
-  /* Event Banner */
-  .sale-event-banner {
-    width: 100%;
-    background: linear-gradient(135deg, #091a3c 0%, #1e3a6d 100%);
-    border: 2px solid #c5a880; /* Gold border */
-    color: #fff;
-    padding: 25px;
-    text-align: center;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-  }
-  .sale-event-banner::before {
-    content: '★ ★ ★';
-    position: absolute;
-    top: 5px;
-    left: 15px;
-    color: #c5a880;
-    font-size: 14px;
-    opacity: 0.3;
-  }
-  .sale-event-banner::after {
-    content: '★ ★ ★';
-    position: absolute;
-    bottom: 5px;
-    right: 15px;
-    color: #c5a880;
-    font-size: 14px;
-    opacity: 0.3;
-  }
-  .sale-title {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    letter-spacing: 2px;
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #fff;
-  }
-  .sale-subtitle {
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: #c5a880;
-  }
-
-  /* Collection Info Area */
-  .collection-header-info {
-    text-align: center;
-    margin-bottom: 40px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .collection-main-title {
-    font-family: 'Cinzel', serif;
-    font-size: 32px;
-    letter-spacing: 2px;
-    font-weight: 400;
-    margin-bottom: 12px;
-    text-transform: uppercase;
-  }
-  .collection-main-desc {
-    font-size: 12px;
-    line-height: 1.6;
-    color: #555;
-  }
-  .collection-readmore {
-    background: none;
-    border: none;
-    font-size: 11px;
-    color: #c5a880;
-    text-decoration: underline;
-    font-weight: 600;
-    cursor: pointer;
-    margin-left: 5px;
-  }
-
-  /* Subcategories Grid */
-  .subcategories-grid {
-    display: grid;
-    grid-template-columns: repeat(8, 1fr);
-    gap: 15px;
-    margin-bottom: 45px;
-  }
-  @media (max-width: 991px) {
-    .subcategories-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-    }
-  }
-  @media (max-width: 575px) {
-    .subcategories-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-  }
-  .subcategory-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-    color: #111;
-  }
-  .subcategory-img-wrap {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 4px;
-    background-color: #faf9f8;
-    border: 1px solid #f0efee;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-  }
-  .subcategory-card:hover .subcategory-img-wrap {
-    transform: translateY(-3px);
-    border-color: #c5a880;
-  }
-  .subcategory-img-wrap img {
-    max-width: 85%;
-    max-height: 85%;
-    object-fit: contain;
-  }
-  .subcategory-name {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    line-height: 1.3;
-    height: 30px;
-    overflow: hidden;
-  }
-
-  /* Filter and Sort Bar */
-  .filter-sort-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 0;
-    border-top: 1px solid #eaeaea;
-    border-bottom: 1px solid #eaeaea;
-    margin-bottom: 35px;
-    flex-wrap: wrap;
-    gap: 15px;
-  }
-  .filter-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-  .filter-btn-main {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    padding: 10px 18px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-transform: uppercase;
-  }
-  .filter-btn-main i {
-    font-size: 13px;
-  }
-  .filter-dropdown {
-    position: relative;
-  }
-  .filter-dropdown-btn {
-    background: none;
-    border: 1px solid #ddd;
-    padding: 8px 15px;
-    font-size: 11px;
-    color: #333;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .filter-dropdown-btn:hover {
-    border-color: #000;
-  }
-  
-  .filter-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  /* Toggle switch style */
-  .toggle-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-  }
-  .toggle-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #333;
-  }
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 22px;
-  }
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: .4s;
-    border-radius: 34px;
-  }
-  .slider::before {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    left: 3px;
-    bottom: 3px;
-    background-color: white;
-    transition: .4s;
-    border-radius: 50%;
-  }
-  input:checked + .slider {
-    background-color: #c5a880; /* Gold check color */
-  }
-  input:checked + .slider::before {
-    transform: translateX(18px);
-  }
-
-  /* Product List Grid */
-  .grid-products-angara {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    margin-bottom: 60px;
-  }
-  @media (max-width: 991px) {
-    .grid-products-angara {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-  @media (max-width: 575px) {
-    .grid-products-angara {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-  }
-
-  /* Product Card */
-  .product-card-angara {
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: inherit;
-    position: relative;
-  }
-  .product-image-container {
-    position: relative;
-    aspect-ratio: 1/1;
-    background-color: #faf9f8;
-    border: 1px solid #f3f3f3;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .product-image-container img {
-    max-width: 85%;
-    max-height: 85%;
-    object-fit: contain;
-    transition: transform 0.5s ease;
-  }
-  .product-card-angara:hover .product-image-container img {
-    transform: scale(1.04);
-  }
-  .product-quality-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #ddd;
-    color: #666;
-    font-size: 8px;
-    font-weight: 600;
-    padding: 3px 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .product-wishlist-heart {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    color: #888;
-    cursor: pointer;
-    font-size: 16px;
-    z-index: 10;
-    transition: color 0.3s ease;
-  }
-  .product-wishlist-heart:hover,
-  .product-wishlist-heart.active {
-    color: #cc0000;
-  }
-  .product-details-wrap {
-    padding: 12px 5px;
-    text-align: center;
-  }
-  .product-brand-name {
-    font-size: 9px;
-    text-transform: uppercase;
-    color: #888;
-    letter-spacing: 1px;
-    display: block;
-    margin-bottom: 4px;
-  }
-  .product-title-text {
-    font-size: 12px;
-    font-weight: 500;
-    color: #111;
-    line-height: 1.5;
-    height: 36px;
-    overflow: hidden;
-    display: block;
-    margin-bottom: 6px;
-  }
-  .product-price-info {
-    font-size: 13px;
-    font-weight: 600;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-  }
-  .product-compare-price {
-    font-size: 12px;
-    text-decoration: line-through;
-    color: #888;
-    font-weight: 400;
-  }
-</style>
-
-<div class="angara-collection">
-  <!-- BREADCRUMBS -->
-  <div class="collection-breadcrumbs">
-    <a href="/">Home</a>
-    <span>/</span>
-    <a href="/collections/all">Jewelry</a>
-    <span>/</span>
-    <span style="color: #111;">{{ collection.title | default: 'Rings' }}</span>
-  </div>
-
-  <!-- SALE EVENT BANNER -->
-  <section class="sale-event-banner">
-    <h2 class="sale-title">4TH OF JULY SALE | 10% OFF SITEWIDE</h2>
-    <p class="sale-subtitle">Coupon code auto applied at checkout</p>
-  </section>
-
-  <!-- COLLECTION HEADER & INFO -->
-  <header class="collection-header-info">
-    <h1 class="collection-main-title">{{ collection.title | default: 'Rings' }} <span style="font-size: 16px; color: #888; font-weight: 400;">({{ collection.all_products_count | default: 2477 }})</span></h1>
-    <p class="collection-main-desc">
-      Angara's rings bring together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum. Customize gemstone quality, carat... <button class="collection-readmore">Read More</button>
-    </p>
-  </header>
-
-  <!-- SUB-CATEGORIES LIST -->
-  <section class="subcategories-grid">
-    <a href="/collections/colored-gems" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-1.png' | asset_url }}" alt="Colored Gems">
-      </div>
-      <span class="subcategory-name">Colored Gems</span>
-    </a>
-    <a href="/collections/diamond" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-2.png' | asset_url }}" alt="Diamond">
-      </div>
-      <span class="subcategory-name">Diamond</span>
-    </a>
-    <a href="/collections/infinity" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-3.png' | asset_url }}" alt="Infinity">
-      </div>
-      <span class="subcategory-name">Infinity</span>
-    </a>
-    <a href="/collections/side-stones" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'hero.png' | asset_url }}" alt="Side Stones">
-      </div>
-      <span class="subcategory-name">Side Stones</span>
-    </a>
-    <a href="/collections/classic" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-1.png' | asset_url }}" alt="Classic">
-      </div>
-      <span class="subcategory-name">Classic</span>
-    </a>
-    <a href="/collections/lab-grown" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-2.png' | asset_url }}" alt="Lab-Grown">
-      </div>
-      <span class="subcategory-name">Lab-Grown</span>
-    </a>
-    <a href="/collections/gia-certified" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'product-3.png' | asset_url }}" alt="GIA Certified">
-      </div>
-      <span class="subcategory-name">GIA Certified</span>
-    </a>
-    <a href="/collections/mens-rings" class="subcategory-card">
-      <div class="subcategory-img-wrap">
-        <img src="{{ 'hero.png' | asset_url }}" alt="Men's Rings">
-      </div>
-      <span class="subcategory-name">Men's Rings</span>
-    </a>
-  </section>
-
-  <!-- FILTER & SORT BAR -->
-  <section class="filter-sort-bar">
-    <div class="filter-left">
-      <button class="filter-btn-main">
-        <i class="fa-solid fa-sliders"></i>
-        <span>Filter & Sort</span>
-      </button>
-
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Metal Type <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Natural Gemstones <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Lab Grown Gemstones <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Gemstone Shape <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Jewelry Styles <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-      <div class="filter-dropdown">
-        <button class="filter-dropdown-btn">Price <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-      </div>
-    </div>
-
-    <div class="filter-right">
-      <div class="toggle-container" id="lab-grown-toggle">
-        <span class="toggle-label">Lab Grown Only</span>
-        <label class="switch">
-          <input type="checkbox" id="labgrown-checkbox">
-          <span class="slider"></span>
-        </label>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS GRID -->
-  <section class="grid-products-angara">
-    {% for product in collection.products %}
-      <div class="product-card-angara">
-        <div class="product-image-container">
-          <span class="product-quality-badge">PREMIUM D-E, VVS</span>
-          
-          <button type="button" class="product-wishlist-heart" title="Add to Wishlist">
-            <i class="fa-regular fa-heart"></i>
-          </button>
-          
-          <a href="{{ product.url }}" style="display:block; width:100%; height:100%;">
-            {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '600x' }}" alt="{{ product.title | escape }}">
-            {% else %}
-              {{ 'product-1' | placeholder_svg_tag }}
-            {% endif %}
-          </a>
-        </div>
-
-        <a href="{{ product.url }}" class="product-details-wrap">
-          <span class="product-brand-name">{{ product.vendor }}</span>
-          <span class="product-title-text">{{ product.title }}</span>
-          <div class="product-price-info">
-            {% if product.compare_at_price > product.price %}
-              <span class="product-compare-price">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
-              <span style="color:#e8000d;">{{ product.price | money_without_trailing_zeros }}</span>
-            {% else %}
-              <span>{{ product.price | money_without_trailing_zeros }}</span>
-            {% endif %}
-          </div>
-        </a>
-      </div>
-    {% else %}
-      {%- comment -%} Render mock products if the collection is empty {%- endcomment -%}
-      {% for i in (1..8) %}
-        <div class="product-card-angara">
-          <div class="product-image-container">
-            <span class="product-quality-badge">PREMIUM D-E, VVS</span>
-            
-            <button type="button" class="product-wishlist-heart" title="Add to Wishlist">
-              <i class="fa-regular fa-heart"></i>
-            </button>
-            
-            <a href="/products/mock-ring" style="display:block; width:100%; height:100%;">
-              {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
-              <img src="{{ 'product-' | append: index | append: '.png' | asset_url }}" alt="Mock Ring {{ i }}">
+            <a href="{{ product.url }}" class="product-details-wrap">
+              <span class="product-brand-name">{{ product.vendor | default: shop.name }}</span>
+              <span class="product-title-text">{{ product.title }}</span>
+              <div class="product-price-info">
+                {% if product.compare_at_price > product.price %}
+                  <span class="product-compare-price">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
+                  <span style="color:#e8000d;">{{ product.price | money_without_trailing_zeros }}</span>
+                {% else %}
+                  <span>{{ product.price | money_without_trailing_zeros }}</span>
+                {% endif %}
+              </div>
             </a>
           </div>
+        {% else %}
+          {%- comment -%} Render mock products if the collection has no products {% - endcomment -%}
+          {% for i in (1..8) %}
+            <div class="product-card-angara">
+              <div class="product-image-container">
+                <span class="product-quality-badge">LAB GROWN</span>
+                
+                <button type="button" class="product-wishlist-heart" title="Add to Wishlist">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+                
+                <a href="/products/mock-ring-{{ i }}">
+                  {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
+                  <img src="{{ 'product-' | append: index | append: '.png' | asset_url }}" class="img-primary" alt="Mock Ring {{ i }}">
+                  <img src="{{ 'product-' | append: index | append: '.png' | asset_url }}" class="img-hover" alt="Mock Ring {{ i }}">
+                </a>
+              </div>
 
-          <a href="/products/mock-ring" class="product-details-wrap">
-            <span class="product-brand-name">ANGARA</span>
-            <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
-            <div class="product-price-info">
-              <span class="product-compare-price">$2,669</span>
-              <span style="color:#e8000d;">$2,402</span>
+              <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
+                <span class="product-brand-name">ARLENA</span>
+                <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
+                <div class="product-price-info">
+                  <span class="product-compare-price">$2,669</span>
+                  <span style="color:#e8000d;">$2,402</span>
+                </div>
+              </a>
             </div>
-          </a>
+          {% endfor %}
+        {% endfor %}
+      </section>
+
+      {% if paginate.pages > 1 %}
+        <div class="load-more-container">
+          <div class="pagination">
+            {{ paginate | default_pagination }}
+          </div>
         </div>
-      {% endfor %}
-    {% endfor %}
-  </section>
-</div>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</main>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
