@@ -1,0 +1,20 @@
+{% comment %}
+  This section is used in the page template to render store pages like About us
+  or Contact us.
+
+  https://shopify.dev/docs/storefronts/themes/architecture/templates/page
+{% endcomment %}
+
+<main class="margin-top" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 40px 20px; font-size: 13px; line-height: 1.6;">
+  <h1 class="text-center" style="font-size: 24px; margin-bottom: 30px; text-transform: uppercase;">{{ page.title }}</h1>
+  <div class="page-content" style="color: #333;">
+    {{ page.content }}
+  </div>
+</main>
+
+{% schema %}
+{
+  "name": "t:general.page",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+<div class="policy-page full-width">
+  <div class="policy-page-inner">
+    <h1 class="policy-page-title">{{ page.title }}</h1>
+    <div class="policy-page-content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        <h2>Cancellation Policy</h2>
+        <p>Some items in our store may be offered to you as a subscription, a pre-order or try before you buy. This cancellation policy lays out how you can change or cancel these kinds of purchases.</p>
+
+        <h3>Subscriptions</h3>
+        <p>When you purchase a subscription you'll receive repeat deliveries. These are based on the subscription duration and frequency that you select.</p>
+        <p>Your payment details will be stored securely and you'll be charged for each of these deliveries, unless you choose to pay upfront for all deliveries.</p>
+        <p>Some sinple changes can be made to your subscriptions:</p>
+        <ul>
+          <li>You can skip your next delivery</li>
+          <li>You can change the frequency of your deliveries</li>
+          <li>You can change the next delivery date</li>
+        </ul>
+        <p>These changes can be made by managing your subscriptions from your account.</p>
+        <p>You can cancel your subscription at any time during your subscription period. After you cancel, you won't be charged again, but you're responsible for any outstanding charges for deliveries that have already been dispatched.</p>
+        <p>If you want to cancel a subscription, you can do so from your account.</p>
+
+        <h3>Pre-orders</h3>
+        <p>When you purchase a pre-order, you agree to a delayed delivery date. The expected dispatch date is listed on the product page.</p>
+        <p>Pre-orders can be cancelled for a full refund within 7 days of purchase.</p>
+
+        <h3>Try before you buy</h3>
+        <p>When you purchase a try before you buy item, you'll only be charged if you decide to keep the product.</p>
+        <p>You can return any items you don't want to keep within the return window, at no cost to you.</p>
+        <p>If you don't return a try before you buy item, you'll be charged the full amount for the item plus any applicable shipping fees.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .policy-page { background: #fff; min-height: 60vh; }
+  .policy-page-inner { max-width: 800px; margin: 0 auto; padding: 120px 40px 80px; }
+  .policy-page-title {
+    font-family: var(--font-base); font-size: 28px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; color: #111;
+    margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0;
+  }
+  .policy-page-content { font-family: var(--font-base); font-size: 14px; line-height: 1.8; color: #333; }
+  .policy-page-content h2 { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #111; }
+  .policy-page-content h3 { font-size: 16px; font-weight: 600; margin: 25px 0 12px; color: #222; }
+  .policy-page-content p { margin-bottom: 16px; }
+  .policy-page-content a { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+  .policy-page-content ul, .policy-page-content ol { padding-left: 20px; margin-bottom: 16px; }
+  .policy-page-content li { margin-bottom: 8px; }
+  @media (max-width: 768px) {
+    .policy-page-inner { padding: 100px 20px 60px; }
+    .policy-page-title { font-size: 20px; letter-spacing: 1px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Billing Terms",
+  "settings": [],
+  "presets": [{ "name": "Billing Terms" }]
+}
+{% endschema %}

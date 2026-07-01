@@ -1,0 +1,347 @@
+<style>
+  /* Footer Trust Row */
+  .footer-trust-row {
+    background-color: #000;
+    color: #fff;
+    padding: 25px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .footer-trust-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .footer-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .footer-trust-item i {
+    font-size: 24px;
+    color: #c5a880; /* Gold icon color */
+  }
+  .footer-trust-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-trust-text strong {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .footer-trust-text span {
+    font-size: 10px;
+    color: #aaa;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 991px) {
+    .footer-trust-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+  @media (max-width: 575px) {
+    .footer-trust-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  /* Footer Content */
+  .arlena-footer {
+    background-color: #000;
+    color: #fff;
+    padding: 60px 40px 30px 40px;
+    font-family: var(--font-base);
+  }
+  .arlena-footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr repeat(3, 1fr) 1.5fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 40px;
+  }
+  .arlena-footer-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .arlena-brand-col {
+    gap: 20px;
+  }
+  .arlena-footer-logo {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 24px;
+    letter-spacing: 4px;
+    color: #fff;
+  }
+  .arlena-footer-desc {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #ccc;
+    max-width: 250px;
+  }
+  .arlena-social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+  }
+  .arlena-social-links a {
+    color: #fff;
+    font-size: 16px;
+    transition: color 0.3s ease;
+  }
+  .arlena-social-links a:hover {
+    color: #c5a880;
+  }
+  .arlena-col-title {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    color: #c5a880; /* Gold header for columns */
+    font-weight: 600;
+  }
+  .arlena-footer-col ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .arlena-footer-col ul li a {
+    font-size: 11px;
+    color: #ccc;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    text-transform: uppercase;
+  }
+  .arlena-footer-col ul li a:hover {
+    color: #c5a880;
+  }
+  
+  .arlena-newsletter-col {
+    gap: 15px;
+  }
+  .arlena-newsletter-desc {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #ccc;
+  }
+  .arlena-newsletter-form {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .arlena-newsletter-input-group {
+    display: flex;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 5px;
+  }
+  .arlena-newsletter-input-group input[type="email"] {
+    background: none;
+    border: none;
+    color: #fff;
+    flex: 1;
+    font-size: 12px;
+    outline: none;
+    padding: 5px 0;
+    font-family: inherit;
+  }
+  .arlena-newsletter-input-group input[type="email"]::placeholder {
+    color: #777;
+  }
+  .arlena-newsletter-input-group button {
+    background: none;
+    border: none;
+    color: #c5a880;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+  .arlena-newsletter-input-group button:hover {
+    transform: translateX(3px);
+  }
+
+  /* Footer Bottom */
+  .arlena-footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 25px;
+  }
+  .copyright-text {
+    font-size: 11px;
+    color: #777;
+  }
+  .footer-legal-links {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-legal-links a {
+    font-size: 11px;
+    color: #777;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-legal-links a:hover {
+    color: #c5a880;
+  }
+
+  @media (max-width: 991px) {
+    .arlena-footer {
+      padding: 40px 20px 20px 20px;
+    }
+    .arlena-footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+    .arlena-brand-col,
+    .arlena-newsletter-col {
+      grid-column: span 2;
+    }
+    .arlena-footer-bottom {
+      flex-direction: column;
+      gap: 15px;
+      text-align: center;
+    }
+  }
+  @media (max-width: 575px) {
+    .arlena-footer-grid {
+      grid-template-columns: 1fr;
+    }
+    .arlena-brand-col,
+    .arlena-newsletter-col {
+      grid-column: span 1;
+    }
+  }
+</style>
+
+<div class="footer-trust-row">
+  <div class="footer-trust-grid">
+    <div class="footer-trust-item">
+      <i class="fa-solid fa-gem"></i>
+      <div class="footer-trust-text">
+        <strong>ONLINE-ONLY</strong>
+        <span>Designed for a seamless online shopping experience</span>
+      </div>
+    </div>
+    <div class="footer-trust-item">
+      <i class="fa-solid fa-headset"></i>
+      <div class="footer-trust-text">
+        <strong>EXPERT SUPPORT</strong>
+        <span>Our team is here to help you every step of the way</span>
+      </div>
+    </div>
+    <div class="footer-trust-item">
+      <i class="fa-solid fa-lock"></i>
+      <div class="footer-trust-text">
+        <strong>SECURE PAYMENTS</strong>
+        <span>100% safe and secure checkout</span>
+      </div>
+    </div>
+    <div class="footer-trust-item">
+      <i class="fa-solid fa-heart"></i>
+      <div class="footer-trust-text">
+        <strong>SATISFACTION GUARANTEE</strong>
+        <span>Love it, or we'll make it right</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="arlena-footer">
+  <div class="arlena-footer-grid">
+    <!-- COL 1: Logo & Info -->
+    <div class="arlena-footer-col arlena-brand-col">
+      <div class="arlena-footer-logo">ARLENA</div>
+      <p class="arlena-footer-desc">
+        Australian made fine jewellery, crafted to order for life's most meaningful moments.
+      </p>
+      <div class="arlena-social-links">
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+        <a href="#" aria-label="Youtube"><i class="fa-brands fa-youtube"></i></a>
+        <a href="#" aria-label="Tiktok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+
+    <!-- COL 2: SHOP -->
+    <div class="arlena-footer-col">
+      <h4 class="arlena-col-title">SHOP</h4>
+      <ul>
+        <li><a href="/collections/engagement-rings">Engagement Rings</a></li>
+        <li><a href="/collections/wedding-bands">Wedding Bands</a></li>
+        <li><a href="/collections/earrings">Earrings</a></li>
+        <li><a href="/collections/pendants">Pendants</a></li>
+        <li><a href="/collections/bracelets">Bracelets</a></li>
+        <li><a href="/collections/gifts">Gifts</a></li>
+      </ul>
+    </div>
+
+    <!-- COL 3: CUSTOMER CARE -->
+    <div class="arlena-footer-col">
+      <h4 class="arlena-col-title">CUSTOMER CARE</h4>
+      <ul>
+        <li><a href="/pages/shipping-delivery">Shipping & Delivery</a></li>
+        <li><a href="/pages/returns-exchanges">Returns & Exchanges</a></li>
+        <li><a href="/pages/warranty">Warranty</a></li>
+        <li><a href="/pages/ring-size-guide">Ring Size Guide</a></li>
+        <li><a href="/pages/faqs">FAQs</a></li>
+        <li><a href="/pages/contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <!-- COL 4: ABOUT US -->
+    <div class="arlena-footer-col">
+      <h4 class="arlena-col-title">ABOUT US</h4>
+      <ul>
+        <li><a href="/pages/our-story">Our Story</a></li>
+        <li><a href="/pages/our-workshop">Our Workshop</a></li>
+        <li><a href="/pages/craftsmanship">Craftsmanship</a></li>
+        <li><a href="/pages/sustainability">Sustainability</a></li>
+      </ul>
+    </div>
+
+    <!-- COL 5: STAY CONNECTED -->
+    <div class="arlena-footer-col arlena-newsletter-col">
+      <h4 class="arlena-col-title">STAY CONNECTED</h4>
+      <p class="arlena-newsletter-desc">
+        Be the first to know about new collections and exclusive offers.
+      </p>
+      {% form 'customer', class: 'arlena-newsletter-form' %}
+        <div class="arlena-newsletter-input-group">
+          <input type="email" name="contact[email]" placeholder="Enter your email" required>
+          <button type="submit" aria-label="Subscribe">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      {% endform %}
+    </div>
+  </div>
+
+  <div class="arlena-footer-bottom">
+    <p class="copyright-text">© 2026 ARLENA Jewellery. All rights reserved.</p>
+    <div class="footer-legal-links">
+      <a href="/policies/privacy-policy">Privacy Policy</a>
+      <a href="/policies/terms-of-service">Terms & Conditions</a>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

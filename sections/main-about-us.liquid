@@ -1,0 +1,68 @@
+<div class="policy-page full-width">
+  <div class="policy-page-inner">
+    <h1 class="policy-page-title">{{ page.title }}</h1>
+    <div class="policy-page-content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        <h2>ABOUT US</h2>
+        <p>In 2022, House of Brands embarked on a mission to become the premier destination for Vietnamese fashion in Australia and New Zealand. Recognizing the challenge of sourcing authentic designer brands in this region, we set out to bridge the gap and bring the newest and trendiest fashion directly to our customers' doorsteps.</p>
+
+        <p>At House of Brands, we believe that style transcends geographical boundaries. With a meticulously curated selection of independent brands, we take pride in offering a diverse array of fashion options that capture the essence of contemporary design.</p>
+
+        <p>From trendy streetwear to elegant couture, our collection caters to every style and occasion. Whether you're seeking to make a bold fashion statement or elevate your everyday wardrobe, House of Brands is your go-to destination.</p>
+
+        <p>But House of Brands is more than just a shopping platform – we're a community of fashion aficionados united by our passion for thoughtful and well-made designer pieces. Our platform serves as a hub where individuals can not only discover new brands but also connect with like-minded enthusiasts and express their unique sense of fashion.</p>
+
+        <p>Join us on an exhilarating journey through the vibrant world of fashion. Whether you're a seasoned trendsetter or a newcomer to the scene, House of Brands extends a warm welcome to all. Together, let's elevate your style, one brand at a time.</p>
+
+        <p>Welcome to House of Brands – where design meets the spirited flair of Down Under.</p>
+
+        <h2>Contact Us</h2>
+        <p>At House of Brands, our mission is to deliver exceptional service and ensure our customers' utmost satisfaction. Whether you have questions, feedback, or need assistance with your order, we're here to help.</p>
+
+        <p>Please feel free to reach out to us at <a href="mailto:houseofbrandssupport@gmail.com">houseofbrandssupport@gmail.com</a> for any inquiries or concerns. Our dedicated team is ready to assist you and provide prompt and personalized support.</p>
+
+        <h2>PAYMENT OPTIONS</h2>
+        <p>At House of Brands, we offer a variety of convenient payment methods to make your shopping experience hassle-free. You can choose from the following options:</p>
+        <ul>
+          <li><strong>Credit Cards:</strong> We accept payments made with Visa, Mastercard, American Express, and Discover cards.</li>
+          <li><strong>Debit Cards:</strong> You can also use your debit card for quick and secure transactions.</li>
+          <li><strong>Digital Wallets:</strong> Take advantage of the seamless checkout process with Google Pay and Apple Pay.</li>
+          <li><strong>Afterpay:</strong> Spread the cost of your purchase over four equal installments with Afterpay. Shop now, enjoy now, and pay later.</li>
+          <li><strong>ZipPay:</strong> ZipPay offers flexible payment options, allowing you to buy now and pay later in easy installments.</li>
+        </ul>
+        <p>Rest assured, all transactions made on our website are encrypted and secure. Your financial information is protected at all times.</p>
+        <p>If you have any questions or encounter any issues with payment, please don't hesitate to contact our customer support team for assistance.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .policy-page { background: #fff; min-height: 60vh; }
+  .policy-page-inner { max-width: 800px; margin: 0 auto; padding: 120px 40px 80px; }
+  .policy-page-title {
+    font-family: var(--font-base); font-size: 28px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; color: #111;
+    margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0;
+  }
+  .policy-page-content { font-family: var(--font-base); font-size: 14px; line-height: 1.8; color: #333; }
+  .policy-page-content h2, .policy-page-content h3 { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #111; }
+  .policy-page-content p { margin-bottom: 16px; }
+  .policy-page-content a { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+  .policy-page-content ul, .policy-page-content ol { padding-left: 20px; margin-bottom: 16px; }
+  .policy-page-content li { margin-bottom: 8px; }
+  @media (max-width: 768px) {
+    .policy-page-inner { padding: 100px 20px 60px; }
+    .policy-page-title { font-size: 20px; letter-spacing: 1px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "About Us",
+  "settings": [],
+  "presets": [{ "name": "About Us" }]
+}
+{% endschema %}

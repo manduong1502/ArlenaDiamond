@@ -1,0 +1,559 @@
+<style>
+  /* Arlena CSS for Homepage */
+  .arlena-home {
+    background-color: #fff;
+    color: #111;
+    font-family: var(--font-base);
+    margin-top: 78px; /* account for fixed header + topbar */
+  }
+  @media (max-width: 991px) {
+    .arlena-home {
+      margin-top: 61px;
+    }
+  }
+
+  /* Hero Section */
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    min-height: 500px;
+    background-color: #0b0b0b;
+    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ 'hero.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+    padding: 0 20px;
+  }
+  .hero-content {
+    max-width: 800px;
+  }
+  .hero-title {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  .hero-title span {
+    font-style: italic;
+    font-family: 'Playfair Display', serif;
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    color: #ccc;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-ctas {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .btn-gold {
+    background-color: #c5a880;
+    color: #000;
+    border: 1px solid #c5a880;
+    padding: 12px 30px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .btn-gold:hover {
+    background-color: #bfa37a;
+    border-color: #bfa37a;
+    color: #000;
+  }
+  .btn-outline-white {
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 30px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .btn-outline-white:hover {
+    background-color: #fff;
+    color: #000;
+  }
+
+  /* Badges Row */
+  .badges-row {
+    background-color: #fcfbfa;
+    padding: 40px 20px;
+    border-bottom: 1px solid #eee;
+  }
+  .badges-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .badge-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+  .badge-item i {
+    font-size: 20px;
+    color: #c5a880;
+  }
+  .badge-item h5 {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin: 0;
+  }
+  .badge-item p {
+    font-size: 11px;
+    color: #777;
+    margin: 0;
+    line-height: 1.4;
+  }
+  @media (max-width: 991px) {
+    .badges-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+  }
+  @media (max-width: 575px) {
+    .badges-grid {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+  }
+
+  /* Collections Section */
+  .home-collections {
+    padding: 80px 20px;
+    text-align: center;
+  }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #c5a880;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 10px;
+  }
+  .section-title {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+  .collections-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .collection-card {
+    position: relative;
+    aspect-ratio: 4/5;
+    background-color: #111;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 25px 15px;
+    text-decoration: none;
+  }
+  .collection-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: transform 0.6s ease, opacity 0.6s ease;
+  }
+  .collection-card:hover img {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  .collection-card-content {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+  }
+  .collection-card-content h4 {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 5px;
+  }
+  .collection-card-content span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+  @media (max-width: 991px) {
+    .collections-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 575px) {
+    .collections-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Crafted Section */
+  .crafted-section {
+    background-color: #0b0b0b;
+    color: #fff;
+    display: flex;
+    align-items: stretch;
+  }
+  .crafted-img-col {
+    flex: 1;
+    min-height: 400px;
+    background-image: url('{{ 'product-2.png' | asset_url }}');
+    background-size: cover;
+    background-position: center;
+  }
+  .crafted-content-col {
+    flex: 1;
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .crafted-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #c5a880;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .crafted-title {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+  }
+  .crafted-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #ccc;
+    margin-bottom: 40px;
+  }
+  .crafted-bullets {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+  }
+  .crafted-bullet-item {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+  }
+  .crafted-bullet-item i {
+    color: #c5a880;
+    font-size: 16px;
+    margin-top: 3px;
+  }
+  .crafted-bullet-text strong {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .crafted-bullet-text span {
+    font-size: 11px;
+    color: #aaa;
+  }
+  @media (max-width: 991px) {
+    .crafted-section {
+      flex-direction: column;
+    }
+    .crafted-img-col {
+      height: 350px;
+    }
+    .crafted-content-col {
+      padding: 40px 20px;
+    }
+  }
+
+  /* Life moments section */
+  .moments-section {
+    padding: 80px 20px;
+    background-color: #fcfbfa;
+  }
+  .moments-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 3fr;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: center;
+  }
+  .moments-text-col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .moments-text-col h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+  }
+  .moments-signature {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #c5a880;
+  }
+  .moments-images-col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+  }
+  .moment-img-card {
+    aspect-ratio: 1/1;
+    overflow: hidden;
+  }
+  .moment-img-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .moment-img-card:hover img {
+    transform: scale(1.05);
+  }
+  @media (max-width: 991px) {
+    .moments-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .moments-images-col {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<div class="arlena-home">
+  <!-- 1. Hero Banner -->
+  <section class="hero-banner">
+    <div class="hero-content">
+      <h2 class="hero-title">Made <span>for</span> Moments.</h2>
+      <p class="hero-subtitle">
+        Australian made fine jewellery, crafted to order for life's most meaningful moments.
+      </p>
+      <div class="hero-ctas">
+        <a href="/collections/engagement-rings" class="btn-gold">Shop Engagement Rings</a>
+        <a href="/collections/all" class="btn-outline-white">Shop All Jewellery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Trust Badges Row 1 -->
+  <section class="badges-row">
+    <div class="badges-grid">
+      <div class="badge-item">
+        <i class="fa-solid fa-gem"></i>
+        <h5>Australian Made</h5>
+        <p>Handcrafted in our Australian workshop</p>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-ribbon"></i>
+        <h5>20+ Years Experience</h5>
+        <p>Expert craftsmanship you can trust</p>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-ring"></i>
+        <h5>Made to Order</h5>
+        <p>Each piece is crafted especially for you</p>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-award"></i>
+        <h5>Lifetime Warranty</h5>
+        <p>Quality you can wear, for a lifetime</p>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-truck"></i>
+        <h5>Free Shipping</h5>
+        <p>Complimentary shipping Australia wide</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Explore Our Collections -->
+  <section class="home-collections">
+    <span class="section-label">Explore Our Collections</span>
+    <h3 class="section-title">Timeless Pieces, Crafted for You</h3>
+    
+    <div class="collections-grid">
+      <a href="/collections/engagement-rings" class="collection-card">
+        <img src="{{ 'product-1.png' | asset_url }}" alt="Engagement Rings">
+        <div class="collection-card-content">
+          <h4>Engagement Rings</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+      <a href="/collections/wedding-bands" class="collection-card">
+        <img src="{{ 'product-2.png' | asset_url }}" alt="Wedding Bands">
+        <div class="collection-card-content">
+          <h4>Wedding Bands</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+      <a href="/collections/earrings" class="collection-card">
+        <img src="{{ 'product-3.png' | asset_url }}" alt="Earrings">
+        <div class="collection-card-content">
+          <h4>Earrings</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+      <a href="/collections/pendants" class="collection-card">
+        <img src="{{ 'hero.png' | asset_url }}" alt="Pendants">
+        <div class="collection-card-content">
+          <h4>Pendants</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+      <a href="/collections/bracelets" class="collection-card">
+        <img src="{{ 'product-1.png' | asset_url }}" alt="Bracelets">
+        <div class="collection-card-content">
+          <h4>Bracelets</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 4. Crafted in Australia -->
+  <section class="crafted-section">
+    <div class="crafted-img-col"></div>
+    <div class="crafted-content-col">
+      <span class="crafted-label">Crafted in Australia</span>
+      <h3 class="crafted-title">Made to Order. Made to Last.</h3>
+      <p class="crafted-desc">
+        Every piece is handcrafted by our experienced jewellers in Australia using ethical materials and exceptional attention to detail.
+      </p>
+      <div>
+        <a href="/pages/our-story" class="btn-gold">Learn More About Our Story</a>
+      </div>
+      
+      <div class="crafted-bullets">
+        <div class="crafted-bullet-item">
+          <i class="fa-solid fa-leaf"></i>
+          <div class="crafted-bullet-text">
+            <strong>Ethically Sourced</strong>
+            <span>Diamonds & Gemstones</span>
+          </div>
+        </div>
+        <div class="crafted-bullet-item">
+          <i class="fa-solid fa-hammer"></i>
+          <div class="crafted-bullet-text">
+            <strong>Precision Craftsmanship</strong>
+            <span>by Skilled Jewellers</span>
+          </div>
+        </div>
+        <div class="crafted-bullet-item">
+          <i class="fa-solid fa-sparkles"></i>
+          <div class="crafted-bullet-text">
+            <strong>Personalised Service</strong>
+            <span>Online, Always</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Our Promise to You -->
+  <section class="badges-row" style="background-color: #fff;">
+    <div style="text-align: center; margin-bottom: 45px;">
+      <span class="section-label">Our Promise to You</span>
+      <h3 class="section-title" style="margin-bottom: 0;">Quality You Can Trust</h3>
+    </div>
+    
+    <div class="badges-grid">
+      <div class="badge-item">
+        <i class="fa-solid fa-circle-check"></i>
+        <h5>Certified Diamonds</h5>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-crown"></i>
+        <h5>Premium Materials</h5>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-shield"></i>
+        <h5>Lifetime Warranty</h5>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-rotate"></i>
+        <h5>Easy Returns & Exchanges</h5>
+      </div>
+      <div class="badge-item">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h5>Secure & Insured Delivery</h5>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Designed for Life's Moments -->
+  <section class="moments-section">
+    <div class="moments-grid">
+      <div class="moments-text-col">
+        <span class="section-label">Designed for Life's</span>
+        <h3>Most Meaningful Moments</h3>
+        <p style="font-size: 12px; color: #555; line-height: 1.5; margin: 0;">
+          From the moment you say yes, to every milestone that follows, we're here to be part of your story.
+        </p>
+        <span class="moments-signature">Arlena</span>
+      </div>
+      <div class="moments-images-col">
+        <div class="moment-img-card">
+          <img src="{{ 'product-1.png' | asset_url }}" alt="Moments 1">
+        </div>
+        <div class="moment-img-card">
+          <img src="{{ 'product-2.png' | asset_url }}" alt="Moments 2">
+        </div>
+        <div class="moment-img-card">
+          <img src="{{ 'product-3.png' | asset_url }}" alt="Moments 3">
+        </div>
+        <div class="moment-img-card">
+          <img src="{{ 'hero.png' | asset_url }}" alt="Moments 4">
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "Main Index",
+  "settings": []
+}
+{% endschema %}

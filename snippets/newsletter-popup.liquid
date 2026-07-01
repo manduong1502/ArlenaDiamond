@@ -1,0 +1,213 @@
+{% comment %}
+  Newsletter Popup Snippet
+  Hiển thị khi khách hàng lần đầu truy cập trang dựa vào LocalStorage.
+{% endcomment %}
+
+<style>
+  .newsletter-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .newsletter-popup-overlay.active {
+    display: flex;
+    opacity: 1;
+  }
+  .newsletter-popup-box {
+    background: #fff;
+    padding: 35px 25px 25px 25px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+  .newsletter-popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+  }
+  .newsletter-popup-title {
+    font-size: 16px;
+    font-family: inherit;
+    margin-bottom: 15px;
+    text-align: left;
+    color: #111;
+  }
+  .newsletter-popup-desc {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.5;
+    text-align: left;
+  }
+  .newsletter-popup-form input.custom-input {
+    width: 100%;
+    padding: 14px 12px;
+    border: 1px solid #ccc;
+    margin-bottom: -1px; /* border collapse feel */
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 13px;
+    color: #333;
+    background: #fff;
+    outline: none;
+  }
+  .newsletter-popup-form input.custom-input:focus {
+    z-index: 2;
+    position: relative;
+    border-color: #000;
+  }
+  /* Bọc input để border-collapse đẹp hơn */
+  .newsletter-inputs-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+  }
+
+  /* Checkbox area */
+  .newsletter-consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 25px;
+    text-align: left;
+  }
+  .newsletter-consent input[type='checkbox'] {
+    margin-top: 4px;
+    cursor: pointer;
+  }
+  .newsletter-consent label {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.4;
+    cursor: pointer;
+  }
+
+  /* Buttons */
+  .newsletter-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .newsletter-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    font-size: 13px;
+    text-align: center;
+    font-family: inherit;
+  }
+  .btn-decline {
+    background: #ebebeb;
+    color: #666;
+  }
+  .btn-accept {
+    background: #111;
+    color: #fff;
+  }
+</style>
+
+<div class="newsletter-popup-overlay" id="newsletterPopup">
+  <div class="newsletter-popup-box">
+    <div class="newsletter-popup-close" id="closeNewsletterPopup">✕</div>
+
+    <div class="newsletter-popup-title">
+      <b>Sign up to get 5% discount</b><br>
+      for Your birthday.
+    </div>
+    <div class="newsletter-popup-desc">Join our community to receive an exclusive birthday treat, plus early access to new styles and offers.</div>
+
+    {% form 'customer', class: 'newsletter-popup-form' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+
+      <div class="newsletter-inputs-wrapper">
+        <input type="email" name="contact[email]" class="custom-input" placeholder="Email*" required>
+        <!-- Date picker cho Birthday -->
+        <input
+          type="date"
+          name="contact[note][Birthday]"
+          class="custom-input"
+          placeholder="Birthday"
+          style="color: #666;"
+          title="Birthday"
+        >
+      </div>
+
+      <div class="newsletter-consent">
+        <label>
+          <input type="checkbox" name="customer[accepts_marketing]" value="true" checked required>
+          I agree to receive marketing communications from House Of Brands in accordance with the Terms And Conditions
+          and Privacy Policy. Offer valid for new subscribers only.
+        </label>
+      </div>
+
+      <div class="newsletter-actions">
+        <button type="button" class="newsletter-btn btn-decline" id="btnNoThanks">No Thanks</button>
+        <button type="submit" class="newsletter-btn btn-accept">Get 5% off</button>
+      </div>
+    {% endform %}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const popup = document.getElementById('newsletterPopup');
+    const closeBtn = document.getElementById('closeNewsletterPopup');
+    const noThanksBtn = document.getElementById('btnNoThanks');
+
+    function closePopup() {
+      if (popup) {
+        popup.classList.remove('active');
+        localStorage.setItem('hasSeenNewsletterPopup', 'true');
+      }
+    }
+
+    if (!localStorage.getItem('hasSeenNewsletterPopup')) {
+      setTimeout(() => {
+        popup.classList.add('active');
+      }, 3000);
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    if (noThanksBtn) noThanksBtn.addEventListener('click', closePopup);
+
+    if (popup) {
+      popup.addEventListener('click', (e) => {
+        if (e.target === popup) closePopup();
+      });
+    }
+
+    const form = popup ? popup.querySelector('form') : null;
+    if (form) {
+      form.addEventListener('submit', function () {
+        // Lưu data vào localStorage cho checkout
+        const emailInput = form.querySelector('input[name="contact[email]"]');
+        const bdayInput = form.querySelector('input[name="contact[note][Birthday]"]');
+        
+        if (emailInput && emailInput.value) localStorage.setItem('customer_email', emailInput.value);
+        if (bdayInput && bdayInput.value) localStorage.setItem('customer_birthday', bdayInput.value);
+      });
+    }
+
+    if (window.location.search.includes('customer_posted=true')) {
+      localStorage.setItem('hasSeenNewsletterPopup', 'true');
+      alert('Thank you for subscribing!');
+    }
+  });
+</script>

@@ -1,0 +1,160 @@
+<main class="main-collection full-width" style="background:#fff;">
+
+  <!-- SEARCH HEADER -->
+  <div class="collection-page-header" style="margin-top:80px; padding:20px 60px;">
+
+    <!-- Breadcrumb -->
+    <div style="font-size:11px; color:#999; margin-bottom:10px; text-transform:uppercase; letter-spacing:0.5px;">
+      <a href="/" style="color:#999; text-decoration:none;">Home</a>
+      <span style="margin:0 4px;">/</span>
+      <span style="color:#111;">Search</span>
+    </div>
+
+    <!-- Title -->
+    <div class="collection-main-title" style="font-size:20px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px; color:#111;">
+      SEARCH RESULTS
+    </div>
+
+    <!-- Search bar -->
+    <form action="{{ routes.search_url }}" method="get" role="search"
+      style="border-bottom:1.5px solid #111; padding-bottom:10px; margin-bottom:18px; display:flex; align-items:center; gap:10px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="SEARCH BRANDS OR STYLE"
+        style="flex:1; border:none; outline:none; font-size:14px; font-family:var(--font-base); background:none; text-transform:uppercase;" />
+      <input type="hidden" name="type" value="product">
+    </form>
+
+    <!-- Count / Status -->
+    {% if search.performed %}
+      <div class="collection-controls-row" style="display:flex; justify-content:space-between; align-items:center;">
+        <span class="product-count" style="font-size:12px; color:#999; text-transform:uppercase; letter-spacing:0.3px;">
+          {% if search.results_count == 0 %}
+            No results for "{{ search.terms }}"
+          {% else %}
+            {{ search.results_count }} items found for "{{ search.terms }}"
+          {% endif %}
+        </span>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- PRODUCT GRID -->
+  {% if search.performed and search.results_count > 0 %}
+    <section class="collection-grid" id="product-grid-container">
+      {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+          <div class="grid-item">
+
+            <div class="image-wrapper">
+              {% if item.featured_image %}
+                <a href="{{ item.url }}">
+                  <img src="{{ item.featured_image | img_url: '600x' }}" class="img-primary" alt="{{ item.title | escape }}" />
+                </a>
+              {% endif %}
+              {% if item.images[1] %}
+                <a href="{{ item.url }}">
+                  <img src="{{ item.images[1] | img_url: '600x' }}" class="img-secondary" alt="{{ item.title | escape }}" />
+                </a>
+              {% endif %}
+
+              <!-- Bookmark -->
+              <div class="bookmark-icon"
+                data-product-id="{{ item.id }}"
+                data-title="{{ item.title | escape }}"
+                data-vendor="{{ item.vendor | escape }}"
+                data-price="{{ item.price }}"
+                data-image="{{ item.featured_image | img_url: '600x' }}"
+                data-url="{{ item.url }}"
+                title="Add to Wishlist">
+                <svg width="14" height="18" viewBox="0 0 14 18" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 1v16l6-4 6 4V1H1z"/></svg>
+              </div>
+
+              <!-- Size overlay -->
+              <div class="size-overlay">
+                {% assign size_option_index = -1 %}
+                {% for option in item.options_with_values %}
+                  {% assign downcased_name = option.name | downcase | strip %}
+                  {% if downcased_name == 'size' %}
+                    {% assign size_option_index = forloop.index0 %}
+                    {% for value in option.values %}
+                      {% assign is_avail = false %}
+                      {% assign avail_variant_id = '' %}
+                      {% for variant in item.variants %}
+                        {% if variant.options[size_option_index] == value and variant.available %}
+                          {% assign is_avail = true %}
+                          {% assign avail_variant_id = variant.id %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                      {% if is_avail %}
+                        <span class="size-avail" data-variant-id="{{ avail_variant_id }}">{{ value }}</span>
+                      {% else %}
+                        <span class="size-unavail">{{ value }}</span>
+                      {% endif %}
+                    {% endfor %}
+                  {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Info -->
+            <div class="item-info">
+              <div class="item-vendor">{{ item.vendor }}</div>
+              <div class="item-title">
+                <a href="{{ item.url }}" style="text-decoration:none; color:inherit;">{{ item.title }}</a>
+              </div>
+              <div class="item-price">
+                {% if item.compare_at_price > item.price %}
+                  <span class="price-compare">{{ item.compare_at_price | money_without_trailing_zeros }}</span>
+                  <span class="price-sale">{{ item.price | money_without_trailing_zeros }}</span>
+                {% else %}
+                  <span class="price-regular">{{ item.price | money_without_trailing_zeros }}</span>
+                {% endif %}
+              </div>
+
+              <!-- Color swatches -->
+              {% assign color_option_index = -1 %}
+              {% for option in item.options_with_values %}
+                {% assign downcased_name = option.name | downcase | strip %}
+                {% if downcased_name == 'color' or downcased_name == 'colour' or downcased_name == 'màu' %}
+                  {% assign color_option_index = forloop.index0 %}
+                  <div class="item-swatches">
+                    {% for value in option.values %}
+                      {% assign variant_image = '' %}
+                      {% for variant in item.variants %}
+                        {% if variant.options[color_option_index] == value and variant.featured_image %}
+                          {% assign variant_image = variant.featured_image | img_url: '200x' %}
+                          {% break %}
+                        {% endif %}
+                      {% endfor %}
+                      <div class="swatch"
+                        style="background-color: {{ value | handleize }}; {% if variant_image != '' %}background-image: url({{ variant_image }});{% endif %}"
+                        title="{{ value }}"
+                        {% if variant_image != '' %}data-image="{{ variant_image }}"{% endif %}
+                        onclick="if(this.dataset.image){event.preventDefault();var w=this.closest('.grid-item');var m=w.querySelector('.img-primary');var s=w.querySelector('.img-secondary');if(m){m.src=this.dataset.image;m.style.opacity='1';m.style.zIndex='2';}if(s){s.style.display='none';}}">
+                      </div>
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+
+          </div>
+        {% endif %}
+      {% endfor %}
+    </section>
+  {% elsif search.performed %}
+    <div style="text-align:center; padding:80px 20px; font-family:var(--font-base);">
+      <p style="font-size:16px; color:#888; margin-bottom:24px;">No products found for "{{ search.terms }}"</p>
+      <a href="/collections/all" style="background:#111; color:#fff; padding:14px 32px; text-decoration:none; font-size:12px; font-weight:700; letter-spacing:0.5px; text-transform:uppercase;">CONTINUE SHOPPING</a>
+    </div>
+  {% endif %}
+
+</main>
+
+{% schema %}
+{
+  "name": "Search",
+  "settings": []
+}
+{% endschema %}

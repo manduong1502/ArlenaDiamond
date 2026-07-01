@@ -1,0 +1,853 @@
+{%- assign current_variant = product.selected_or_first_available_variant -%}
+
+<style>
+  /* Angara-style PDP Styles */
+  .angara-pdp {
+    max-width: 1200px;
+    margin: 110px auto 40px auto;
+    padding: 0 20px;
+    font-family: var(--font-base);
+    color: #111;
+  }
+  @media (max-width: 991px) {
+    .angara-pdp {
+      margin-top: 85px;
+    }
+  }
+
+  /* Breadcrumbs */
+  .angara-breadcrumbs {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .angara-breadcrumbs a {
+    color: #666;
+    text-decoration: none;
+  }
+  .angara-breadcrumbs a:hover {
+    color: #000;
+  }
+  .angara-breadcrumbs span {
+    margin: 0 5px;
+  }
+
+  /* Main Layout */
+  .angara-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+  @media (max-width: 991px) {
+    .angara-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+
+  /* Gallery Column */
+  .angara-gallery {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 15px;
+    position: sticky;
+    top: 100px;
+  }
+  @media (max-width: 768px) {
+    .angara-gallery {
+      grid-template-columns: 1fr;
+      position: static;
+    }
+  }
+  .angara-thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  @media (max-width: 768px) {
+    .angara-thumbs {
+      flex-direction: row;
+      overflow-x: auto;
+      padding-bottom: 10px;
+    }
+  }
+  .angara-thumb {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #fcfbfa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s ease;
+  }
+  .angara-thumb.active,
+  .angara-thumb:hover {
+    border-color: #000;
+  }
+  .angara-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .angara-viewport {
+    position: relative;
+    border: 1px solid #f3f3f3;
+    background-color: #faf9f8;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .angara-viewport img {
+    max-width: 95%;
+    max-height: 95%;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+  .angara-tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #000;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 4px 8px;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+
+  /* Info Column */
+  .angara-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .angara-pretitle {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: underline;
+  }
+  .angara-title {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin: 5px 0;
+  }
+  .angara-price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+  }
+  .angara-price {
+    font-size: 22px;
+    font-weight: 600;
+    color: #000;
+  }
+  .angara-price-compare {
+    font-size: 16px;
+    text-decoration: line-through;
+    color: #888;
+  }
+  .angara-discount-badge {
+    background-color: #e2f0d9;
+    color: #385723;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 6px;
+    border-radius: 3px;
+  }
+  .angara-financing {
+    font-size: 11px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .angara-financing strong {
+    color: #000;
+  }
+  .angara-financing a {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  /* Options block */
+  .angara-option-block {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .angara-option-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .angara-option-label span {
+    font-weight: 400;
+    color: #666;
+    text-transform: none;
+    margin-left: 5px;
+  }
+
+  /* Tabs selection style for diamond quality */
+  .angara-quality-tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #faf9f8;
+    padding: 15px;
+    border: 1px solid #f0efee;
+    border-radius: 4px;
+  }
+  .angara-quality-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  .angara-group-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #777;
+    width: 80px;
+    text-transform: uppercase;
+  }
+  .angara-group-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .angara-opt-btn {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  .angara-opt-btn:hover {
+    border-color: #000;
+  }
+  .angara-opt-btn.active {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+  }
+
+  /* Carat buttons */
+  .angara-carats-group {
+    display: flex;
+    gap: 10px;
+  }
+  .angara-carat-btn {
+    min-width: 50px;
+    height: 38px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+  }
+  .angara-carat-btn:hover {
+    border-color: #000;
+  }
+  .angara-carat-btn.active {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
+  }
+
+  /* Metal Dots */
+  .angara-metals {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .angara-metal-dot {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    padding: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .angara-metal-dot span {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  .angara-metal-dot.active {
+    border-color: #c5a880; /* gold ring around active metal dot */
+  }
+
+  /* Upgrade Banner */
+  .angara-upgrade-banner {
+    background-color: #fbf6f0;
+    border: 1px solid #f0e2d3;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .angara-upgrade-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .angara-upgrade-badge {
+    background-color: #c5a880;
+    color: #fff;
+    font-size: 9px;
+    font-weight: 600;
+    padding: 3px 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .angara-upgrade-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8a6d3b;
+  }
+  .angara-upgrade-text {
+    font-size: 11px;
+    color: #777;
+    line-height: 1.4;
+  }
+  .angara-upgrade-btn {
+    background: none;
+    border: 1px solid #c5a880;
+    color: #c5a880;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 8px 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+  }
+  .angara-upgrade-btn:hover {
+    background-color: #c5a880;
+    color: #fff;
+  }
+
+  /* Buy Block & Wishlist */
+  .angara-buy-row {
+    display: flex;
+    gap: 15px;
+    align-items: stretch;
+    margin-top: 15px;
+  }
+  .angara-atc-btn {
+    flex: 1;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    padding: 18px 20px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .angara-atc-btn:hover {
+    background-color: #222;
+  }
+  .angara-wishlist-btn {
+    width: 58px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    transition: all 0.3s ease;
+  }
+  .angara-wishlist-btn:hover,
+  .angara-wishlist-btn.active {
+    border-color: #cc0000;
+    color: #cc0000;
+  }
+
+  /* Shipping info */
+  .angara-shipping-info {
+    font-size: 11px;
+    color: #555;
+    background-color: #faf9f8;
+    padding: 12px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .angara-shipping-info i {
+    color: #c5a880;
+    margin-right: 5px;
+  }
+
+  /* Support Links */
+  .angara-support-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+  }
+  .angara-support-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #666;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .angara-support-link:hover {
+    color: #000;
+  }
+  .angara-support-link i {
+    font-size: 13px;
+    color: #c5a880;
+  }
+
+  /* Accordions */
+  .angara-accordions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  .angara-accordion {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  .angara-accordion-summary {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    outline: none;
+  }
+  .angara-accordion-summary::-webkit-details-marker {
+    display: none;
+  }
+  .angara-accordion-body {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.6;
+    padding-top: 12px;
+  }
+</style>
+
+<div class="angara-pdp">
+  <!-- BREADCRUMBS -->
+  <div class="angara-breadcrumbs">
+    <a href="/">Home</a>
+    <span>/</span>
+    {% if collection %}
+      <a href="{{ collection.url }}">{{ collection.title }}</a>
+      <span>/</span>
+    {% else %}
+      <a href="/collections/all">Jewelry</a>
+      <span>/</span>
+    {% endif %}
+    <span style="color: #111;">{{ product.title }}</span>
+  </div>
+
+  <div class="angara-grid">
+    <!-- LEFT: GALLERY -->
+    <section class="angara-gallery">
+      <!-- Thumbnails -->
+      <div class="angara-thumbs">
+        {% for image in product.images %}
+          <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}">
+            <img src="{{ image | img_url: '120x' }}" alt="{{ product.title | escape }}">
+          </div>
+        {% else %}
+          <div class="angara-thumb active" data-src="">
+            {{ 'product-1' | placeholder_svg_tag }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Main Image Viewport -->
+      <div class="angara-viewport">
+        <span class="angara-tag">New Arrival</span>
+        {% if product.featured_image %}
+          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}">
+        {% else %}
+          <img id="angara-main-img" src="" alt="Placeholder">
+        {% endif %}
+      </div>
+    </section>
+
+    <!-- RIGHT: PRODUCT OPTIONS & DETAILS -->
+    <section class="angara-info">
+      <!-- Pretitle -->
+      <a href="/collections/all" class="angara-pretitle">Lab Grown Diamonds</a>
+
+      <!-- Title -->
+      <h1 class="angara-title">{{ product.title }}</h1>
+
+      <!-- Pricing -->
+      <div class="angara-price-row">
+        <span class="angara-price" id="visible-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+        {% if current_variant.compare_at_price > current_variant.price %}
+          <span class="angara-price-compare" id="compare-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+          <span class="angara-discount-badge">10% OFF</span>
+        {% else %}
+          {% assign mock_compare = current_variant.price | times: 1.1 %}
+          <span class="angara-price-compare" id="compare-price">{{ mock_compare | money_without_trailing_zeros }}</span>
+          <span class="angara-discount-badge">10% OFF</span>
+        {% endif %}
+      </div>
+
+      <!-- Financing -->
+      <div class="angara-financing">
+        <i class="fa-solid fa-credit-card" style="color: #c5a880;"></i>
+        <span>0% Interest | Pay as low as <strong id="financing-price">$200.17/month</strong> | <a href="#">Select Plan</a></span>
+      </div>
+
+      <!-- Diamond Quality Option -->
+      <div class="angara-option-block">
+        <div class="angara-option-label">Diamond Quality: <span id="lbl-quality">F-G, VS</span></div>
+        <div class="angara-quality-tabs">
+          <!-- LAB GROWN ROW -->
+          <div class="angara-quality-group">
+            <span class="angara-group-label">Lab Grown</span>
+            <div class="angara-group-options">
+              <button type="button" class="angara-opt-btn active" data-quality="F-G, VS" data-val="0">F-G, VS</button>
+              <button type="button" class="angara-opt-btn" data-quality="D-E, VVS" data-val="486">D-E, VVS</button>
+            </div>
+          </div>
+          <!-- NATURAL ROW -->
+          <div class="angara-quality-group">
+            <span class="angara-group-label">Natural</span>
+            <div class="angara-group-options">
+              <button type="button" class="angara-opt-btn" data-quality="H, SI1" data-val="200">H, SI1</button>
+              <button type="button" class="angara-opt-btn" data-quality="G, SI2" data-val="150">G, SI2</button>
+              <button type="button" class="angara-opt-btn" data-quality="H, VS2" data-val="300">H, VS2</button>
+              <button type="button" class="angara-opt-btn" data-quality="G, VVS2" data-val="500">G, VVS2</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carat Weight Option -->
+      <div class="angara-option-block">
+        <div class="angara-option-label">Total Carat Weight: <span id="lbl-carat">1/2 ct</span></div>
+        <div class="angara-carats-group">
+          <button type="button" class="angara-carat-btn" data-carat="1/3 ct" data-val="-250">1/3</button>
+          <button type="button" class="angara-carat-btn active" data-carat="1/2 ct" data-val="0">1/2</button>
+          <button type="button" class="angara-carat-btn" data-carat="1 ct" data-val="650">1</button>
+        </div>
+      </div>
+
+      <!-- Metal Type Option -->
+      <div class="angara-option-block">
+        <div class="angara-option-label">Metal Type: <span id="lbl-metal">14K Yellow Gold</span></div>
+        <div class="angara-metals">
+          <div class="angara-metal-dot active" data-metal="14K Yellow Gold" data-val="0" title="14K Yellow Gold">
+            <span style="background-color: #f3dfa2;"></span>
+          </div>
+          <div class="angara-metal-dot" data-metal="14K White Gold" data-val="0" title="14K White Gold">
+            <span style="background-color: #e5e5e5;"></span>
+          </div>
+          <div class="angara-metal-dot" data-metal="14K Rose Gold" data-val="0" title="14K Rose Gold">
+            <span style="background-color: #ecc7b8;"></span>
+          </div>
+          <div class="angara-metal-dot" data-metal="Platinum" data-val="400" title="Platinum">
+            <span style="background-color: #d1d5db;"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upgrade Best Value Banner -->
+      <div class="angara-upgrade-banner" id="upgrade-panel">
+        <div class="angara-upgrade-header">
+          <span class="angara-upgrade-title">Upgrade Diamond Quality</span>
+          <span class="angara-upgrade-badge">Best Value</span>
+        </div>
+        <p class="angara-upgrade-text">
+          Upgrade your Lab Grown Diamond Quality to D-E, VVS to experience a higher class of fire and brilliance (+ $486).
+        </p>
+        <button type="button" class="angara-upgrade-btn" id="btn-trigger-upgrade">Upgrade to D-E, VVS</button>
+      </div>
+
+      <!-- ATC and Wishlist Row -->
+      <form id="pdp-atc-form" action="/cart/add" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="id" id="pdp-variant-id" value="{{ current_variant.id }}">
+        
+        <div class="angara-buy-row">
+          <button type="submit" class="angara-atc-btn" id="pdp-atc-btn">
+            <span id="atc-btn-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+            <span>|</span>
+            <span>ADD TO BAG</span>
+          </button>
+          
+          <button type="button" class="angara-wishlist-btn" id="pdp-wishlist-btn" title="Add to Wishlist">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+      </form>
+
+      <!-- Shipping details info -->
+      <div class="angara-shipping-info">
+        <div><i class="fa-solid fa-truck-fast"></i> Express Shipping (<strong>FREE</strong>)</div>
+        <div style="color: #666; margin-left: 20px;">Order within <strong>14h : 55m : 42s</strong> to get it by <strong>Jul 08 - Jul 09</strong></div>
+      </div>
+
+      <!-- Support Links -->
+      <div class="angara-support-links">
+        <a href="#" class="angara-support-link"><i class="fa-solid fa-envelope"></i> Drop a Hint</a>
+        <a href="#" class="angara-support-link"><i class="fa-solid fa-paper-plane"></i> Email Us</a>
+        <a href="tel:+1-844-527-4367" class="angara-support-link"><i class="fa-solid fa-phone"></i> +1-844-527-4367</a>
+      </div>
+
+      <!-- Accordions -->
+      <div class="angara-accordions">
+        <details class="angara-accordion">
+          <summary class="angara-accordion-summary">Details <span><i class="fa-solid fa-chevron-down"></i></span></summary>
+          <div class="angara-accordion-body">
+            {{ product.description | default: 'Crafted with premium materials and ethically sourced stones.' }}
+          </div>
+        </details>
+        <details class="angara-accordion">
+          <summary class="angara-accordion-summary">Delivery & Returns <span><i class="fa-solid fa-chevron-down"></i></span></summary>
+          <div class="angara-accordion-body">
+            Enjoy free insured express delivery and 30-day returns. Gift packaging included.
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- RELATED PRODUCTS -->
+<section class="pdp-related full-width" style="max-width: 1200px; margin: 60px auto 20px auto; padding: 0 20px;">
+  <h3 class="pdp-related-title" style="font-family: 'Cinzel', serif; font-size: 20px; letter-spacing: 2px; text-align: center; margin-bottom: 30px;">YOU MAY ALSO LIKE</h3>
+  <div class="collection-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+    {% assign shown = 0 %}
+    {% for related_product in collections.all.products %}
+      {% if shown < 4 and related_product.handle != product.handle %}
+        <a href="{{ related_product.url }}" class="grid-item" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
+          <div class="image-wrapper" style="position: relative; aspect-ratio: 1/1; background-color: #faf9f8; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #f3f3f3;">
+            <img src="{{ related_product.featured_image | img_url: '600x' }}" alt="{{ related_product.title | escape }}" style="max-width: 90%; max-height: 90%; object-fit: contain;">
+          </div>
+          <div class="item-info" style="padding: 12px 0; text-align: center;">
+            <span style="font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 1px; display: block; margin-bottom: 5px;">{{ related_product.vendor }}</span>
+            <span style="font-size: 12px; font-weight: 500; display: block; height: 36px; overflow: hidden; line-height: 1.5; color: #111;">{{ related_product.title }}</span>
+            <div style="font-size: 13px; font-weight: 600; margin-top: 5px; color: #000;">
+              {{ related_product.price | money_without_trailing_zeros }}
+            </div>
+          </div>
+        </a>
+        {% assign shown = shown | plus: 1 %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    /* --- 1. Gallery switching --- */
+    var thumbs = document.querySelectorAll('.angara-thumb');
+    var mainImg = document.getElementById('angara-main-img');
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        thumbs.forEach(function(t) { t.classList.remove('active'); });
+        this.classList.add('active');
+        if (mainImg) {
+          mainImg.src = this.dataset.src;
+        }
+      });
+    });
+
+    /* --- 2. Dynamic Price calculation based on options --- */
+    var basePriceCents = {{ current_variant.price }};
+    var basePrice = basePriceCents / 100;
+    
+    var valQuality = 0;
+    var valCarat = 0;
+    var valMetal = 0;
+
+    var priceEl = document.getElementById('visible-price');
+    var comparePriceEl = document.getElementById('compare-price');
+    var atcPriceEl = document.getElementById('atc-btn-price');
+    var financingPriceEl = document.getElementById('financing-price');
+
+    function updatePrice() {
+      var total = basePrice + valQuality + valCarat + valMetal;
+      var formatted = '$' + Math.round(total).toLocaleString('en-US');
+      var formattedCompare = '$' + Math.round(total * 1.1).toLocaleString('en-US');
+      var financingVal = '$' + (total / 12).toFixed(2) + '/month';
+
+      if(priceEl) priceEl.textContent = formatted;
+      if(comparePriceEl) comparePriceEl.textContent = formattedCompare;
+      if(atcPriceEl) atcPriceEl.textContent = formatted;
+      if(financingPriceEl) financingPriceEl.textContent = financingVal;
+    }
+
+    // Quality buttons
+    var qualityBtns = document.querySelectorAll('.angara-opt-btn');
+    var lblQuality = document.getElementById('lbl-quality');
+    qualityBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        qualityBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        valQuality = parseFloat(this.dataset.val);
+        if(lblQuality) lblQuality.textContent = this.dataset.quality;
+        
+        // Hide upgrade panel if already F-G, VS or D-E, VVS
+        var upgradePanel = document.getElementById('upgrade-panel');
+        if(upgradePanel) {
+          if (this.dataset.quality === 'D-E, VVS') {
+            upgradePanel.style.display = 'none';
+          } else {
+            upgradePanel.style.display = 'flex';
+          }
+        }
+        updatePrice();
+      });
+    });
+
+    // Carat buttons
+    var caratBtns = document.querySelectorAll('.angara-carat-btn');
+    var lblCarat = document.getElementById('lbl-carat');
+    caratBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        caratBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        valCarat = parseFloat(this.dataset.val);
+        if(lblCarat) lblCarat.textContent = this.dataset.carat;
+        updatePrice();
+      });
+    });
+
+    // Metal dots
+    var metalDots = document.querySelectorAll('.angara-metal-dot');
+    var lblMetal = document.getElementById('lbl-metal');
+    metalDots.forEach(function(dot) {
+      dot.addEventListener('click', function() {
+        metalDots.forEach(function(d) { d.classList.remove('active'); });
+        this.classList.add('active');
+        valMetal = parseFloat(this.dataset.val);
+        if(lblMetal) lblMetal.textContent = this.dataset.metal;
+        updatePrice();
+      });
+    });
+
+    // Trigger upgrade banner
+    var triggerUpgrade = document.getElementById('btn-trigger-upgrade');
+    if(triggerUpgrade) {
+      triggerUpgrade.addEventListener('click', function() {
+        var upgradeBtn = document.querySelector('.angara-opt-btn[data-quality="D-E, VVS"]');
+        if(upgradeBtn) {
+          upgradeBtn.click();
+        }
+      });
+    }
+
+    /* --- 3. Wishlist toggle --- */
+    var wishlistBtn = document.getElementById('pdp-wishlist-btn');
+    if(wishlistBtn) {
+      wishlistBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        var icon = this.querySelector('i');
+        if(this.classList.contains('active')) {
+          icon.className = 'fa-solid fa-heart';
+          icon.style.color = '#cc0000';
+        } else {
+          icon.className = 'fa-regular fa-heart';
+          icon.style.color = '';
+        }
+      });
+    }
+
+    /* --- 4. AJAX add to cart --- */
+    var form = document.getElementById('pdp-atc-form');
+    var atcBtn = document.getElementById('pdp-atc-btn');
+    var variantInput = document.getElementById('pdp-variant-id');
+
+    if (form && atcBtn) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var id = variantInput ? variantInput.value : '';
+        if (!id) return;
+
+        var origContent = atcBtn.innerHTML;
+        atcBtn.innerHTML = '<span>ADDING...</span>';
+        atcBtn.disabled = true;
+
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: parseInt(id), quantity: 1 }),
+        })
+        .then(function(r) { return r.json(); })
+        .then(function() { return fetch('/cart.js'); })
+        .then(function(r) { return r.json(); })
+        .then(function(cart) {
+          if (typeof globalUpdateCartBadge === 'function') globalUpdateCartBadge(cart.item_count);
+          if (typeof cartRenderItems === 'function') cartRenderItems(cart);
+          if (typeof globalOpenCart === 'function') globalOpenCart();
+          atcBtn.innerHTML = '<span>ADDED ✓</span>';
+          setTimeout(function() {
+            atcBtn.innerHTML = origContent;
+            atcBtn.disabled = false;
+          }, 2000);
+        })
+        .catch(function(err) {
+          console.error('ATC error', err);
+          atcBtn.innerHTML = origContent;
+          atcBtn.disabled = false;
+        });
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Product",
+  "settings": [],
+  "presets": [{ "name": "Main Product" }]
+}
+{% endschema %}

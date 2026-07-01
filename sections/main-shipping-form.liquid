@@ -1,0 +1,117 @@
+<div class="policy-page full-width">
+  <div class="policy-page-inner">
+    <h1 class="policy-page-title">{{ page.title }}</h1>
+    <div class="policy-page-content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% else %}
+        <p>We strive to dispatch your order promptly, subject to product availability and credit verification. Please note that delivery estimates are approximate and may occasionally extend, particularly during peak holiday seasons.</p>
+
+        <table class="shipping-table">
+          <thead>
+            <tr>
+              <th>Location</th>
+              <th>Order Value</th>
+              <th>Shipping Fee</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Australia</td>
+              <td>Over AUD$150</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>Australia</td>
+              <td>Under AUD$150</td>
+              <td>AUD$18.95</td>
+            </tr>
+            <tr>
+              <td>New Zealand</td>
+              <td>Over AUD$250</td>
+              <td>Free</td>
+            </tr>
+            <tr>
+              <td>New Zealand</td>
+              <td>Under AUD$250</td>
+              <td>AUD$25.00</td>
+            </tr>
+            <tr>
+              <td>Other Countries</td>
+              <td>Any</td>
+              <td>Varies by Country</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>Order Processing Time</h2>
+        <ul>
+          <li><strong>Standard:</strong> Processed within 3-5 business days.</li>
+          <li><strong>Express:</strong> Processed within 1-3 business days.</li>
+        </ul>
+        <p><em>Note: Business days exclude Weekends and Australian public holidays.</em></p>
+
+        <h2>Partial Shipping</h2>
+        <p>If your order contains a combination of items available for immediate shipment and pre-order items, we will dispatch the entire order once all items are in stock. Should you wish to receive the in-stock items separately, we recommend placing separate orders.</p>
+
+        <h2>TRACKING</h2>
+        <p>You should have received an email confirming your order when you completed the checkout process. Please check your junk/spam folder if you cannot find it. If you haven't received the order confirmation email, please contact <a href="mailto:houseofbrandssupport@gmail.com">houseofbrandssupport@gmail.com</a>. Once the order has been dispatched, you will receive a shipping confirmation email containing your Tracking ID. Enter the ID on courier website to stay informed about all movements of your parcels.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .policy-page { background: #fff; min-height: 60vh; }
+  .policy-page-inner { max-width: 800px; margin: 0 auto; padding: 120px 40px 80px; }
+  .policy-page-title {
+    font-family: var(--font-base); font-size: 28px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; color: #111;
+    margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #e0e0e0;
+  }
+  .policy-page-content { font-family: var(--font-base); font-size: 14px; line-height: 1.8; color: #333; }
+  .policy-page-content h2, .policy-page-content h3 { font-size: 18px; font-weight: 600; margin: 30px 0 15px; color: #111; }
+  .policy-page-content p { margin-bottom: 16px; }
+  .policy-page-content a { color: #111; text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Shipping Table */
+  .shipping-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-family: var(--font-base);
+    font-size: 14px;
+  }
+  .shipping-table th {
+    background: #111;
+    color: #fff;
+    text-align: left;
+    padding: 12px 16px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 11px;
+  }
+  .shipping-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+  }
+  .shipping-table tbody tr:hover {
+    background: #f9f9f9;
+  }
+
+  @media (max-width: 768px) {
+    .policy-page-inner { padding: 100px 20px 60px; }
+    .policy-page-title { font-size: 20px; letter-spacing: 1px; }
+    .shipping-table th, .shipping-table td { padding: 10px 12px; font-size: 13px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Shipping Form",
+  "settings": [],
+  "presets": [{ "name": "Shipping Form" }]
+}
+{% endschema %}

@@ -1,0 +1,319 @@
+{% comment %} Wishlist Page Section {% endcomment %}
+
+<style>
+  .wl-page {
+    min-height: 80vh;
+    padding: 0;
+    font-family: var(--font-base);
+    background: #fff;
+  }
+  .wl-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 40px;
+    border-bottom: 1.5px solid #111;
+    margin-top: 80px;
+  }
+  .wl-topbar h1 { font-size: 18px; font-weight: 700; color: #111; margin: 0; }
+  .wl-guest { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
+
+  /* Empty state */
+  .wl-empty { text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto; }
+  .wl-empty h2 { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 20px; letter-spacing: 0.3px; }
+  .wl-empty p { font-size: 14px; color: #666; max-width: 500px; margin: 0 auto 36px; line-height: 1.8; font-style: italic; }
+  .wl-continue-btn {
+    display: inline-block; background: #2d3142; color: #fff;
+    padding: 14px 36px; font-size: 13px; font-weight: 600;
+    text-decoration: none; letter-spacing: 0.5px; transition: background 0.2s;
+  }
+  .wl-continue-btn:hover { background: #111; }
+
+  /* Lists grid */
+  .wl-lists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+    padding: 32px 40px;
+  }
+  .wl-list-card {
+    border: 1px solid #e8e8e8;
+    padding: 20px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    background: #fff;
+  }
+  .wl-list-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .wl-list-card h3 { font-size: 16px; font-weight: 700; color: #111; margin: 0 0 4px; }
+  .wl-list-card .wl-count { font-size: 12px; color: #888; margin-bottom: 16px; }
+  .wl-thumbnails { display: flex; gap: 4px; margin-bottom: 20px; min-height: 100px; }
+  .wl-thumb { width: 80px; height: 100px; background: #f4f4f4; object-fit: cover; flex-shrink: 0; }
+  .wl-view-btn {
+    display: block; text-align: center; font-size: 11px; font-weight: 700;
+    letter-spacing: 0.8px; color: #111; text-transform: uppercase;
+    padding: 10px 0; border-top: 1px solid #eee;
+  }
+
+  /* Detail view */
+  .wl-detail { display: none; }
+  .wl-detail-topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 40px; border-bottom: 1px solid #eee; background: #fafafa;
+  }
+  .wl-detail-topbar .wl-list-thumb {
+    width: 36px; height: 36px; background: #f4f4f4; object-fit: cover;
+  }
+  .wl-detail-topbar .wl-detail-name { font-size: 14px; font-weight: 700; color: #111; }
+  .wl-detail-topbar .wl-detail-sub { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+  .wl-back-btn {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    color: #111; text-transform: uppercase; cursor: pointer;
+    padding: 16px 40px 0; width: fit-content;
+  }
+  .wl-back-btn:hover { text-decoration: underline; }
+  .wl-products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px 60px 60px;
+  }
+  /* Reuse collection card classes: grid-item, image-wrapper, item-info, etc.
+     These are already defined in main-collection.liquid's embedded CSS,
+     but we add minimal overrides here for wishlist context */
+  .wl-products-grid .grid-item { cursor: default; }
+  .wl-remove-btn {
+    position: absolute; top: 8px; right: 8px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: rgba(255,255,255,0.92);
+    border: none; cursor: pointer; font-size: 16px; color: #444;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15); z-index: 10; line-height: 1;
+  }
+  .wl-remove-btn:hover { background: #111; color: #fff; }
+  .wl-atc-btn {
+    width: 100%; background: #111; color: #fff;
+    border: none; padding: 11px; font-size: 11px;
+    font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    cursor: pointer; font-family: var(--font-base);
+    transition: background 0.2s; margin-top: 8px;
+  }
+  .wl-atc-btn:hover { background: #333; }
+
+  @media (max-width: 768px) {
+    .wl-topbar { padding: 16px 16px; margin-top: 70px; }
+    .wl-lists-grid { grid-template-columns: 1fr 1fr; padding: 20px 16px; gap: 12px; }
+    .wl-products-grid { grid-template-columns: 1fr 1fr; padding: 16px 16px 40px; gap: 10px; }
+    .wl-detail-topbar, .wl-back-btn { padding-left: 16px; padding-right: 16px; }
+  }
+</style>
+
+<div class="wl-page" id="wishlistPage">
+  <!-- Top bar -->
+  <div class="wl-topbar">
+    <h1>My Wishlist</h1>
+    <div class="wl-guest">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span id="wlGuestLabel">Guest Shopper</span>
+    </div>
+  </div>
+
+  <!-- Lists view -->
+  <div id="wlListsView">
+    <!-- Will be rendered by JS -->
+  </div>
+
+  <!-- Detail view -->
+  <div class="wl-detail" id="wlDetailView">
+    <div class="wl-detail-topbar">
+      <div style="font-size:10px;color:#888;text-transform:uppercase;letter-spacing:0.5px;margin-right:8px;">List</div>
+      <div id="wlDetailThumb" style="width:36px;height:36px;background:#f4f4f4;object-fit:cover;"></div>
+      <div>
+        <div class="wl-detail-name" id="wlDetailName"></div>
+      </div>
+    </div>
+
+    <div class="wl-back-btn" id="wlBackBtn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      BACK
+    </div>
+
+    <div class="wl-products-grid" id="wlDetailProducts"></div>
+  </div>
+</div>
+
+<script>
+// Wait for WishlistEngine to be available (loaded from wishlist.js via theme.liquid)
+function waitForWishlistEngine(cb, attempts) {
+  attempts = attempts || 0;
+  if (typeof WishlistEngine !== 'undefined') {
+    cb();
+  } else if (attempts < 30) {
+    setTimeout(function() { waitForWishlistEngine(cb, attempts + 1); }, 100);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  waitForWishlistEngine(initWishlistPage);
+});
+
+function initWishlistPage() {
+  function formatMoney(cents) {
+    return 'A$' + Math.round(cents / 100).toLocaleString('en-AU');
+  }
+
+  function renderListsView() {
+    const lists = WishlistEngine.getAll();
+    const container = document.getElementById('wlListsView');
+
+    if (lists.length === 0) {
+      container.innerHTML = `
+        <div class="wl-empty">
+          <h2>Love It? Add To My Wishlist</h2>
+          <p>My Wishlist allows you to keep track of all of your favorites and shopping activity whether you're on your computer, phone, or tablet. You won't have to waste time searching all over again for that item you loved on your phone the other day - it's all here in one place!</p>
+          <a href="/collections/all" class="wl-continue-btn">Continue shopping</a>
+        </div>`;
+      return;
+    }
+
+    container.innerHTML = `<div class="wl-lists-grid">` +
+      lists.map(list => `
+        <div class="wl-list-card" data-listid="${list.id}">
+          <h3>${list.name}</h3>
+          <div class="wl-count">${list.products.length} product${list.products.length !== 1 ? 's' : ''}</div>
+          <div class="wl-thumbnails">
+            ${list.products.slice(0, 3).map(p => `<img class="wl-thumb" src="${p.image}" alt="${p.title}" />`).join('')}
+            ${list.products.length === 0 ? '<div style="width:80px;height:100px;background:#f4f4f4;"></div>' : ''}
+          </div>
+          <div class="wl-view-btn">VIEW LIST</div>
+        </div>
+      `).join('') +
+    `</div>`;
+
+    container.querySelectorAll('.wl-list-card').forEach(card => {
+      card.addEventListener('click', function() {
+        openDetailView(this.dataset.listid);
+      });
+    });
+  }
+
+  function openDetailView(listId) {
+    const lists = WishlistEngine.getAll();
+    const list = lists.find(l => l.id === listId);
+    if (!list) return;
+
+    document.getElementById('wlListsView').style.display = 'none';
+    const detailView = document.getElementById('wlDetailView');
+    detailView.style.display = 'block';
+    document.getElementById('wlDetailName').textContent = list.name + ' (' + list.products.length + ')';
+
+    // Thumb
+    const thumbEl = document.getElementById('wlDetailThumb');
+    if (list.products[0]) {
+      thumbEl.innerHTML = `<img src="${list.products[0].image}" style="width:36px;height:36px;object-fit:cover;" />`;
+    }
+
+    renderDetailProducts(list);
+  }
+
+  function renderDetailProducts(list) {
+    const grid = document.getElementById('wlDetailProducts');
+    if (list.products.length === 0) {
+      grid.innerHTML = '<div style="font-size:13px;color:#888;padding:20px 0;grid-column:1/-1;">This list is empty.</div>';
+      return;
+    }
+    grid.innerHTML = list.products.map(p => `
+      <div class="grid-item" style="text-decoration:none;display:flex;flex-direction:column;position:relative;border-radius:4px;box-shadow:0 1px 6px rgba(0,0,0,0.08);overflow:hidden;background:#fff;">
+        <div class="image-wrapper" style="position:relative;overflow:hidden;aspect-ratio:3/4;background:transparent;display:block;">
+          <a href="${p.url}">
+            <img src="${p.image}" alt="${p.title}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.background='#f4f4f4'" />
+          </a>
+          <button class="wl-remove-btn" data-listid="${list.id}" data-productid="${p.id}" title="Remove">×</button>
+        </div>
+        <div class="item-info" style="display:flex;flex-direction:column;gap:3px;background:#fff;padding:10px;">
+          <div class="item-vendor">${p.vendor || ''}</div>
+          <div class="item-title">
+            <a href="${p.url}" style="text-decoration:none;color:inherit;">${p.title}</a>
+          </div>
+          <div class="item-price">
+            <span class="price-regular">${formatMoney(p.price)}</span>
+          </div>
+          <button class="wl-atc-btn" data-variantid="${p.variantId || ''}" data-productid="${p.id}">ADD TO CART</button>
+        </div>
+      </div>
+    `).join('');
+
+    // Remove button
+    grid.querySelectorAll('.wl-remove-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        WishlistEngine.removeProduct(this.dataset.listid, parseInt(this.dataset.productid));
+        const lists = WishlistEngine.getAll();
+        const updatedList = lists.find(l => l.id === this.dataset.listid);
+        if (updatedList) renderDetailProducts(updatedList);
+        document.getElementById('wlDetailName').textContent = updatedList.name + ' (' + updatedList.products.length + ')';
+      });
+    });
+
+    // Add to cart button
+    grid.querySelectorAll('.wl-atc-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const variantId = this.dataset.variantid;
+        if (!variantId) {
+          // No variant stored — redirect to product
+          return;
+        }
+        const origText = this.textContent;
+        this.textContent = '...';
+        fetch('/cart/add.js', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({id: parseInt(variantId), quantity: 1})
+        })
+        .then(r => r.json())
+        .then(() => fetch('/cart.js'))
+        .then(r => r.json())
+        .then(cart => {
+          if (typeof cartRenderItems === 'function') cartRenderItems(cart);
+          const badge = document.querySelector('.cart-badge');
+          const cartBtn = document.getElementById('cartBtn');
+          if (cart.item_count > 0) {
+            if (badge) badge.textContent = cart.item_count;
+            else if (cartBtn) {
+              const b = document.createElement('span');
+              b.className = 'cart-badge';
+              b.textContent = cart.item_count;
+              cartBtn.appendChild(b);
+            }
+          }
+          this.textContent = 'ADDED ✓';
+          setTimeout(() => this.textContent = origText, 2000);
+        })
+        .catch(() => { this.textContent = origText; });
+      });
+    });
+  }
+
+  // Back button
+  document.getElementById('wlBackBtn').addEventListener('click', function() {
+    document.getElementById('wlDetailView').style.display = 'none';
+    document.getElementById('wlListsView').style.display = 'block';
+    renderListsView();
+  });
+
+  // Init
+  renderListsView();
+
+  // If customer logged in
+  {% if customer %}
+  document.getElementById('wlGuestLabel').textContent = '{{ customer.first_name }} {{ customer.last_name }}';
+  {% endif %}
+}
+</script>
+
+{% schema %}
+{
+  "name": "Wishlist Page",
+  "settings": []
+}
+{% endschema %}

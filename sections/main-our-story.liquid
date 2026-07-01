@@ -1,0 +1,201 @@
+<div class="story-page full-width">
+  <!-- Hero Section -->
+  <div class="story-hero">
+    <div class="story-hero-inner">
+      <h1 class="story-hero-title">Our Story</h1>
+      <div class="story-hero-line"></div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="story-content">
+    <section class="story-section">
+      <div class="story-section-inner">
+        <div class="story-section-body">
+          <p>House Of Brands is a carefully curated platform designed to connect authentic Vietnamese brands with the Australian market. While Vietnam's fashion scene is bursting with fresh creativity and innovation, much of it still remains hidden from the world. House Of Brands exists to change that.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="story-section-inner">
+        <div class="story-section-body">
+          <p>We bring together a collection of distinctive Vietnamese brands under one roof — preserving each brand's unique identity while introducing them to Australia in their most authentic form. Every piece tells its own story, offering you different ways to express your personal style.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="story-section">
+      <div class="story-section-inner">
+        <div class="story-section-body">
+          <p>More than just a retailer, House Of Brands is a movement. We believe local creativity shouldn't be limited by borders. It deserves to be seen, celebrated, and given the space to grow on the global stage — starting right here in Australia.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<style>
+  /* ═══ HERO ═══ */
+  .story-page { background: #fff; }
+
+  .story-hero {
+    padding: 140px 40px 80px;
+    text-align: center;
+    background: #fafafa;
+  }
+  .story-hero-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .story-hero-label {
+    display: inline-block;
+    font-family: var(--font-base);
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #999;
+    margin-bottom: 20px;
+  }
+  .story-hero-title {
+    font-family: var(--font-base);
+    font-size: 48px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 30px;
+    line-height: 1.2;
+  }
+  .story-hero-line {
+    width: 60px;
+    height: 1px;
+    background: #111;
+    margin: 0 auto;
+  }
+
+  /* ═══ SECTIONS ═══ */
+  .story-content {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .story-section {
+    padding: 70px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .story-section:last-of-type {
+    border-bottom: none;
+  }
+
+  .story-section-inner {
+    position: relative;
+  }
+
+  .story-section-number {
+    display: block;
+    font-family: var(--font-base);
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: #ccc;
+    margin-bottom: 16px;
+  }
+
+  .story-section-title {
+    font-family: var(--font-base);
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0 0 8px;
+  }
+
+  .story-section-subtitle {
+    font-family: var(--font-base);
+    font-size: 14px;
+    font-style: italic;
+    color: #888;
+    letter-spacing: 1px;
+    margin: 0 0 30px;
+  }
+
+  .story-section-body {
+    font-family: var(--font-base);
+    font-size: 15px;
+    line-height: 1.9;
+    color: #444;
+  }
+  .story-section-body p {
+    margin-bottom: 20px;
+  }
+  .story-section-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ═══ CLOSING ═══ */
+  .story-closing {
+    padding: 80px 0 100px;
+    text-align: center;
+  }
+  .story-closing-inner {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .story-closing-line {
+    width: 40px;
+    height: 1px;
+    background: #111;
+    margin: 0 auto 30px;
+  }
+  .story-closing-tagline {
+    font-family: var(--font-base);
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #111;
+    margin: 0;
+  }
+
+  /* ═══ MOBILE ═══ */
+  @media (max-width: 768px) {
+    .story-hero {
+      padding: 110px 20px 60px;
+    }
+    .story-hero-title {
+      font-size: 32px;
+      letter-spacing: 4px;
+    }
+    .story-content {
+      padding: 0 20px;
+    }
+    .story-section {
+      padding: 50px 0;
+    }
+    .story-section-title {
+      font-size: 20px;
+      letter-spacing: 2px;
+    }
+    .story-section-body {
+      font-size: 14px;
+      line-height: 1.8;
+    }
+    .story-closing {
+      padding: 60px 0 80px;
+    }
+    .story-closing-tagline {
+      font-size: 16px;
+      letter-spacing: 3px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Our Story",
+  "settings": [],
+  "presets": [{ "name": "Our Story" }]
+}
+{% endschema %}

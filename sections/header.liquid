@@ -1,0 +1,633 @@
+<style>
+  /* Announcement Bar */
+  .announcement-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding: 8px 0;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    z-index: 101;
+    overflow: hidden;
+  }
+  .announcement-items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 100%;
+  }
+  .announcement-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-base);
+    text-transform: uppercase;
+  }
+  .announcement-item i {
+    color: #c5a880;
+    font-size: 12px;
+  }
+  @media (max-width: 991px) {
+    .announcement-items {
+      gap: 20px;
+      overflow-x: auto;
+      justify-content: flex-start;
+      padding: 0 15px;
+      scrollbar-width: none; /* Firefox */
+    }
+    .announcement-items::-webkit-scrollbar {
+      display: none; /* Chrome/Safari */
+    }
+    .announcement-item {
+      flex-shrink: 0;
+    }
+  }
+
+  /* Header Container */
+  .header {
+    position: fixed;
+    top: 31px; /* announcement bar height is ~31px */
+    left: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    padding: 15px 40px;
+    background: rgba(0, 0, 0, 0.75); /* Dark transparent background like Arlena */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease, padding 0.3s ease;
+  }
+  .header.is-scrolled {
+    background: rgba(0, 0, 0, 0.9);
+    padding: 10px 40px;
+  }
+  .header__left-nav,
+  .header__right-nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+  .header__left-nav {
+    justify-content: flex-start;
+  }
+  .header__right-nav {
+    justify-content: flex-end;
+  }
+  .header__logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .header__logo-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+  }
+  .header__logo-text {
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: #fff;
+    line-height: 1.1;
+  }
+  .header__logo-subtext {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #c5a880;
+    margin-top: 3px;
+    text-transform: uppercase;
+  }
+  .header__logo-img {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+  }
+
+  /* Nav Links styling */
+  .header-nav-link {
+    font-family: var(--font-base);
+    font-size: 11px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    position: relative;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+  }
+  .header-nav-link:hover,
+  .header-nav-link.active-link {
+    color: #c5a880;
+  }
+  .header-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background-color: #c5a880;
+    transition: width 0.3s ease;
+  }
+  .header-nav-link:hover::after {
+    width: 100%;
+  }
+
+  /* Header Icons */
+  .header-icon-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    transition: color 0.3s ease;
+  }
+  .header-icon-btn:hover {
+    color: #c5a880;
+  }
+  .header-icon-svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+  }
+
+  /* Mobile menu styles */
+  .mobile-header-bar {
+    display: none;
+    width: 100%;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.9);
+    position: fixed;
+    top: 31px;
+    left: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  @media (max-width: 991px) {
+    .header {
+      display: none;
+    }
+    .mobile-header-bar {
+      display: grid;
+    }
+  }
+</style>
+
+<!-- Announcement Bar -->
+<div class="announcement-bar">
+  <div class="announcement-items">
+    <div class="announcement-item">
+      <i class="fa-solid fa-award"></i>
+      <span>AUSTRALIAN MADE</span>
+    </div>
+    <div class="announcement-item">
+      <i class="fa-solid fa-ribbon"></i>
+      <span>20+ YEARS EXPERIENCE</span>
+    </div>
+    <div class="announcement-item">
+      <i class="fa-solid fa-ring"></i>
+      <span>MADE TO ORDER</span>
+    </div>
+    <div class="announcement-item">
+      <i class="fa-solid fa-truck"></i>
+      <span>FREE SHIPPING AUSTRALIA WIDE</span>
+    </div>
+  </div>
+</div>
+
+<!-- Desktop Header -->
+<header class="header">
+  <!-- Left Nav: Search Icon & Left Links -->
+  <div class="header__left-nav">
+    <a href="#" id="searchBtn" class="header-icon-btn" title="Search">
+      <svg class="header-icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a href="/collections/engagement-rings" class="header-nav-link">Engagement Rings</a>
+    <a href="/collections/wedding-bands" class="header-nav-link">Wedding Bands</a>
+    <a href="/collections/earrings" class="header-nav-link">Earrings</a>
+  </div>
+
+  <!-- Center Logo -->
+  <div class="header__logo-container">
+    <a href="/" class="header__logo-link">
+      <span class="header__logo-text">ARLENA</span>
+      <span class="header__logo-subtext">MADE FOR MOMENTS</span>
+    </a>
+  </div>
+
+  <!-- Right Nav: Right Links & Icons -->
+  <div class="header__right-nav">
+    <a href="/collections/pendants" class="header-nav-link">Pendants</a>
+    <a href="/collections/gifts" class="header-nav-link">Gifts</a>
+    <a href="/pages/our-story" class="header-nav-link">Our Story</a>
+    
+    <a href="/account" class="header-icon-btn" title="Account">
+      <svg class="header-icon-svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+    </a>
+    <a href="#" id="cartBtn" class="header-icon-btn" title="Cart" style="position: relative;">
+      <svg class="header-icon-svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 7V5a4 4 0 0 1 8 0v2"></path>
+        <path d="M5 7h14l1.5 13.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5L5 7z"></path>
+      </svg>
+      {% if cart.item_count > 0 %}
+        <span class="cart-badge">{{ cart.item_count }}</span>
+      {% endif %}
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Header Bar -->
+<div class="mobile-header-bar">
+  <button class="mobile-menu-btn header-icon-btn" id="customMobileMenuBtn">
+    <svg class="hamburger-icon header-icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    <svg class="close-icon header-icon-svg" viewBox="0 0 24 24" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  
+  <div class="header__logo-container" style="margin: 0 auto;">
+    <a href="/" class="header__logo-link">
+      <span class="header__logo-text" style="font-size: 20px; letter-spacing: 2px;">ARLENA</span>
+      <span class="header__logo-subtext" style="font-size: 7px; letter-spacing: 1px;">MADE FOR MOMENTS</span>
+    </a>
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <a href="#" id="searchBtnMobile" class="header-icon-btn" onclick="document.getElementById('searchBtn').click(); return false;">
+      <svg class="header-icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+    </a>
+    <a href="#" id="cartBtnMobile" class="header-icon-btn" style="position: relative;" onclick="document.getElementById('cartBtn').click(); return false;">
+      <svg class="header-icon-svg" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 7V5a4 4 0 0 1 8 0v2"></path>
+        <path d="M5 7h14l1.5 13.5a1.5 1.5 0 0 1-1.5 1.5H5a1.5 1.5 0 0 1-1.5-1.5L5 7z"></path>
+      </svg>
+      {% if cart.item_count > 0 %}
+        <span class="cart-badge">{{ cart.item_count }}</span>
+      {% endif %}
+    </a>
+  </div>
+</div>
+
+<!-- MOBILE MENU OVERLAY -->
+<div
+  class="mobile-menu-overlay"
+  id="mobileMenu"
+  style="padding: 0; overflow-y: auto; top: 31px; height: calc(100vh - 31px); width: 85vw; max-width: 400px; box-shadow: 5px 0 15px rgba(0,0,0,0.2); background-color: #111; color: #fff;"
+>
+  <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <span style="font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 2px; color: #fff;">ARLENA</span>
+    <span id="closeMobileMenu" style="cursor: pointer; font-size: 11px; letter-spacing: 1px; color: #c5a880;">X CLOSE</span>
+  </div>
+  <ul style="list-style: none; padding: 20px; margin: 0; display: flex; flex-direction: column; gap: 20px;">
+    <li>
+      <a href="/collections/engagement-rings" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Engagement Rings</a>
+    </li>
+    <li>
+      <a href="/collections/wedding-bands" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Wedding Bands</a>
+    </li>
+    <li>
+      <a href="/collections/earrings" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Earrings</a>
+    </li>
+    <li>
+      <a href="/collections/pendants" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Pendants</a>
+    </li>
+    <li>
+      <a href="/collections/gifts" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Gifts</a>
+    </li>
+    <li>
+      <a href="/pages/our-story" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #fff; text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05);">Our Story</a>
+    </li>
+    <li>
+      <a href="/account" class="mob-link" style="display: block; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; color: #c5a880; text-decoration: none; padding: 10px 0;">My Account</a>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .mob-link {
+    transition: color 0.3s ease;
+  }
+  .mob-link:hover {
+    color: #c5a880 !important;
+  }
+</style>
+
+<!-- CART OVERLAY -->
+<div class="cart-overlay" id="cartOverlay">
+  <!-- Header -->
+  <div
+    class="cart-header"
+    style="display: flex; justify-content: space-between; padding: 20px; border-bottom: 1px solid #000; font-size: 11px; text-transform: uppercase; font-weight: bold;"
+  >
+    <span style="letter-spacing: 1px;"
+      >BAG
+      <span class="cart-header-count" style="margin-left: 15px;">{{ cart.item_count | pad_left: 2, '0' }}</span></span
+    >
+    <span id="closeCart" style="color: #000; cursor: pointer; letter-spacing: 0.5px;">X CLOSE</span>
+  </div>
+
+  <div class="cart-body" style="display: flex; flex-direction: column; height: calc(100vh - 55px);">
+    <!-- Product List -->
+    <div class="cart-items" style="flex: 1; overflow-y: auto; width: 100%;">
+      {% for item in cart.items %}
+        <div
+          class="cart-item"
+          style="display: flex; flex-direction: column; width: 100%; font-size: 11px; text-transform: uppercase; border-bottom: 1px solid #000;"
+        >
+          <div style="display: flex; justify-content: space-between; padding: 10px;">
+            <a href="{{ item.url }}" style="color: #000; text-decoration: none; font-weight: 600;">
+              {{- item.product.title -}}
+            </a>
+            <span style="color: #000;">{{ item.final_line_price | money_without_trailing_zeros }}</span>
+          </div>
+          <div style="display: flex; gap: 15px;">
+            <div style="width: 120px; height: 160px; flex-shrink: 0; background: #f4f4f4; display: flex; align-items: center; justify-content: center;">
+              {% if item.image %}
+                <img src="{{ item.image | img_url: '400x' }}" style="width: 100%; height: 100%; object-fit: cover;">
+              {% else %}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            <div style="flex: 1; display: flex; flex-direction: column; padding: 8px 0;">
+              {% unless item.product.has_only_default_variant %}
+                {% for option in item.options_with_values %}
+                  <div style="margin-bottom: 6px; color: #555;">
+                    {{ option.name | upcase }}: {{ option.value | upcase }}
+                  </div>
+                {% endfor %}
+              {% endunless %}
+
+              <div style="display: flex; align-items: center; margin-top: auto; border: 1px solid #e0e0e0; width: fit-content;">
+                <button
+                  onclick="cartChangeQty({{ forloop.index }}, {{ item.quantity | minus: 1 }})"
+                  style="width: 32px; height: 32px; cursor: pointer; border: none; background: none; font-size: 16px; color: #000;"
+                >
+                  –
+                </button>
+                <span style="width: 36px; text-align: center; font-size: 13px;">{{ item.quantity }}</span>
+                <button
+                  onclick="cartChangeQty({{ forloop.index }}, {{ item.quantity | plus: 1 }})"
+                  style="width: 32px; height: 32px; cursor: pointer; border: none; background: none; font-size: 16px; color: #000;"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; justify-content: flex-end; padding: 8px 10px;">
+            <button
+              onclick="cartChangeQty({{ forloop.index }}, 0)"
+              style="background: none; border: none; cursor: pointer; font-size: 11px; color: #000; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: underline;"
+            >
+              REMOVE
+            </button>
+          </div>
+        </div>
+      {% else %}
+        <div style="font-size: 11px; border-bottom: 1px solid #000; padding: 15px 20px; text-transform: uppercase;">
+          YOUR SHOPPING BAG IS EMPTY
+        </div>
+        {% unless customer %}
+          <div style="padding: 15px 20px; font-size: 11px;">
+            <p style="margin-bottom: 5px;">Missing items in your cart?</p>
+            <p style="margin-bottom: 20px;">Sign in to see items you added before.</p>
+            <div style="display: flex; gap: 60px;">
+              <a href="/account/login" style="color: #000; text-decoration: underline; text-transform: uppercase;"
+                >SIGN IN</a
+              >
+              <a href="/account/register" style="color: #000; text-decoration: underline; text-transform: uppercase;"
+                >REGISTER</a
+              >
+            </div>
+          </div>
+        {% endunless %}
+      {% endfor %}
+    </div>
+
+    <!-- Checkout Footer -->
+    <div class="cart-footer" style="font-size: 11px;">
+      <div style="padding: 15px 20px; border-bottom: 1px solid #000; border-top: 1px solid #000;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-weight: bold;">
+          <span style="text-transform: uppercase;">SHIPPING</span>
+          <span>FREE</span>
+        </div>
+        <div style="color: #666; text-transform: none; line-height: 1.4;">
+          Australia Post Standard Estimated delivery within 2-4 business days
+        </div>
+      </div>
+
+      <div style="padding: 15px 20px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px; text-transform: uppercase; font-weight: bold;">
+          <span>TOTAL</span>
+          <span class="cart-total-price">{{ cart.total_price | money_without_trailing_zeros }}</span>
+        </div>
+        <div style="color: #666; text-transform: none; margin-bottom: 20px; line-height: 1.4;">
+          Incl. VAT and import duties.
+        </div>
+
+        <!-- Checkout button: show by default if cart has items -->
+        <a
+          id="cart-checkout-btn"
+          href="/checkout"
+          style="{% if cart.item_count == 0 %}display: none;{% else %}display: block;{% endif %} width: 100%; background: #000; color: #fff; padding: 16px; font-weight: bold; font-size: 11px; letter-spacing: 0.5px; cursor: pointer; text-transform: uppercase; text-align: center; text-decoration: none; box-sizing: border-box;"
+          >CHECKOUT</a
+        >
+
+        <!-- Payment Icons -->
+        <div style="margin-top: 20px; padding: 0;">
+          <div style="font-weight: bold; text-transform: uppercase; margin-bottom: 10px;">PAYMENT</div>
+          <div style="display: flex; justify-content: flex-start; gap: 8px; align-items: center;">
+            <span class="payment-badge payment-badge--dark" style="width:50px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid #222;border-radius:4px;overflow:hidden;">
+              <img src="{{ 'Apple_Pay_logo.svg.png' | asset_url }}" alt="Apple Pay" style="max-height:18px;max-width:36px;width:auto;height:auto;object-fit:contain;">
+            </span>
+            <span style="width:50px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ccc;border-radius:4px;overflow:hidden;">
+              <img src="{{ 'Mastercard-logo.svg.png' | asset_url }}" alt="Mastercard" style="max-height:18px;max-width:36px;width:auto;height:auto;object-fit:contain;">
+            </span>
+            <span style="width:50px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ccc;border-radius:4px;overflow:hidden;">
+              <img src="{{ 'visa-logo.png' | asset_url }}" alt="Visa" style="max-height:18px;max-width:36px;width:auto;height:auto;object-fit:contain;">
+            </span>
+            <span style="width:50px;height:30px;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid #ccc;border-radius:4px;overflow:hidden;">
+              <img src="{{ 'PayPal.svg.png' | asset_url }}" alt="PayPal" style="max-height:18px;max-width:36px;width:auto;height:auto;object-fit:contain;">
+            </span>
+            <span style="display:inline-flex;align-items:center;padding:0;">
+              <img src="{{ 'Afterpay_Mint_Logo.jpg' | asset_url }}" alt="Afterpay" style="height:30px;width:auto;border-radius:4px;">
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ── CART AJAX HELPERS (global, used by all pages) ── */
+  function cartFormatMoney(cents) {
+    return 'A$' + Math.round(cents / 100).toLocaleString('en-AU');
+  }
+
+  function cartRenderItems(cart) {
+    var container = document.querySelector('.cart-items');
+    var headerCount = document.querySelector('.cart-header-count');
+    var totalEl = document.querySelector('.cart-total-price');
+    var badge = document.querySelector('.cart-badge');
+    var cartBtn = document.getElementById('cartBtn');
+
+    if (headerCount) headerCount.textContent = String(cart.item_count).padStart(2, '0');
+    if (totalEl) totalEl.textContent = cartFormatMoney(cart.total_price);
+
+    // Badge
+    if (cart.item_count > 0) {
+      if (badge) {
+        badge.textContent = cart.item_count;
+      } else if (cartBtn) {
+        var b = document.createElement('span');
+        b.className = 'cart-badge';
+        b.textContent = cart.item_count;
+        cartBtn.appendChild(b);
+      }
+    } else {
+      if (badge) badge.remove();
+    }
+
+    if (!container) return;
+    var checkoutBtn = document.getElementById('cart-checkout-btn');
+    if (cart.items.length === 0) {
+      container.innerHTML =
+        '<div style="font-size:11px;border-bottom:1px solid #000;padding:15px 20px;text-transform:uppercase;">YOUR SHOPPING BAG IS EMPTY</div>';
+      if (checkoutBtn) checkoutBtn.style.display = 'none';
+      return;
+    }
+    if (checkoutBtn) checkoutBtn.style.display = 'block';
+
+    var html = '';
+    cart.items.forEach(function (item, idx) {
+      var line = idx + 1;
+      var imgHtml = item.image
+        ? '<img src="' + item.image + '" style="width:100%;height:100%;object-fit:cover;" />'
+        : '';
+      var optHtml = '';
+      item.options_with_values.forEach(function (o) {
+        if (o.value !== 'Default Title')
+          optHtml +=
+            '<div style="margin-bottom:6px;color:#555;">' +
+            o.name.toUpperCase() +
+            ': ' +
+            o.value.toUpperCase() +
+            '</div>';
+      });
+      html +=
+        '<div class="cart-item" style="display:flex;flex-direction:column;width:100%;font-size:11px;text-transform:uppercase;border-bottom:1px solid #000;">' +
+        '<div style="display:flex;justify-content:space-between;padding:10px;">' +
+        '<a href="' +
+        item.url +
+        '" style="color:#000;text-decoration:none;font-weight:600;">' +
+        item.product_title +
+        '</a>' +
+        '<span>' +
+        cartFormatMoney(item.final_line_price) +
+        '</span></div>' +
+        '<div style="display:flex;gap:15px;">' +
+        '<div style="width:120px;height:160px;flex-shrink:0;background:#f4f4f4;display:flex;align-items:center;justify-content:center;">' +
+        imgHtml +
+        '</div>' +
+        '<div style="flex:1;display:flex;flex-direction:column;padding:8px 0;">' +
+        optHtml +
+        '<div style="display:flex;align-items:center;margin-top:auto;border:1px solid #e0e0e0;width:fit-content;">' +
+        '<button onclick="cartChangeQty(' +
+        line +
+        ',' +
+        (item.quantity - 1) +
+        ')" style="width:32px;height:32px;cursor:pointer;border:none;background:none;font-size:16px;color:#000;">–</button>' +
+        '<span style="width:36px;text-align:center;font-size:13px;">' +
+        item.quantity +
+        '</span>' +
+        '<button onclick="cartChangeQty(' +
+        line +
+        ',' +
+        (item.quantity + 1) +
+        ')" style="width:32px;height:32px;cursor:pointer;border:none;background:none;font-size:16px;color:#000;">+</button>' +
+        '</div></div></div>' +
+        '<div style="display:flex;justify-content:flex-end;padding:8px 10px;">' +
+        '<button onclick="cartChangeQty(' +
+        line +
+        ',0)" style="background:none;border:none;cursor:pointer;font-size:11px;color:#000;text-transform:uppercase;letter-spacing:0.5px;text-decoration:underline;">REMOVE</button>' +
+        '</div></div>';
+    });
+    container.innerHTML = html;
+  }
+
+  window.cartChangeQty = function (line, qty) {
+    fetch('/cart/change.js', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ line: line, quantity: qty }),
+    })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (cart) {
+        cartRenderItems(cart);
+      });
+  };
+</script>
+
+<!-- MEGA MENU OVERLAY -->
+<div class="mega-menu" id="megaMenu">
+  <div class="mega-menu__close" id="closeMegaMenu">X CLOSE</div>
+  <div id="megaMenuContent" style="display: flex; gap: 40px; padding: 20px; flex-wrap: wrap;"></div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-overlay__header">
+    <span style="font-size: 13px; letter-spacing: 0.5px;">SEARCH</span>
+    <span class="search-overlay__close" id="closeSearch">X CLOSE</span>
+  </div>
+  <form action="{{ routes.search_url }}" class="search-overlay__input-wrapper">
+    <svg
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
+      stroke="#666"
+      stroke-width="2"
+      fill="none"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+    <input type="text" name="q" placeholder="SEARCH HERE" id="searchInput" autocomplete="off" spellcheck="false">
+  </form>
+</div>
+
+</div>
+
+
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}
