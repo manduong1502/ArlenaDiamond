@@ -431,8 +431,8 @@
   }
   .moments-grid {
     display: grid;
-    grid-template-columns: 0.9fr 3.1fr; /* Text is ~22%, images ~78% */
-    gap: 40px;
+    grid-template-columns: 0.85fr 3.15fr; /* Text columns slightly narrower, image column wider */
+    gap: 30px; /* Reduced gap between text and images */
     max-width: 1200px;
     margin: 0 auto;
     align-items: center;
@@ -461,10 +461,10 @@
   .moments-images-col {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 8px; /* Reduced gap between images to make them close */
   }
   .moment-img-card {
-    aspect-ratio: 3/4; /* Vertical rectangle like Arlena Diamond mockup */
+    aspect-ratio: 1/1; /* Square 1:1 ratio */
     overflow: hidden;
     background-color: #000;
   }
