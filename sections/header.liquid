@@ -114,7 +114,6 @@
     height: 45px;
     width: auto;
     object-fit: contain;
-    filter: brightness(0) invert(1);
   }
 
   /* Nav Links styling */
@@ -232,8 +231,7 @@
   <!-- Center Logo -->
   <div class="header__logo-container">
     <a href="/" class="header__logo-link">
-      <span class="header__logo-text">ARLENA</span>
-      <span class="header__logo-subtext">MADE FOR MOMENTS</span>
+      <img src="{{ 'logo_arlena.jpg' | asset_url }}" alt="Arlena" class="header__logo-img">
     </a>
   </div>
 
@@ -267,8 +265,7 @@
   
   <div class="header__logo-container" style="margin: 0 auto;">
     <a href="/" class="header__logo-link">
-      <span class="header__logo-text" style="font-size: 20px; letter-spacing: 2px;">ARLENA</span>
-      <span class="header__logo-subtext" style="font-size: 7px; letter-spacing: 1px;">MADE FOR MOMENTS</span>
+      <img src="{{ 'logo_arlena.jpg' | asset_url }}" alt="Arlena" class="header__logo-img" style="max-height: 38px;">
     </a>
   </div>
 
@@ -295,7 +292,7 @@
   style="padding: 0; overflow-y: auto; top: 31px; height: calc(100vh - 31px); width: 85vw; max-width: 400px; box-shadow: 5px 0 15px rgba(0,0,0,0.2); background-color: #111; color: #fff;"
 >
   <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
-    <span style="font-family: 'Cinzel', serif; font-size: 16px; letter-spacing: 2px; color: #fff;">ARLENA</span>
+    <img src="{{ 'logo_arlena.jpg' | asset_url }}" alt="Arlena" style="max-height: 30px; width: auto; object-fit: contain;">
     <span id="closeMobileMenu" style="cursor: pointer; font-size: 11px; letter-spacing: 1px; color: #c5a880;">X CLOSE</span>
   </div>
   <ul style="list-style: none; padding: 20px; margin: 0; display: flex; flex-direction: column; gap: 20px;">
