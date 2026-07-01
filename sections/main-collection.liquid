@@ -299,8 +299,8 @@
     .product-image-container {
       position: relative;
       aspect-ratio: 1/1;
-      background-color: #faf9f8;
-      border: 1px solid #f3f3f3;
+      background-color: #fafaf9; /* soft luxury off-white background */
+      border: none; /* Removed borders around container to blend smoothly */
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -313,25 +313,23 @@
       position: relative;
     }
     .product-image-container img.img-primary {
-      max-width: 85%;
-      max-height: 85%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Cover edge-to-edge full width & height */
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
       transition: opacity 0.4s ease, transform 0.4s ease;
       opacity: 1;
       z-index: 1;
     }
     .product-image-container img.img-hover {
-      max-width: 85%;
-      max-height: 85%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Cover edge-to-edge full width & height */
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: 0;
+      left: 0;
       transition: opacity 0.4s ease, transform 0.4s ease;
       opacity: 0;
       z-index: 2;
@@ -342,7 +340,7 @@
     }
     .product-card-angara:hover .img-hover {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1.04);
+      transform: scale(1.04); /* Slight premium scale centered */
     }
     
     .product-quality-badge {
@@ -359,22 +357,7 @@
       letter-spacing: 0.5px;
       z-index: 10;
     }
-    .product-wishlist-heart {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: none;
-      border: none;
-      color: #888;
-      font-size: 16px;
-      z-index: 10;
-      transition: color 0.3s ease;
-      cursor: pointer;
-    }
-    .product-wishlist-heart:hover,
-    .product-wishlist-heart.active {
-      color: #cc0000;
-    }
+
     
     /* Product Details - Left Aligned to match Mockup (Image 4) */
     .product-details-wrap {
@@ -607,9 +590,7 @@
                 <span class="product-quality-badge">{{ badge_text }}</span>
               {%- endif -%}
               
-              <button type="button" class="product-wishlist-heart" title="Add to Wishlist" data-id="{{ product.id }}">
-                <i class="fa-regular fa-heart"></i>
-              </button>
+
               
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
@@ -685,9 +666,7 @@
               <div class="product-image-container">
                 <span class="product-quality-badge">LAB GROWN</span>
                 
-                <button type="button" class="product-wishlist-heart" title="Add to Wishlist">
-                  <i class="fa-regular fa-heart"></i>
-                </button>
+
                 
                 <a href="/products/mock-ring-{{ i }}">
                   {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
