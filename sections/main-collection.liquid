@@ -16,67 +16,40 @@
 
     /* Breadcrumbs */
     .collection-breadcrumbs {
-      font-size: 11px;
-      color: #666;
-      letter-spacing: 0.5px;
+      font-size: 10px;
+      color: #777;
+      letter-spacing: 1px;
       margin-bottom: 20px;
       text-transform: uppercase;
+      font-weight: 500;
     }
     .collection-breadcrumbs a {
-      color: #666;
+      color: #777;
       text-decoration: none;
+      transition: color 0.2s ease;
     }
     .collection-breadcrumbs a:hover {
       color: #000;
     }
     .collection-breadcrumbs span {
-      margin: 0 5px;
+      margin: 0 6px;
+      color: #ccc;
     }
 
-    /* Event Banner */
+    /* Panoramic Sale Event Banner */
     .sale-event-banner {
       width: 100%;
-      background: linear-gradient(135deg, #091a3c 0%, #1e3a6d 100%);
-      border: 2px solid #c5a880; /* Gold border */
-      color: #fff;
-      padding: 25px;
-      text-align: center;
+      height: auto;
+      border: 1px solid #e2deda;
       border-radius: 4px;
       margin-bottom: 30px;
-      position: relative;
       overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     }
-    .sale-event-banner::before {
-      content: '★ ★ ★';
-      position: absolute;
-      top: 5px;
-      left: 15px;
-      color: #c5a880;
-      font-size: 14px;
-      opacity: 0.3;
-    }
-    .sale-event-banner::after {
-      content: '★ ★ ★';
-      position: absolute;
-      bottom: 5px;
-      right: 15px;
-      color: #c5a880;
-      font-size: 14px;
-      opacity: 0.3;
-    }
-    .sale-title {
-      font-family: 'Cinzel', serif;
-      font-size: 20px;
-      letter-spacing: 2px;
-      font-weight: 500;
-      margin-bottom: 5px;
-      color: #fff;
-      text-transform: uppercase;
-    }
-    .sale-subtitle {
-      font-size: 12px;
-      letter-spacing: 1px;
-      color: #c5a880;
+    .sale-event-banner img {
+      width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* Collection Info Area */
@@ -150,16 +123,17 @@
       align-items: center;
       justify-content: center;
       margin-bottom: 8px;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
     .subcategory-card:hover .subcategory-img-wrap {
       transform: translateY(-3px);
       border-color: #c5a880;
+      box-shadow: 0 4px 15px rgba(197, 168, 128, 0.15);
     }
     .subcategory-img-wrap img {
-      max-width: 85%;
-      max-height: 85%;
-      object-fit: contain;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .subcategory-name {
       font-size: 11px;
@@ -192,7 +166,7 @@
       background-color: #000;
       color: #fff;
       border: none;
-      padding: 10px 18px;
+      padding: 9px 20px;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 1px;
@@ -201,9 +175,14 @@
       align-items: center;
       gap: 8px;
       text-transform: uppercase;
+      border-radius: 20px;
+      transition: background-color 0.2s ease;
+    }
+    .filter-btn-main:hover {
+      background-color: #333;
     }
     .filter-btn-main i {
-      font-size: 13px;
+      font-size: 12px;
     }
     .filter-dropdown {
       position: relative;
@@ -211,16 +190,19 @@
     .filter-dropdown-btn {
       background: none;
       border: 1px solid #ddd;
-      padding: 8px 15px;
+      padding: 8px 18px;
       font-size: 11px;
       color: #333;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
     }
     .filter-dropdown-btn:hover {
       border-color: #000;
+      color: #000;
     }
     
     .filter-right {
@@ -386,9 +368,11 @@
     .product-wishlist-heart.active {
       color: #cc0000;
     }
+    
+    /* Product Details - Left Aligned to match Mockup */
     .product-details-wrap {
-      padding: 12px 5px;
-      text-align: center;
+      padding: 12px 0;
+      text-align: left;
     }
     .product-brand-name {
       font-size: 9px;
@@ -397,6 +381,7 @@
       letter-spacing: 1px;
       display: block;
       margin-bottom: 4px;
+      font-weight: 600;
     }
     .product-title-text {
       font-size: 12px;
@@ -406,14 +391,28 @@
       height: 36px;
       overflow: hidden;
       display: block;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
     }
+    
+    /* Elegant gold star ratings block */
+    .product-rating {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      margin-bottom: 8px;
+      font-size: 10px;
+      color: #c5a880; /* Diamond Gold color */
+    }
+    .product-rating .text-muted {
+      color: #e0e0e0;
+    }
+    
     .product-price-info {
       font-size: 13px;
       font-weight: 600;
       color: #000;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 8px;
     }
     .product-compare-price {
@@ -458,8 +457,7 @@
 
     <!-- SALE EVENT BANNER -->
     <section class="sale-event-banner">
-      <h2 class="sale-title">4TH OF JULY SALE | 10% OFF SITEWIDE</h2>
-      <p class="sale-subtitle">Coupon code auto applied at checkout</p>
+      <img src="{{ 'collection_banner.png' | asset_url }}" alt="4th of July Sale | 10% Off Sitewide">
     </section>
 
     <!-- COLLECTION HEADER & INFO -->
@@ -478,49 +476,49 @@
     <section class="subcategories-grid">
       <a href="/collections/colored-gems" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-1.png' | asset_url }}" alt="Colored Gems">
+          <img src="{{ 'sub_colored_gems.png' | asset_url }}" alt="Colored Gems">
         </div>
         <span class="subcategory-name">Colored Gems</span>
       </a>
       <a href="/collections/diamond" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-2.png' | asset_url }}" alt="Diamond">
+          <img src="{{ 'sub_diamond.png' | asset_url }}" alt="Diamond">
         </div>
         <span class="subcategory-name">Diamond</span>
       </a>
       <a href="/collections/infinity" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-3.png' | asset_url }}" alt="Infinity">
+          <img src="{{ 'sub_infinity.png' | asset_url }}" alt="Infinity">
         </div>
         <span class="subcategory-name">Infinity</span>
       </a>
       <a href="/collections/side-stones" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'hero.png' | asset_url }}" alt="Side Stones">
+          <img src="{{ 'sub_side_stones.png' | asset_url }}" alt="Side Stones">
         </div>
         <span class="subcategory-name">Side Stones</span>
       </a>
       <a href="/collections/classic" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-1.png' | asset_url }}" alt="Classic">
+          <img src="{{ 'sub_classic.png' | asset_url }}" alt="Classic">
         </div>
         <span class="subcategory-name">Classic</span>
       </a>
       <a href="/collections/lab-grown" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-2.png' | asset_url }}" alt="Lab-Grown">
+          <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="Lab-Grown">
         </div>
         <span class="subcategory-name">Lab-Grown</span>
       </a>
       <a href="/collections/gia-certified" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'product-3.png' | asset_url }}" alt="GIA Certified">
+          <img src="{{ 'sub_diamond.png' | asset_url }}" alt="GIA Certified">
         </div>
         <span class="subcategory-name">GIA Certified</span>
       </a>
       <a href="/collections/mens-rings" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'hero.png' | asset_url }}" alt="Men's Rings">
+          <img src="{{ 'moments_wedding_bands.png' | asset_url }}" alt="Men's Rings">
         </div>
         <span class="subcategory-name">Men's Rings</span>
       </a>
@@ -604,6 +602,14 @@
             <a href="{{ product.url }}" class="product-details-wrap">
               <span class="product-brand-name">{{ product.vendor | default: shop.name }}</span>
               <span class="product-title-text">{{ product.title }}</span>
+              <div class="product-rating">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <span style="font-size: 10px; color: #888; margin-left: 5px;">(5.0)</span>
+              </div>
               <div class="product-price-info">
                 {% if product.compare_at_price > product.price %}
                   <span class="product-compare-price">{{ product.compare_at_price | money_without_trailing_zeros }}</span>
@@ -635,6 +641,14 @@
               <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
                 <span class="product-brand-name">ARLENA</span>
                 <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
+                <div class="product-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <span style="font-size: 10px; color: #888; margin-left: 5px;">(5.0)</span>
+                </div>
                 <div class="product-price-info">
                   <span class="product-compare-price">$2,669</span>
                   <span style="color:#e8000d;">$2,402</span>
