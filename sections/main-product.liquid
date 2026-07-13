@@ -846,8 +846,7 @@
       <form id="pdp-atc-form" action="/cart/add" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" id="pdp-variant-id" value="{{ current_variant.id }}">
         
-        <!-- Backing Custom Option - sent as a line-item property -->
-        <input type="hidden" name="properties[Backing]" id="pdp-backing-property" value="Butterfly">
+
 
         <!-- DYNAMIC VARIANT SELECTORS (mockup-style button rows) -->
         <div class="pdp-variants-container">
@@ -866,16 +865,6 @@
             {%- endfor -%}
           {%- endunless -%}
 
-          <!-- Custom Backing select box (if earrings product type) -->
-          {% if product.type == 'Earrings' or product.handle contains 'earring' %}
-            <div class="angara-option-block" style="margin-bottom:15px;">
-              <div class="angara-option-label">Backing: <span id="lbl-backing">Butterfly</span></div>
-              <div class="angara-option-buttons" id="backing-buttons">
-                <button type="button" class="angara-opt-btn active" data-value="Butterfly">Butterfly</button>
-                <button type="button" class="angara-opt-btn" data-value="Screw Back">Screw Back</button>
-              </div>
-            </div>
-          {% endif %}
         </div>
 
         <!-- Purchase details / Delivery summary -->
@@ -894,9 +883,6 @@
         <div class="pdp-action-group">
           <button type="submit" class="angara-atc-btn" id="pdp-atc-btn">
             <span>ADD TO CART</span>
-          </button>
-          <button type="button" class="angara-consult-btn" id="pdp-consult-btn">
-            BOOK A CONSULTATION
           </button>
         </div>
       </form>
@@ -1250,22 +1236,7 @@
       });
     });
 
-    // Handle custom Earring Backing buttons (Line item property)
-    var backingBtns = document.querySelectorAll('#backing-buttons .angara-opt-btn');
-    var lblBacking = document.getElementById('lbl-backing');
-    var backingInput = document.getElementById('pdp-backing-property');
-    var specValBacking = document.getElementById('spec-val-backing');
 
-    backingBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        backingBtns.forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        var val = this.dataset.value;
-        if (lblBacking) lblBacking.textContent = val;
-        if (backingInput) backingInput.value = val;
-        if (specValBacking) specValBacking.textContent = val;
-      });
-    });
 
     var priceEl = document.getElementById('visible-price');
     var summaryPriceEl = document.getElementById('atc-btn-price-summary');
@@ -1372,17 +1343,12 @@
         atcBtn.querySelector('span').textContent = 'ADDING...';
         atcBtn.disabled = true;
 
-        var backingProp = backingInput ? backingInput.value : 'Butterfly';
-
         fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: parseInt(id),
-            quantity: 1,
-            properties: {
-              'Backing': backingProp
-            }
+            quantity: 1
           }),
         })
         .then(function(r) { return r.json(); })
