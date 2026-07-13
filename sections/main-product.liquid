@@ -4,27 +4,28 @@
   /* Angara-style PDP Styles */
   .angara-pdp {
     max-width: 1200px;
-    margin: 140px auto 40px auto; /* Increased from 110px to 140px to prevent header overlap */
+    margin: 140px auto 40px auto;
     padding: 0 20px;
     font-family: var(--font-base);
     color: #111;
+    box-sizing: border-box;
   }
   @media (max-width: 991px) {
     .angara-pdp {
-      margin-top: 110px; /* Increased from 85px to 110px to prevent mobile header overlap */
+      margin-top: 110px;
     }
   }
 
   /* Breadcrumbs */
   .angara-breadcrumbs {
-    font-size: 11px;
-    color: #666;
+    font-size: 10px;
+    color: #777;
     letter-spacing: 0.5px;
     margin-bottom: 20px;
     text-transform: uppercase;
   }
   .angara-breadcrumbs a {
-    color: #666;
+    color: #777;
     text-decoration: none;
   }
   .angara-breadcrumbs a:hover {
@@ -32,14 +33,16 @@
   }
   .angara-breadcrumbs span {
     margin: 0 5px;
+    color: #ccc;
   }
 
-  /* Main Layout */
+  /* Main Layout Grid */
   .angara-grid {
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 40px;
     align-items: start;
+    margin-bottom: 50px;
   }
   @media (max-width: 991px) {
     .angara-grid {
@@ -54,7 +57,7 @@
     grid-template-columns: 80px 1fr;
     gap: 15px;
     position: sticky;
-    top: 100px;
+    top: 130px;
   }
   @media (max-width: 768px) {
     .angara-gallery {
@@ -77,10 +80,10 @@
   .angara-thumb {
     width: 80px;
     height: 80px;
-    border: 1px solid #ddd;
+    border: 1px solid #eaeaea;
     cursor: pointer;
     overflow: hidden;
-    background-color: #fcfbfa;
+    background-color: #fafaf9;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -98,8 +101,8 @@
   
   .angara-viewport {
     position: relative;
-    border: 1px solid #f3f3f3;
-    background-color: #faf9f8;
+    border: 1px solid #f6f6f6;
+    background-color: #fafaf9;
     aspect-ratio: 1/1;
     overflow: hidden;
     display: flex;
@@ -107,9 +110,9 @@
     justify-content: center;
   }
   .angara-viewport img {
-    max-width: 95%;
-    max-height: 95%;
-    object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     transition: transform 0.5s ease;
   }
   .angara-tag {
@@ -118,7 +121,7 @@
     left: 15px;
     background-color: #000;
     color: #fff;
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 600;
     letter-spacing: 1px;
     padding: 4px 8px;
@@ -134,58 +137,78 @@
   }
   .angara-pretitle {
     font-size: 11px;
-    color: #666;
+    color: #777;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: underline;
   }
   .angara-title {
-    font-family: 'Cinzel', 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 500;
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    font-weight: 400;
     letter-spacing: 1px;
     line-height: 1.3;
-    margin: 5px 0;
+    margin: 0;
   }
+  
+  /* Rating star row */
+  .angara-rating-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #666;
+  }
+  .angara-stars {
+    color: #c5a880; /* Gold stars */
+    font-size: 13px;
+  }
+
   .angara-price-row {
     display: flex;
     align-items: baseline;
     gap: 15px;
+    margin-top: 5px;
   }
   .angara-price {
-    font-size: 22px;
+    font-size: 24px;
     font-weight: 600;
-    color: #000;
+    color: #111;
   }
   .angara-price-compare {
     font-size: 16px;
     text-decoration: line-through;
     color: #888;
   }
-  .angara-discount-badge {
-    background-color: #e2f0d9;
-    color: #385723;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 6px;
-    border-radius: 3px;
-  }
-  .angara-financing {
-    font-size: 11px;
-    color: #444;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .angara-financing strong {
-    color: #000;
-  }
-  .angara-financing a {
-    color: #000;
-    text-decoration: underline;
+  .angara-desc-brief {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #555;
   }
 
-  /* Options block */
+  /* Service Badges directly below description */
+  .pdp-badges-row {
+    display: flex;
+    gap: 15px;
+    margin: 5px 0 15px 0;
+    flex-wrap: wrap;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+    padding: 12px 0;
+  }
+  .pdp-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #555;
+  }
+  .pdp-badge-item i {
+    color: #c5a880;
+  }
+
+  /* Option Block */
   .angara-option-block {
     display: flex;
     flex-direction: column;
@@ -195,7 +218,8 @@
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    color: #111;
   }
   .angara-option-label span {
     font-weight: 400;
@@ -204,275 +228,516 @@
     margin-left: 5px;
   }
 
-  /* Tabs selection style for diamond quality */
-  .angara-quality-tabs {
+  /* Button selection style matching mockup (Image 4) */
+  .angara-option-buttons {
     display: flex;
-    flex-direction: column;
     gap: 10px;
-    background-color: #faf9f8;
-    padding: 15px;
-    border: 1px solid #f0efee;
-    border-radius: 4px;
-  }
-  .angara-quality-group {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  .angara-group-label {
-    font-size: 10px;
-    font-weight: 600;
-    color: #777;
-    width: 80px;
-    text-transform: uppercase;
-  }
-  .angara-group-options {
-    display: flex;
-    gap: 8px;
     flex-wrap: wrap;
   }
   .angara-opt-btn {
     background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
+    border: 1px solid #dcdad5;
+    padding: 9px 18px;
     font-size: 11px;
     font-weight: 500;
     cursor: pointer;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-    outline: none;
+    transition: all 0.2s ease;
+    color: #111;
+    border-radius: 2px;
   }
   .angara-opt-btn:hover {
     border-color: #000;
   }
   .angara-opt-btn.active {
-    background-color: #000;
     border-color: #000;
-    color: #fff;
+    box-shadow: inset 0 0 0 1px #000;
   }
 
-  /* Carat buttons */
-  .angara-carats-group {
+  /* Purchase Info Row */
+  .pdp-purchase-details {
     display: flex;
-    gap: 10px;
-  }
-  .angara-carat-btn {
-    min-width: 50px;
-    height: 38px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
     font-size: 12px;
-    font-weight: 500;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
+    color: #555;
   }
-  .angara-carat-btn:hover {
-    border-color: #000;
-  }
-  .angara-carat-btn.active {
-    background-color: #000;
-    border-color: #000;
-    color: #fff;
-  }
-
-  /* Metal Dots */
-  .angara-metals {
+  .purchase-detail-item {
     display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-  .angara-metal-dot {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 2px solid transparent;
-    padding: 2px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  .angara-metal-dot span {
-    display: block;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-  }
-  .angara-metal-dot.active {
-    border-color: #c5a880; /* gold ring around active metal dot */
+    justify-content: space-between;
   }
 
-  /* Upgrade Banner */
-  .angara-upgrade-banner {
-    background-color: #fbf6f0;
-    border: 1px solid #f0e2d3;
-    padding: 15px;
-    border-radius: 4px;
+  /* ATC and Consultation buttons */
+  .pdp-action-group {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
-  .angara-upgrade-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .angara-upgrade-badge {
-    background-color: #c5a880;
-    color: #fff;
-    font-size: 9px;
-    font-weight: 600;
-    padding: 3px 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .angara-upgrade-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: #8a6d3b;
-  }
-  .angara-upgrade-text {
-    font-size: 11px;
-    color: #777;
-    line-height: 1.4;
-  }
-  .angara-upgrade-btn {
-    background: none;
-    border: 1px solid #c5a880;
-    color: #c5a880;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    padding: 8px 12px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    align-self: flex-start;
-  }
-  .angara-upgrade-btn:hover {
-    background-color: #c5a880;
-    color: #fff;
-  }
-
-  /* Buy Block & Wishlist */
-  .angara-buy-row {
-    display: flex;
-    gap: 15px;
-    align-items: stretch;
     margin-top: 15px;
   }
   .angara-atc-btn {
-    flex: 1;
+    width: 100%;
     background-color: #000;
     color: #fff;
-    border: none;
-    font-size: 13px;
+    border: 1px solid #000;
+    padding: 14px 20px;
+    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 1.5px;
-    padding: 18px 20px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-  }
-  .angara-atc-btn:hover {
-    background-color: #222;
-  }
-  .angara-wishlist-btn {
-    width: 58px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    color: #111;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
     transition: all 0.3s ease;
   }
-  .angara-wishlist-btn:hover,
-  .angara-wishlist-btn.active {
-    border-color: #cc0000;
-    color: #cc0000;
+  .angara-atc-btn:hover {
+    background-color: #333;
+    border-color: #333;
   }
-
-  /* Shipping info */
-  .angara-shipping-info {
-    font-size: 11px;
-    color: #555;
-    background-color: #faf9f8;
-    padding: 12px;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  .angara-shipping-info i {
-    color: #c5a880;
-    margin-right: 5px;
-  }
-
-  /* Support Links */
-  .angara-support-links {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 0;
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
-  }
-  .angara-support-link {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: #666;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .angara-support-link:hover {
-    color: #000;
-  }
-  .angara-support-link i {
-    font-size: 13px;
-    color: #c5a880;
-  }
-
-  /* Accordions */
-  .angara-accordions {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-  }
-  .angara-accordion {
-    border-bottom: 1px solid #eee;
-    padding-bottom: 15px;
-  }
-  .angara-accordion-summary {
+  .angara-consult-btn {
+    width: 100%;
+    background-color: #fff;
+    color: #111;
+    border: 1px solid #000;
+    padding: 14px 20px;
     font-size: 11px;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    text-transform: uppercase;
     cursor: pointer;
-    list-style: none;
+    transition: all 0.3s ease;
+  }
+  .angara-consult-btn:hover {
+    background-color: #faf9f8;
+  }
+
+  /* --- ABOUT THIS PIECE --- */
+  .about-piece-section {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 50px;
+    align-items: center;
+    margin: 80px 0;
+    border-top: 1px solid #eaeaea;
+    padding-top: 60px;
+  }
+  @media (max-width: 768px) {
+    .about-piece-section {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      margin: 40px 0;
+      padding-top: 40px;
+    }
+  }
+  .about-content h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 26px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .about-content p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  .about-img-wrap {
+    width: 100%;
+    aspect-ratio: 3/2;
+    overflow: hidden;
+    background-color: #fafaf9;
+    border: 1px solid #f6f6f6;
+  }
+  .about-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* --- BRAND ICONS ROW --- */
+  .brand-icons-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    background-color: #fdfaf6; /* Warm cream background */
+    padding: 40px 20px;
+    border-top: 1px solid rgba(197, 168, 128, 0.2);
+    border-bottom: 1px solid rgba(197, 168, 128, 0.2);
+    margin: 50px 0;
+    box-sizing: border-box;
+  }
+  @media (max-width: 991px) {
+    .brand-icons-row {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+    }
+  }
+  @media (max-width: 575px) {
+    .brand-icons-row {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+  }
+  .icon-block-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0 10px;
+  }
+  .icon-block-item i {
+    font-size: 24px;
+    color: #c5a880; /* Gold */
+    margin-bottom: 15px;
+  }
+  .icon-block-item h4 {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    color: #111;
+  }
+  .icon-block-item p {
+    font-size: 11px;
+    line-height: 1.5;
+    color: #555;
+    margin: 0;
+  }
+
+  /* --- TAB ACCORDION LAYOUT SECTION --- */
+  .specs-tabs-section {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 50px;
+    margin: 60px 0 80px 0;
+    align-items: start;
+  }
+  @media (max-width: 991px) {
+    .specs-tabs-section {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+  .tabs-list-col {
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid #eaeaea;
+  }
+  @media (max-width: 991px) {
+    .tabs-list-col {
+      flex-direction: row;
+      border-left: none;
+      border-bottom: 1px solid #eaeaea;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-list-col::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .spec-tab-btn {
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #777;
+    cursor: pointer;
+    border-left: 3px solid transparent;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    outline: none;
+    transition: all 0.3s ease;
   }
-  .angara-accordion-summary::-webkit-details-marker {
+  @media (max-width: 991px) {
+    .spec-tab-btn {
+      border-left: none;
+      border-bottom: 3px solid transparent;
+      padding: 12px 15px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+  .spec-tab-btn i {
+    font-size: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .spec-tab-btn:hover {
+    color: #111;
+  }
+  .spec-tab-btn.active {
+    color: #111;
+    border-left-color: #c5a880; /* Gold left border */
+  }
+  @media (max-width: 991px) {
+    .spec-tab-btn.active {
+      border-left-color: transparent;
+      border-bottom-color: #c5a880;
+    }
+  }
+  .spec-tab-btn.active i {
+    opacity: 1;
+  }
+  
+  .tab-content-col {
+    min-height: 250px;
+  }
+  .tab-pane {
     display: none;
+    animation: fadeIn 0.4s ease forwards;
   }
-  .angara-accordion-body {
+  .tab-pane.active {
+    display: block;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Specifications Table style */
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 12px;
+  }
+  .spec-table tr {
+    border-bottom: 1px solid #eaeaea;
+  }
+  .spec-table td {
+    padding: 12px 10px;
+  }
+  .spec-table td.spec-label {
+    font-weight: 600;
+    color: #111;
+    width: 250px;
+  }
+  .spec-table td.spec-val {
     color: #555;
+  }
+  @media (max-width: 575px) {
+    .spec-table td.spec-label {
+      width: 150px;
+    }
+  }
+
+  .text-pane-content {
+    font-size: 13px;
+    line-height: 1.8;
+    color: #555;
+  }
+  .text-pane-content p {
+    margin-top: 0;
+    margin-bottom: 15px;
+  }
+  .text-pane-content ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  .text-pane-content li {
+    margin-bottom: 8px;
+  }
+
+  /* --- LOVED STORIES & REVIEWS --- */
+  .reviews-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+  }
+  .reviews-section-header h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+  }
+  .reviews-btn-all {
+    background: none;
+    border: 1px solid #111;
+    padding: 8px 18px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .reviews-btn-all:hover {
+    background-color: #111;
+    color: #fff;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+  @media (max-width: 991px) {
+    .reviews-grid {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+  }
+  .review-card {
+    background-color: #fafaf9;
+    padding: 25px;
+    border-radius: 2px;
+  }
+  .review-rating-row {
+    font-size: 11px;
+    color: #c5a880;
+    margin-bottom: 15px;
+  }
+  .review-text {
+    font-size: 12px;
     line-height: 1.6;
-    padding-top: 12px;
+    color: #333;
+    margin-bottom: 15px;
+    font-style: italic;
+  }
+  .review-author {
+    font-size: 11px;
+    font-weight: 600;
+    color: #777;
+    margin-top: auto;
+  }
+
+  /* --- COMPLETE THE LOOK SECTION --- */
+  .pdp-related-header {
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pdp-related-header h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+  }
+  
+  .look-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+    align-items: start;
+    box-sizing: border-box;
+  }
+  @media (max-width: 991px) {
+    .look-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 575px) {
+    .look-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+  }
+  
+  .look-item {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+  }
+  .look-img-wrap {
+    width: 100%;
+    aspect-ratio: 1/1;
+    background-color: #fafaf9;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid #f6f6f6;
+  }
+  .look-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .look-item:hover .look-img-wrap img {
+    transform: scale(1.03);
+  }
+  .look-info {
+    padding: 12px 0;
+    text-align: left;
+  }
+  .look-item-title {
+    font-size: 11px;
+    font-weight: 500;
+    color: #111;
+    line-height: 1.4;
+    height: 32px;
+    overflow: hidden;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .look-item-price {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+  }
+
+  .look-promo-card {
+    background-color: #fdfaf6;
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    justify-content: center;
+    box-sizing: border-box;
+  }
+  @media (max-width: 575px) {
+    .look-promo-card {
+      grid-column: span 2;
+    }
+  }
+  .look-promo-card i {
+    font-size: 24px;
+    color: #c5a880;
+    margin-bottom: 12px;
+  }
+  .look-promo-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 6px 0;
+  }
+  .look-promo-card p {
+    font-size: 10px;
+    line-height: 1.4;
+    color: #666;
+    margin: 0 0 15px 0;
+  }
+  .look-promo-btn {
+    border: 1px solid #111;
+    background: none;
+    padding: 8px 16px;
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .look-promo-btn:hover {
+    background-color: #111;
+    color: #fff;
   }
 </style>
 
@@ -481,36 +746,47 @@
   <div class="angara-breadcrumbs">
     <a href="/">Home</a>
     <span>/</span>
-    {% if collection %}
-      <a href="{{ collection.url }}">{{ collection.title }}</a>
-      <span>/</span>
-    {% else %}
-      <a href="/collections/all">Jewelry</a>
-      <span>/</span>
-    {% endif %}
+    <a href="/collections/all">Jewelry</a>
+    <span>/</span>
+    <a href="/collections/all">{{ product.type | default: 'Earrings' }}</a>
+    <span>/</span>
     <span style="color: #111;">{{ product.title }}</span>
   </div>
 
   <div class="angara-grid">
     <!-- LEFT: GALLERY -->
     <section class="angara-gallery">
-      <!-- Thumbnails -->
       <div class="angara-thumbs">
-        {% for image in product.images %}
-          <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}">
-            <img src="{{ image | img_url: '120x' }}" alt="{{ product.title | escape }}">
+        <!-- If handle is our stud earrings, load the generated local asset as primary -->
+        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
+          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}">
+            <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
+          </div>
+          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}">
+            <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="{{ product.title | escape }}">
+          </div>
+          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}">
+            <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
         {% else %}
-          <div class="angara-thumb active" data-src="">
-            {{ 'product-1' | placeholder_svg_tag }}
-          </div>
-        {% endfor %}
+          {% for image in product.images %}
+            <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}">
+              <img src="{{ image | img_url: '120x' }}" alt="{{ product.title | escape }}">
+            </div>
+          {% else %}
+            <div class="angara-thumb active" data-src="">
+              {{ 'product-1' | placeholder_svg_tag }}
+            </div>
+          {% endfor %}
+        {% endif %}
       </div>
 
       <!-- Main Image Viewport -->
       <div class="angara-viewport">
-        <span class="angara-tag">New Arrival</span>
-        {% if product.featured_image %}
+        <span class="angara-tag">Made to Order</span>
+        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
+          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
+        {% elsif product.featured_image %}
           <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}">
         {% else %}
           <img id="angara-main-img" src="" alt="Placeholder">
@@ -520,174 +796,365 @@
 
     <!-- RIGHT: PRODUCT OPTIONS & DETAILS -->
     <section class="angara-info">
-      <!-- Pretitle -->
-      <a href="/collections/all" class="angara-pretitle">Lab Grown Diamonds</a>
+      <a href="/collections/all" class="angara-pretitle">{{ product.type | default: 'Earrings' }}</a>
 
-      <!-- Title -->
       <h1 class="angara-title">{{ product.title }}</h1>
+
+      <!-- Star ratings -->
+      <div class="angara-rating-row">
+        <div class="angara-stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <span>4.8 (25 reviews)</span>
+      </div>
 
       <!-- Pricing -->
       <div class="angara-price-row">
-        <span class="angara-price" id="visible-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
+        <span class="angara-price" id="visible-price">
+          {%- if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' -%}
+            From AUD $2,490
+          {%- else -%}
+            {{ current_variant.price | money_without_trailing_zeros }}
+          {%- endif -%}
+        </span>
         {% if current_variant.compare_at_price > current_variant.price %}
           <span class="angara-price-compare" id="compare-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
-          <span class="angara-discount-badge">10% OFF</span>
-        {% else %}
-          {% assign mock_compare = current_variant.price | times: 1.1 %}
-          <span class="angara-price-compare" id="compare-price">{{ mock_compare | money_without_trailing_zeros }}</span>
-          <span class="angara-discount-badge">10% OFF</span>
         {% endif %}
       </div>
 
-      <!-- Financing -->
-      <div class="angara-financing">
-        <i class="fa-solid fa-credit-card" style="color: #c5a880;"></i>
-        <span>0% Interest | Pay as low as <strong id="financing-price">$200.17/month</strong> | <a href="#">Select Plan</a></span>
+      <!-- Short Brief Description -->
+      <p class="angara-desc-brief">
+        {% if product.description != blank %}
+          {{ product.description | strip_html | truncatewords: 35 }}
+        {% else %}
+          The iconic Toi et Moi design, pairing a striking emerald-cut diamond with a brilliant pear-cut diamond in perfect harmony. Handcrafted in Australia using ethically sourced diamonds.
+        {% endif %}
+      </p>
+
+      <!-- Description Badges -->
+      <div class="pdp-badges-row">
+        <div class="pdp-badge-item"><i class="fa-solid fa-gem"></i> Made to Order</div>
+        <div class="pdp-badge-item"><i class="fa-solid fa-shield-halved"></i> Lifetime Warranty</div>
+        <div class="pdp-badge-item"><i class="fa-solid fa-truck-fast"></i> Free Insured Shipping</div>
       </div>
 
-      <!-- Diamond Quality Option -->
-      <div class="angara-option-block">
-        <div class="angara-option-label">Diamond Quality: <span id="lbl-quality">F-G, VS</span></div>
-        <div class="angara-quality-tabs">
-          <!-- LAB GROWN ROW -->
-          <div class="angara-quality-group">
-            <span class="angara-group-label">Lab Grown</span>
-            <div class="angara-group-options">
-              <button type="button" class="angara-opt-btn active" data-quality="F-G, VS" data-val="0">F-G, VS</button>
-              <button type="button" class="angara-opt-btn" data-quality="D-E, VVS" data-val="486">D-E, VVS</button>
-            </div>
-          </div>
-          <!-- NATURAL ROW -->
-          <div class="angara-quality-group">
-            <span class="angara-group-label">Natural</span>
-            <div class="angara-group-options">
-              <button type="button" class="angara-opt-btn" data-quality="H, SI1" data-val="200">H, SI1</button>
-              <button type="button" class="angara-opt-btn" data-quality="G, SI2" data-val="150">G, SI2</button>
-              <button type="button" class="angara-opt-btn" data-quality="H, VS2" data-val="300">H, VS2</button>
-              <button type="button" class="angara-opt-btn" data-quality="G, VVS2" data-val="500">G, VVS2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Carat Weight Option -->
-      <div class="angara-option-block">
-        <div class="angara-option-label">Total Carat Weight: <span id="lbl-carat">1/2 ct</span></div>
-        <div class="angara-carats-group">
-          <button type="button" class="angara-carat-btn" data-carat="1/3 ct" data-val="-250">1/3</button>
-          <button type="button" class="angara-carat-btn active" data-carat="1/2 ct" data-val="0">1/2</button>
-          <button type="button" class="angara-carat-btn" data-carat="1 ct" data-val="650">1</button>
-        </div>
-      </div>
-
-      <!-- Metal Type Option -->
-      <div class="angara-option-block">
-        <div class="angara-option-label">Metal Type: <span id="lbl-metal">14K Yellow Gold</span></div>
-        <div class="angara-metals">
-          <div class="angara-metal-dot active" data-metal="14K Yellow Gold" data-val="0" title="14K Yellow Gold">
-            <span style="background-color: #f3dfa2;"></span>
-          </div>
-          <div class="angara-metal-dot" data-metal="14K White Gold" data-val="0" title="14K White Gold">
-            <span style="background-color: #e5e5e5;"></span>
-          </div>
-          <div class="angara-metal-dot" data-metal="14K Rose Gold" data-val="0" title="14K Rose Gold">
-            <span style="background-color: #ecc7b8;"></span>
-          </div>
-          <div class="angara-metal-dot" data-metal="Platinum" data-val="400" title="Platinum">
-            <span style="background-color: #d1d5db;"></span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Upgrade Best Value Banner -->
-      <div class="angara-upgrade-banner" id="upgrade-panel">
-        <div class="angara-upgrade-header">
-          <span class="angara-upgrade-title">Upgrade Diamond Quality</span>
-          <span class="angara-upgrade-badge">Best Value</span>
-        </div>
-        <p class="angara-upgrade-text">
-          Upgrade your Lab Grown Diamond Quality to D-E, VVS to experience a higher class of fire and brilliance (+ $486).
-        </p>
-        <button type="button" class="angara-upgrade-btn" id="btn-trigger-upgrade">Upgrade to D-E, VVS</button>
-      </div>
-
-      <!-- ATC and Wishlist Row -->
+      <!-- ATC and Options Form -->
       <form id="pdp-atc-form" action="/cart/add" method="post" enctype="multipart/form-data">
         <input type="hidden" name="id" id="pdp-variant-id" value="{{ current_variant.id }}">
         
-        <div class="angara-buy-row">
+        <!-- Backing Custom Option - sent as a line-item property -->
+        <input type="hidden" name="properties[Backing]" id="pdp-backing-property" value="Butterfly">
+
+        <!-- DYNAMIC VARIANT SELECTORS (mockup-style button rows) -->
+        <div class="pdp-variants-container">
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="angara-option-block" style="margin-bottom:15px;" data-option-index="{{ forloop.index0 }}">
+                <div class="angara-option-label">Select {{ option.name }}: <span class="lbl-selected-value">{{ option.selected_value }}</span></div>
+                <div class="angara-option-buttons">
+                  {%- for value in option.values -%}
+                    <button type="button" class="angara-opt-btn {% if option.selected_value == value %}active{% endif %}" data-value="{{ value | escape }}">
+                      {{ value }}
+                    </button>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <!-- Custom Backing select box (if earrings product type) -->
+          {% if product.type == 'Earrings' or product.handle contains 'earring' %}
+            <div class="angara-option-block" style="margin-bottom:15px;">
+              <div class="angara-option-label">Backing: <span id="lbl-backing">Butterfly</span></div>
+              <div class="angara-option-buttons" id="backing-buttons">
+                <button type="button" class="angara-opt-btn active" data-value="Butterfly">Butterfly</button>
+                <button type="button" class="angara-opt-btn" data-value="Screw Back">Screw Back</button>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+
+        <!-- Purchase details / Delivery summary -->
+        <div class="pdp-purchase-details">
+          <div class="purchase-detail-item">
+            <span>Price:</span>
+            <strong id="atc-btn-price-summary">{{ current_variant.price | money_without_trailing_zeros }}</strong>
+          </div>
+          <div class="purchase-detail-item">
+            <span>Estimated Delivery:</span>
+            <strong style="color:#111;">18 - 22 Business Days</strong>
+          </div>
+        </div>
+
+        <!-- Buy / Cart actions -->
+        <div class="pdp-action-group">
           <button type="submit" class="angara-atc-btn" id="pdp-atc-btn">
-            <span id="atc-btn-price">{{ current_variant.price | money_without_trailing_zeros }}</span>
-            <span>|</span>
-            <span>ADD TO BAG</span>
+            <span>ADD TO CART</span>
           </button>
-          
-          <button type="button" class="angara-wishlist-btn" id="pdp-wishlist-btn" title="Add to Wishlist">
-            <i class="fa-regular fa-heart"></i>
+          <button type="button" class="angara-consult-btn" id="pdp-consult-btn">
+            BOOK A CONSULTATION
           </button>
         </div>
       </form>
-
-      <!-- Shipping details info -->
-      <div class="angara-shipping-info">
-        <div><i class="fa-solid fa-truck-fast"></i> Express Shipping (<strong>FREE</strong>)</div>
-        <div style="color: #666; margin-left: 20px;">Order within <strong>14h : 55m : 42s</strong> to get it by <strong>Jul 08 - Jul 09</strong></div>
-      </div>
-
-      <!-- Support Links -->
-      <div class="angara-support-links">
-        <a href="#" class="angara-support-link"><i class="fa-solid fa-envelope"></i> Drop a Hint</a>
-        <a href="#" class="angara-support-link"><i class="fa-solid fa-paper-plane"></i> Email Us</a>
-        <a href="tel:+1-844-527-4367" class="angara-support-link"><i class="fa-solid fa-phone"></i> +1-844-527-4367</a>
-      </div>
-
-      <!-- Accordions -->
-      <div class="angara-accordions">
-        <details class="angara-accordion">
-          <summary class="angara-accordion-summary">Details <span><i class="fa-solid fa-chevron-down"></i></span></summary>
-          <div class="angara-accordion-body">
-            {{ product.description | default: 'Crafted with premium materials and ethically sourced stones.' }}
-          </div>
-        </details>
-        <details class="angara-accordion">
-          <summary class="angara-accordion-summary">Delivery & Returns <span><i class="fa-solid fa-chevron-down"></i></span></summary>
-          <div class="angara-accordion-body">
-            Enjoy free insured express delivery and 30-day returns. Gift packaging included.
-          </div>
-        </details>
-      </div>
     </section>
   </div>
+
+  <!-- --- ABOUT THIS PIECE --- -->
+  <section class="about-piece-section">
+    <div class="about-content">
+      <h2>About This Piece</h2>
+      <p>
+        The Aurora Emerald & Pear Diamond Stud Earrings celebrate the timeless beauty of the iconic Toi et Moi design, pairing a striking emerald-cut diamond with a brilliant pear-cut diamond in perfect harmony.
+      </p>
+      <p>
+        Expertly handcrafted in Australia, each pair is meticulously created using ethically sourced natural or lab-grown diamonds and your choice of premium precious metals.
+      </p>
+      <p>
+        Elegant yet contemporary, Aurora is designed to become a treasured piece for everyday sophistication and life's most meaningful occasions.
+      </p>
+    </div>
+    <div class="about-img-wrap">
+      {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
+        <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="Aurora Earrings Detail">
+      {% else %}
+        <img src="{{ 'handcraft_jewelry.png' | asset_url }}" alt="Handcraft Jewelry">
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- --- BRAND ICONS ROW --- -->
+  <section class="brand-icons-row full-width">
+    <div class="icon-block-item">
+      <i class="fa-solid fa-gem"></i>
+      <h4>Timeless Design</h4>
+      <p>Inspired by the iconic Toi et Moi style, balancing classic elegance with modern simplicity.</p>
+    </div>
+    <div class="icon-block-item">
+      <i class="fa-solid fa-wand-magic-sparkles"></i>
+      <h4>Exceptional Brilliance</h4>
+      <p>Hand-selected diamonds chosen for maximum sparkle and beauty.</p>
+    </div>
+    <div class="icon-block-item">
+      <i class="fa-solid fa-anchor"></i>
+      <h4>Crafted in Australia</h4>
+      <p>Made individually by skilled jewellers using premium precious metals.</p>
+    </div>
+    <div class="icon-block-item">
+      <i class="fa-solid fa-heart"></i>
+      <h4>Made Just for You</h4>
+      <p>Every piece is created to order, never mass produced.</p>
+    </div>
+  </section>
+
+  <!-- --- SIDE TABS ACCORDION & SPEC TABLE --- -->
+  <section class="specs-tabs-section">
+    <div class="tabs-list-col">
+      <button class="spec-tab-btn active" data-tab="specifications">
+        Specifications <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button class="spec-tab-btn" data-tab="craftsmanship">
+        Craftsmanship <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button class="spec-tab-btn" data-tab="shipping-returns">
+        Shipping & Returns <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button class="spec-tab-btn" data-tab="warranty">
+        Warranty <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <button class="spec-tab-btn" data-tab="faqs">
+        FAQs <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+    
+    <div class="tab-content-col">
+      <!-- 1. Specifications Table Tab -->
+      <div id="tab-specifications" class="tab-pane active">
+        <table class="spec-table">
+          <tr>
+            <td class="spec-label">Diamond Type</td>
+            <td class="spec-val" id="spec-val-diamond-type">Lab Grown or Natural (based on selection)</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Diamond Shape</td>
+            <td class="spec-val">{{ product.metafields.custom.diamond_shape | default: 'Emerald & Pear' }}</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Total Carat Weight</td>
+            <td class="spec-val" id="spec-val-carat">1.00ct total (0.50ct Emerald + 0.50ct Pear)</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Diamond Colour</td>
+            <td class="spec-val">{{ product.metafields.custom.diamond_colour | default: 'D - F' }}</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Diamond Clarity</td>
+            <td class="spec-val">{{ product.metafields.custom.diamond_clarity | default: 'VS1 - VS2' }}</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Metal</td>
+            <td class="spec-val" id="spec-val-metal">9K, 14K, 18K Gold or Platinum</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Setting Style</td>
+            <td class="spec-val">{{ product.metafields.custom.setting_style | default: 'Four-Prong' }}</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Earring Back</td>
+            <td class="spec-val" id="spec-val-backing">Butterfly or Screw Back</td>
+          </tr>
+          <tr>
+            <td class="spec-label">Made In</td>
+            <td class="spec-val">{{ product.metafields.custom.made_in | default: 'Australia' }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- 2. Craftsmanship Tab -->
+      <div id="tab-craftsmanship" class="tab-pane">
+        <div class="text-pane-content">
+          <p>Every piece at Arlena is individually handcrafted to order by our team of master jewellers in Australia.</p>
+          <p>We combine time-honored bench jewelry techniques with cutting-edge 3D model casting. Every gemstone is hand-selected and custom set under microscope magnification to guarantee structural integrity, flawless symmetry, and the maximum fire and brilliance possible.</p>
+        </div>
+      </div>
+
+      <!-- 3. Shipping & Returns Tab -->
+      <div id="tab-shipping-returns" class="tab-pane">
+        <div class="text-pane-content">
+          <p>We provide **free insured express shipping** Australia-wide. All orders are packed in unmarked security boxes for safe and discreet transport.</p>
+          <p>Since each item is handcrafted, please allow 18 to 22 business days for crafting and dispatch. We also support **30-day returns** with prepaid labels if your purchase doesn't exceed your expectations.</p>
+        </div>
+      </div>
+
+      <!-- 4. Warranty Tab -->
+      <div id="tab-warranty" class="tab-pane">
+        <div class="text-pane-content">
+          <p>All Arlena creations are backed by our **Lifetime Warranty** against manufacturing defects.</p>
+          <p>To ensure your stones remain safe, we recommend sending your piece to our workshops annually for complimentary inspection, professional cleaning, and polishing.</p>
+        </div>
+      </div>
+
+      <!-- 5. FAQs Tab -->
+      <div id="tab-faqs" class="tab-pane">
+        <div class="text-pane-content">
+          <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled lab environments rather than mined from the earth.</p>
+          <p><strong>Q: Can I change my backing style after ordering?</strong><br>A: Yes, if you choose Butterfly or Screw Back and find it uncomfortable, you can return them within 30 days and we will modify the backing style for you free of charge.</p>
+          <p><strong>Q: Can I customize other gemstone shapes?</strong><br>A: Absolutely! We specialize in custom designs. Please click "Book A Consultation" to speak with our design team.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- LOVE STORIES (REVIEWS) --- -->
+  <section class="reviews-section">
+    <div class="reviews-section-header">
+      <h3>Love Stories</h3>
+      <button type="button" class="reviews-btn-all">View All Reviews</button>
+    </div>
+    
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-rating-row">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="review-text">"Absolutely stunning. The craftsmanship exceeded every expectation. I wear them every day and they still take my breath away."</p>
+        <span class="review-author">— Sarah, Melbourne</span>
+      </div>
+      <div class="review-card">
+        <div class="review-rating-row">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="review-text">"The sparkle is incredible. Even more beautiful than the photos. The team at Arlena were so helpful throughout."</p>
+        <span class="review-author">— James, Sydney</span>
+      </div>
+      <div class="review-card">
+        <div class="review-rating-row">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+        <p class="review-text">"Amazing communication and the presentation was flawless. Such a special experience from start to finish."</p>
+        <span class="review-author">— Emily, Brisbane</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- --- COMPLETE THE LOOK / YOU MAY ALSO LIKE --- -->
+  <section class="pdp-related">
+    <div class="pdp-related-header">
+      <h3>Complete The Look</h3>
+    </div>
+    
+    <div class="look-grid">
+      <a href="/products/aurora-toi-et-moi-necklace" class="look-item">
+        <div class="look-img-wrap">
+          <img src="{{ 'moments_necklace.png' | asset_url }}" alt="Aurora Toi et Moi Necklace">
+        </div>
+        <div class="look-info">
+          <span class="look-item-title">Aurora Toi et Moi Necklace</span>
+          <span class="look-item-price">From AUD $1,890</span>
+        </div>
+      </a>
+      <a href="/products/aurora-emerald-pear-ring" class="look-item">
+        <div class="look-img-wrap">
+          <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="Aurora Emerald & Pear Ring">
+        </div>
+        <div class="look-info">
+          <span class="look-item-title">Aurora Emerald & Pear Ring</span>
+          <span class="look-item-price">From AUD $2,990</span>
+        </div>
+      </a>
+      <a href="/products/aurora-tennis-bracelet" class="look-item">
+        <div class="look-img-wrap">
+          <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="Aurora Tennis Bracelet">
+        </div>
+        <div class="look-info">
+          <span class="look-item-title">Aurora Tennis Bracelet</span>
+          <span class="look-item-price">From AUD $4,690</span>
+        </div>
+      </a>
+      <a href="/products/aurora-eternity-band" class="look-item">
+        <div class="look-img-wrap">
+          <img src="{{ 'moments_wedding_bands.png' | asset_url }}" alt="Aurora Eternity Band">
+        </div>
+        <div class="look-info">
+          <span class="look-item-title">Aurora Eternity Band</span>
+          <span class="look-item-price">From AUD $1,690</span>
+        </div>
+      </a>
+      
+      <!-- Promo brand card matching mockup -->
+      <div class="look-promo-card">
+        <i class="fa-solid fa-gem"></i>
+        <h4>Made For Moments</h4>
+        <p>Designed in Australia. Crafted individually. Treasured forever.</p>
+        <button type="button" class="look-promo-btn" onclick="window.location.href='/collections/all'">Explore Collection</button>
+      </div>
+    </div>
+  </section>
 </div>
 
-<!-- RELATED PRODUCTS -->
-<section class="pdp-related full-width" style="max-width: 1200px; margin: 60px auto 20px auto; padding: 0 20px;">
-  <h3 class="pdp-related-title" style="font-family: 'Cinzel', serif; font-size: 20px; letter-spacing: 2px; text-align: center; margin-bottom: 30px;">YOU MAY ALSO LIKE</h3>
-  <div class="collection-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
-    {% assign shown = 0 %}
-    {% for related_product in collections.all.products %}
-      {% if shown < 4 and related_product.handle != product.handle %}
-        <a href="{{ related_product.url }}" class="grid-item" style="text-decoration: none; color: inherit; display: flex; flex-direction: column;">
-          <div class="image-wrapper" style="position: relative; aspect-ratio: 1/1; background-color: #faf9f8; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1px solid #f3f3f3;">
-            <img src="{{ related_product.featured_image | img_url: '600x' }}" alt="{{ related_product.title | escape }}" style="max-width: 90%; max-height: 90%; object-fit: contain;">
-          </div>
-          <div class="item-info" style="padding: 12px 0; text-align: center;">
-            <span style="font-size: 10px; text-transform: uppercase; color: #888; letter-spacing: 1px; display: block; margin-bottom: 5px;">{{ related_product.vendor }}</span>
-            <span style="font-size: 12px; font-weight: 500; display: block; height: 36px; overflow: hidden; line-height: 1.5; color: #111;">{{ related_product.title }}</span>
-            <div style="font-size: 13px; font-weight: 600; margin-top: 5px; color: #000;">
-              {{ related_product.price | money_without_trailing_zeros }}
-            </div>
-          </div>
-        </a>
-        {% assign shown = shown | plus: 1 %}
-      {% endif %}
-    {% endfor %}
-  </div>
-</section>
+<!-- PASS VARIANTS DATA TO JAVASCRIPT FOR DYNAMIC OPTION MATCHING -->
+<script>
+  window.pdpVariantsJson = {{ product.variants | json }};
+</script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    /* --- 1. Gallery switching --- */
+    /* --- 1. Gallery thumbnail switching --- */
     var thumbs = document.querySelectorAll('.angara-thumb');
     var mainImg = document.getElementById('angara-main-img');
     thumbs.forEach(function(thumb) {
@@ -700,94 +1167,153 @@
       });
     });
 
-    /* --- 2. Dynamic Price calculation based on options --- */
-    var basePriceCents = {{ current_variant.price }};
-    var basePrice = basePriceCents / 100;
+    /* --- 2. Tab selection triggers for bottom panel --- */
+    var tabBtns = document.querySelectorAll('.spec-tab-btn');
+    var tabPanes = document.querySelectorAll('.tab-pane');
+    tabBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        tabBtns.forEach(function(b) { b.classList.remove('active'); });
+        tabPanes.forEach(function(p) { p.classList.remove('active'); });
+        
+        this.classList.add('active');
+        var targetPane = document.getElementById('tab-' + this.dataset.tab);
+        if (targetPane) {
+          targetPane.classList.add('active');
+        }
+      });
+    });
+
+    /* --- 3. Dynamic variant selection logic matching real variants array --- */
+    var variants = window.pdpVariantsJson || [];
+    var optionBlocks = document.querySelectorAll('.angara-option-block[data-option-index]');
     
-    var valQuality = 0;
-    var valCarat = 0;
-    var valMetal = 0;
+    // Store current state of selected options
+    var currentSelections = {};
+    optionBlocks.forEach(function(block) {
+      var idx = block.dataset.optionIndex;
+      var activeBtn = block.querySelector('.angara-opt-btn.active');
+      if (activeBtn) {
+        currentSelections[idx] = activeBtn.dataset.value;
+      }
+    });
+
+    // Listen to option button clicks
+    optionBlocks.forEach(function(block) {
+      var idx = block.dataset.optionIndex;
+      var labelSpan = block.querySelector('.lbl-selected-value');
+      var buttons = block.querySelectorAll('.angara-opt-btn');
+      
+      buttons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          buttons.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          
+          var selectedVal = this.dataset.value;
+          currentSelections[idx] = selectedVal;
+          if (labelSpan) labelSpan.textContent = selectedVal;
+          
+          updateSelectedVariant();
+        });
+      });
+    });
+
+    // Handle custom Earring Backing buttons (Line item property)
+    var backingBtns = document.querySelectorAll('#backing-buttons .angara-opt-btn');
+    var lblBacking = document.getElementById('lbl-backing');
+    var backingInput = document.getElementById('pdp-backing-property');
+    var specValBacking = document.getElementById('spec-val-backing');
+
+    backingBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        backingBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        var val = this.dataset.value;
+        if (lblBacking) lblBacking.textContent = val;
+        if (backingInput) backingInput.value = val;
+        if (specValBacking) specValBacking.textContent = val;
+      });
+    });
 
     var priceEl = document.getElementById('visible-price');
-    var comparePriceEl = document.getElementById('compare-price');
-    var atcPriceEl = document.getElementById('atc-btn-price');
-    var financingPriceEl = document.getElementById('financing-price');
+    var summaryPriceEl = document.getElementById('atc-btn-price-summary');
+    var atcBtn = document.getElementById('pdp-atc-btn');
+    var variantInput = document.getElementById('pdp-variant-id');
+    
+    // Spec table dynamic spans
+    var specDimType = document.getElementById('spec-val-diamond-type');
+    var specCarat = document.getElementById('spec-val-carat');
+    var specMetal = document.getElementById('spec-val-metal');
 
-    function updatePrice() {
-      var total = basePrice + valQuality + valCarat + valMetal;
-      var formatted = '$' + Math.round(total).toLocaleString('en-US');
-      var formattedCompare = '$' + Math.round(total * 1.1).toLocaleString('en-US');
-      var financingVal = '$' + (total / 12).toFixed(2) + '/month';
+    function updateSelectedVariant() {
+      if (variants.length === 0) return;
 
-      if(priceEl) priceEl.textContent = formatted;
-      if(comparePriceEl) comparePriceEl.textContent = formattedCompare;
-      if(atcPriceEl) atcPriceEl.textContent = formatted;
-      if(financingPriceEl) financingPriceEl.textContent = financingVal;
-    }
-
-    // Quality buttons
-    var qualityBtns = document.querySelectorAll('.angara-opt-btn');
-    var lblQuality = document.getElementById('lbl-quality');
-    qualityBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        qualityBtns.forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        valQuality = parseFloat(this.dataset.val);
-        if(lblQuality) lblQuality.textContent = this.dataset.quality;
-        
-        // Hide upgrade panel if already F-G, VS or D-E, VVS
-        var upgradePanel = document.getElementById('upgrade-panel');
-        if(upgradePanel) {
-          if (this.dataset.quality === 'D-E, VVS') {
-            upgradePanel.style.display = 'none';
-          } else {
-            upgradePanel.style.display = 'flex';
+      // Find matching variant
+      var matchedVariant = variants.find(function(variant) {
+        var match = true;
+        Object.keys(currentSelections).forEach(function(idx) {
+          var valIndex = parseInt(idx);
+          var selectedValue = currentSelections[idx];
+          
+          // Shopify variant options are indexed as option1, option2, option3
+          var variantOptionValue = variant['option' + (valIndex + 1)];
+          if (variantOptionValue !== selectedValue) {
+            match = false;
           }
+        });
+        return match;
+      });
+
+      if (matchedVariant) {
+        // Update price
+        var formattedPrice = 'AUD $' + (matchedVariant.price / 100).toLocaleString('en-US');
+        if (priceEl) priceEl.textContent = formattedPrice;
+        if (summaryPriceEl) summaryPriceEl.textContent = formattedPrice;
+        
+        // Update input ID for Add To Cart
+        if (variantInput) variantInput.value = matchedVariant.id;
+        
+        // Enable button
+        if (atcBtn) {
+          atcBtn.disabled = !matchedVariant.available;
+          atcBtn.querySelector('span').textContent = matchedVariant.available ? 'ADD TO CART' : 'SOLD OUT';
         }
-        updatePrice();
-      });
-    });
 
-    // Carat buttons
-    var caratBtns = document.querySelectorAll('.angara-carat-btn');
-    var lblCarat = document.getElementById('lbl-carat');
-    caratBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        caratBtns.forEach(function(b) { b.classList.remove('active'); });
-        this.classList.add('active');
-        valCarat = parseFloat(this.dataset.val);
-        if(lblCarat) lblCarat.textContent = this.dataset.carat;
-        updatePrice();
-      });
-    });
-
-    // Metal dots
-    var metalDots = document.querySelectorAll('.angara-metal-dot');
-    var lblMetal = document.getElementById('lbl-metal');
-    metalDots.forEach(function(dot) {
-      dot.addEventListener('click', function() {
-        metalDots.forEach(function(d) { d.classList.remove('active'); });
-        this.classList.add('active');
-        valMetal = parseFloat(this.dataset.val);
-        if(lblMetal) lblMetal.textContent = this.dataset.metal;
-        updatePrice();
-      });
-    });
-
-    // Trigger upgrade banner
-    var triggerUpgrade = document.getElementById('btn-trigger-upgrade');
-    if(triggerUpgrade) {
-      triggerUpgrade.addEventListener('click', function() {
-        var upgradeBtn = document.querySelector('.angara-opt-btn[data-quality="D-E, VVS"]');
-        if(upgradeBtn) {
-          upgradeBtn.click();
+        // Dynamic specifications update
+        if (specDimType && currentSelections['1']) {
+          specDimType.textContent = currentSelections['1'] + ' (Natural/Lab Grown selection)';
         }
-      });
+        if (specCarat && currentSelections['2']) {
+          var caratSelected = currentSelections['2'];
+          var halfCaratDetails = caratSelected === '0.50ct' ? '0.25ct Emerald + 0.25ct Pear' :
+                                 caratSelected === '2.00ct' ? '1.00ct Emerald + 1.00ct Pear' :
+                                 '0.50ct Emerald + 0.50ct Pear';
+          specCarat.textContent = caratSelected + ' total (' + halfCaratDetails + ')';
+        }
+        if (specMetal && currentSelections['0']) {
+          specMetal.textContent = currentSelections['0'];
+        }
+
+        // Change main image if variant has featured image
+        if (matchedVariant.featured_image && mainImg) {
+          mainImg.src = matchedVariant.featured_image.src;
+          // De-select active thumbnail since we updated via variant select
+          thumbs.forEach(function(t) { t.classList.remove('active'); });
+        }
+      } else {
+        // No match found
+        if (atcBtn) {
+          atcBtn.disabled = true;
+          atcBtn.querySelector('span').textContent = 'UNAVAILABLE';
+        }
+      }
     }
 
-    /* --- 3. Wishlist toggle --- */
+    // Run once at start to bind initial values
+    updateSelectedVariant();
+
+    /* --- 4. Wishlist Button Toggle --- */
     var wishlistBtn = document.getElementById('pdp-wishlist-btn');
-    if(wishlistBtn) {
+    if (wishlistBtn) {
       wishlistBtn.addEventListener('click', function() {
         this.classList.toggle('active');
         var icon = this.querySelector('i');
@@ -801,25 +1327,30 @@
       });
     }
 
-    /* --- 4. AJAX add to cart --- */
+    /* --- 5. AJAX Add to Cart Submission --- */
     var form = document.getElementById('pdp-atc-form');
-    var atcBtn = document.getElementById('pdp-atc-btn');
-    var variantInput = document.getElementById('pdp-variant-id');
-
     if (form && atcBtn) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
         var id = variantInput ? variantInput.value : '';
         if (!id) return;
 
-        var origContent = atcBtn.innerHTML;
-        atcBtn.innerHTML = '<span>ADDING...</span>';
+        var origContent = atcBtn.querySelector('span').textContent;
+        atcBtn.querySelector('span').textContent = 'ADDING...';
         atcBtn.disabled = true;
+
+        var backingProp = backingInput ? backingInput.value : 'Butterfly';
 
         fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ id: parseInt(id), quantity: 1 }),
+          body: JSON.stringify({
+            id: parseInt(id),
+            quantity: 1,
+            properties: {
+              'Backing': backingProp
+            }
+          }),
         })
         .then(function(r) { return r.json(); })
         .then(function() { return fetch('/cart.js'); })
@@ -828,15 +1359,15 @@
           if (typeof globalUpdateCartBadge === 'function') globalUpdateCartBadge(cart.item_count);
           if (typeof cartRenderItems === 'function') cartRenderItems(cart);
           if (typeof globalOpenCart === 'function') globalOpenCart();
-          atcBtn.innerHTML = '<span>ADDED ✓</span>';
+          atcBtn.querySelector('span').textContent = 'ADDED ✓';
           setTimeout(function() {
-            atcBtn.innerHTML = origContent;
+            atcBtn.querySelector('span').textContent = origContent;
             atcBtn.disabled = false;
           }, 2000);
         })
         .catch(function(err) {
           console.error('ATC error', err);
-          atcBtn.innerHTML = origContent;
+          atcBtn.querySelector('span').textContent = origContent;
           atcBtn.disabled = false;
         });
       });
@@ -848,6 +1379,10 @@
 {
   "name": "Main Product",
   "settings": [],
-  "presets": [{ "name": "Main Product" }]
+  "presets": [
+    {
+      "name": "Main Product"
+    }
+  ]
 }
 {% endschema %}
