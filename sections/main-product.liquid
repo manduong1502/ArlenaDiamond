@@ -974,38 +974,71 @@
       <!-- 1. Specifications Table Tab -->
       <div id="tab-specifications" class="tab-pane active">
         <table class="spec-table">
-          <tr>
-            <td class="spec-label">Diamond Type</td>
-            <td class="spec-val" id="spec-val-diamond-type">Lab Grown or Natural (based on selection)</td>
-          </tr>
-          <tr>
-            <td class="spec-label">Diamond Shape</td>
-            <td class="spec-val">{{ product.metafields.custom.diamond_shape | default: 'Emerald & Pear' }}</td>
-          </tr>
-          <tr>
-            <td class="spec-label">Total Carat Weight</td>
-            <td class="spec-val" id="spec-val-carat">1.00ct total (0.50ct Emerald + 0.50ct Pear)</td>
-          </tr>
-          <tr>
-            <td class="spec-label">Diamond Colour</td>
-            <td class="spec-val">{{ product.metafields.custom.diamond_colour | default: 'D - F' }}</td>
-          </tr>
-          <tr>
-            <td class="spec-label">Diamond Clarity</td>
-            <td class="spec-val">{{ product.metafields.custom.diamond_clarity | default: 'VS1 - VS2' }}</td>
-          </tr>
+          {%- assign has_diamond = false -%}
+          {%- for tag in product.tags -%}
+            {%- assign tag_lc = tag | downcase -%}
+            {%- if tag_lc contains 'diamond' or tag_lc contains 'gemstone' -%}
+              {%- assign has_diamond = true -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {%- if product.handle contains 'diamond' or product.handle contains 'gemstone' -%}
+            {%- assign has_diamond = true -%}
+          {%- endif -%}
+
+          {%- if has_diamond -%}
+            <tr>
+              <td class="spec-label">Diamond Type</td>
+              <td class="spec-val" id="spec-val-diamond-type">Lab Grown or Natural (based on selection)</td>
+            </tr>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.diamond_shape != blank or has_diamond -%}
+            <tr>
+              <td class="spec-label">Diamond Shape</td>
+              <td class="spec-val">{{ product.metafields.custom.diamond_shape | default: 'Emerald & Pear' }}</td>
+            </tr>
+          {%- endif -%}
+
+          {%- if product.options contains 'Carat Weight' or product.metafields.custom.total_carat_weight != blank or has_diamond -%}
+            <tr>
+              <td class="spec-label">Total Carat Weight</td>
+              <td class="spec-val" id="spec-val-carat">1.00ct total (0.50ct Emerald + 0.50ct Pear)</td>
+            </tr>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.diamond_colour != blank or has_diamond -%}
+            <tr>
+              <td class="spec-label">Diamond Colour</td>
+              <td class="spec-val">{{ product.metafields.custom.diamond_colour | default: 'D - F' }}</td>
+            </tr>
+          {%- endif -%}
+
+          {%- if product.metafields.custom.diamond_clarity != blank or has_diamond -%}
+            <tr>
+              <td class="spec-label">Diamond Clarity</td>
+              <td class="spec-val">{{ product.metafields.custom.diamond_clarity | default: 'VS1 - VS2' }}</td>
+            </tr>
+          {%- endif -%}
+
           <tr>
             <td class="spec-label">Metal</td>
             <td class="spec-val" id="spec-val-metal">9K, 14K, 18K Gold or Platinum</td>
           </tr>
-          <tr>
-            <td class="spec-label">Setting Style</td>
-            <td class="spec-val">{{ product.metafields.custom.setting_style | default: 'Four-Prong' }}</td>
-          </tr>
-          <tr>
-            <td class="spec-label">Earring Back</td>
-            <td class="spec-val" id="spec-val-backing">Butterfly or Screw Back</td>
-          </tr>
+
+          {%- if product.metafields.custom.setting_style != blank or has_diamond -%}
+            <tr>
+              <td class="spec-label">Setting Style</td>
+              <td class="spec-val">{{ product.metafields.custom.setting_style | default: 'Four-Prong' }}</td>
+            </tr>
+          {%- endif -%}
+
+          {%- if product.type == 'Earrings' or product.handle contains 'earring' or product.tags contains 'Earrings' -%}
+            <tr>
+              <td class="spec-label">Earring Back</td>
+              <td class="spec-val" id="spec-val-backing">Butterfly or Screw Back</td>
+            </tr>
+          {%- endif -%}
+
           <tr>
             <td class="spec-label">Made In</td>
             <td class="spec-val">{{ product.metafields.custom.made_in | default: 'Australia' }}</td>
