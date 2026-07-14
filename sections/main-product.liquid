@@ -36,17 +36,17 @@
     color: #ccc;
   }
 
-  /* Main Layout Grid */
+  /* Main Layout Grid - 50/50 split with min-width safety for scrolling inputs */
   .angara-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 50px;
     align-items: start;
     margin-bottom: 50px;
   }
   @media (max-width: 991px) {
     .angara-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 30px;
     }
   }
