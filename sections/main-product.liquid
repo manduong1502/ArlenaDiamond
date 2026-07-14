@@ -253,6 +253,126 @@
     box-shadow: inset 0 0 0 1px #000;
   }
 
+  /* Ring Size buttons and slider */
+  .ring-size-slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    width: 100%;
+  }
+  .ring-size-buttons-container {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    flex-grow: 1;
+    padding: 2px 0;
+  }
+  .ring-size-buttons-container::-webkit-scrollbar {
+    display: none;
+  }
+  .size-btn {
+    flex: 0 0 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid #dcdad5;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #111;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .size-btn:hover {
+    border-color: #000;
+  }
+  .size-btn.active {
+    border-color: #000;
+    font-weight: bold;
+    box-shadow: inset 0 0 0 1px #000;
+  }
+  .slider-arrow {
+    background: #fff;
+    border: 1px solid #dcdad5;
+    cursor: pointer;
+    width: 28px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    color: #666;
+    z-index: 2;
+  }
+  .slider-arrow:hover {
+    border-color: #000;
+    color: #000;
+  }
+
+  /* Free Engraving style */
+  .engraving-toggle-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 15px;
+    background-color: #f7f6f4;
+    border: 1px solid #e0dfdb;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #111;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+  }
+  .engraving-toggle-header:hover {
+    background-color: #f0eee9;
+    border-color: #c5a880;
+  }
+  .engraving-toggle-header .toggle-icon {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666;
+    transition: transform 0.2s ease;
+  }
+  .engraving-toggle-header.expanded .toggle-icon {
+    transform: rotate(45deg);
+  }
+  .engraving-input-panel {
+    border: 1px solid #e0dfdb;
+    border-top: none;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 0 0 2px 2px;
+  }
+  .engraving-text-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #dcdad5;
+    font-size: 12px;
+    color: #111;
+    border-radius: 2px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    text-transform: uppercase;
+  }
+  .engraving-text-input:focus {
+    border-color: #000;
+  }
+  .engraving-limit-text {
+    font-size: 10px;
+    color: #666;
+    margin-top: 6px;
+  }
+
   /* Purchase Info Row */
   .pdp-purchase-details {
     display: flex;
@@ -867,6 +987,41 @@
 
         </div>
 
+        <!-- Custom Ring Size & Engraving options (if product is a Ring) -->
+        {% if product.type == 'Ring' or product.type == 'Rings' or product.handle contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' %}
+          <!-- Ring Size Selection -->
+          <div class="angara-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
+            <div class="angara-option-label" style="display:flex; justify-content:space-between; align-items:center;">
+              <span>Select Ring Size (Free Resizing): <strong id="lbl-ring-size">O</strong></span>
+              <a href="#" class="size-guide-link" id="pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
+            </div>
+            
+            <input type="hidden" name="properties[Ring Size]" id="pdp-ring-size-property" value="O">
+            
+            <div class="ring-size-slider-wrapper">
+              <button type="button" class="slider-arrow prev-size" id="prev-size-btn"><i class="fa-solid fa-chevron-left"></i></button>
+              <div class="ring-size-buttons-container" id="ring-size-buttons">
+                {% assign sizes = "H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3" | split: "," %}
+                {% for s in sizes %}
+                  <button type="button" class="size-btn {% if s == 'O' %}active{% endif %}" data-value="{{ s }}">{{ s }}</button>
+                {% endfor %}
+              </div>
+              <button type="button" class="slider-arrow next-size" id="next-size-btn"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Free Engraving Section -->
+          <div class="angara-option-block engraving-section" style="margin-bottom:20px;">
+            <div class="engraving-toggle-header" id="engraving-toggle" style="user-select: none;">
+              <span class="toggle-icon">+</span> Add Free Engraving
+            </div>
+            <div class="engraving-input-panel" id="engraving-panel" style="display:none;">
+              <input type="text" name="properties[Engraving]" id="pdp-engraving-input" placeholder="Enter engraving text (e.g., FOREVER YOURS)" maxlength="20" class="engraving-text-input">
+              <div class="engraving-limit-text">Max 20 characters. Letters, numbers, and basic symbols only. Free sizing.</div>
+            </div>
+          </div>
+        {% endif %}
+
         <!-- Purchase details / Delivery summary -->
         <div class="pdp-purchase-details">
           <div class="purchase-detail-item">
@@ -1315,6 +1470,54 @@
     // Run once at start to bind initial values
     updateSelectedVariant();
 
+    // Custom Ring Size buttons logic
+    var sizeBtns = document.querySelectorAll('#ring-size-buttons .size-btn');
+    var lblRingSize = document.getElementById('lbl-ring-size');
+    var ringSizeInput = document.getElementById('pdp-ring-size-property');
+    var sizeContainer = document.getElementById('ring-size-buttons');
+    var prevSizeBtn = document.getElementById('prev-size-btn');
+    var nextSizeBtn = document.getElementById('next-size-btn');
+
+    if (sizeBtns.length > 0) {
+      sizeBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          sizeBtns.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          var selectedSize = this.dataset.value;
+          if (lblRingSize) lblRingSize.textContent = selectedSize;
+          if (ringSizeInput) ringSizeInput.value = selectedSize;
+        });
+      });
+    }
+
+    // Scroll buttons logic for size slider
+    if (sizeContainer && prevSizeBtn && nextSizeBtn) {
+      prevSizeBtn.addEventListener('click', function() {
+        sizeContainer.scrollBy({ left: -120, behavior: 'smooth' });
+      });
+      nextSizeBtn.addEventListener('click', function() {
+        sizeContainer.scrollBy({ left: 120, behavior: 'smooth' });
+      });
+    }
+
+    // Engraving toggle logic
+    var engravingToggle = document.getElementById('engraving-toggle');
+    var engravingPanel = document.getElementById('engraving-panel');
+    if (engravingToggle && engravingPanel) {
+      engravingToggle.addEventListener('click', function() {
+        var isExpanded = engravingPanel.style.display !== 'none';
+        if (isExpanded) {
+          engravingPanel.style.display = 'none';
+          engravingToggle.classList.remove('expanded');
+          engravingToggle.querySelector('.toggle-icon').textContent = '+';
+        } else {
+          engravingPanel.style.display = 'block';
+          engravingToggle.classList.add('expanded');
+          engravingToggle.querySelector('.toggle-icon').textContent = '-';
+        }
+      });
+    }
+
     /* --- 4. Wishlist Button Toggle --- */
     var wishlistBtn = document.getElementById('pdp-wishlist-btn');
     if (wishlistBtn) {
@@ -1343,12 +1546,24 @@
         atcBtn.querySelector('span').textContent = 'ADDING...';
         atcBtn.disabled = true;
 
+        var payloadProperties = {};
+        var ringSizeVal = ringSizeInput ? ringSizeInput.value : '';
+        if (ringSizeVal) {
+          payloadProperties['Ring Size'] = ringSizeVal;
+        }
+
+        var engravingTxtInput = document.getElementById('pdp-engraving-input');
+        if (engravingTxtInput && engravingTxtInput.value.trim() !== '') {
+          payloadProperties['Engraving'] = engravingTxtInput.value.trim();
+        }
+
         fetch('/cart/add.js', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             id: parseInt(id),
-            quantity: 1
+            quantity: 1,
+            properties: payloadProperties
           }),
         })
         .then(function(r) { return r.json(); })
