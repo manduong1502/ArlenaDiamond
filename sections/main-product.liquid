@@ -297,19 +297,23 @@
     background: #fff;
     border: 1px solid #dcdad5;
     cursor: pointer;
-    width: 28px;
+    width: 40px;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 2px;
-    transition: all 0.2s ease;
-    color: #666;
+    border-radius: 50%;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #111;
     z-index: 2;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    flex-shrink: 0;
   }
   .slider-arrow:hover {
     border-color: #000;
-    color: #000;
+    background-color: #000;
+    color: #fff;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
   }
 
   /* Free Engraving style */
