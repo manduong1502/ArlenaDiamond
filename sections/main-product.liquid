@@ -945,7 +945,7 @@
       <!-- Short Brief Description -->
       <p class="angara-desc-brief">
         {% if product.description != blank %}
-          {{ product.description | strip_html | truncatewords: 35 }}
+          {{ product.description | split: '<!-- split -->' | first }}
         {% else %}
           The iconic Toi et Moi design, pairing a striking emerald-cut diamond with a brilliant pear-cut diamond in perfect harmony. Handcrafted in Australia using ethically sourced diamonds.
         {% endif %}
@@ -1056,7 +1056,11 @@
         </p>
       {% else %}
         <div class="about-piece-description-wrapper" style="font-size: 13px; line-height: 1.8; color: #555;">
-          {{ product.description }}
+          {% if product.description contains '<!-- split -->' %}
+            {{ product.description | split: '<!-- split -->' | last }}
+          {% else %}
+            <p>Every piece of Arlena jewellery is handcrafted in Australia using ethically sourced premium metals and conflict-free diamonds of exceptional brilliance. Meticulously made to order, our designs combine timeless elegance with contemporary sophistication to become a treasured part of your everyday story.</p>
+          {% endif %}
         </div>
       {% endif %}
     </div>
