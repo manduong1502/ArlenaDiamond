@@ -51,35 +51,48 @@
     }
   }
 
-  /* Gallery Column */
+  /* Gallery Column - Horizontal thumbnails below main viewport matching Image 2 */
   .angara-gallery {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     position: sticky;
     top: 130px;
+    width: 100%;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 991px) {
     .angara-gallery {
-      grid-template-columns: 1fr;
       position: static;
     }
   }
+  .angara-viewport {
+    position: relative;
+    border: 1px solid #f6f6f6;
+    background-color: #fafaf9;
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .angara-viewport img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
   .angara-thumbs {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  @media (max-width: 768px) {
-    .angara-thumbs {
-      flex-direction: row;
-      overflow-x: auto;
-      padding-bottom: 10px;
-    }
+    flex-direction: row;
+    gap: 12px;
+    overflow-x: auto;
+    padding-bottom: 5px;
   }
   .angara-thumb {
     width: 80px;
     height: 80px;
+    flex: 0 0 80px;
     border: 1px solid #eaeaea;
     cursor: pointer;
     overflow: hidden;
@@ -97,23 +110,6 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }
-  
-  .angara-viewport {
-    position: relative;
-    border: 1px solid #f6f6f6;
-    background-color: #fafaf9;
-    aspect-ratio: 1/1;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .angara-viewport img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
   }
   .angara-tag {
     position: absolute;
@@ -876,6 +872,18 @@
   <div class="angara-grid">
     <!-- LEFT: GALLERY -->
     <section class="angara-gallery">
+      <!-- Main Image Viewport -->
+      <div class="angara-viewport">
+        <span class="angara-tag">Made to Order</span>
+        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
+          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
+        {% elsif product.featured_image %}
+          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}">
+        {% else %}
+          <img id="angara-main-img" src="" alt="Placeholder">
+        {% endif %}
+      </div>
+
       <div class="angara-thumbs">
         <!-- If handle is our stud earrings, load the generated local asset as primary -->
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
@@ -898,18 +906,6 @@
               {{ 'product-1' | placeholder_svg_tag }}
             </div>
           {% endfor %}
-        {% endif %}
-      </div>
-
-      <!-- Main Image Viewport -->
-      <div class="angara-viewport">
-        <span class="angara-tag">Made to Order</span>
-        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
-        {% elsif product.featured_image %}
-          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}">
-        {% else %}
-          <img id="angara-main-img" src="" alt="Placeholder">
         {% endif %}
       </div>
     </section>
