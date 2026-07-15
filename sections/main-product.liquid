@@ -1156,11 +1156,11 @@
             </tr>
             <tr>
               <td class="spec-label">Diamond Colour</td>
-              <td class="spec-val" id="spec-val-diamond-colour" data-default="D - F">D - F</td>
+              <td class="spec-val" id="spec-val-diamond-colour">D - F</td>
             </tr>
             <tr>
               <td class="spec-label">Diamond Clarity</td>
-              <td class="spec-val" id="spec-val-diamond-clarity" data-default="VS1 - VS2">VS1 - VS2</td>
+              <td class="spec-val" id="spec-val-diamond-clarity">VS1 - VS2</td>
             </tr>
             <tr>
               <td class="spec-label">Metal</td>
@@ -1208,17 +1208,17 @@
               </tr>
             {%- endif -%}
 
-            {%- if product.metafields.custom.diamond_colour != blank -%}
+            {%- if product.metafields.custom.diamond_colour != blank or has_diamond -%}
               <tr>
                 <td class="spec-label">Diamond Colour</td>
-                <td class="spec-val" id="spec-val-diamond-colour" data-default="{{ product.metafields.custom.diamond_colour }}">{{ product.metafields.custom.diamond_colour }}</td>
+                <td class="spec-val" id="spec-val-diamond-colour">{{ product.metafields.custom.diamond_colour | default: 'DEF / FGH (based on selection)' }}</td>
               </tr>
             {%- endif -%}
 
-            {%- if product.metafields.custom.diamond_clarity != blank -%}
+            {%- if product.metafields.custom.diamond_clarity != blank or has_diamond -%}
               <tr>
                 <td class="spec-label">Diamond Clarity</td>
-                <td class="spec-val" id="spec-val-diamond-clarity" data-default="{{ product.metafields.custom.diamond_clarity }}">{{ product.metafields.custom.diamond_clarity }}</td>
+                <td class="spec-val" id="spec-val-diamond-clarity">{{ product.metafields.custom.diamond_clarity | default: 'VVS / VS (based on selection)' }}</td>
               </tr>
             {%- endif -%}
 
@@ -1254,11 +1254,10 @@
             </tr>
           {%- endif -%}
         </table>
-        {%- if product.metafields.custom.specification_note != blank -%}
-          <div class="spec-table-note" style="margin-top: 15px; font-size: 12px; color: #555; font-style: italic; text-align: left; line-height: 1.6; border-top: 1px solid #f2f0eb; padding-top: 12px;">
-            * Note: {{ product.metafields.custom.specification_note }}
-          </div>
-        {%- endif -%}
+        <div class="spec-note" style="margin-top: 20px; font-size: 11px; color: #666; line-height: 1.6; font-style: italic; border-top: 1px solid #f0f0f0; padding-top: 15px;">
+          * Note: All product specifications (such as diamond weights, dimensions, and metal weights) are approximate values based on our standard production samples. Actual weights and details may vary slightly for each individually handcrafted piece and are subject to minor tolerances.
+        </div>
+      </div>
       </div>
 
       <!-- 2. Craftsmanship Tab -->
@@ -1543,32 +1542,30 @@
         }
 
         // Dynamic specifications update
-        var optionDimIdx = -1;
-        if (specDimType || specDimColour || specDimClarity) {
-          optionDimIdx = Array.from(optionBlocks).findIndex(function(b) {
+        if (specDimType) {
+          var optionDimIdx = Array.from(optionBlocks).findIndex(function(b) {
             var label = b.querySelector('.angara-option-label');
             return label && label.textContent.includes('Diamond');
           });
-        }
-        
-        if (specDimType && optionDimIdx !== -1 && currentSelections[optionDimIdx]) {
-          specDimType.textContent = currentSelections[optionDimIdx];
-        }
-
-        if (specDimColour || specDimClarity) {
-          var selectedDimType = '';
           if (optionDimIdx !== -1 && currentSelections[optionDimIdx]) {
-            selectedDimType = currentSelections[optionDimIdx];
-          }
-          if (selectedDimType === 'Lab Grown') {
-            if (specDimColour) specDimColour.textContent = 'DEF';
-            if (specDimClarity) specDimClarity.textContent = 'VVS';
-          } else if (selectedDimType === 'Natural') {
-            if (specDimColour) specDimColour.textContent = 'FGH';
-            if (specDimClarity) specDimClarity.textContent = 'VS';
-          } else {
-            if (specDimColour) specDimColour.textContent = specDimColour.getAttribute('data-default') || 'D - F';
-            if (specDimClarity) specDimClarity.textContent = specDimClarity.getAttribute('data-default') || 'VS1 - VS2';
+            var selectedDiamond = currentSelections[optionDimIdx];
+            specDimType.textContent = selectedDiamond;
+            
+            // Dynamic Diamond Colour & Clarity quality adjustment based on Lab Grown vs Natural selection
+            if (specDimColour) {
+              if (selectedDiamond.toLowerCase().includes('lab grown')) {
+                specDimColour.textContent = 'DEF';
+              } else if (selectedDiamond.toLowerCase().includes('natural')) {
+                specDimColour.textContent = 'FGH';
+              }
+            }
+            if (specDimClarity) {
+              if (selectedDiamond.toLowerCase().includes('lab grown')) {
+                specDimClarity.textContent = 'VVS';
+              } else if (selectedDiamond.toLowerCase().includes('natural')) {
+                specDimClarity.textContent = 'VS';
+              }
+            }
           }
         }
         if (specCarat) {
