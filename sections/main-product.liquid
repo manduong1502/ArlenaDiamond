@@ -988,7 +988,17 @@
         </div>
 
         <!-- Custom Ring Size & Engraving options (if product is a Ring) -->
-        {% if product.type == 'Ring' or product.type == 'Rings' or product.handle contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' %}
+        {%- assign is_ring = false -%}
+        {%- assign product_type_dc = product.type | downcase -%}
+        {%- if product_type_dc == 'ring' or product_type_dc == 'rings' or product_type_dc == 'engagement rings' or product_type_dc == 'wedding bands' -%}
+          {%- assign is_ring = true -%}
+        {%- elsif product.handle contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' -%}
+          {%- unless product.handle contains 'earring' or product.tags contains 'Earrings' or product.tags contains 'earring' or product.tags contains 'Earrings' or product.handle contains 'pendant' or product.tags contains 'pendant' or product.tags contains 'Pendant' or product.handle contains 'bracelet' or product.tags contains 'bracelet' -%}
+            {%- assign is_ring = true -%}
+          {%- endunless -%}
+        {%- endif -%}
+
+        {% if is_ring %}
           <!-- Ring Size Selection -->
           <div class="angara-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
             <div class="angara-option-label" style="display:flex; justify-content:space-between; align-items:center;">
@@ -1249,7 +1259,7 @@
               </tr>
             {%- endif -%}
 
-            {%- if product.type == 'Ring' or product.type == 'Rings' or product.handle contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' -%}
+            {%- if is_ring -%}
               <tr>
                 <td class="spec-label">Ring Size</td>
                 <td class="spec-val" id="spec-val-ring-size">O (based on selection)</td>
