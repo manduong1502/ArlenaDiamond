@@ -891,18 +891,18 @@
       <div class="angara-thumbs">
         <!-- If handle is our stud earrings, load the generated local asset as primary -->
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}">
+          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-alt="">
             <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}">
+          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-alt="">
             <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}">
+          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-alt="">
             <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
         {% else %}
           {% for image in product.images %}
-            <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}">
+            <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}" data-alt="{{ image.alt | escape }}">
               <img src="{{ image | img_url: '120x' }}" alt="{{ product.title | escape }}">
             </div>
           {% else %}
@@ -1555,6 +1555,55 @@
     var specDimColour = document.getElementById('spec-val-diamond-colour');
     var specDimClarity = document.getElementById('spec-val-diamond-clarity');
 
+    function getColorKeyword(metalStr) {
+      var str = (metalStr || '').toLowerCase();
+      if (str.includes('yellow gold') || str.includes('yellow')) return 'yellow';
+      if (str.includes('rose gold') || str.includes('rose')) return 'rose';
+      if (str.includes('white gold') || str.includes('white')) return 'white';
+      if (str.includes('platinum')) return 'platinum';
+      return '';
+    }
+
+    function filterThumbnails(selectedMetal) {
+      var selectedColor = getColorKeyword(selectedMetal);
+      if (!selectedColor) return;
+      
+      var thumbs = document.querySelectorAll('.angara-thumb');
+      var firstVisibleThumb = null;
+      
+      thumbs.forEach(function(thumb) {
+        var alt = (thumb.getAttribute('data-alt') || '').toLowerCase();
+        
+        // Show if matches color, OR if alt is completely empty/generic
+        var isMatch = alt.includes(selectedColor) || alt === '';
+        
+        // Exclude if it contains other colors
+        var hasOtherColor = false;
+        var colors = ['yellow', 'white', 'rose', 'platinum'];
+        colors.forEach(function(c) {
+          if (c !== selectedColor && alt.includes(c)) {
+            hasOtherColor = true;
+          }
+        });
+        
+        if (isMatch && !hasOtherColor) {
+          thumb.style.display = '';
+          if (!firstVisibleThumb) {
+            firstVisibleThumb = thumb;
+          }
+        } else {
+          thumb.style.display = 'none';
+          thumb.classList.remove('active');
+        }
+      });
+      
+      // Auto click first visible thumb if current active is hidden
+      var activeThumb = document.querySelector('.angara-thumb.active');
+      if ((!activeThumb || activeThumb.style.display === 'none') && firstVisibleThumb) {
+        firstVisibleThumb.click();
+      }
+    }
+
     function updateSelectedVariant() {
       if (variants.length === 0) return;
 
@@ -1639,7 +1688,9 @@
             return label && label.textContent.includes('Metal');
           });
           if (optionMetalIdx !== -1 && currentSelections[optionMetalIdx]) {
-            specMetal.textContent = currentSelections[optionMetalIdx];
+            var selectedMetal = currentSelections[optionMetalIdx];
+            specMetal.textContent = selectedMetal;
+            filterThumbnails(selectedMetal);
           }
         }
         var specValRingSize = document.getElementById('spec-val-ring-size');
