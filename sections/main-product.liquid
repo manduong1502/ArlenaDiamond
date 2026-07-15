@@ -1156,11 +1156,11 @@
             </tr>
             <tr>
               <td class="spec-label">Diamond Colour</td>
-              <td class="spec-val">D - F</td>
+              <td class="spec-val" id="spec-val-diamond-colour" data-default="D - F">D - F</td>
             </tr>
             <tr>
               <td class="spec-label">Diamond Clarity</td>
-              <td class="spec-val">VS1 - VS2</td>
+              <td class="spec-val" id="spec-val-diamond-clarity" data-default="VS1 - VS2">VS1 - VS2</td>
             </tr>
             <tr>
               <td class="spec-label">Metal</td>
@@ -1211,14 +1211,14 @@
             {%- if product.metafields.custom.diamond_colour != blank -%}
               <tr>
                 <td class="spec-label">Diamond Colour</td>
-                <td class="spec-val">{{ product.metafields.custom.diamond_colour }}</td>
+                <td class="spec-val" id="spec-val-diamond-colour" data-default="{{ product.metafields.custom.diamond_colour }}">{{ product.metafields.custom.diamond_colour }}</td>
               </tr>
             {%- endif -%}
 
             {%- if product.metafields.custom.diamond_clarity != blank -%}
               <tr>
                 <td class="spec-label">Diamond Clarity</td>
-                <td class="spec-val">{{ product.metafields.custom.diamond_clarity }}</td>
+                <td class="spec-val" id="spec-val-diamond-clarity" data-default="{{ product.metafields.custom.diamond_clarity }}">{{ product.metafields.custom.diamond_clarity }}</td>
               </tr>
             {%- endif -%}
 
@@ -1254,6 +1254,11 @@
             </tr>
           {%- endif -%}
         </table>
+        {%- if product.metafields.custom.specification_note != blank -%}
+          <div class="spec-table-note" style="margin-top: 15px; font-size: 12px; color: #555; font-style: italic; text-align: left; line-height: 1.6; border-top: 1px solid #f2f0eb; padding-top: 12px;">
+            * Note: {{ product.metafields.custom.specification_note }}
+          </div>
+        {%- endif -%}
       </div>
 
       <!-- 2. Craftsmanship Tab -->
@@ -1500,6 +1505,8 @@
     var specDimType = document.getElementById('spec-val-diamond-type');
     var specCarat = document.getElementById('spec-val-carat');
     var specMetal = document.getElementById('spec-val-metal');
+    var specDimColour = document.getElementById('spec-val-diamond-colour');
+    var specDimClarity = document.getElementById('spec-val-diamond-clarity');
 
     function updateSelectedVariant() {
       if (variants.length === 0) return;
@@ -1536,13 +1543,32 @@
         }
 
         // Dynamic specifications update
-        if (specDimType) {
-          var optionDimIdx = Array.from(optionBlocks).findIndex(function(b) {
+        var optionDimIdx = -1;
+        if (specDimType || specDimColour || specDimClarity) {
+          optionDimIdx = Array.from(optionBlocks).findIndex(function(b) {
             var label = b.querySelector('.angara-option-label');
             return label && label.textContent.includes('Diamond');
           });
+        }
+        
+        if (specDimType && optionDimIdx !== -1 && currentSelections[optionDimIdx]) {
+          specDimType.textContent = currentSelections[optionDimIdx];
+        }
+
+        if (specDimColour || specDimClarity) {
+          var selectedDimType = '';
           if (optionDimIdx !== -1 && currentSelections[optionDimIdx]) {
-            specDimType.textContent = currentSelections[optionDimIdx];
+            selectedDimType = currentSelections[optionDimIdx];
+          }
+          if (selectedDimType === 'Lab Grown') {
+            if (specDimColour) specDimColour.textContent = 'DEF';
+            if (specDimClarity) specDimClarity.textContent = 'VVS';
+          } else if (selectedDimType === 'Natural') {
+            if (specDimColour) specDimColour.textContent = 'FGH';
+            if (specDimClarity) specDimClarity.textContent = 'VS';
+          } else {
+            if (specDimColour) specDimColour.textContent = specDimColour.getAttribute('data-default') || 'D - F';
+            if (specDimClarity) specDimClarity.textContent = specDimClarity.getAttribute('data-default') || 'VS1 - VS2';
           }
         }
         if (specCarat) {
