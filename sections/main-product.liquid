@@ -877,34 +877,46 @@
     <!-- LEFT: GALLERY -->
     <section class="angara-gallery">
       <!-- Main Image Viewport -->
-      <div class="angara-viewport">
-        <span class="angara-tag">Made to Order</span>
+      <div class="angara-viewport" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 400px; background: #fff;">
+        <span class="angara-tag" style="z-index: 2;">Made to Order</span>
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
+          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% elsif product.featured_image %}
-          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}">
+          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% else %}
-          <img id="angara-main-img" src="" alt="Placeholder">
+          <img id="angara-main-img" src="" alt="Placeholder" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% endif %}
+        <video id="angara-main-video" autoplay loop muted playsinline controls style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; background: #fff; z-index: 1;"></video>
       </div>
 
       <div class="angara-thumbs">
         <!-- If handle is our stud earrings, load the generated local asset as primary -->
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-alt="">
+          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-alt="">
+          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-alt="">
+          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
         {% else %}
-          {% for image in product.images %}
-            <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ image | img_url: '1200x' }}" data-alt="{{ image.alt | escape }}">
-              <img src="{{ image | img_url: '120x' }}" alt="{{ product.title | escape }}">
-            </div>
+          {% for media in product.media %}
+            {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+              {% assign video_source = media.sources | where: 'format', 'mp4' | first %}
+              {% unless video_source %}
+                {% assign video_source = media.sources | first %}
+              {% endunless %}
+              <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media.preview_image | img_url: '1200x' }}" data-media-type="video" data-video-url="{{ video_source.url }}" data-alt="{{ media.alt | escape }}" style="position: relative;">
+                <img src="{{ media.preview_image | img_url: '120x' }}" alt="{{ product.title | escape }}">
+                <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
+              </div>
+            {% else %}
+              <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media | img_url: '1200x' }}" data-media-type="image" data-alt="{{ media.alt | escape }}">
+                <img src="{{ media | img_url: '120x' }}" alt="{{ product.title | escape }}">
+              </div>
+            {% endif %}
           {% else %}
             <div class="angara-thumb active" data-src="">
               {{ 'product-1' | placeholder_svg_tag }}
@@ -1450,12 +1462,29 @@
     /* --- 1. Gallery thumbnail switching --- */
     var thumbs = document.querySelectorAll('.angara-thumb');
     var mainImg = document.getElementById('angara-main-img');
+    var mainVideo = document.getElementById('angara-main-video');
     thumbs.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
         thumbs.forEach(function(t) { t.classList.remove('active'); });
         this.classList.add('active');
-        if (mainImg) {
-          mainImg.src = this.dataset.src;
+        
+        var mediaType = this.getAttribute('data-media-type') || 'image';
+        if (mediaType === 'video') {
+          var videoUrl = this.getAttribute('data-video-url');
+          if (mainVideo && videoUrl) {
+            mainVideo.src = videoUrl;
+            mainVideo.style.display = 'block';
+            if (mainImg) mainImg.style.display = 'none';
+          }
+        } else {
+          if (mainVideo) {
+            mainVideo.style.display = 'none';
+            mainVideo.pause();
+          }
+          if (mainImg) {
+            mainImg.src = this.dataset.src;
+            mainImg.style.display = 'block';
+          }
         }
       });
     });
@@ -1555,18 +1584,17 @@
     var specDimColour = document.getElementById('spec-val-diamond-colour');
     var specDimClarity = document.getElementById('spec-val-diamond-clarity');
 
-    function getColorKeyword(metalStr) {
+    function getColorGroup(metalStr) {
       var str = (metalStr || '').toLowerCase();
-      if (str.includes('yellow gold') || str.includes('yellow')) return 'yellow';
-      if (str.includes('rose gold') || str.includes('rose')) return 'rose';
-      if (str.includes('white gold') || str.includes('white')) return 'white';
-      if (str.includes('platinum')) return 'platinum';
-      return '';
+      if (str.includes('yellow')) return ['yellow'];
+      if (str.includes('rose')) return ['rose'];
+      if (str.includes('white') || str.includes('platinum')) return ['white', 'platinum'];
+      return [];
     }
 
     function filterThumbnails(selectedMetal) {
-      var selectedColor = getColorKeyword(selectedMetal);
-      if (!selectedColor) return;
+      var selectedGroup = getColorGroup(selectedMetal);
+      if (selectedGroup.length === 0) return;
       
       var thumbs = document.querySelectorAll('.angara-thumb');
       var firstVisibleThumb = null;
@@ -1574,14 +1602,19 @@
       thumbs.forEach(function(thumb) {
         var alt = (thumb.getAttribute('data-alt') || '').toLowerCase();
         
-        // Show if matches color, OR if alt is completely empty/generic
-        var isMatch = alt.includes(selectedColor) || alt === '';
+        // Show if matches any color in group, OR if alt is completely empty/generic
+        var isMatch = alt === '';
+        selectedGroup.forEach(function(color) {
+          if (alt.includes(color)) {
+            isMatch = true;
+          }
+        });
         
-        // Exclude if it contains other colors
+        // Exclude if it contains other colors outside selected group
         var hasOtherColor = false;
-        var colors = ['yellow', 'white', 'rose', 'platinum'];
-        colors.forEach(function(c) {
-          if (c !== selectedColor && alt.includes(c)) {
+        var allColors = ['yellow', 'white', 'rose', 'platinum'];
+        allColors.forEach(function(c) {
+          if (!selectedGroup.includes(c) && alt.includes(c)) {
             hasOtherColor = true;
           }
         });
@@ -1700,7 +1733,12 @@
 
         // Change main image if variant has featured image
         if (matchedVariant.featured_image && mainImg) {
+          if (mainVideo) {
+            mainVideo.style.display = 'none';
+            mainVideo.pause();
+          }
           mainImg.src = matchedVariant.featured_image.src;
+          mainImg.style.display = 'block';
           // De-select active thumbnail since we updated via variant select
           thumbs.forEach(function(t) { t.classList.remove('active'); });
         }
