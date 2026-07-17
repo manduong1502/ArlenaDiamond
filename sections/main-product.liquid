@@ -1,8 +1,8 @@
 {%- assign current_variant = product.selected_or_first_available_variant -%}
 
 <style>
-  /* Angara-style PDP Styles */
-  .angara-pdp {
+  /* Arlena-style PDP Styles */
+  .arlena-pdp {
     max-width: 1200px;
     margin: 140px auto 40px auto;
     padding: 0 20px;
@@ -11,33 +11,33 @@
     box-sizing: border-box;
   }
   @media (max-width: 991px) {
-    .angara-pdp {
+    .arlena-pdp {
       margin-top: 110px;
     }
   }
 
   /* Breadcrumbs */
-  .angara-breadcrumbs {
+  .arlena-breadcrumbs {
     font-size: 10px;
     color: #777;
     letter-spacing: 0.5px;
     margin-bottom: 20px;
     text-transform: uppercase;
   }
-  .angara-breadcrumbs a {
+  .arlena-breadcrumbs a {
     color: #777;
     text-decoration: none;
   }
-  .angara-breadcrumbs a:hover {
+  .arlena-breadcrumbs a:hover {
     color: #000;
   }
-  .angara-breadcrumbs span {
+  .arlena-breadcrumbs span {
     margin: 0 5px;
     color: #ccc;
   }
 
   /* Main Layout Grid - 50/50 split with min-width safety for scrolling inputs */
-  .angara-grid {
+  .arlena-grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 50px;
@@ -45,14 +45,14 @@
     margin-bottom: 50px;
   }
   @media (max-width: 991px) {
-    .angara-grid {
+    .arlena-grid {
       grid-template-columns: minmax(0, 1fr);
       gap: 30px;
     }
   }
 
   /* Gallery Column - Horizontal thumbnails below main viewport matching Image 2 */
-  .angara-gallery {
+  .arlena-gallery {
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -61,11 +61,11 @@
     width: 100%;
   }
   @media (max-width: 991px) {
-    .angara-gallery {
+    .arlena-gallery {
       position: static;
     }
   }
-  .angara-viewport {
+  .arlena-viewport {
     position: relative;
     border: 1px solid #f6f6f6;
     background-color: #fafaf9;
@@ -76,20 +76,20 @@
     align-items: center;
     justify-content: center;
   }
-  .angara-viewport img {
+  .arlena-viewport img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
   }
-  .angara-thumbs {
+  .arlena-thumbs {
     display: flex;
     flex-direction: row;
     gap: 12px;
     overflow-x: auto;
     padding-bottom: 5px;
   }
-  .angara-thumb {
+  .arlena-thumb {
     width: 80px;
     height: 80px;
     flex: 0 0 80px;
@@ -102,16 +102,16 @@
     justify-content: center;
     transition: border-color 0.3s ease;
   }
-  .angara-thumb.active,
-  .angara-thumb:hover {
+  .arlena-thumb.active,
+  .arlena-thumb:hover {
     border-color: #000;
   }
-  .angara-thumb img {
+  .arlena-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  .angara-tag {
+  .arlena-tag {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -126,19 +126,19 @@
   }
 
   /* Info Column */
-  .angara-info {
+  .arlena-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
-  .angara-pretitle {
+  .arlena-pretitle {
     font-size: 11px;
     color: #777;
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: underline;
   }
-  .angara-title {
+  .arlena-title {
     font-family: 'Cinzel', serif;
     font-size: 28px;
     font-weight: 400;
@@ -148,35 +148,35 @@
   }
   
   /* Rating star row */
-  .angara-rating-row {
+  .arlena-rating-row {
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 12px;
     color: #666;
   }
-  .angara-stars {
+  .arlena-stars {
     color: #c5a880; /* Gold stars */
     font-size: 13px;
   }
 
-  .angara-price-row {
+  .arlena-price-row {
     display: flex;
     align-items: baseline;
     gap: 15px;
     margin-top: 5px;
   }
-  .angara-price {
+  .arlena-price {
     font-size: 24px;
     font-weight: 600;
     color: #111;
   }
-  .angara-price-compare {
+  .arlena-price-compare {
     font-size: 16px;
     text-decoration: line-through;
     color: #888;
   }
-  .angara-desc-brief {
+  .arlena-desc-brief {
     font-size: 13px;
     line-height: 1.6;
     color: #555;
@@ -205,19 +205,19 @@
   }
 
   /* Option Block */
-  .angara-option-block {
+  .arlena-option-block {
     display: flex;
     flex-direction: column;
     gap: 8px;
   }
-  .angara-option-label {
+  .arlena-option-label {
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     color: #111;
   }
-  .angara-option-label span {
+  .arlena-option-label span {
     font-weight: 400;
     color: #666;
     text-transform: none;
@@ -225,12 +225,12 @@
   }
 
   /* Button selection style matching mockup (Image 4) */
-  .angara-option-buttons {
+  .arlena-option-buttons {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
   }
-  .angara-opt-btn {
+  .arlena-opt-btn {
     background-color: #fff;
     border: 1px solid #dcdad5;
     padding: 9px 18px;
@@ -241,10 +241,10 @@
     color: #111;
     border-radius: 2px;
   }
-  .angara-opt-btn:hover {
+  .arlena-opt-btn:hover {
     border-color: #000;
   }
-  .angara-opt-btn.active {
+  .arlena-opt-btn.active {
     border-color: #000;
     box-shadow: inset 0 0 0 1px #000;
   }
@@ -394,7 +394,7 @@
     gap: 10px;
     margin-top: 15px;
   }
-  .angara-atc-btn {
+  .arlena-atc-btn {
     width: 100%;
     background-color: #000;
     color: #fff;
@@ -407,11 +407,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  .angara-atc-btn:hover {
+  .arlena-atc-btn:hover {
     background-color: #333;
     border-color: #333;
   }
-  .angara-consult-btn {
+  .arlena-consult-btn {
     width: 100%;
     background-color: #fff;
     color: #111;
@@ -424,7 +424,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  .angara-consult-btn:hover {
+  .arlena-consult-btn:hover {
     background-color: #faf9f8;
   }
 
@@ -861,9 +861,9 @@
   }
 </style>
 
-<div class="angara-pdp">
+<div class="arlena-pdp">
   <!-- BREADCRUMBS -->
-  <div class="angara-breadcrumbs">
+  <div class="arlena-breadcrumbs">
     <a href="/">Home</a>
     <span>/</span>
     <a href="/collections/all">Jewelry</a>
@@ -873,32 +873,32 @@
     <span style="color: #111;">{{ product.title }}</span>
   </div>
 
-  <div class="angara-grid">
+  <div class="arlena-grid">
     <!-- LEFT: GALLERY -->
-    <section class="angara-gallery">
+    <section class="arlena-gallery">
       <!-- Main Image Viewport -->
-      <div class="angara-viewport" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 400px; background: #fff;">
-        <span class="angara-tag" style="z-index: 2;">Made to Order</span>
+      <div class="arlena-viewport" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 400px; background: #fff;">
+        <span class="arlena-tag" style="z-index: 2;">Made to Order</span>
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <img id="angara-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
+          <img id="arlena-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% elsif product.featured_image %}
-          <img id="angara-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
+          <img id="arlena-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% else %}
-          <img id="angara-main-img" src="" alt="Placeholder" style="width:100%; height:auto; display:block; object-fit:contain;">
+          <img id="arlena-main-img" src="" alt="Placeholder" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% endif %}
-        <video id="angara-main-video" autoplay loop muted playsinline controls style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; background: #fff; z-index: 1;"></video>
+        <video id="arlena-main-video" autoplay loop muted playsinline controls style="display: none; width: 100%; height: 100%; object-fit: contain; position: absolute; top: 0; left: 0; background: #fff; z-index: 1;"></video>
       </div>
 
-      <div class="angara-thumbs">
+      <div class="arlena-thumbs">
         <!-- If handle is our stud earrings, load the generated local asset as primary -->
         {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <div class="angara-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-media-type="image" data-alt="">
+          <div class="arlena-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-media-type="image" data-alt="">
+          <div class="arlena-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
-          <div class="angara-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-media-type="image" data-alt="">
+          <div class="arlena-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-media-type="image" data-alt="">
             <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
         {% else %}
@@ -908,17 +908,17 @@
               {% unless video_source %}
                 {% assign video_source = media.sources | first %}
               {% endunless %}
-              <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media.preview_image | img_url: '1200x' }}" data-media-type="video" data-video-url="{{ video_source.url }}" data-alt="{{ media.alt | escape }}" style="position: relative;">
+              <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media.preview_image | img_url: '1200x' }}" data-media-type="video" data-video-url="{{ video_source.url }}" data-alt="{{ media.alt | escape }}" style="position: relative;">
                 <img src="{{ media.preview_image | img_url: '120x' }}" alt="{{ product.title | escape }}">
                 <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
               </div>
             {% else %}
-              <div class="angara-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media | img_url: '1200x' }}" data-media-type="image" data-alt="{{ media.alt | escape }}">
+              <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media | img_url: '1200x' }}" data-media-type="image" data-alt="{{ media.alt | escape }}">
                 <img src="{{ media | img_url: '120x' }}" alt="{{ product.title | escape }}">
               </div>
             {% endif %}
           {% else %}
-            <div class="angara-thumb active" data-src="">
+            <div class="arlena-thumb active" data-src="">
               {{ 'product-1' | placeholder_svg_tag }}
             </div>
           {% endfor %}
@@ -927,14 +927,14 @@
     </section>
 
     <!-- RIGHT: PRODUCT OPTIONS & DETAILS -->
-    <section class="angara-info">
-      <a href="/collections/all" class="angara-pretitle">{{ product.type | default: 'Earrings' }}</a>
+    <section class="arlena-info">
+      <a href="/collections/all" class="arlena-pretitle">{{ product.type | default: 'Earrings' }}</a>
 
-      <h1 class="angara-title">{{ product.title }}</h1>
+      <h1 class="arlena-title">{{ product.title }}</h1>
 
       <!-- Star ratings -->
-      <div class="angara-rating-row">
-        <div class="angara-stars">
+      <div class="arlena-rating-row">
+        <div class="arlena-stars">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
@@ -945,8 +945,8 @@
       </div>
 
       <!-- Pricing -->
-      <div class="angara-price-row">
-        <span class="angara-price" id="visible-price">
+      <div class="arlena-price-row">
+        <span class="arlena-price" id="visible-price">
           {%- if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' -%}
             From AUD $2,490
           {%- else -%}
@@ -954,12 +954,12 @@
           {%- endif -%}
         </span>
         {% if current_variant.compare_at_price > current_variant.price %}
-          <span class="angara-price-compare" id="compare-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
+          <span class="arlena-price-compare" id="compare-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
         {% endif %}
       </div>
 
       <!-- Short Brief Description -->
-      <p class="angara-desc-brief">
+      <p class="arlena-desc-brief">
         {% if product.description != blank %}
           {{ product.description | split: '<!-- split -->' | first }}
         {% else %}
@@ -984,11 +984,11 @@
         <div class="pdp-variants-container">
           {%- unless product.has_only_default_variant -%}
             {%- for option in product.options_with_values -%}
-              <div class="angara-option-block" style="margin-bottom:15px;" data-option-index="{{ forloop.index0 }}">
-                <div class="angara-option-label">Select {{ option.name }}: <span class="lbl-selected-value">{{ option.selected_value }}</span></div>
-                <div class="angara-option-buttons">
+              <div class="arlena-option-block" style="margin-bottom:15px;" data-option-index="{{ forloop.index0 }}">
+                <div class="arlena-option-label">Select {{ option.name }}: <span class="lbl-selected-value">{{ option.selected_value }}</span></div>
+                <div class="arlena-option-buttons">
                   {%- for value in option.values -%}
-                    <button type="button" class="angara-opt-btn {% if option.selected_value == value %}active{% endif %}" data-value="{{ value | escape }}">
+                    <button type="button" class="arlena-opt-btn {% if option.selected_value == value %}active{% endif %}" data-value="{{ value | escape }}">
                       {{ value }}
                     </button>
                   {%- endfor -%}
@@ -1012,8 +1012,8 @@
 
         {% if is_ring %}
           <!-- Ring Size Selection -->
-          <div class="angara-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
-            <div class="angara-option-label" style="display:flex; justify-content:space-between; align-items:center;">
+          <div class="arlena-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
+            <div class="arlena-option-label" style="display:flex; justify-content:space-between; align-items:center;">
               <span>Select Ring Size (Free Resizing): <strong id="lbl-ring-size">O</strong></span>
               <a href="#" class="size-guide-link" id="pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
             </div>
@@ -1041,7 +1041,7 @@
           </div>
 
           <!-- Free Engraving Section -->
-          <div class="angara-option-block engraving-section" style="margin-bottom:20px;">
+          <div class="arlena-option-block engraving-section" style="margin-bottom:20px;">
             <div class="engraving-toggle-header" id="engraving-toggle" style="user-select: none;">
               <span class="toggle-icon">+</span> Add Free Engraving
             </div>
@@ -1066,7 +1066,7 @@
 
         <!-- Buy / Cart actions -->
         <div class="pdp-action-group">
-          <button type="submit" class="angara-atc-btn" id="pdp-atc-btn">
+          <button type="submit" class="arlena-atc-btn" id="pdp-atc-btn">
             <span>ADD TO CART</span>
           </button>
         </div>
@@ -1463,9 +1463,9 @@
     var specValRingSize = document.getElementById('spec-val-ring-size');
 
     /* --- 1. Gallery thumbnail switching --- */
-    var thumbs = document.querySelectorAll('.angara-thumb');
-    var mainImg = document.getElementById('angara-main-img');
-    var mainVideo = document.getElementById('angara-main-video');
+    var thumbs = document.querySelectorAll('.arlena-thumb');
+    var mainImg = document.getElementById('arlena-main-img');
+    var mainVideo = document.getElementById('arlena-main-video');
     thumbs.forEach(function(thumb) {
       thumb.addEventListener('click', function() {
         thumbs.forEach(function(t) { t.classList.remove('active'); });
@@ -1510,20 +1510,20 @@
 
     /* --- 3. Dynamic variant selection logic matching real variants array --- */
     var variants = window.pdpVariantsJson || [];
-    var optionBlocks = document.querySelectorAll('.angara-option-block[data-option-index]');
+    var optionBlocks = document.querySelectorAll('.arlena-option-block[data-option-index]');
     
     // Store current state of selected options and initialize label text (including DEF/VVS and FGH/VS combo descriptions)
     var currentSelections = {};
     optionBlocks.forEach(function(block) {
       var idx = block.dataset.optionIndex;
-      var activeBtn = block.querySelector('.angara-opt-btn.active');
+      var activeBtn = block.querySelector('.arlena-opt-btn.active');
       if (activeBtn) {
         var selectedVal = activeBtn.dataset.value;
         currentSelections[idx] = selectedVal;
         
         var labelSpan = block.querySelector('.lbl-selected-value');
         if (labelSpan) {
-          var labelText = block.querySelector('.angara-option-label').textContent;
+          var labelText = block.querySelector('.arlena-option-label').textContent;
           if (labelText.includes('Diamond')) {
             if (selectedVal.toLowerCase().includes('lab grown')) {
               labelSpan.textContent = selectedVal + ' (DEF Colour, VVS Clarity)';
@@ -1543,7 +1543,7 @@
     optionBlocks.forEach(function(block) {
       var idx = block.dataset.optionIndex;
       var labelSpan = block.querySelector('.lbl-selected-value');
-      var buttons = block.querySelectorAll('.angara-opt-btn');
+      var buttons = block.querySelectorAll('.arlena-opt-btn');
       
       buttons.forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -1554,7 +1554,7 @@
           currentSelections[idx] = selectedVal;
           
           if (labelSpan) {
-            var labelText = block.querySelector('.angara-option-label').textContent;
+            var labelText = block.querySelector('.arlena-option-label').textContent;
             if (labelText.includes('Diamond')) {
               if (selectedVal.toLowerCase().includes('lab grown')) {
                 labelSpan.textContent = selectedVal + ' (DEF Colour, VVS Clarity)';
@@ -1599,7 +1599,7 @@
       var selectedGroup = getColorGroup(selectedMetal);
       if (selectedGroup.length === 0) return;
       
-      var thumbs = document.querySelectorAll('.angara-thumb');
+      var thumbs = document.querySelectorAll('.arlena-thumb');
       var firstVisibleThumb = null;
       
       thumbs.forEach(function(thumb) {
@@ -1634,7 +1634,7 @@
       });
       
       // Auto click first visible thumb if current active is hidden
-      var activeThumb = document.querySelector('.angara-thumb.active');
+      var activeThumb = document.querySelector('.arlena-thumb.active');
       if ((!activeThumb || activeThumb.style.display === 'none') && firstVisibleThumb) {
         firstVisibleThumb.click();
       }
@@ -1677,7 +1677,7 @@
         // Dynamic specifications update
         if (specDimType) {
           var optionDimIdx = Array.from(optionBlocks).findIndex(function(b) {
-            var label = b.querySelector('.angara-option-label');
+            var label = b.querySelector('.arlena-option-label');
             return label && label.textContent.includes('Diamond');
           });
           if (optionDimIdx !== -1 && currentSelections[optionDimIdx]) {
@@ -1703,7 +1703,7 @@
         }
         if (specCarat) {
           var optionCaratIdx = Array.from(optionBlocks).findIndex(function(b) {
-            var label = b.querySelector('.angara-option-label');
+            var label = b.querySelector('.arlena-option-label');
             return label && label.textContent.includes('Carat');
           });
           if (optionCaratIdx !== -1 && currentSelections[optionCaratIdx]) {
@@ -1720,7 +1720,7 @@
         }
         if (specMetal) {
           var optionMetalIdx = Array.from(optionBlocks).findIndex(function(b) {
-            var label = b.querySelector('.angara-option-label');
+            var label = b.querySelector('.arlena-option-label');
             return label && label.textContent.includes('Metal');
           });
           if (optionMetalIdx !== -1 && currentSelections[optionMetalIdx]) {

@@ -1,7 +1,7 @@
 <main class="main-collection full-width">
   <style>
-    /* Angara-style Collection Page Styles */
-    .angara-collection {
+    /* Arlena-style Collection Page Styles */
+    .arlena-collection {
       max-width: 1500px; /* Expanded from 1200px to reduce blank sides */
       margin: 0 auto 40px auto; /* Removed top margin, handled by container or post-banner */
       padding: 0 40px;
@@ -15,18 +15,18 @@
       padding: 0 40px;
       box-sizing: border-box;
     }
-    .angara-collection.post-banner {
+    .arlena-collection.post-banner {
       margin-top: 25px; /* Tighter gap after banner */
     }
     @media (max-width: 991px) {
-      .angara-collection {
+      .arlena-collection {
         padding: 0 20px;
       }
       .collection-breadcrumbs-container {
         margin: 110px auto 10px auto;
         padding: 0 20px;
       }
-      .angara-collection.post-banner {
+      .arlena-collection.post-banner {
         margin-top: 20px;
       }
     }
@@ -279,26 +279,26 @@
     }
 
     /* Product List Grid */
-    .grid-products-angara {
+    .grid-products-arlena {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 20px;
       margin-bottom: 60px;
     }
     @media (max-width: 991px) {
-      .grid-products-angara {
+      .grid-products-arlena {
         grid-template-columns: repeat(3, 1fr);
       }
     }
     @media (max-width: 575px) {
-      .grid-products-angara {
+      .grid-products-arlena {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
       }
     }
 
     /* Product Card with Dual Image Hover Fade Effect */
-    .product-card-angara {
+    .product-card-arlena {
       display: flex;
       flex-direction: column;
       text-decoration: none;
@@ -344,10 +344,10 @@
       z-index: 2;
     }
     /* Show secondary hover image on hover */
-    .product-card-angara:hover .img-primary {
+    .product-card-arlena:hover .img-primary {
       opacity: 0;
     }
-    .product-card-angara:hover .img-hover {
+    .product-card-arlena:hover .img-hover {
       opacity: 1;
       transform: scale(1.04); /* Slight premium scale centered */
     }
@@ -418,7 +418,7 @@
       margin-top: 4px;
       transition: color 0.3s ease;
     }
-    .product-card-angara:hover .product-title-text {
+    .product-card-arlena:hover .product-title-text {
       color: #c5a880;
     }
     .product-price-info {
@@ -477,7 +477,7 @@
   </section>
 
   <!-- 3. MAIN CONTENT CONTAINER -->
-  <div class="angara-collection post-banner">
+  <div class="arlena-collection post-banner">
     <!-- COLLECTION HEADER & INFO -->
     <header class="collection-header-info">
       <h1 class="collection-main-title">{{ collection.title | default: 'Rings' }} <span style="font-size: 16px; color: #888; font-weight: 400;">({{ collection.all_products_count | default: 2477 }})</span></h1>
@@ -485,7 +485,7 @@
         {% if collection.description != blank %}
           {{ collection.description }}
         {% else %}
-          Angara's rings bring together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum. Customize gemstone quality, carat... <button class="collection-readmore">Read More</button>
+          Arlena's rings bring together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum. Customize gemstone quality, carat... <button class="collection-readmore">Read More</button>
         {% endif %}
       </p>
     </header>
@@ -583,9 +583,9 @@
 
     <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION -->
     {% paginate collection.products by 16 %}
-      <section class="grid-products-angara">
+      <section class="grid-products-arlena">
         {% for product in collection.products %}
-          <div class="product-card-angara">
+          <div class="product-card-arlena">
             <div class="product-image-container">
               {%- assign badge_text = "" -%}
               {%- for tag in product.tags -%}
@@ -703,7 +703,7 @@
         {% else %}
           {%- comment -%} Render mock products if the collection has no products {%- endcomment -%}
           {% for i in (1..8) %}
-            <div class="product-card-angara">
+            <div class="product-card-arlena">
               <div class="product-image-container">
                 <span class="product-quality-badge">LAB GROWN</span>
                 
@@ -784,7 +784,7 @@
         e.preventDefault();
         e.stopPropagation();
         
-        var card = this.closest('.product-card-angara');
+        var card = this.closest('.product-card-arlena');
         if (!card) return;
         
         // Update active class on sibling swatches
@@ -812,7 +812,7 @@
     if (checkbox) {
       checkbox.addEventListener('change', function() {
         // Mock filtering effect
-        var cards = document.querySelectorAll('.product-card-angara');
+        var cards = document.querySelectorAll('.product-card-arlena');
         cards.forEach(function(card) {
           if (checkbox.checked) {
             // Randomly show/hide some for effect, or filter by lab grown handles
