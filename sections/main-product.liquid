@@ -1459,6 +1459,9 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    var ringSizeInput = document.getElementById('pdp-ring-size-property');
+    var specValRingSize = document.getElementById('spec-val-ring-size');
+
     /* --- 1. Gallery thumbnail switching --- */
     var thumbs = document.querySelectorAll('.angara-thumb');
     var mainImg = document.getElementById('angara-main-img');
@@ -1726,9 +1729,8 @@
             filterThumbnails(selectedMetal);
           }
         }
-        var specValRingSize = document.getElementById('spec-val-ring-size');
         if (specValRingSize && ringSizeInput) {
-          specValRingSize.textContent = ringSizeInput.value;
+          specValRingSize.textContent = ringSizeInput.value + ' (based on selection)';
         }
 
         // Change main image if variant has featured image
@@ -1757,7 +1759,6 @@
     // Custom Ring Size buttons logic
     var sizeBtns = document.querySelectorAll('#ring-size-buttons .size-btn');
     var lblRingSize = document.getElementById('lbl-ring-size');
-    var ringSizeInput = document.getElementById('pdp-ring-size-property');
     var sizeContainer = document.getElementById('ring-size-buttons');
     var prevSizeBtn = document.getElementById('prev-size-btn');
     var nextSizeBtn = document.getElementById('next-size-btn');
@@ -1770,6 +1771,9 @@
           var selectedSize = this.dataset.value;
           if (lblRingSize) lblRingSize.textContent = selectedSize;
           if (ringSizeInput) ringSizeInput.value = selectedSize;
+          if (specValRingSize) {
+            specValRingSize.textContent = selectedSize + ' (based on selection)';
+          }
         });
       });
     }
