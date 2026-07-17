@@ -354,23 +354,22 @@
     
     .product-quality-badge {
       position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border: 1px solid #ddd;
-      color: #666;
+      top: 12px;
+      left: 12px;
+      background-color: #111;
+      color: #fff;
       font-size: 8px;
       font-weight: 600;
-      padding: 3px 6px;
+      padding: 4px 8px;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       z-index: 10;
+      border-radius: 2px;
     }
 
-    
     /* Product Details - Left Aligned to match Mockup (Image 4) */
     .product-details-wrap {
-      padding: 10px 0;
+      padding: 12px 0;
       text-align: left;
     }
     
@@ -378,20 +377,27 @@
     .product-swatches {
       display: flex;
       align-items: center;
-      gap: 6px;
-      margin-top: 10px;
-      margin-bottom: 6px;
+      gap: 8px;
+      margin-top: 6px;
+      margin-bottom: 8px;
     }
     .swatch-dot {
-      width: 12px;
-      height: 12px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
-      border: 1px solid transparent;
+      border: 1px solid #ddd;
       padding: 1px;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: border-color 0.2s ease;
+    }
+    .swatch-dot:hover {
+      border-color: #999;
+    }
+    .swatch-dot.active {
+      border-color: #111;
     }
     .swatch-dot-inner {
       width: 100%;
@@ -399,35 +405,31 @@
       border-radius: 50%;
       display: block;
     }
-    .swatch-dot.active {
-      border-color: #333;
-    }
-    .swatch-more-text {
-      font-size: 10px;
-      color: #666;
-      margin-left: 2px;
-      font-weight: 500;
-    }
 
     .product-title-text {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 400;
-      color: #333;
+      color: #111;
       line-height: 1.5;
-      height: 36px;
+      height: 39px;
       overflow: hidden;
       display: block;
       margin-bottom: 8px;
-      margin-top: 2px;
+      margin-top: 4px;
+      transition: color 0.3s ease;
+    }
+    .product-card-angara:hover .product-title-text {
+      color: #c5a880;
     }
     .product-price-info {
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: 700;
       color: #111;
       display: flex;
       justify-content: flex-start;
       gap: 8px;
     }
+
     .product-compare-price {
       font-size: 12px;
       text-decoration: line-through;
@@ -627,32 +629,49 @@
 
               <div class="product-swatches">
                 {%- if stone_option -%}
-                  {%- for value in stone_option.values limit: 4 -%}
-                    {%- assign is_active = false -%}
-                    {%- if forloop.first -%}{%- assign is_active = true -%}{%- endif -%}
-                    <div class="swatch-dot {% if is_active %}active{% endif %}" title="{{ value }}">
-                      {%- assign val_color = value | handleize -%}
-                      <span class="swatch-dot-inner" style="background-color: {{ val_color }};"></span>
+                  {%- assign seen_colors = "" -%}
+                  {%- for value in stone_option.values -%}
+                    {%- assign val_lc = value | downcase -%}
+                    {%- assign color_key = "" -%}
+                    {%- if val_lc contains 'yellow' -%}{%- assign color_key = "yellow" -%}
+                    {%- elsif val_lc contains 'rose' -%}{%- assign color_key = "rose" -%}
+                    {%- elsif val_lc contains 'white' -%}{%- assign color_key = "white" -%}
+                    {%- elsif val_lc contains 'platinum' -%}{%- assign color_key = "platinum" -%}
+                    {%- endif -%}
+                    
+                    {%- if color_key != "" -%}
+                      {%- unless seen_colors contains color_key -%}
+                        {%- assign seen_colors = seen_colors | append: color_key | append: "," -%}
+                      {%- endunless -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- assign unique_colors = seen_colors | split: "," -%}
+
+                  {%- for color in unique_colors -%}
+                    {%- assign swatch_bg = '#ccc' -%}
+                    {%- if color == 'yellow' -%}{%- assign swatch_bg = '#e5d0a4' -%}{%- assign color_name = 'Yellow Gold' -%}
+                    {%- elsif color == 'rose' -%}{%- assign swatch_bg = '#e0b39f' -%}{%- assign color_name = 'Rose Gold' -%}
+                    {%- elsif color == 'white' -%}{%- assign swatch_bg = '#e2e2e2' -%}{%- assign color_name = 'White Gold' -%}
+                    {%- elsif color == 'platinum' -%}{%- assign swatch_bg = '#dfdfdf' -%}{%- assign color_name = 'Platinum' -%}
+                    {%- endif -%}
+                    <div class="swatch-dot {% if forloop.first %}active{% endif %}" title="{{ color_name }}">
+                      <span class="swatch-dot-inner" style="background-color: {{ swatch_bg }};"></span>
                     </div>
                   {%- endfor -%}
-                  {%- if stone_option.values.size > 4 -%}
-                    <span class="swatch-more-text">+{{ stone_option.values.size | minus: 4 }}</span>
-                  {%- endif -%}
                 {%- else -%}
                   <!-- Mock swatches for showcase consistency -->
-                  <div class="swatch-dot active">
-                    <span class="swatch-dot-inner" style="background-color: #a8d8ea;"></span>
+                  <div class="swatch-dot active" title="Yellow Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #005086;"></span>
+                  <div class="swatch-dot" title="Rose Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #e4b7a0;"></span>
+                  <div class="swatch-dot" title="White Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #f4e0c4;"></span>
+                  <div class="swatch-dot" title="Platinum">
+                    <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
                   </div>
-                  <span class="swatch-more-text">+14</span>
                 {%- endif -%}
               </div>
 
@@ -687,19 +706,18 @@
               <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
                 <!-- Swatches row matching mockup Image 4 -->
                 <div class="product-swatches">
-                  <div class="swatch-dot active">
-                    <span class="swatch-dot-inner" style="background-color: #a8d8ea;"></span>
+                  <div class="swatch-dot active" title="Yellow Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #005086;"></span>
+                  <div class="swatch-dot" title="Rose Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #e4b7a0;"></span>
+                  <div class="swatch-dot" title="White Gold">
+                    <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
                   </div>
-                  <div class="swatch-dot">
-                    <span class="swatch-dot-inner" style="background-color: #f4e0c4;"></span>
+                  <div class="swatch-dot" title="Platinum">
+                    <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
                   </div>
-                  <span class="swatch-more-text">+14</span>
                 </div>
 
                 <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
