@@ -654,22 +654,35 @@
                     {%- elsif color == 'white' -%}{%- assign swatch_bg = '#e2e2e2' -%}{%- assign color_name = 'White Gold' -%}
                     {%- elsif color == 'platinum' -%}{%- assign swatch_bg = '#dfdfdf' -%}{%- assign color_name = 'Platinum' -%}
                     {%- endif -%}
-                    <div class="swatch-dot {% if forloop.first %}active{% endif %}" title="{{ color_name }}">
+
+                    {%- assign matched_img_url = nil -%}
+                    {%- for img in product.images -%}
+                      {%- assign img_alt_lc = img.alt | downcase -%}
+                      {%- if img_alt_lc contains color -%}
+                        {%- assign matched_img_url = img | img_url: '600x' -%}
+                        {%- break -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- unless matched_img_url -%}
+                      {%- assign matched_img_url = product.featured_image | img_url: '600x' -%}
+                    {%- endunless -%}
+
+                    <div class="swatch-dot {% if forloop.first %}active{% endif %}" title="{{ color_name }}" data-color-img="{{ matched_img_url }}">
                       <span class="swatch-dot-inner" style="background-color: {{ swatch_bg }};"></span>
                     </div>
                   {%- endfor -%}
                 {%- else -%}
                   <!-- Mock swatches for showcase consistency -->
-                  <div class="swatch-dot active" title="Yellow Gold">
+                  <div class="swatch-dot active" title="Yellow Gold" data-color-img="">
                     <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
                   </div>
-                  <div class="swatch-dot" title="Rose Gold">
+                  <div class="swatch-dot" title="Rose Gold" data-color-img="">
                     <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
                   </div>
-                  <div class="swatch-dot" title="White Gold">
+                  <div class="swatch-dot" title="White Gold" data-color-img="">
                     <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
                   </div>
-                  <div class="swatch-dot" title="Platinum">
+                  <div class="swatch-dot" title="Platinum" data-color-img="">
                     <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
                   </div>
                 {%- endif -%}
@@ -706,16 +719,18 @@
               <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
                 <!-- Swatches row matching mockup Image 4 -->
                 <div class="product-swatches">
-                  <div class="swatch-dot active" title="Yellow Gold">
+                  {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
+                  {% assign mock_img_url = 'product-' | append: index | append: '.png' | asset_url %}
+                  <div class="swatch-dot active" title="Yellow Gold" data-color-img="{{ mock_img_url }}">
                     <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
                   </div>
-                  <div class="swatch-dot" title="Rose Gold">
+                  <div class="swatch-dot" title="Rose Gold" data-color-img="{{ mock_img_url }}">
                     <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
                   </div>
-                  <div class="swatch-dot" title="White Gold">
+                  <div class="swatch-dot" title="White Gold" data-color-img="{{ mock_img_url }}">
                     <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
                   </div>
-                  <div class="swatch-dot" title="Platinum">
+                  <div class="swatch-dot" title="Platinum" data-color-img="{{ mock_img_url }}">
                     <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
                   </div>
                 </div>
@@ -758,6 +773,36 @@
         } else {
           icon.className = 'fa-regular fa-heart';
           icon.style.color = '';
+        }
+      });
+    });
+
+    /* Swatch image switching in collection */
+    var swatchDots = document.querySelectorAll('.product-swatches .swatch-dot');
+    swatchDots.forEach(function(dot) {
+      dot.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        var card = this.closest('.product-card-angara');
+        if (!card) return;
+        
+        // Update active class on sibling swatches
+        var siblings = card.querySelectorAll('.product-swatches .swatch-dot');
+        siblings.forEach(function(s) { s.classList.remove('active'); });
+        this.classList.add('active');
+        
+        // Update product card image sources
+        var newImgUrl = this.getAttribute('data-color-img');
+        if (newImgUrl) {
+          var primaryImg = card.querySelector('.img-primary');
+          var hoverImg = card.querySelector('.img-hover');
+          if (primaryImg) {
+            primaryImg.src = newImgUrl;
+          }
+          if (hoverImg) {
+            hoverImg.src = newImgUrl;
+          }
         }
       });
     });
