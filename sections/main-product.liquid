@@ -501,26 +501,55 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0 10px;
+    padding: 0 15px;
   }
-  .icon-block-item i {
-    font-size: 24px;
-    color: #c5a880; /* Gold */
-    margin-bottom: 15px;
+  .icon-block-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 20px;
   }
   .icon-block-item h4 {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin: 0 0 10px 0;
+    margin: 0;
     color: #111;
+    line-height: 1.4;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  
+  .icon-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 1px;
+    background-color: #eae1d4;
+    margin: 15px auto;
+    position: relative;
+  }
+  .icon-divider::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: #c5a880;
+    transform: rotate(45deg);
+    position: absolute;
+    top: -3px;
+  }
+  
   .icon-block-item p {
-    font-size: 11px;
-    line-height: 1.5;
+    font-size: 12px;
+    line-height: 1.6;
     color: #555;
     margin: 0;
+    font-weight: 300;
   }
 
   /* --- TAB ACCORDION LAYOUT SECTION --- */
@@ -1263,24 +1292,28 @@
   <!-- --- BRAND ICONS ROW --- -->
   <section class="brand-icons-row full-width">
     <div class="icon-block-item">
-      <i class="fa-solid fa-gem"></i>
-      <h4>Timeless Design</h4>
-      <p>Inspired by the iconic Toi et Moi style, balancing classic elegance with modern simplicity.</p>
+      <img src="{{ 'Untitled-1-02.png' | asset_url }}" alt="Exceptional Gemstones" loading="lazy">
+      <h4>Exceptional Gemstones</h4>
+      <div class="icon-divider"></div>
+      <p>Carefully selected for quality, beauty and brilliance.</p>
     </div>
     <div class="icon-block-item">
-      <i class="fa-solid fa-wand-magic-sparkles"></i>
-      <h4>Exceptional Brilliance</h4>
-      <p>Hand-selected diamonds chosen for maximum sparkle and beauty.</p>
+      <img src="{{ 'Untitled-1-03.png' | asset_url }}" alt="20+ Years of Expertise" loading="lazy">
+      <h4>20+ Years of Expertise</h4>
+      <div class="icon-divider"></div>
+      <p>Crafted by a Master Jeweller with more than two decades of fine jewellery experience.</p>
     </div>
     <div class="icon-block-item">
-      <i class="fa-solid fa-anchor"></i>
+      <img src="{{ 'Untitled-1-04.png' | asset_url }}" alt="Crafted in Australia" loading="lazy">
       <h4>Crafted in Australia</h4>
-      <p>Made individually by skilled jewellers using premium precious metals.</p>
+      <div class="icon-divider"></div>
+      <p>Made to order in Australia with precision, care and meticulous finishing.</p>
     </div>
     <div class="icon-block-item">
-      <i class="fa-solid fa-heart"></i>
+      <img src="{{ 'Untitled-1-05.png' | asset_url }}" alt="Made Just for You" loading="lazy">
       <h4>Made Just for You</h4>
-      <p>Every piece is created to order, never mass produced.</p>
+      <div class="icon-divider"></div>
+      <p>Created to your chosen specifications, never mass-produced.</p>
     </div>
   </section>
 
