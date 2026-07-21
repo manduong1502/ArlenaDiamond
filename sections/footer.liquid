@@ -1,53 +1,72 @@
 <style>
   /* Footer Trust Row */
   .footer-trust-row {
-    background-color: #000;
+    background-color: #0a0a0a;
     color: #fff;
-    padding: 25px 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 30px 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .footer-trust-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 30px;
     max-width: 1200px;
     margin: 0 auto;
   }
   .footer-trust-item {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 20px;
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    padding-right: 20px;
   }
-  .footer-trust-item i {
-    font-size: 24px;
-    color: #c5a880; /* Gold icon color */
+  .footer-trust-item:last-child {
+    border-right: none;
+    padding-right: 0;
+  }
+  .footer-trust-item svg {
+    flex-shrink: 0;
   }
   .footer-trust-text {
     display: flex;
     flex-direction: column;
   }
   .footer-trust-text strong {
-    font-size: 11px;
-    letter-spacing: 1px;
+    font-size: 11.5px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
+    color: #fff;
+    font-weight: 600;
   }
   .footer-trust-text span {
-    font-size: 10px;
-    color: #aaa;
-    line-height: 1.3;
+    font-size: 10.5px;
+    color: #999;
+    line-height: 1.4;
   }
 
   @media (max-width: 991px) {
     .footer-trust-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      gap: 30px 20px;
+    }
+    .footer-trust-item {
+      border-right: none;
+      padding-right: 0;
+    }
+    .footer-trust-item:nth-child(2n-1) {
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      padding-right: 20px;
     }
   }
   @media (max-width: 575px) {
     .footer-trust-grid {
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 25px;
+    }
+    .footer-trust-item, .footer-trust-item:nth-child(2n-1) {
+      border-right: none;
+      padding-right: 0;
     }
   }
 
@@ -229,31 +248,48 @@
 <div class="footer-trust-row full-width">
   <div class="footer-trust-grid">
     <div class="footer-trust-item">
-      <i class="fa-solid fa-gem"></i>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c5a880" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l6.73-6.73"/>
+      </svg>
       <div class="footer-trust-text">
-        <strong>ONLINE-ONLY</strong>
-        <span>Designed for a seamless online shopping experience</span>
+        <strong>30-DAY RETURNS</strong>
+        <span>Shop with confidence with 30-day returns on eligible pieces.</span>
       </div>
     </div>
     <div class="footer-trust-item">
-      <i class="fa-solid fa-headset"></i>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c5a880" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="3" width="15" height="13" rx="2" ry="2"/>
+        <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/>
+        <circle cx="5.5" cy="18.5" r="2.5"/>
+        <circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
       <div class="footer-trust-text">
-        <strong>EXPERT SUPPORT</strong>
-        <span>Our team is here to help you every step of the way</span>
+        <strong>INSURED DELIVERY</strong>
+        <span>Tracked and insured delivery for added peace of mind.</span>
       </div>
     </div>
     <div class="footer-trust-item">
-      <i class="fa-solid fa-lock"></i>
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c5a880" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <path d="M12 6l4 4-4 4-4-4 4-4z"/>
+        <path d="M8 10h8"/>
+        <path d="M12 6v8"/>
+      </svg>
+      <div class="footer-trust-text">
+        <strong>LIMITED LIFETIME WARRANTY</strong>
+        <span>Our craftsmanship is backed by a limited lifetime warranty.</span>
+      </div>
+    </div>
+    <div class="footer-trust-item">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#c5a880" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <circle cx="12" cy="16" r="1.5"/>
+        <path d="M12 17.5v2"/>
+      </svg>
       <div class="footer-trust-text">
         <strong>SECURE PAYMENTS</strong>
-        <span>100% safe and secure checkout</span>
-      </div>
-    </div>
-    <div class="footer-trust-item">
-      <i class="fa-solid fa-heart"></i>
-      <div class="footer-trust-text">
-        <strong>SATISFACTION GUARANTEE</strong>
-        <span>Love it, or we'll make it right</span>
+        <span>Safe and secure checkout with trusted payment methods.</span>
       </div>
     </div>
   </div>
