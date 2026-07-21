@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-warranty",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
