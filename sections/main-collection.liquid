@@ -460,89 +460,103 @@
     }
   </style>
 
-  <!-- 1. BREADCRUMBS BLOCK (Above Banner, with corrected margins) -->
+  {%- assign current_handle = collection.handle | downcase -%}
+
+  {%- assign page_title = collection.title -%}
+  {%- if page_title == blank or page_title == 'Products' or page_title == 'All' or page_title == 'Rings' -%}
+    {%- if current_handle contains 'engagement' -%}
+      {%- assign page_title = "Engagement Rings" -%}
+    {%- elsif current_handle contains 'wedding' -%}
+      {%- assign page_title = "Wedding Bands" -%}
+    {%- elsif current_handle contains 'earring' -%}
+      {%- assign page_title = "Earrings" -%}
+    {%- elsif current_handle contains 'pendant' or current_handle contains 'necklace' -%}
+      {%- assign page_title = "Pendants" -%}
+    {%- elsif current_handle contains 'bracelet' -%}
+      {%- assign page_title = "Bracelets" -%}
+    {%- elsif current_handle contains 'gift' -%}
+      {%- assign page_title = "Gifts" -%}
+    {%- else -%}
+      {%- assign page_title = "All Jewellery" -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- assign page_desc = collection.description -%}
+  {%- if page_desc == blank -%}
+    {%- if current_handle contains 'engagement' -%}
+      {%- assign page_desc = "Explore Arlena's collection of handcrafted Engagement Rings. Designed and crafted in Australia with ethically sourced diamonds and precious gold or platinum." -%}
+    {%- elsif current_handle contains 'wedding' -%}
+      {%- assign page_desc = "Discover Arlena's Wedding Bands, crafted to order in Australia. Designed to complement your engagement ring or shine beautifully on their own." -%}
+    {%- elsif current_handle contains 'earring' -%}
+      {%- assign page_desc = "Explore Arlena's fine diamond Earrings, from timeless solitaire studs to exquisite halo drop designs crafted in Australia." -%}
+    {%- elsif current_handle contains 'pendant' or current_handle contains 'necklace' -%}
+      {%- assign page_desc = "Discover Arlena's solitaire and halo Diamond Pendants, thoughtfully designed and handcrafted in Australia to celebrate life's special moments." -%}
+    {%- elsif current_handle contains 'bracelet' -%}
+      {%- assign page_desc = "Explore Arlena's collection of diamond Tennis Bracelets, handcrafted in Australia in yellow gold, white gold, rose gold and platinum." -%}
+    {%- else -%}
+      {%- assign page_desc = "Arlena's fine jewellery brings together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum." -%}
+    {%- endif -%}
+  {%- endif -%}
+
+  <!-- 1. BREADCRUMBS BLOCK -->
   <div class="collection-breadcrumbs-container">
     <div class="collection-breadcrumbs">
       <a href="/">Home</a>
       <span>/</span>
-      {% if collection.handle != 'all' and collection.handle != blank %}
+      {% if current_handle != 'all' and current_handle != blank %}
         <a href="/collections/all">Collections</a>
         <span>/</span>
-        <span style="color: #111;">{{ collection.title }}</span>
+        <span style="color: #111;">{{ page_title }}</span>
       {% else %}
         <span style="color: #111;">All Jewellery</span>
       {% endif %}
     </div>
   </div>
 
-  <!-- 2. PANORAMIC SALE EVENT BANNER (Stretched Full Screen Width) -->
+  <!-- 2. PANORAMIC SALE EVENT BANNER -->
   <section class="sale-event-banner">
-    <img src="{{ 'collection_banner.webp' | asset_url }}" alt="4th of July Sale | 10% Off Sitewide">
+    <img src="{{ 'collection_banner.webp' | asset_url }}" alt="Arlena Fine Jewellery">
   </section>
 
   <!-- 3. MAIN CONTENT CONTAINER -->
   <div class="arlena-collection post-banner">
     <!-- COLLECTION HEADER & INFO -->
     <header class="collection-header-info">
-      <h1 class="collection-main-title">{{ collection.title | default: 'Rings' }} <span style="font-size: 16px; color: #888; font-weight: 400;">({{ collection.all_products_count | default: 2477 }})</span></h1>
-      <p class="collection-main-desc">
-        {% if collection.description != blank %}
-          {{ collection.description }}
-        {% else %}
-          Arlena's rings bring together handcrafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum. Customize gemstone quality, carat... <button class="collection-readmore">Read More</button>
-        {% endif %}
-      </p>
+      <h1 class="collection-main-title">{{ page_title }}</h1>
+      <p class="collection-main-desc">{{ page_desc }}</p>
     </header>
 
     <!-- SUB-CATEGORIES LIST -->
     <section class="subcategories-grid">
-      <a href="/collections/colored-gems" class="subcategory-card">
+      <a href="/collections/engagement-rings" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_colored_gems.png' | asset_url }}" alt="Colored Gems">
+          <img src="{{ 'cat_engagement.png' | asset_url }}" alt="Engagement Rings">
         </div>
-        <span class="subcategory-name">Colored Gems</span>
+        <span class="subcategory-name">Engagement Rings</span>
       </a>
-      <a href="/collections/diamond" class="subcategory-card">
+      <a href="/collections/wedding-bands" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_diamond.png' | asset_url }}" alt="Diamond">
+          <img src="{{ 'cat_wedding.png' | asset_url }}" alt="Wedding Bands">
         </div>
-        <span class="subcategory-name">Diamond</span>
+        <span class="subcategory-name">Wedding Bands</span>
       </a>
-      <a href="/collections/infinity" class="subcategory-card">
+      <a href="/collections/earrings" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_infinity.png' | asset_url }}" alt="Infinity">
+          <img src="{{ 'cat_earrings.png' | asset_url }}" alt="Earrings">
         </div>
-        <span class="subcategory-name">Infinity</span>
+        <span class="subcategory-name">Earrings</span>
       </a>
-      <a href="/collections/side-stones" class="subcategory-card">
+      <a href="/collections/pendants" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_side_stones.png' | asset_url }}" alt="Side Stones">
+          <img src="{{ 'cat_pendants.png' | asset_url }}" alt="Pendants">
         </div>
-        <span class="subcategory-name">Side Stones</span>
+        <span class="subcategory-name">Pendants</span>
       </a>
-      <a href="/collections/classic" class="subcategory-card">
+      <a href="/collections/bracelets" class="subcategory-card">
         <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_classic.png' | asset_url }}" alt="Classic">
+          <img src="{{ 'cat_bracelets.png' | asset_url }}" alt="Bracelets">
         </div>
-        <span class="subcategory-name">Classic</span>
-      </a>
-      <a href="/collections/lab-grown" class="subcategory-card">
-        <div class="subcategory-img-wrap">
-          <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="Lab-Grown">
-        </div>
-        <span class="subcategory-name">Lab-Grown</span>
-      </a>
-      <a href="/collections/gia-certified" class="subcategory-card">
-        <div class="subcategory-img-wrap">
-          <img src="{{ 'sub_diamond.png' | asset_url }}" alt="GIA Certified">
-        </div>
-        <span class="subcategory-name">GIA Certified</span>
-      </a>
-      <a href="/collections/mens-rings" class="subcategory-card">
-        <div class="subcategory-img-wrap">
-          <img src="{{ 'moments_wedding_bands.png' | asset_url }}" alt="Men's Rings">
-        </div>
-        <span class="subcategory-name">Men's Rings</span>
+        <span class="subcategory-name">Bracelets</span>
       </a>
     </section>
 
@@ -585,11 +599,45 @@
       </div>
     </section>
 
-    <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION -->
-    {% paginate collection.products by 16 %}
+    <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION & SMART FILTER -->
+    {% paginate collections.all.products by 48 %}
       <section class="grid-products-arlena">
-        {% for product in collection.products %}
-          <div class="product-card-arlena">
+        {% for product in collections.all.products %}
+          {%- assign show_prod = false -%}
+          {%- assign p_type_lc = product.type | downcase -%}
+          {%- assign p_handle_lc = product.handle | downcase -%}
+          {%- assign p_tags_lc = product.tags | join: ',' | downcase -%}
+
+          {%- if current_handle contains 'engagement' -%}
+            {%- if p_type_lc contains 'engagement' or p_handle_lc contains 'engagement' or p_tags_lc contains 'engagement' or p_type_lc == 'ring' or p_type_lc == 'rings' -%}
+              {%- unless p_handle_lc contains 'wedding' or p_type_lc contains 'wedding' -%}
+                {%- assign show_prod = true -%}
+              {%- endunless -%}
+            {%- endif -%}
+          {%- elsif current_handle contains 'wedding' -%}
+            {%- if p_type_lc contains 'wedding' or p_handle_lc contains 'wedding' or p_tags_lc contains 'wedding' or p_handle_lc contains 'band' -%}
+              {%- assign show_prod = true -%}
+            {%- endif -%}
+          {%- elsif current_handle contains 'earring' -%}
+            {%- if p_type_lc contains 'earring' or p_handle_lc contains 'earring' or p_tags_lc contains 'earring' -%}
+              {%- assign show_prod = true -%}
+            {%- endif -%}
+          {%- elsif current_handle contains 'pendant' or current_handle contains 'necklace' -%}
+            {%- if p_type_lc contains 'pendant' or p_type_lc contains 'necklace' or p_handle_lc contains 'pendant' or p_handle_lc contains 'necklace' or p_tags_lc contains 'pendant' -%}
+              {%- assign show_prod = true -%}
+            {%- endif -%}
+          {%- elsif current_handle contains 'bracelet' -%}
+            {%- if p_type_lc contains 'bracelet' or p_handle_lc contains 'bracelet' or p_tags_lc contains 'bracelet' -%}
+              {%- assign show_prod = true -%}
+            {%- endif -%}
+          {%- elsif current_handle == 'all' or current_handle == blank -%}
+            {%- assign show_prod = true -%}
+          {%- else -%}
+            {%- assign show_prod = true -%}
+          {%- endif -%}
+
+          {%- if show_prod -%}
+            <div class="product-card-arlena">
             <div class="product-image-container">
               {%- assign badge_text = "" -%}
               {%- for tag in product.tags -%}
@@ -701,54 +749,11 @@
                 {% else %}
                   <span>{{ product.price | money_without_trailing_zeros }}</span>
                 {% endif %}
-              </div>
             </a>
           </div>
-        {% else %}
-          {%- comment -%} Render mock products if the collection has no products {%- endcomment -%}
-          {% for i in (1..8) %}
-            <div class="product-card-arlena">
-              <div class="product-image-container">
-                <span class="product-quality-badge">LAB GROWN</span>
-                
-
-                
-                <a href="/products/mock-ring-{{ i }}">
-                  {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
-                  <img src="{{ 'product-' | append: index | append: '.png' | asset_url }}" class="img-primary" alt="Mock Ring {{ i }}">
-                  <img src="{{ 'product-' | append: index | append: '.png' | asset_url }}" class="img-hover" alt="Mock Ring {{ i }}">
-                </a>
-              </div>
-
-              <a href="/products/mock-ring-{{ i }}" class="product-details-wrap">
-                <!-- Swatches row matching mockup Image 4 -->
-                <div class="product-swatches">
-                  {% capture index %}{% cycle '1', '2', '3', '1', '2', '3', '1', '2' %}{% endcapture %}
-                  {% assign mock_img_url = 'product-' | append: index | append: '.png' | asset_url %}
-                  <div class="swatch-dot active" title="Yellow Gold" data-color-img="{{ mock_img_url }}">
-                    <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
-                  </div>
-                  <div class="swatch-dot" title="Rose Gold" data-color-img="{{ mock_img_url }}">
-                    <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
-                  </div>
-                  <div class="swatch-dot" title="White Gold" data-color-img="{{ mock_img_url }}">
-                    <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
-                  </div>
-                  <div class="swatch-dot" title="Platinum" data-color-img="{{ mock_img_url }}">
-                    <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
-                  </div>
-                </div>
-
-                <span class="product-title-text">Classic Round Lab-Grown Diamond Solitaire Ring</span>
-                <div class="product-price-info">
-                  <span class="product-compare-price">$2,669</span>
-                  <span style="color:#e8000d;">$2,402</span>
-                </div>
-              </a>
-            </div>
-          {% endfor %}
-        {% endfor %}
-      </section>
+        {%- endif -%}
+      {% endfor %}
+    </section>
 
       {% if paginate.pages > 1 %}
         <div class="load-more-container">
