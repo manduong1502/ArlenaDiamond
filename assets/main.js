@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (handle) {
       const formattedTitle = handle.replace(/-/g, ' ').toUpperCase();
       collectionTitleEl.textContent = formattedTitle;
-      document.title = "House Of Brands - " + formattedTitle;
+      document.title = "Arlena - " + formattedTitle;
       
       const backLinkEl = document.getElementById('back-link-text');
       if (backLinkEl) backLinkEl.textContent = handle === 'man' ? 'Man' : 'Woman';
