@@ -280,20 +280,22 @@
 
     /* Product List Grid */
     .grid-products-arlena {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-bottom: 60px;
+      display: grid !important;
+      grid-template-columns: repeat(4, 1fr) !important;
+      gap: 24px !important;
+      margin-bottom: 60px !important;
+      width: 100% !important;
     }
     @media (max-width: 991px) {
       .grid-products-arlena {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: 16px !important;
       }
     }
     @media (max-width: 575px) {
       .grid-products-arlena {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
       }
     }
 
@@ -599,45 +601,11 @@
       </div>
     </section>
 
-    <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION & SMART FILTER -->
-    {% paginate collections.all.products by 48 %}
+    <!-- DYNAMIC PRODUCTS GRID WITH PAGINATION -->
+    {% paginate collection.products by 24 %}
       <section class="grid-products-arlena">
-        {% for product in collections.all.products %}
-          {%- assign show_prod = false -%}
-          {%- assign p_type_lc = product.type | downcase -%}
-          {%- assign p_handle_lc = product.handle | downcase -%}
-          {%- assign p_tags_lc = product.tags | join: ',' | downcase -%}
-
-          {%- if current_handle contains 'engagement' -%}
-            {%- if p_type_lc contains 'engagement' or p_handle_lc contains 'engagement' or p_tags_lc contains 'engagement' or p_type_lc == 'ring' or p_type_lc == 'rings' -%}
-              {%- unless p_handle_lc contains 'wedding' or p_type_lc contains 'wedding' -%}
-                {%- assign show_prod = true -%}
-              {%- endunless -%}
-            {%- endif -%}
-          {%- elsif current_handle contains 'wedding' -%}
-            {%- if p_type_lc contains 'wedding' or p_handle_lc contains 'wedding' or p_tags_lc contains 'wedding' or p_handle_lc contains 'band' -%}
-              {%- assign show_prod = true -%}
-            {%- endif -%}
-          {%- elsif current_handle contains 'earring' -%}
-            {%- if p_type_lc contains 'earring' or p_handle_lc contains 'earring' or p_tags_lc contains 'earring' -%}
-              {%- assign show_prod = true -%}
-            {%- endif -%}
-          {%- elsif current_handle contains 'pendant' or current_handle contains 'necklace' -%}
-            {%- if p_type_lc contains 'pendant' or p_type_lc contains 'necklace' or p_handle_lc contains 'pendant' or p_handle_lc contains 'necklace' or p_tags_lc contains 'pendant' -%}
-              {%- assign show_prod = true -%}
-            {%- endif -%}
-          {%- elsif current_handle contains 'bracelet' -%}
-            {%- if p_type_lc contains 'bracelet' or p_handle_lc contains 'bracelet' or p_tags_lc contains 'bracelet' -%}
-              {%- assign show_prod = true -%}
-            {%- endif -%}
-          {%- elsif current_handle == 'all' or current_handle == blank -%}
-            {%- assign show_prod = true -%}
-          {%- else -%}
-            {%- assign show_prod = true -%}
-          {%- endif -%}
-
-          {%- if show_prod -%}
-            <div class="product-card-arlena">
+        {% for product in collection.products %}
+          <div class="product-card-arlena">
             <div class="product-image-container">
               {%- assign badge_text = "" -%}
               {%- for tag in product.tags -%}
@@ -652,9 +620,7 @@
               {%- if badge_text != "" -%}
                 <span class="product-quality-badge">{{ badge_text }}</span>
               {%- endif -%}
-              
 
-              
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
                   <img src="{{ product.featured_image | img_url: '600x' }}" class="img-primary" alt="{{ product.title | escape }}">
@@ -749,11 +715,11 @@
                 {% else %}
                   <span>{{ product.price | money_without_trailing_zeros }}</span>
                 {% endif %}
+              </div>
             </a>
           </div>
-        {%- endif -%}
-      {% endfor %}
-    </section>
+        {% endfor %}
+      </section>
 
       {% if paginate.pages > 1 %}
         <div class="load-more-container">
