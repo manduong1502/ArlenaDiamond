@@ -465,9 +465,13 @@
     <div class="collection-breadcrumbs">
       <a href="/">Home</a>
       <span>/</span>
-      <a href="/collections/all">Jewelry</a>
-      <span>/</span>
-      <span style="color: #111;">{{ collection.title | default: 'Rings' }}</span>
+      {% if collection.handle != 'all' and collection.handle != blank %}
+        <a href="/collections/all">Collections</a>
+        <span>/</span>
+        <span style="color: #111;">{{ collection.title }}</span>
+      {% else %}
+        <span style="color: #111;">All Jewellery</span>
+      {% endif %}
     </div>
   </div>
 

@@ -1040,13 +1040,42 @@
 </style>
 
 <div class="arlena-pdp">
+  {%- assign target_collection = product.collections.first -%}
+  {%- assign target_collection_url = "/collections/all" -%}
+  {%- assign target_collection_title = product.type | default: "Jewelry" -%}
+
+  {%- if target_collection -%}
+    {%- assign target_collection_url = target_collection.url -%}
+    {%- assign target_collection_title = target_collection.title -%}
+  {%- else -%}
+    {%- assign p_type_lc = product.type | downcase -%}
+    {%- assign p_handle_lc = product.handle | downcase -%}
+    {%- if p_type_lc contains 'engagement' or p_handle_lc contains 'engagement' -%}
+      {%- assign target_collection_url = "/collections/engagement-rings" -%}
+      {%- assign target_collection_title = "Engagement Rings" -%}
+    {%- elsif p_type_lc contains 'wedding' or p_handle_lc contains 'wedding' -%}
+      {%- assign target_collection_url = "/collections/wedding-bands" -%}
+      {%- assign target_collection_title = "Wedding Bands" -%}
+    {%- elsif p_type_lc contains 'earring' or p_handle_lc contains 'earring' -%}
+      {%- assign target_collection_url = "/collections/earrings" -%}
+      {%- assign target_collection_title = "Earrings" -%}
+    {%- elsif p_type_lc contains 'pendant' or p_type_lc contains 'necklace' or p_handle_lc contains 'pendant' or p_handle_lc contains 'necklace' -%}
+      {%- assign target_collection_url = "/collections/pendants" -%}
+      {%- assign target_collection_title = "Pendants" -%}
+    {%- elsif p_type_lc contains 'bracelet' or p_handle_lc contains 'bracelet' -%}
+      {%- assign target_collection_url = "/collections/bracelets" -%}
+      {%- assign target_collection_title = "Bracelets" -%}
+    {%- elsif p_type_lc contains 'ring' or p_handle_lc contains 'ring' -%}
+      {%- assign target_collection_url = "/collections/engagement-rings" -%}
+      {%- assign target_collection_title = "Rings" -%}
+    {%- endif -%}
+  {%- endif -%}
+
   <!-- BREADCRUMBS -->
   <div class="arlena-breadcrumbs">
     <a href="/">Home</a>
     <span>/</span>
-    <a href="/collections/all">Jewelry</a>
-    <span>/</span>
-    <a href="/collections/all">{{ product.type | default: 'Earrings' }}</a>
+    <a href="{{ target_collection_url }}">{{ target_collection_title }}</a>
     <span>/</span>
     <span style="color: #111;">{{ product.title }}</span>
   </div>
@@ -1106,7 +1135,7 @@
 
     <!-- RIGHT: PRODUCT OPTIONS & DETAILS -->
     <section class="arlena-info">
-      <a href="/collections/all" class="arlena-pretitle">{{ product.type | default: 'Earrings' }}</a>
+      <a href="{{ target_collection_url }}" class="arlena-pretitle">{{ target_collection_title }}</a>
 
       <h1 class="arlena-title">{{ product.title }}</h1>
 
