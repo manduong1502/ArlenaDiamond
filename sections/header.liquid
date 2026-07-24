@@ -5,14 +5,17 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: #000;
+    height: 30px;
+    background-color: #000000;
     color: #fff;
-    padding: 8px 0;
     font-size: 10px;
     font-weight: 500;
     letter-spacing: 1px;
     z-index: 101;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   .announcement-items {
     display: flex;
@@ -40,7 +43,7 @@
   /* Infinite Marquee Loop ONLY on Mobile */
   @media (max-width: 991px) {
     .announcement-bar {
-      padding: 7px 0;
+      height: 30px;
     }
     .announcement-items {
       justify-content: flex-start;
@@ -65,7 +68,7 @@
   /* Header Container */
   .header {
     position: fixed;
-    top: 31px; /* announcement bar height is ~31px */
+    top: 30px;
     left: 0;
     width: 100%;
     display: grid;
@@ -205,7 +208,7 @@
     padding: 8px 18px;
     background: #000000;
     position: fixed;
-    top: 31px;
+    top: 30px;
     left: 0;
     z-index: 100;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
