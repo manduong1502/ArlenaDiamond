@@ -27,24 +27,38 @@
     gap: 8px;
     font-family: var(--font-base);
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .announcement-item i {
     color: #c5a880;
     font-size: 12px;
   }
+  .announcement-item.mobile-dup {
+    display: none;
+  }
+
+  /* Infinite Marquee Loop ONLY on Mobile */
   @media (max-width: 991px) {
+    .announcement-bar {
+      padding: 7px 0;
+    }
     .announcement-items {
-      gap: 20px;
-      overflow-x: auto;
       justify-content: flex-start;
-      padding: 0 15px;
-      scrollbar-width: none; /* Firefox */
+      gap: 30px;
+      width: max-content;
+      animation: marqueeInfinite 18s linear infinite;
     }
-    .announcement-items::-webkit-scrollbar {
-      display: none; /* Chrome/Safari */
+    .announcement-item.mobile-dup {
+      display: flex;
     }
-    .announcement-item {
-      flex-shrink: 0;
+  }
+
+  @keyframes marqueeInfinite {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
     }
   }
 
@@ -148,25 +162,27 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0;
+    width: 0%;
     height: 1px;
     background-color: #c5a880;
     transition: width 0.3s ease;
   }
-  .header-nav-link:hover::after {
+  .header-nav-link:hover::after,
+  .header-nav-link.active-link::after {
     width: 100%;
   }
 
   /* Header Icons */
   .header-icon-btn {
-    background: none;
+    background: transparent;
     border: none;
-    color: #fff;
+    color: #ffffff;
     cursor: pointer;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px;
+    text-decoration: none;
     transition: color 0.3s ease;
   }
   .header-icon-btn:hover {
@@ -180,13 +196,13 @@
     fill: none;
   }
 
-  /* Mobile menu styles */
+  /* Mobile menu & header bar styles */
   .mobile-header-bar {
     display: none;
     width: 100%;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: 10px 15px;
+    padding: 8px 18px;
     background: #000000;
     position: fixed;
     top: 31px;
@@ -194,6 +210,42 @@
     z-index: 100;
     border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   }
+  .mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 85vw;
+    max-width: 360px;
+    height: 100vh;
+    background-color: #111111;
+    color: #ffffff;
+    z-index: 999999;
+    transform: translateX(-100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
+    box-shadow: 5px 0 25px rgba(0,0,0,0.5);
+  }
+  .mobile-menu-overlay.active {
+    transform: translateX(0) !important;
+  }
+  .mobile-menu-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(4px);
+    z-index: 999998;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .mobile-menu-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
   @media (max-width: 991px) {
     .header {
       display: none;
@@ -220,6 +272,24 @@
       <span>MADE TO ORDER</span>
     </div>
     <div class="announcement-item">
+      <i class="fa-solid fa-truck"></i>
+      <span>FREE INSURED DELIVERY</span>
+    </div>
+
+    <!-- Duplicated items for continuous infinite marquee loop on mobile -->
+    <div class="announcement-item mobile-dup">
+      <i class="fa-solid fa-award"></i>
+      <span>AUSTRALIAN MADE</span>
+    </div>
+    <div class="announcement-item mobile-dup">
+      <i class="fa-solid fa-ribbon"></i>
+      <span>20+ YEARS OF EXPERTISE</span>
+    </div>
+    <div class="announcement-item mobile-dup">
+      <i class="fa-solid fa-ring"></i>
+      <span>MADE TO ORDER</span>
+    </div>
+    <div class="announcement-item mobile-dup">
       <i class="fa-solid fa-truck"></i>
       <span>FREE INSURED DELIVERY</span>
     </div>
@@ -269,18 +339,19 @@
 
 <!-- Mobile Header Bar -->
 <div class="mobile-header-bar">
-  <button class="mobile-menu-btn header-icon-btn" id="customMobileMenuBtn">
-    <svg class="hamburger-icon header-icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
-    <svg class="close-icon header-icon-svg" viewBox="0 0 24 24" style="display: none;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-  </button>
+  <div style="display: flex; align-items: center; justify-content: flex-start;">
+    <button class="mobile-menu-btn header-icon-btn" id="customMobileMenuBtn">
+      <svg class="hamburger-icon header-icon-svg" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
   
-  <div class="header__logo-container" style="margin: 0 auto;">
+  <div class="header__logo-container" style="display: flex; justify-content: center; align-items: center;">
     <a href="/" class="header__logo-link">
       <img src="{{ 'logo_arlena.png' | asset_url }}" alt="Arlena" class="header__logo-img" style="max-height: 38px;">
     </a>
   </div>
 
-  <div style="display: flex; align-items: center; gap: 10px;">
+  <div style="display: flex; align-items: center; justify-content: flex-end; gap: 10px;">
     <a href="#" id="searchBtnMobile" class="header-icon-btn" onclick="document.getElementById('searchBtn').click(); return false;">
       <svg class="header-icon-svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
     </a>
@@ -296,11 +367,11 @@
   </div>
 </div>
 
-<!-- MOBILE MENU OVERLAY -->
+<!-- MOBILE MENU BACKDROP & OVERLAY -->
+<div class="mobile-menu-backdrop" id="mobileMenuBackdrop"></div>
 <div
   class="mobile-menu-overlay"
   id="mobileMenu"
-  style="padding: 0; overflow-y: auto; top: 31px; height: calc(100vh - 31px); width: 85vw; max-width: 400px; box-shadow: 5px 0 15px rgba(0,0,0,0.2); background-color: #111; color: #fff;"
 >
   <div style="padding: 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.1);">
     <img src="{{ 'logo_arlena.png' | asset_url }}" alt="Arlena" style="max-height: 30px; width: auto; object-fit: contain;">
@@ -962,6 +1033,47 @@
         cartRenderItems(cart);
       });
   };
+
+  /* Mobile Menu Drawer Toggle */
+  document.addEventListener('DOMContentLoaded', function () {
+    var mobBtn = document.getElementById('customMobileMenuBtn');
+    var mobMenu = document.getElementById('mobileMenu');
+    var mobClose = document.getElementById('closeMobileMenu');
+    var mobBackdrop = document.getElementById('mobileMenuBackdrop');
+
+    function openMobileDrawer() {
+      if (mobMenu) mobMenu.classList.add('active');
+      if (mobBackdrop) mobBackdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileDrawer() {
+      if (mobMenu) mobMenu.classList.remove('active');
+      if (mobBackdrop) mobBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    if (mobBtn) {
+      mobBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        openMobileDrawer();
+      });
+    }
+
+    if (mobClose) {
+      mobClose.addEventListener('click', function (e) {
+        e.preventDefault();
+        closeMobileDrawer();
+      });
+    }
+
+    if (mobBackdrop) {
+      mobBackdrop.addEventListener('click', function () {
+        closeMobileDrawer();
+      });
+    }
+  });
 </script>
 
 <!-- MEGA MENU OVERLAY -->
