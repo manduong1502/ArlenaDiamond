@@ -228,57 +228,127 @@
 
   /* Crafted Section */
   .crafted-section {
-    background-color: #ffffff;
-    color: #111;
+    background-color: #000000;
+    color: #fff;
     display: flex;
     align-items: stretch;
     width: 100%;
     margin: 0;
-    border-top: 1px solid #f0f0f0;
-    border-bottom: 1px solid #f0f0f0;
   }
   .crafted-img-col {
-    width: 40%; /* Left column */
+    width: 35%; /* Left column */
     background-image: url('{{ 'handcraft_jewelry.png' | asset_url }}');
     background-size: cover;
     background-position: center;
-    min-height: 420px;
+    min-height: 380px;
     flex-shrink: 0;
   }
   .crafted-content-col {
-    width: 60%; /* Right column */
-    padding: 60px 80px;
+    width: 65%; /* Right column */
+    padding: 50px 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    background-color: #000000;
+  }
+  .crafted-info-block {
+    flex: 1.2;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #ffffff;
   }
-  .crafted-info-block {
-    max-width: 620px;
+  .crafted-bullets-block {
+    flex: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .crafted-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #c5a880;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
   }
   .crafted-title {
     font-family: 'Cinzel', serif;
     font-size: 24px;
-    font-weight: 500;
     letter-spacing: 1.5px;
-    margin-bottom: 24px;
-    color: #111111;
+    margin-bottom: 20px;
+    color: #fff;
     line-height: 1.35;
     text-transform: uppercase;
   }
   .crafted-desc {
-    font-size: 13px;
-    line-height: 1.75;
-    color: #333333;
-    margin-bottom: 20px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #b0b0b0;
+    margin-bottom: 16px;
   }
   .crafted-desc:last-child {
     margin-bottom: 0;
   }
+  .btn-gold-block {
+    display: inline-block;
+    background-color: #c5a880;
+    color: #000;
+    padding: 12px 25px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border: none;
+    margin-top: 15px;
+  }
+  .btn-gold-block:hover {
+    background-color: #b3956d;
+  }
+  .crafted-bullets {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .crafted-bullet-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .crafted-bullet-item:first-child {
+    padding-top: 0;
+  }
+  .crafted-bullet-item:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  .crafted-bullet-item i {
+    color: #c5a880;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .crafted-bullet-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .crafted-bullet-text strong {
+    font-size: 11px;
+    letter-spacing: 0.5px;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .crafted-bullet-text span {
+    font-size: 10px;
+    color: #888;
+  }
   @media (max-width: 991px) {
-    .hero-banner {
-      padding: 0 30px;
-    }
     .crafted-section {
       flex-direction: column;
     }
@@ -289,6 +359,8 @@
     .crafted-content-col {
       width: 100%;
       padding: 40px 25px;
+      flex-direction: column;
+      gap: 30px;
     }
   }
 
@@ -420,6 +492,7 @@
     <div class="crafted-img-col"></div>
     <div class="crafted-content-col">
       <div class="crafted-info-block">
+        <span class="crafted-label">Crafted in Australia</span>
         <h3 class="crafted-title">CRAFTED WITH EXPERIENCE AND PRECISION</h3>
         <p class="crafted-desc">
           Each piece is made to order in Australia, combining modern jewellery-making technology with traditional craftsmanship. At the heart of our process is our Master Jeweller, with more than 20 years of experience, who oversees the skilled craftsmanship behind every piece.
@@ -427,6 +500,35 @@
         <p class="crafted-desc">
           From precision design and casting to stone setting, finishing and final inspection, every step is approached with care, attention to detail and a commitment to exceptional quality.
         </p>
+        <div>
+          <a href="/pages/our-story" class="btn-gold-block">Learn More About Our Story</a>
+        </div>
+      </div>
+      
+      <div class="crafted-bullets-block">
+        <div class="crafted-bullets">
+          <div class="crafted-bullet-item">
+            <i class="fa-regular fa-gem"></i>
+            <div class="crafted-bullet-text">
+              <strong>Ethically Sourced</strong>
+              <span>Diamonds & Gemstones</span>
+            </div>
+          </div>
+          <div class="crafted-bullet-item">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <div class="crafted-bullet-text">
+              <strong>Precision Craftsmanship</strong>
+              <span>by Skilled Jewellers</span>
+            </div>
+          </div>
+          <div class="crafted-bullet-item">
+            <i class="fa-regular fa-heart"></i>
+            <div class="crafted-bullet-text">
+              <strong>Personalised Service</strong>
+              <span>Online, Always</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
