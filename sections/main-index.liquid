@@ -16,47 +16,50 @@
   .hero-banner {
     position: relative;
     width: 100%;
-    height: 90vh;
+    height: 85vh;
     min-height: 500px;
     background-color: #0b0b0b;
-    background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6)), url('{{ 'hero_jewelry.png' | asset_url }}');
+    background-image: linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.15) 100%), url('{{ 'hero_jewelry.png' | asset_url }}');
     background-size: cover;
     background-position: center;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     color: #fff;
-    text-align: center;
-    padding: 0 20px;
+    text-align: left;
+    padding: 0 80px;
   }
   .hero-content {
-    max-width: 800px;
+    max-width: 560px;
   }
   .hero-title {
     font-family: 'Cinzel', 'Playfair Display', serif;
-    font-size: clamp(36px, 6vw, 64px);
+    font-size: clamp(34px, 5.5vw, 56px);
     font-weight: 400;
     margin-bottom: 20px;
-    letter-spacing: 2px;
+    letter-spacing: 1.5px;
+    line-height: 1.25;
+    color: #ffffff;
   }
   .hero-title span {
     font-style: italic;
     font-family: 'Playfair Display', serif;
+    color: #c5a880;
   }
   .hero-subtitle {
-    font-size: 16px;
-    color: #ccc;
-    margin-bottom: 40px;
-    letter-spacing: 1px;
+    font-size: 14px;
+    color: #dedede;
+    margin-bottom: 35px;
+    letter-spacing: 0.5px;
     line-height: 1.6;
-    max-width: 600px;
-    margin-left: auto;
+    max-width: 480px;
+    margin-left: 0;
     margin-right: auto;
   }
   .hero-ctas {
     display: flex;
-    justify-content: center;
-    gap: 20px;
+    justify-content: flex-start;
+    gap: 16px;
     flex-wrap: wrap;
   }
   .btn-gold {
@@ -70,6 +73,7 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
   }
   .btn-gold:hover {
     background-color: #bfa37a;
@@ -87,78 +91,11 @@
     text-transform: uppercase;
     transition: all 0.3s ease;
     cursor: pointer;
+    text-decoration: none;
   }
   .btn-outline-white:hover {
     background-color: #fff;
     color: #000;
-  }
-
-  /* Badges Row */
-  .badges-row {
-    background-color: #fdfaf6; /* Luxury light warm cream background */
-    padding: 30px 20px;
-    border-top: 1px solid rgba(197, 168, 128, 0.15);
-    border-bottom: 1px solid rgba(197, 168, 128, 0.15);
-  }
-  .badges-grid {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  .badge-item {
-    display: flex;
-    flex-direction: row; /* Horizontal layout */
-    align-items: center;
-    text-align: left;
-    gap: 15px;
-    border-right: 1px solid rgba(197, 168, 128, 0.25);
-    padding-right: 15px;
-  }
-  .badge-item:last-child {
-    border-right: none;
-    padding-right: 0;
-  }
-  .badge-item i {
-    font-size: 28px;
-    color: #c5a880;
-    flex-shrink: 0;
-  }
-  .badge-item-text {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-  .badge-item h5 {
-    font-size: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: #c5a880; /* Gold text */
-    margin: 0;
-  }
-  .badge-item p {
-    font-size: 10px;
-    color: #555;
-    margin: 0;
-    line-height: 1.3;
-  }
-  @media (max-width: 991px) {
-    .badges-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-    .badge-item {
-      border-right: none;
-      padding-right: 0;
-    }
-  }
-  @media (max-width: 768px) {
-    .badges-grid {
-      grid-template-columns: 1fr;
-      gap: 15px;
-    }
   }
 
   /* Collections Section */
@@ -291,162 +228,87 @@
 
   /* Crafted Section */
   .crafted-section {
-    background-color: #000000;
-    color: #fff;
+    background-color: #ffffff;
+    color: #111;
     display: flex;
     align-items: stretch;
     width: 100%;
     margin: 0;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
   }
   .crafted-img-col {
-    width: 35%; /* Left column */
+    width: 40%; /* Left column */
     background-image: url('{{ 'handcraft_jewelry.png' | asset_url }}');
     background-size: cover;
     background-position: center;
-    min-height: 320px;
+    min-height: 420px;
     flex-shrink: 0;
   }
   .crafted-content-col {
-    width: 65%; /* Right column */
-    padding: 30px 50px;
+    width: 60%; /* Right column */
+    padding: 60px 80px;
     display: flex;
-    flex-direction: row; /* Split into description and bullets side-by-side */
-    gap: 40px;
-    align-items: center;
-    background-color: #000000;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
   }
   .crafted-info-block {
-    flex: 1.2;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .crafted-bullets-block {
-    flex: 0.8;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .crafted-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: #c5a880;
-    text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 12px;
+    max-width: 620px;
   }
   .crafted-title {
     font-family: 'Cinzel', serif;
-    font-size: 26px;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-    color: #fff;
-    line-height: 1.3;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    margin-bottom: 24px;
+    color: #111111;
+    line-height: 1.35;
+    text-transform: uppercase;
   }
   .crafted-desc {
-    font-size: 11px;
-    line-height: 1.6;
-    color: #b0b0b0;
-    margin-bottom: 30px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #333333;
+    margin-bottom: 20px;
   }
-  .btn-gold-block {
-    display: inline-block;
-    background-color: #c5a880;
-    color: #fff;
-    padding: 12px 25px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    text-decoration: none;
-    text-align: center;
-    transition: background-color 0.3s ease;
-    border: none;
-    cursor: pointer;
-  }
-  .btn-gold-block:hover {
-    background-color: #b3956d;
-  }
-  .crafted-bullets {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-  .crafted-bullet-item {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  .crafted-bullet-item:first-child {
-    padding-top: 0;
-  }
-  .crafted-bullet-item:last-child {
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  .crafted-bullet-item i {
-    color: #c5a880;
-    font-size: 26px;
-    flex-shrink: 0;
-  }
-  .crafted-bullet-text {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
-  .crafted-bullet-text strong {
-    font-size: 11px;
-    letter-spacing: 0.5px;
-    color: #fff;
-    font-weight: 500;
-  }
-  .crafted-bullet-text span {
-    font-size: 10px;
-    color: #888;
-  }
-
-  @media (max-width: 1199px) {
-    .crafted-content-col {
-      padding: 50px 40px;
-      gap: 40px;
-    }
+  .crafted-desc:last-child {
+    margin-bottom: 0;
   }
   @media (max-width: 991px) {
+    .hero-banner {
+      padding: 0 30px;
+    }
     .crafted-section {
       flex-direction: column;
     }
     .crafted-img-col {
       width: 100%;
-      height: 350px;
+      height: 300px;
     }
     .crafted-content-col {
       width: 100%;
-      flex-direction: column;
-      gap: 40px;
-      padding: 50px 30px;
+      padding: 40px 25px;
     }
   }
 
-  /* Life moments section */
+  /* Moments Section */
   .moments-section {
-    padding: 60px 20px;
-    background-color: #fdfaf6; /* Luxury light warm cream background */
+    background-color: #fdfaf6;
+    padding: 60px 40px;
   }
   .moments-grid {
     display: grid;
-    grid-template-columns: 0.85fr 3.15fr; /* Text columns slightly narrower, image column wider */
-    gap: 30px; /* Reduced gap between text and images */
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    align-items: center;
   }
   .moments-text-col {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    text-align: left;
   }
   .moments-text-col h3 {
     font-family: 'Cinzel', serif;
@@ -458,7 +320,7 @@
   }
   .moments-signature {
     font-family: 'Mr De Haviland', cursive;
-    font-size: 52px; /* Calligraphy looks best when large */
+    font-size: 52px;
     color: #c5a880;
     margin-top: -10px;
     font-weight: normal;
@@ -466,10 +328,10 @@
   .moments-images-col {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 8px; /* Reduced gap between images to make them close */
+    gap: 8px;
   }
   .moment-img-card {
-    aspect-ratio: 1/1; /* Square 1:1 ratio */
+    aspect-ratio: 1/1;
     overflow: hidden;
     background-color: #000;
   }
@@ -499,7 +361,7 @@
     <div class="hero-content">
       <h2 class="hero-title">Made <span>for</span> Moments.</h2>
       <p class="hero-subtitle">
-        Australian made fine jewellery, crafted to order for life's most meaningful moments.
+        Australian made fine jewellery. crafted to order for life's most meaningful moments.
       </p>
       <div class="hero-ctas">
         <a href="/collections/engagement-rings" class="btn-gold">Shop Engagement Rings</a>
@@ -508,48 +370,7 @@
     </div>
   </section>
 
-  <!-- 2. Trust Badges Row 1 -->
-  <section class="badges-row">
-    <div class="badges-grid">
-      <div class="badge-item">
-        <i class="fa-regular fa-gem"></i>
-        <div class="badge-item-text">
-          <h5>Australian Made</h5>
-          <p>Handcrafted in our Australian workshop</p>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-regular fa-star"></i>
-        <div class="badge-item-text">
-          <h5>20+ Years Experience</h5>
-          <p>Expert craftsmanship you can trust</p>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-ring"></i>
-        <div class="badge-item-text">
-          <h5>Made to Order</h5>
-          <p>Each piece is crafted especially for you</p>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <div class="badge-item-text">
-          <h5>Lifetime Warranty</h5>
-          <p>Quality you can wear, for a lifetime</p>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-truck"></i>
-        <div class="badge-item-text">
-          <h5>Free Shipping</h5>
-          <p>Complimentary shipping Australia wide</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. Explore Our Collections -->
+  <!-- 2. Explore Our Collections -->
   <section class="home-collections">
     <span class="section-label">Explore Our Collections</span>
     <h3 class="section-title">Timeless Pieces, Crafted for You</h3>
@@ -594,91 +415,23 @@
     </div>
   </section>
 
-  <!-- 4. Crafted in Australia -->
+  <!-- 3. Crafted in Australia -->
   <section class="crafted-section">
     <div class="crafted-img-col"></div>
     <div class="crafted-content-col">
       <div class="crafted-info-block">
-        <span class="crafted-label">Crafted in Australia</span>
-        <h3 class="crafted-title">Made to Order. Made to Last.</h3>
+        <h3 class="crafted-title">CRAFTED WITH EXPERIENCE AND PRECISION</h3>
         <p class="crafted-desc">
-          Every piece is handcrafted by our experienced jewellers in Australia using ethical materials and exceptional attention to detail.
+          Each piece is made to order in Australia, combining modern jewellery-making technology with traditional craftsmanship. At the heart of our process is our Master Jeweller, with more than 20 years of experience, who oversees the skilled craftsmanship behind every piece.
         </p>
-        <div>
-          <a href="/pages/our-story" class="btn-gold-block">Learn More About Our Story</a>
-        </div>
-      </div>
-      
-      <div class="crafted-bullets-block">
-        <div class="crafted-bullets">
-          <div class="crafted-bullet-item">
-            <i class="fa-regular fa-gem"></i>
-            <div class="crafted-bullet-text">
-              <strong>Ethically Sourced</strong>
-              <span>Diamonds & Gemstones</span>
-            </div>
-          </div>
-          <div class="crafted-bullet-item">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
-            <div class="crafted-bullet-text">
-              <strong>Precision Craftsmanship</strong>
-              <span>by Skilled Jewellers</span>
-            </div>
-          </div>
-          <div class="crafted-bullet-item">
-            <i class="fa-regular fa-heart"></i>
-            <div class="crafted-bullet-text">
-              <strong>Personalised Service</strong>
-              <span>Online, Always</span>
-            </div>
-          </div>
-        </div>
+        <p class="crafted-desc">
+          From precision design and casting to stone setting, finishing and final inspection, every step is approached with care, attention to detail and a commitment to exceptional quality.
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- 5. Our Promise to You -->
-  <section class="badges-row">
-    <div style="text-align: center; margin-bottom: 45px;">
-      <span class="section-label">Our Promise to You</span>
-      <h3 class="section-title" style="margin-bottom: 0;">Quality You Can Trust</h3>
-    </div>
-    
-    <div class="badges-grid">
-      <div class="badge-item">
-        <i class="fa-regular fa-star"></i>
-        <div class="badge-item-text">
-          <h5>Certified Diamonds</h5>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-crown"></i>
-        <div class="badge-item-text">
-          <h5>Premium Materials</h5>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-regular fa-circle-check"></i>
-        <div class="badge-item-text">
-          <h5>Lifetime Warranty</h5>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-arrows-rotate"></i>
-        <div class="badge-item-text">
-          <h5>Easy Returns & Exchanges</h5>
-        </div>
-      </div>
-      <div class="badge-item">
-        <i class="fa-solid fa-shield-halved"></i>
-        <div class="badge-item-text">
-          <h5>Secure & Insured Delivery</h5>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. Designed for Life's Moments -->
+  <!-- 4. Designed for Life's Moments -->
   <section class="moments-section">
     <div class="moments-grid">
       <div class="moments-text-col">
