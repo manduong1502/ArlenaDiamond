@@ -254,6 +254,24 @@
     .collection-card-content span {
       font-size: 8px;
     }
+    /* Exclude last card (Bracelets full-width banner) from super-small text styling */
+    .collections-grid a:last-child img {
+      object-position: center center;
+    }
+    .collections-grid a:last-child .collection-card-content {
+      padding: 18px 12px 14px;
+      gap: 4px;
+    }
+    .collections-grid a:last-child .collection-card-content h4 {
+      font-size: 11.5px;
+      letter-spacing: 1px;
+    }
+    .collections-grid a:last-child .collection-card-content span {
+      font-size: 9.5px;
+    }
+    .collections-grid a:last-child::after {
+      height: 48%;
+    }
   }
 
   /* Crafted Section */
