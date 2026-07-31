@@ -1,5 +1,5 @@
 <div class="story-page full-width">
-  <!-- 1. HERO SECTION: Made for Moments (1:1 Aspect Ratio) -->
+  <!-- 1. HERO SECTION: Made for Moments (1:1 Aspect Ratio, Flush Corner Touch) -->
   <section class="story-split-section story-hero-section">
     <div class="story-container">
       <div class="story-hero-grid">
@@ -19,7 +19,7 @@
     </div>
   </section>
 
-  <!-- 2. INSPIRED BY FAMILY (Image Left - 1:1 Aspect Ratio) -->
+  <!-- 2. INSPIRED BY FAMILY (Image Left - 1:1 Aspect Ratio, Flush Corner Touch) -->
   <section class="story-split-section story-bg-white">
     <div class="story-container">
       <div class="story-split-grid">
@@ -37,7 +37,7 @@
     </div>
   </section>
 
-  <!-- 3. CRAFTED WITH CARE (Image Right - 1:1 Aspect Ratio) -->
+  <!-- 3. CRAFTED WITH CARE (Image Right - 1:1 Aspect Ratio, Flush Corner Touch) -->
   <section class="story-split-section story-bg-cream">
     <div class="story-container">
       <div class="story-split-grid story-reverse">
@@ -95,7 +95,7 @@
         <!-- Chapter 3 -->
         <a href="/collections/all" class="chapter-card">
           <div class="chapter-icon">
-            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#b89768" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#b89768" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/></svg>
           </div>
           <h4>TREASURE EVERY DAY</h4>
           <span>Explore Everyday Jewellery</span>
@@ -177,25 +177,25 @@
     padding: 0 30px;
   }
 
-  /* ═══ UNIFIED 1:1 SQUARE ASPECT RATIO SECTIONS ═══ */
+  /* ═══ 1:1 SQUARE ASPECT RATIO & ZERO VERTICAL GAP SECTIONS ═══ */
   .story-split-section {
-    padding: 30px 0 !important;
+    padding: 0 !important;
     margin: 0;
     width: 100%;
   }
   .story-hero-section {
     background-color: #faf7f2;
-    padding-top: 40px !important;
   }
   .story-hero-grid,
   .story-split-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 50px;
-    align-items: center;
+    gap: 0;
+    align-items: start;
+    width: 100%;
   }
   .story-hero-text {
-    padding: 90px 0 30px 0;
+    padding: 135px 40px 40px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -234,7 +234,7 @@
     font-weight: 500;
   }
   
-  /* 1:1 Square Image Containers */
+  /* 1:1 Square Image Containers (Flush Corner Touching) */
   .story-hero-img,
   .story-img-col {
     width: 100%;
@@ -242,7 +242,7 @@
     overflow: hidden;
     background-color: #eee7dd;
     position: relative;
-    border-radius: 1px;
+    display: block;
   }
   .story-hero-img img,
   .story-img-col img {
@@ -266,9 +266,10 @@
   }
   .story-split-grid.story-reverse .story-text-col {
     order: 1;
+    padding: 40px 40px 40px 0;
   }
   .story-text-col {
-    padding: 30px 0;
+    padding: 40px 0 40px 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -429,13 +430,19 @@
     .story-split-grid,
     .story-split-grid.story-reverse {
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 0;
     }
     .story-hero-text {
-      padding: 110px 0 20px 0;
+      padding: 130px 20px 35px;
     }
-    .story-text-col {
-      padding: 20px 0;
+    .story-text-col,
+    .story-split-grid.story-reverse .story-text-col {
+      padding: 35px 20px;
+    }
+    .story-hero-img,
+    .story-img-col {
+      aspect-ratio: 1 / 1;
+      width: 100%;
     }
     .story-split-grid.story-reverse .story-img-col {
       order: 2;
