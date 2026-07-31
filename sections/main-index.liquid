@@ -101,7 +101,7 @@
   /* Collections Section */
   .home-collections {
     background-color: #fdfaf6; /* Match light cream background */
-    padding: 60px 20px;
+    padding: 95px 20px;
     text-align: center;
   }
   .section-label {
@@ -363,9 +363,9 @@
   }
   .crafted-bullet-item {
     display: flex;
-    align-items: center;
-    gap: 15px;
-    padding: 15px 0;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
   .crafted-bullet-item:first-child {
@@ -378,23 +378,30 @@
   .crafted-bullet-item i {
     color: #c5a880;
     font-size: 24px;
+    margin-top: 2px;
     flex-shrink: 0;
   }
   .crafted-bullet-text {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 4px;
   }
   .crafted-bullet-text strong {
     font-size: 11px;
-    letter-spacing: 0.5px;
-    color: #fff;
-    font-weight: 600;
+    letter-spacing: 1px;
+    color: #ffffff;
     text-transform: uppercase;
   }
   .crafted-bullet-text span {
-    font-size: 10px;
-    color: #888;
+    font-size: 11px;
+    line-height: 1.5;
+    color: #b0b0b0;
+  }
+
+  /* Moments Section */
+  .moments-section {
+    background-color: #fdfaf6;
+    padding: 95px 40px;
   }
   @media (max-width: 991px) {
     .hero-banner {
@@ -538,7 +545,7 @@
     <div class="hero-content">
       <h2 class="hero-title">Made <span>for</span> Moments.</h2>
       <p class="hero-subtitle">
-        Australian made fine jewellery. crafted to order for life's most meaningful moments.
+        Crafted in Australia for life's most meaningful moments.
       </p>
       <div class="hero-ctas">
         <a href="/collections/engagement-rings" class="btn-gold">Shop Engagement Rings</a>
@@ -615,22 +622,22 @@
           <div class="crafted-bullet-item">
             <i class="fa-regular fa-gem"></i>
             <div class="crafted-bullet-text">
-              <strong>Ethically Sourced</strong>
-              <span>Diamonds & Gemstones</span>
+              <strong>Carefully Selected Materials</strong>
+              <span>Diamonds, gemstones & precious metals chosen for their beauty and quality.</span>
             </div>
           </div>
           <div class="crafted-bullet-item">
-            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <i class="fa-solid fa-magnifying-glass"></i>
             <div class="crafted-bullet-text">
-              <strong>Precision Craftsmanship</strong>
-              <span>by Skilled Jewellers</span>
+              <strong>Master Craftsmanship</strong>
+              <span>Led by our Master Jeweller with more than 20 years of experience.</span>
             </div>
           </div>
           <div class="crafted-bullet-item">
             <i class="fa-regular fa-heart"></i>
             <div class="crafted-bullet-text">
-              <strong>Personalised Service</strong>
-              <span>Online, Always</span>
+              <strong>Made To Order</strong>
+              <span>Every piece is crafted exclusively for you, never mass produced.</span>
             </div>
           </div>
         </div>
