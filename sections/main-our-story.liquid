@@ -1,5 +1,5 @@
 <div class="story-page full-width">
-  <!-- 1. HERO SECTION: Made for Moments -->
+  <!-- 1. HERO SECTION: Made for Moments (1:1 Aspect Ratio) -->
   <section class="story-split-section story-hero-section">
     <div class="story-container">
       <div class="story-hero-grid">
@@ -19,7 +19,7 @@
     </div>
   </section>
 
-  <!-- 2. INSPIRED BY FAMILY (Image Left) -->
+  <!-- 2. INSPIRED BY FAMILY (Image Left - 1:1 Aspect Ratio) -->
   <section class="story-split-section story-bg-white">
     <div class="story-container">
       <div class="story-split-grid">
@@ -37,7 +37,7 @@
     </div>
   </section>
 
-  <!-- 3. CRAFTED WITH CARE (Image Right) -->
+  <!-- 3. CRAFTED WITH CARE (Image Right - 1:1 Aspect Ratio) -->
   <section class="story-split-section story-bg-cream">
     <div class="story-container">
       <div class="story-split-grid story-reverse">
@@ -113,7 +113,7 @@
     </div>
   </section>
 
-  <!-- 6. OUR PROMISE (Image Left) -->
+  <!-- 6. OUR PROMISE (Image Left - 1:1 Aspect Ratio) -->
   <section class="story-split-section story-bg-white story-promise-section">
     <div class="story-container">
       <div class="story-split-grid">
@@ -177,24 +177,25 @@
     padding: 0 30px;
   }
 
-  /* ═══ SPLIT SECTIONS (FULL STRETCH IMAGES WITH ZERO VERTICAL GAPS) ═══ */
+  /* ═══ UNIFIED 1:1 SQUARE ASPECT RATIO SECTIONS ═══ */
   .story-split-section {
-    padding: 0 !important;
+    padding: 30px 0 !important;
     margin: 0;
     width: 100%;
   }
   .story-hero-section {
     background-color: #faf7f2;
+    padding-top: 40px !important;
   }
   .story-hero-grid,
   .story-split-grid {
-    display: flex;
-    align-items: stretch;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
   }
   .story-hero-text {
-    flex: 1 1 50%;
-    padding: 135px 30px 50px 0;
+    padding: 90px 0 30px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -232,22 +233,23 @@
     color: #b89768 !important;
     font-weight: 500;
   }
-  .story-hero-img {
-    flex: 1 1 50%;
-    align-self: stretch;
-    background-color: #eee7dd;
+  
+  /* 1:1 Square Image Containers */
+  .story-hero-img,
+  .story-img-col {
+    width: 100%;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
+    background-color: #eee7dd;
     position: relative;
-    min-height: 480px;
+    border-radius: 1px;
   }
-  .story-hero-img img {
+  .story-hero-img img,
+  .story-img-col img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   .story-padded-section {
@@ -264,28 +266,9 @@
   }
   .story-split-grid.story-reverse .story-text-col {
     order: 1;
-    padding: 50px 30px 50px 0;
-  }
-  .story-img-col {
-    flex: 1 1 50%;
-    align-self: stretch;
-    background-color: #eee7dd;
-    overflow: hidden;
-    position: relative;
-    min-height: 450px;
-  }
-  .story-img-col img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
   .story-text-col {
-    flex: 1 1 50%;
-    padding: 50px 0 50px 30px;
+    padding: 30px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -445,21 +428,14 @@
     .story-hero-grid,
     .story-split-grid,
     .story-split-grid.story-reverse {
-      flex-direction: column;
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
     .story-hero-text {
-      padding: 130px 20px 35px;
+      padding: 110px 0 20px 0;
     }
-    .story-text-col,
-    .story-split-grid.story-reverse .story-text-col {
-      padding: 35px 20px;
-    }
-    .story-hero-img,
-    .story-img-col {
-      min-height: 320px;
-      aspect-ratio: 4 / 3;
-      position: relative;
-      width: 100%;
+    .story-text-col {
+      padding: 20px 0;
     }
     .story-split-grid.story-reverse .story-img-col {
       order: 2;
