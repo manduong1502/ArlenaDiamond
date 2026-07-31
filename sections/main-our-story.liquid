@@ -1,6 +1,6 @@
 <div class="story-page full-width">
   <!-- 1. HERO SECTION: Made for Moments -->
-  <section class="story-hero-section story-split-section">
+  <section class="story-split-section story-hero-section">
     <div class="story-container">
       <div class="story-hero-grid">
         <div class="story-hero-text">
@@ -95,7 +95,7 @@
         <!-- Chapter 3 -->
         <a href="/collections/all" class="chapter-card">
           <div class="chapter-icon">
-            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#b89768" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/></svg>
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#b89768" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L12 2z"/></svg>
           </div>
           <h4>TREASURE EVERY DAY</h4>
           <span>Explore Everyday Jewellery</span>
@@ -177,23 +177,24 @@
     padding: 0 30px;
   }
 
-  /* ═══ SPLIT SECTIONS (STANDARDIZED CONTAINER WIDTH, FLUSH VERTICAL GAP & TOP CLEARANCE) ═══ */
+  /* ═══ SPLIT SECTIONS (FULL STRETCH IMAGES WITH ZERO VERTICAL GAPS) ═══ */
   .story-split-section {
     padding: 0 !important;
     margin: 0;
+    width: 100%;
   }
   .story-hero-section {
     background-color: #faf7f2;
   }
   .story-hero-grid,
   .story-split-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 50px;
+    display: flex;
     align-items: stretch;
+    width: 100%;
   }
   .story-hero-text {
-    padding: 140px 0 60px 0;
+    flex: 1 1 50%;
+    padding: 135px 30px 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -232,12 +233,12 @@
     font-weight: 500;
   }
   .story-hero-img {
-    width: 100%;
-    height: 100%;
-    min-height: 480px;
-    overflow: hidden;
+    flex: 1 1 50%;
+    align-self: stretch;
     background-color: #eee7dd;
+    overflow: hidden;
     position: relative;
+    min-height: 480px;
   }
   .story-hero-img img {
     width: 100%;
@@ -263,14 +264,15 @@
   }
   .story-split-grid.story-reverse .story-text-col {
     order: 1;
+    padding: 50px 30px 50px 0;
   }
   .story-img-col {
-    width: 100%;
-    height: 100%;
-    min-height: 460px;
-    overflow: hidden;
+    flex: 1 1 50%;
+    align-self: stretch;
     background-color: #eee7dd;
+    overflow: hidden;
     position: relative;
+    min-height: 450px;
   }
   .story-img-col img {
     width: 100%;
@@ -282,7 +284,8 @@
     left: 0;
   }
   .story-text-col {
-    padding: 60px 0;
+    flex: 1 1 50%;
+    padding: 50px 0 50px 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -442,8 +445,7 @@
     .story-hero-grid,
     .story-split-grid,
     .story-split-grid.story-reverse {
-      grid-template-columns: 1fr;
-      gap: 0;
+      flex-direction: column;
     }
     .story-hero-text {
       padding: 130px 20px 35px;
@@ -457,6 +459,7 @@
       min-height: 320px;
       aspect-ratio: 4 / 3;
       position: relative;
+      width: 100%;
     }
     .story-split-grid.story-reverse .story-img-col {
       order: 2;
