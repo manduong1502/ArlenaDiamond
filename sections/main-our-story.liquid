@@ -153,7 +153,14 @@
 
   <!-- 7. FOOTER TAGLINE BANNER -->
   <section class="story-tagline-banner">
-    <h3>Made for Moments.</h3>
+    <div class="story-tagline-wrap">
+      <img src="{{ 'logo_arlena.png' | asset_url }}" alt="Arlena Logo" style="max-height: 48px; width: auto; object-fit: contain;">
+      <div class="story-tagline-sub">
+        <span class="story-tagline-line"></span>
+        <span>MADE FOR MOMENTS.</span>
+        <span class="story-tagline-line"></span>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -409,19 +416,36 @@
 
   /* Tagline Banner */
   .story-tagline-banner {
-    background-color: #ebdcd0;
-    color: #ffffff;
-    padding: 45px 20px;
+    background-color: #111111;
+    color: #c5a880;
+    padding: 50px 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .story-tagline-banner h3 {
-    font-family: 'Cinzel', 'Playfair Display', serif;
-    font-size: 32px;
-    font-style: italic;
-    color: #ffffff;
-    margin: 0;
-    letter-spacing: 1.5px;
-    font-weight: 300;
+  .story-tagline-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .story-tagline-sub {
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #c5a880;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 2px;
+  }
+  .story-tagline-line {
+    display: inline-block;
+    width: 35px;
+    height: 1px;
+    background-color: #c5a880;
+    opacity: 0.7;
   }
 
   /* Responsive */
