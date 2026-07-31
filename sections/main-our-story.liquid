@@ -1,194 +1,450 @@
 <div class="story-page full-width">
-  <!-- Hero Section -->
-  <div class="story-hero">
-    <div class="story-hero-inner">
-      <h1 class="story-hero-title">Our Story</h1>
-      <p class="story-hero-subtitle" style="font-family: var(--font-base); font-size: 14px; font-style: italic; color: #c5a880; margin: -15px 0 25px 0;">Crafted with Experience and Precision</p>
-      <div class="story-hero-line"></div>
+  <!-- 1. HERO SECTION: Made for Moments -->
+  <section class="story-hero-section">
+    <div class="story-container">
+      <div class="story-hero-grid">
+        <div class="story-hero-text">
+          <span class="story-label">OUR STORY</span>
+          <h1 class="story-hero-title">Made for <span>Moments.</span></h1>
+          <p class="story-lead">Every meaningful moment deserves to be remembered.</p>
+          <p>Whether it's the excitement of a proposal, the promise of a wedding day, the celebration of an anniversary, or a gift given with love, these are the moments that become part of our lives forever.</p>
+          <p>At Arlena, we believe jewellery is more than something you wear. It becomes part of your story, carrying memories that last a lifetime.</p>
+          <p class="story-highlight">That's why every piece we create is Made for Moments.</p>
+        </div>
+        <div class="story-hero-img">
+          <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="Made for Moments - Arlena Fine Jewellery" loading="lazy">
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Content -->
-  <div class="story-content">
-    <section class="story-section">
-      <div class="story-section-inner">
-        <div class="story-section-body">
-          <p>Each piece is made to order in Australia, bringing together modern jewellery-making technology and time-honoured craftsmanship. At the heart of every creation is our Master Jeweller, whose more than 20 years of experience guides the skilled making of each piece.</p>
+  <!-- 2. INSPIRED BY FAMILY -->
+  <section class="story-section story-bg-light">
+    <div class="story-container">
+      <div class="story-split-grid">
+        <div class="story-img-col">
+          <img src="{{ 'moments_necklace.png' | asset_url }}" alt="Inspired by Family - Arlena" loading="lazy">
+        </div>
+        <div class="story-text-col">
+          <h2 class="story-heading">Inspired by Family. <br><span class="gold-text">Crafted in Australia.</span></h2>
+          <p>Arlena was founded in Australia by a Vietnamese family inspired by timeless values of love, family and meaningful milestones.</p>
+          <p>Those values continue to guide everything we create today.</p>
+          <p>While our heritage shapes our values, our vision is simple—to create beautifully crafted Australian-made jewellery that celebrates life's most meaningful moments.</p>
+          <p class="story-quote">Because the most treasured pieces are those that become part of the memories we share with the people we love.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="story-section">
-      <div class="story-section-inner">
-        <div class="story-section-body">
-          <p>From precision design and casting to meticulous stone setting, finishing and final inspection, every detail is carefully considered to achieve exceptional quality, balance and beauty.</p>
+  <!-- 3. CRAFTED WITH CARE -->
+  <section class="story-section">
+    <div class="story-container">
+      <div class="story-split-grid story-reverse">
+        <div class="story-img-col">
+          <img src="{{ 'handcraft_jewelry.png' | asset_url }}" alt="Crafted with Care - Arlena Master Jeweller" loading="lazy">
+        </div>
+        <div class="story-text-col">
+          <h2 class="story-heading">Crafted with <span class="gold-text">Care</span></h2>
+          <p>Every Arlena piece is individually made to order in Australia.</p>
+          <p>Rather than producing jewellery in large quantities, each piece begins only after your order is placed, allowing us to focus on exceptional craftsmanship, precision and attention to detail.</p>
+          <p>From carefully selected diamonds, gemstones and precious metals to the final polish and quality inspection, every stage is completed with patience and care.</p>
+          <p class="story-quote">Because we believe the jewellery that marks life's most important moments deserves nothing less.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="story-section">
-      <div class="story-section-inner">
-        <div class="story-section-body">
-          <p>Made with intention. Finished with care. Created to be treasured.</p>
+  <!-- 4. EXPERIENCE BEHIND EVERY PIECE -->
+  <section class="story-section story-bg-light text-center">
+    <div class="story-container-narrow">
+      <h2 class="story-heading-center">Experience Behind <span class="gold-text">Every Piece</span></h2>
+      <div class="divider-diamond-center"><span></span></div>
+      <p>At the heart of Arlena is our Master Jeweller, bringing more than 20 years of industry experience.</p>
+      <p>Combining traditional craftsmanship with modern jewellery-making technology, every design is carefully overseen to ensure exceptional quality, lasting beauty and meticulous attention to detail.</p>
+      <p class="story-quote-center">Every piece is inspected before leaving our workshop because true craftsmanship is found in the smallest details.</p>
+    </div>
+  </section>
+
+  <!-- 5. JEWELLERY FOR EVERY CHAPTER -->
+  <section class="story-section story-chapters-section">
+    <div class="story-container">
+      <div class="chapters-header">
+        <h2 class="story-heading-center">Jewellery for <span class="gold-text">Every Chapter</span></h2>
+        <p class="chapters-sub">Life is filled with moments worth celebrating. Our collections are designed to become part of your journey.</p>
+      </div>
+
+      <div class="chapters-grid">
+        <!-- Chapter 1 -->
+        <a href="/collections/engagement-rings" class="chapter-card">
+          <div class="chapter-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c5a880" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="14" r="6"/><path d="M12 3l3 3-3 3-3-3 3-3z"/></svg>
+          </div>
+          <h4>SAY YES</h4>
+          <span>Explore Engagement Rings &rarr;</span>
+        </a>
+
+        <!-- Chapter 2 -->
+        <a href="/collections/wedding-bands" class="chapter-card">
+          <div class="chapter-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c5a880" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>
+          </div>
+          <h4>CELEBRATE FOREVER</h4>
+          <span>Explore Wedding Bands &rarr;</span>
+        </a>
+
+        <!-- Chapter 3 -->
+        <a href="/collections/all" class="chapter-card">
+          <div class="chapter-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c5a880" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2z"/></svg>
+          </div>
+          <h4>TREASURE EVERY DAY</h4>
+          <span>Explore Everyday Jewellery &rarr;</span>
+        </a>
+
+        <!-- Chapter 4 -->
+        <a href="/collections/all" class="chapter-card">
+          <div class="chapter-icon">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#c5a880" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="13" rx="1"/><path d="M12 8v13"/><path d="M3 12h18"/><path d="M12 8C9.5 8 7 5.5 8.5 3.5 10 1.5 12 5 12 8z"/><path d="M12 8C14.5 8 17 5.5 15.5 3.5 14 1.5 12 5 12 8z"/></svg>
+          </div>
+          <h4>GIVE WITH LOVE</h4>
+          <span>Explore Gifts &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OUR PROMISE -->
+  <section class="story-section story-promise-section">
+    <div class="story-container">
+      <div class="story-split-grid">
+        <div class="story-text-col">
+          <h2 class="story-heading">Our <span class="gold-text">Promise</span></h2>
+          <p>When you choose Arlena, you're choosing more than fine jewellery.</p>
+          <ul class="promise-checklist">
+            <li><i class="fa-solid fa-check"></i> Australian craftsmanship.</li>
+            <li><i class="fa-solid fa-check"></i> Carefully selected materials.</li>
+            <li><i class="fa-solid fa-check"></i> Thoughtfully made to order.</li>
+            <li><i class="fa-solid fa-check"></i> Never mass produced.</li>
+            <li><i class="fa-solid fa-check"></i> Made to celebrate life's meaningful moments.</li>
+          </ul>
+          <p class="story-quote" style="margin-top: 25px;">Thank you for allowing Arlena to become part of your story.</p>
+        </div>
+        <div class="story-img-col">
+          <img src="{{ 'Engagement Rings.jpg' | asset_url }}" alt="Our Promise - Solitaire Diamond Ring" loading="lazy">
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
+
+  <!-- 7. FOOTER TAGLINE BANNER -->
+  <section class="story-tagline-banner">
+    <h3>Made for Moments.</h3>
+  </section>
 </div>
 
 <style>
-  /* ═══ HERO ═══ */
-  .story-page { background: #fff; }
-
-  .story-hero {
-    padding: 140px 40px 80px;
-    text-align: center;
-    background: #fafafa;
+  .story-page {
+    background-color: #ffffff;
+    color: #111111;
+    font-family: var(--font-base), sans-serif;
   }
-  .story-hero-inner {
-    max-width: 700px;
-    margin: 0 auto;
+  .gold-text {
+    color: #c5a880;
   }
-  .story-hero-label {
-    display: inline-block;
-    font-family: var(--font-base);
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #999;
-    margin-bottom: 20px;
-  }
-  .story-hero-title {
-    font-family: var(--font-base);
-    font-size: 48px;
-    font-weight: 300;
-    letter-spacing: 6px;
-    text-transform: uppercase;
-    color: #111;
-    margin: 0 0 30px;
-    line-height: 1.2;
-  }
-  .story-hero-line {
-    width: 60px;
-    height: 1px;
-    background: #111;
-    margin: 0 auto;
-  }
-
-  /* ═══ SECTIONS ═══ */
-  .story-content {
-    max-width: 720px;
+  .story-container {
+    max-width: 1180px;
     margin: 0 auto;
     padding: 0 40px;
   }
-
-  .story-section {
-    padding: 70px 0;
-    border-bottom: 1px solid #eee;
-  }
-  .story-section:last-of-type {
-    border-bottom: none;
+  .story-container-narrow {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 30px;
   }
 
-  .story-section-inner {
-    position: relative;
+  /* ═══ 1. HERO BANNER ═══ */
+  .story-hero-section {
+    padding: 90px 0 70px;
+    background-color: #fdfaf6;
   }
-
-  .story-section-number {
-    display: block;
-    font-family: var(--font-base);
-    font-size: 12px;
+  .story-hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .story-label {
+    font-size: 10px;
     letter-spacing: 3px;
-    color: #ccc;
+    color: #c5a880;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 12px;
+  }
+  .story-hero-title {
+    font-family: 'Cinzel', serif;
+    font-size: 38px;
+    letter-spacing: 1.5px;
+    line-height: 1.2;
+    color: #111111;
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+  .story-hero-title span {
+    font-style: italic;
+    color: #c5a880;
+  }
+  .story-hero-text p {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: #444444;
     margin-bottom: 16px;
   }
-
-  .story-section-title {
-    font-family: var(--font-base);
-    font-size: 26px;
-    font-weight: 400;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #111;
-    margin: 0 0 8px;
+  .story-lead {
+    font-size: 15px !important;
+    font-weight: 500;
+    color: #111111 !important;
   }
-
-  .story-section-subtitle {
-    font-family: var(--font-base);
-    font-size: 14px;
+  .story-highlight {
     font-style: italic;
-    color: #888;
-    letter-spacing: 1px;
-    margin: 0 0 30px;
+    color: #c5a880 !important;
+    font-weight: 500;
+  }
+  .story-hero-img {
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    background-color: #f5f0ea;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+  }
+  .story-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
-  .story-section-body {
-    font-family: var(--font-base);
-    font-size: 15px;
-    line-height: 1.9;
-    color: #444;
+  /* ═══ SECTIONS ═══ */
+  .story-section {
+    padding: 95px 0;
   }
-  .story-section-body p {
-    margin-bottom: 20px;
+  .story-bg-light {
+    background-color: #fdfaf6;
   }
-  .story-section-body p:last-child {
-    margin-bottom: 0;
+  .story-split-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .story-split-grid.story-reverse .story-img-col {
+    order: 1;
+  }
+  .story-split-grid.story-reverse .story-text-col {
+    order: 2;
+  }
+  .story-img-col {
+    aspect-ratio: 4 / 3.5;
+    overflow: hidden;
+    background-color: #f5f0ea;
+  }
+  .story-img-col img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .story-heading {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    line-height: 1.3;
+    color: #111111;
+    margin-bottom: 22px;
+    font-weight: 400;
+  }
+  .story-text-col p {
+    font-size: 13px;
+    line-height: 1.75;
+    color: #555555;
+    margin-bottom: 16px;
+  }
+  .story-quote {
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: #111111;
+    font-weight: 500;
+    font-style: italic;
   }
 
-  /* ═══ CLOSING ═══ */
-  .story-closing {
-    padding: 80px 0 100px;
+  /* Center Section */
+  .text-center {
     text-align: center;
   }
-  .story-closing-inner {
-    max-width: 720px;
-    margin: 0 auto;
+  .story-heading-center {
+    font-family: 'Cinzel', serif;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    line-height: 1.3;
+    color: #111111;
+    margin-bottom: 16px;
+    font-weight: 400;
   }
-  .story-closing-line {
-    width: 40px;
-    height: 1px;
-    background: #111;
+  .divider-diamond-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
     margin: 0 auto 30px;
   }
-  .story-closing-tagline {
-    font-family: var(--font-base);
-    font-size: 20px;
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: #111;
-    margin: 0;
+  .divider-diamond-center::before,
+  .divider-diamond-center::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 1px;
+    background-color: #c5a880;
+    opacity: 0.7;
+  }
+  .divider-diamond-center span {
+    display: block;
+    width: 5px;
+    height: 5px;
+    background-color: #c5a880;
+    transform: rotate(45deg);
+  }
+  .story-container-narrow p {
+    font-size: 13.5px;
+    line-height: 1.8;
+    color: #555555;
+    margin-bottom: 18px;
+  }
+  .story-quote-center {
+    font-size: 14px;
+    color: #111111;
+    font-weight: 500;
+    font-style: italic;
   }
 
-  /* ═══ MOBILE ═══ */
-  @media (max-width: 768px) {
-    .story-hero {
-      padding: 110px 20px 60px;
+  /* Chapters Section */
+  .story-chapters-section {
+    background-color: #ffffff;
+  }
+  .chapters-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .chapters-sub {
+    font-size: 13px;
+    color: #666666;
+    margin-top: 8px;
+  }
+  .chapters-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .chapter-card {
+    background-color: #fdfaf6;
+    padding: 35px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    transition: all 0.35s ease;
+    border: 1px solid rgba(197, 168, 128, 0.2);
+  }
+  .chapter-card:hover {
+    transform: translateY(-4px);
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    border-color: #c5a880;
+  }
+  .chapter-icon {
+    margin-bottom: 18px;
+  }
+  .chapter-card h4 {
+    font-family: 'Cinzel', serif;
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #111111;
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+  .chapter-card span {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #c5a880;
+    transition: color 0.3s ease;
+  }
+  .chapter-card:hover span {
+    color: #111111;
+  }
+
+  /* Promise Checklist */
+  .promise-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .promise-checklist li {
+    font-size: 13px;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .promise-checklist li i {
+    color: #c5a880;
+    font-size: 12px;
+  }
+
+  /* Tagline Banner */
+  .story-tagline-banner {
+    background-color: #0b0b0b;
+    color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+  }
+  .story-tagline-banner h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 32px;
+    font-style: italic;
+    color: #c5a880;
+    margin: 0;
+    letter-spacing: 2px;
+    font-weight: 300;
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .story-hero-grid,
+    .story-split-grid,
+    .story-split-grid.story-reverse {
+      grid-template-columns: 1fr;
+      gap: 35px;
+    }
+    .story-split-grid.story-reverse .story-img-col {
+      order: 2;
+    }
+    .story-split-grid.story-reverse .story-text-col {
+      order: 1;
+    }
+    .chapters-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
     .story-hero-title {
-      font-size: 32px;
-      letter-spacing: 4px;
+      font-size: 30px;
     }
-    .story-content {
-      padding: 0 20px;
-    }
-    .story-section {
-      padding: 50px 0;
-    }
-    .story-section-title {
-      font-size: 20px;
-      letter-spacing: 2px;
-    }
-    .story-section-body {
-      font-size: 14px;
-      line-height: 1.8;
-    }
-    .story-closing {
-      padding: 60px 0 80px;
-    }
-    .story-closing-tagline {
-      font-size: 16px;
-      letter-spacing: 3px;
+    .story-heading,
+    .story-heading-center {
+      font-size: 24px;
     }
   }
 </style>
@@ -196,7 +452,6 @@
 {% schema %}
 {
   "name": "Our Story",
-  "settings": [],
-  "presets": [{ "name": "Our Story" }]
+  "settings": []
 }
 {% endschema %}
