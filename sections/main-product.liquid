@@ -1122,8 +1122,15 @@
           {% if has_metafield_media %}
             {% comment %} Render Yellow Gold Metafield Media {% endcomment %}
             {% for file in yellow_files %}
-              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
-                <div class="arlena-thumb" data-color-group="yellow" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+              {% assign file_type = file.media_type | default: file.mime_type %}
+              {% if file_type contains 'video' %}
+                {% assign file_video_url = file.url %}
+                {% if file.sources %}
+                  {% assign file_source = file.sources | where: 'format', 'mp4' | first %}
+                  {% unless file_source %}{% assign file_source = file.sources | first %}{% endunless %}
+                  {% if file_source %}{% assign file_video_url = file_source.url %}{% endif %}
+                {% endif %}
+                <div class="arlena-thumb" data-color-group="yellow" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file_video_url }}" style="position: relative;">
                   <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
                   <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
                 </div>
@@ -1136,8 +1143,15 @@
 
             {% comment %} Render White Gold / Platinum Metafield Media {% endcomment %}
             {% for file in white_files %}
-              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
-                <div class="arlena-thumb" data-color-group="white" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+              {% assign file_type = file.media_type | default: file.mime_type %}
+              {% if file_type contains 'video' %}
+                {% assign file_video_url = file.url %}
+                {% if file.sources %}
+                  {% assign file_source = file.sources | where: 'format', 'mp4' | first %}
+                  {% unless file_source %}{% assign file_source = file.sources | first %}{% endunless %}
+                  {% if file_source %}{% assign file_video_url = file_source.url %}{% endif %}
+                {% endif %}
+                <div class="arlena-thumb" data-color-group="white" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file_video_url }}" style="position: relative;">
                   <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
                   <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
                 </div>
@@ -1150,8 +1164,15 @@
 
             {% comment %} Render Rose Gold Metafield Media {% endcomment %}
             {% for file in rose_files %}
-              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
-                <div class="arlena-thumb" data-color-group="rose" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+              {% assign file_type = file.media_type | default: file.mime_type %}
+              {% if file_type contains 'video' %}
+                {% assign file_video_url = file.url %}
+                {% if file.sources %}
+                  {% assign file_source = file.sources | where: 'format', 'mp4' | first %}
+                  {% unless file_source %}{% assign file_source = file.sources | first %}{% endunless %}
+                  {% if file_source %}{% assign file_video_url = file_source.url %}{% endif %}
+                {% endif %}
+                <div class="arlena-thumb" data-color-group="rose" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file_video_url }}" style="position: relative;">
                   <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
                   <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
                 </div>
@@ -1810,9 +1831,22 @@
         if (mediaType === 'video') {
           var videoUrl = this.getAttribute('data-video-url');
           if (mainVideo && videoUrl) {
-            mainVideo.src = videoUrl;
+            if (videoUrl.indexOf('//') === 0) {
+              videoUrl = window.location.protocol + videoUrl;
+            }
+            if (mainVideo.getAttribute('src') !== videoUrl) {
+              mainVideo.src = videoUrl;
+              mainVideo.load();
+            }
             mainVideo.style.display = 'block';
             if (mainImg) mainImg.style.display = 'none';
+            
+            var playPromise = mainVideo.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(function(err) {
+                console.log('Autoplay error:', err);
+              });
+            }
           }
         } else {
           if (mainVideo) {
@@ -1820,7 +1854,10 @@
             mainVideo.pause();
           }
           if (mainImg) {
-            mainImg.src = this.dataset.src;
+            var newSrc = this.getAttribute('data-src');
+            if (newSrc && mainImg.src !== newSrc) {
+              mainImg.src = newSrc;
+            }
             mainImg.style.display = 'block';
           }
         }
