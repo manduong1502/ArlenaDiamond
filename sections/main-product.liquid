@@ -80,7 +80,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: opacity 0.15s ease-in-out, transform 0.5s ease;
+    opacity: 1;
   }
   .arlena-thumbs {
     display: flex;
@@ -1929,6 +1930,19 @@
       return [];
     }
 
+    // Instant Image Preloader to cache high-res images in RAM for 0ms swapping
+    function preloadAllThumbImages() {
+      thumbs.forEach(function(thumb) {
+        var src = thumb.getAttribute('data-src');
+        if (src && !thumb._preloaded) {
+          var img = new Image();
+          img.src = src;
+          thumb._preloaded = true;
+        }
+      });
+    }
+    preloadAllThumbImages();
+
     function filterThumbnails(selectedMetal) {
       var selectedGroup = getColorGroup(selectedMetal);
       if (selectedGroup.length === 0) return;
@@ -1981,7 +1995,7 @@
         }
       });
       
-      // Auto click first visible thumb if current active is hidden
+      // Auto activate first visible thumbnail instantly
       var activeThumb = document.querySelector('.arlena-thumb.active');
       if ((!activeThumb || activeThumb.style.display === 'none') && firstVisibleThumb) {
         firstVisibleThumb.click();
@@ -2081,16 +2095,15 @@
           specValRingSize.textContent = ringSizeInput.value + ' (based on selection)';
         }
 
-        // Change main image if variant has featured image
-        if (matchedVariant.featured_image && mainImg) {
+        // Change main image only if variant has featured image AND no active filtered thumbnail exists
+        var activeFilteredThumb = document.querySelector('.arlena-thumb.active');
+        if (matchedVariant.featured_image && mainImg && (!activeFilteredThumb || activeFilteredThumb.style.display === 'none')) {
           if (mainVideo) {
             mainVideo.style.display = 'none';
             mainVideo.pause();
           }
           mainImg.src = matchedVariant.featured_image.src;
           mainImg.style.display = 'block';
-          // De-select active thumbnail since we updated via variant select
-          thumbs.forEach(function(t) { t.classList.remove('active'); });
         }
       } else {
         // No match found
