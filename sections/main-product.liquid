@@ -1109,26 +1109,80 @@
             <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
           </div>
         {% else %}
-          {% for media in product.media %}
-            {% if media.media_type == 'video' or media.media_type == 'external_video' %}
-              {% assign video_source = media.sources | where: 'format', 'mp4' | first %}
-              {% unless video_source %}
-                {% assign video_source = media.sources | first %}
-              {% endunless %}
-              <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media.preview_image | img_url: '1200x' }}" data-media-type="video" data-video-url="{{ video_source.url }}" data-alt="{{ media.alt | escape }}" style="position: relative;">
-                <img src="{{ media.preview_image | img_url: '120x' }}" alt="{{ product.title | escape }}">
-                <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
-              </div>
-            {% else %}
-              <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media | img_url: '1200x' }}" data-media-type="image" data-alt="{{ media.alt | escape }}">
-                <img src="{{ media | img_url: '120x' }}" alt="{{ product.title | escape }}">
-              </div>
-            {% endif %}
+          {% assign yellow_files = product.metafields.custom.media_yellow_gold.value %}
+          {% assign white_files = product.metafields.custom.media_white_gold.value %}
+          {% assign rose_files = product.metafields.custom.media_rose_gold.value %}
+
+          {% assign has_metafield_media = false %}
+          {% if yellow_files != blank or white_files != blank or rose_files != blank %}
+            {% assign has_metafield_media = true %}
+          {% endif %}
+
+          {% if has_metafield_media %}
+            {% comment %} Render Yellow Gold Metafield Media {% endcomment %}
+            {% for file in yellow_files %}
+              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
+                <div class="arlena-thumb" data-color-group="yellow" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+                  <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                  <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
+                </div>
+              {% else %}
+                <div class="arlena-thumb" data-color-group="yellow" data-src="{{ file | image_url: width: 1200 }}" data-media-type="image">
+                  <img src="{{ file | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            {% comment %} Render White Gold / Platinum Metafield Media {% endcomment %}
+            {% for file in white_files %}
+              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
+                <div class="arlena-thumb" data-color-group="white" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+                  <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                  <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
+                </div>
+              {% else %}
+                <div class="arlena-thumb" data-color-group="white" data-src="{{ file | image_url: width: 1200 }}" data-media-type="image">
+                  <img src="{{ file | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                </div>
+              {% endif %}
+            {% endfor %}
+
+            {% comment %} Render Rose Gold Metafield Media {% endcomment %}
+            {% for file in rose_files %}
+              {% if file.media_type == 'video' or file.mime_type contains 'video' %}
+                <div class="arlena-thumb" data-color-group="rose" data-src="{{ file.preview_image | image_url: width: 1200 }}" data-media-type="video" data-video-url="{{ file.url }}" style="position: relative;">
+                  <img src="{{ file.preview_image | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                  <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
+                </div>
+              {% else %}
+                <div class="arlena-thumb" data-color-group="rose" data-src="{{ file | image_url: width: 1200 }}" data-media-type="image">
+                  <img src="{{ file | image_url: width: 120 }}" alt="{{ product.title | escape }}">
+                </div>
+              {% endif %}
+            {% endfor %}
+
           {% else %}
-            <div class="arlena-thumb active" data-src="">
-              {{ 'product-1' | placeholder_svg_tag }}
-            </div>
-          {% endfor %}
+            {% for media in product.media %}
+              {% if media.media_type == 'video' or media.media_type == 'external_video' %}
+                {% assign video_source = media.sources | where: 'format', 'mp4' | first %}
+                {% unless video_source %}
+                  {% assign video_source = media.sources | first %}
+                {% endunless %}
+                <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media.preview_image | img_url: '1200x' }}" data-media-type="video" data-video-url="{{ video_source.url }}" data-alt="{{ media.alt | escape }}" style="position: relative;">
+                  <img src="{{ media.preview_image | img_url: '120x' }}" alt="{{ product.title | escape }}">
+                  <span class="video-play-icon" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.6); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px;"><i class="fa-solid fa-play"></i></span>
+                </div>
+              {% else %}
+                <div class="arlena-thumb {% if forloop.first %}active{% endif %}" data-src="{{ media | img_url: '1200x' }}" data-media-type="image" data-alt="{{ media.alt | escape }}">
+                  <img src="{{ media | img_url: '120x' }}" alt="{{ product.title | escape }}">
+                </div>
+              {% endif %}
+            {% else %}
+              <div class="arlena-thumb active" data-src="">
+                {{ 'product-1' | placeholder_svg_tag }}
+              </div>
+            {% endfor %}
+          {% endif %}
         {% endif %}
       </div>
     </section>
@@ -1881,28 +1935,42 @@
       
       var thumbs = document.querySelectorAll('.arlena-thumb');
       var firstVisibleThumb = null;
+      var hasColorGroupAttr = false;
+
+      thumbs.forEach(function(t) {
+        if (t.hasAttribute('data-color-group')) {
+          hasColorGroupAttr = true;
+        }
+      });
       
       thumbs.forEach(function(thumb) {
-        var alt = (thumb.getAttribute('data-alt') || '').toLowerCase();
-        
-        // Show if matches any color in group, OR if alt is completely empty/generic
-        var isMatch = alt === '';
-        selectedGroup.forEach(function(color) {
-          if (alt.includes(color)) {
+        var isMatch = false;
+
+        if (hasColorGroupAttr) {
+          var colorGroup = thumb.getAttribute('data-color-group') || '';
+          if (!colorGroup || selectedGroup.includes(colorGroup)) {
             isMatch = true;
           }
-        });
+        } else {
+          var alt = (thumb.getAttribute('data-alt') || '').toLowerCase();
+          isMatch = alt === '';
+          selectedGroup.forEach(function(color) {
+            if (alt.includes(color)) {
+              isMatch = true;
+            }
+          });
+          
+          var hasOtherColor = false;
+          var allColors = ['yellow', 'white', 'rose', 'platinum'];
+          allColors.forEach(function(c) {
+            if (!selectedGroup.includes(c) && alt.includes(c)) {
+              hasOtherColor = true;
+            }
+          });
+          if (hasOtherColor) isMatch = false;
+        }
         
-        // Exclude if it contains other colors outside selected group
-        var hasOtherColor = false;
-        var allColors = ['yellow', 'white', 'rose', 'platinum'];
-        allColors.forEach(function(c) {
-          if (!selectedGroup.includes(c) && alt.includes(c)) {
-            hasOtherColor = true;
-          }
-        });
-        
-        if (isMatch && !hasOtherColor) {
+        if (isMatch) {
           thumb.style.display = '';
           if (!firstVisibleThumb) {
             firstVisibleThumb = thumb;
