@@ -242,84 +242,105 @@
       {% for product in search.results %}
         {% if product.object_type == 'product' %}
           <div class="product-card-arlena">
-            {%- comment -%} SMART COLOR IMAGE RESOLUTION (Rose Gold 1st, Yellow Gold, White Gold, Platinum) {%- endcomment -%}
-            {%- assign yellow_img = nil -%}
-            {%- assign rose_img = nil -%}
-            {%- assign white_img = nil -%}
-            {%- assign plat_img = nil -%}
-
-            {%- comment -%} 1. Metafields {%- endcomment -%}
-            {%- assign mf_rose = product.metafields.custom.media_rose_gold.value.first -%}
-            {%- if mf_rose -%}
-              {%- if mf_rose.preview_image -%}
-                {%- assign rose_img = mf_rose.preview_image | image_url: width: 600 -%}
-              {%- else -%}
-                {%- assign rose_img = mf_rose | image_url: width: 600 -%}
+            {%- comment -%} SMART COLOR IMAGE RESOLUTION (Primary & Hover for Rose, Yellow, White, Platinum) {%- endcomment -%}
+            {%- assign rose_primary = nil -%}
+            {%- assign rose_hover = nil -%}
+            {%- assign mf_rose = product.metafields.custom.media_rose_gold.value -%}
+            {%- if mf_rose != blank -%}
+              {%- assign f1 = mf_rose[0] -%}
+              {%- if f1.preview_image -%}{%- assign rose_primary = f1.preview_image | image_url: width: 600 -%}
+              {%- else -%}{%- assign rose_primary = f1 | image_url: width: 600 -%}{%- endif -%}
+              {%- if mf_rose.size > 1 -%}
+                {%- assign f2 = mf_rose[1] -%}
+                {%- if f2.preview_image -%}{%- assign rose_hover = f2.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign rose_hover = f2 | image_url: width: 600 -%}{%- endif -%}
               {%- endif -%}
             {%- endif -%}
-
-            {%- assign mf_yellow = product.metafields.custom.media_yellow_gold.value.first -%}
-            {%- if mf_yellow -%}
-              {%- if mf_yellow.preview_image -%}
-                {%- assign yellow_img = mf_yellow.preview_image | image_url: width: 600 -%}
-              {%- else -%}
-                {%- assign yellow_img = mf_yellow | image_url: width: 600 -%}
-              {%- endif -%}
-            {%- endif -%}
-
-            {%- assign mf_white = product.metafields.custom.media_white_gold.value.first -%}
-            {%- if mf_white -%}
-              {%- if mf_white.preview_image -%}
-                {%- assign white_img = mf_white.preview_image | image_url: width: 600 -%}
-              {%- else -%}
-                {%- assign white_img = mf_white | image_url: width: 600 -%}
-              {%- endif -%}
-            {%- endif -%}
-
-            {%- comment -%} 2. Variants {%- endcomment -%}
-            {%- for v in product.variants -%}
-              {%- assign v_title = v.title | downcase -%}
-              {%- if rose_img == nil and v_title contains 'rose' and v.featured_image -%}
-                {%- assign rose_img = v.featured_image | img_url: '600x' -%}
-              {%- endif -%}
-              {%- if yellow_img == nil and v_title contains 'yellow' and v.featured_image -%}
-                {%- assign yellow_img = v.featured_image | img_url: '600x' -%}
-              {%- endif -%}
-              {%- if white_img == nil and v_title contains 'white' and v.featured_image -%}
-                {%- assign white_img = v.featured_image | img_url: '600x' -%}
-              {%- endif -%}
-              {%- if plat_img == nil and v_title contains 'plat' and v.featured_image -%}
-                {%- assign plat_img = v.featured_image | img_url: '600x' -%}
-              {%- endif -%}
-            {%- endfor -%}
-
-            {%- comment -%} 3. Gallery Images (alt or filename) {%- endcomment -%}
-            {%- for img in product.images -%}
-              {%- assign alt_lc = img.alt | downcase -%}
-              {%- assign src_lc = img.src | downcase -%}
-              {%- if rose_img == nil -%}
+            {%- if rose_primary == nil -%}
+              {%- for img in product.images -%}
+                {%- assign alt_lc = img.alt | downcase -%}
+                {%- assign src_lc = img.src | downcase -%}
                 {%- if alt_lc contains 'rose' or src_lc contains 'rose' -%}
-                  {%- assign rose_img = img | img_url: '600x' -%}
+                  {%- if rose_primary == nil -%}
+                    {%- assign rose_primary = img | img_url: '600x' -%}
+                  {%- elsif rose_hover == nil -%}
+                    {%- assign rose_hover = img | img_url: '600x' -%}
+                  {%- endif -%}
                 {%- endif -%}
-              {%- endif -%}
-              {%- if yellow_img == nil -%}
-                {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}
-                  {%- assign yellow_img = img | img_url: '600x' -%}
-                {%- endif -%}
-              {%- endif -%}
-              {%- if white_img == nil -%}
-                {%- if alt_lc contains 'white' or src_lc contains 'white' -%}
-                  {%- assign white_img = img | img_url: '600x' -%}
-                {%- endif -%}
-              {%- endif -%}
-            {%- endfor -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- unless rose_primary -%}{%- assign rose_primary = product.featured_image | img_url: '600x' -%}{%- endunless -%}
+            {%- unless rose_hover -%}
+              {%- if product.images[1] -%}{%- assign rose_hover = product.images[1] | img_url: '600x' -%}
+              {%- else -%}{%- assign rose_hover = rose_primary -%}{%- endif -%}
+            {%- endunless -%}
 
-            {%- comment -%} Fallbacks to featured image {%- endcomment -%}
-            {%- assign feat_img_url = product.featured_image | img_url: '600x' -%}
-            {%- unless rose_img -%}{%- assign rose_img = feat_img_url -%}{%- endunless -%}
-            {%- unless yellow_img -%}{%- assign yellow_img = feat_img_url -%}{%- endunless -%}
-            {%- unless white_img -%}{%- assign white_img = feat_img_url -%}{%- endunless -%}
-            {%- unless plat_img -%}{%- assign plat_img = white_img -%}{%- endunless -%}
+            {%- assign yellow_primary = nil -%}
+            {%- assign yellow_hover = nil -%}
+            {%- assign mf_yellow = product.metafields.custom.media_yellow_gold.value -%}
+            {%- if mf_yellow != blank -%}
+              {%- assign f1 = mf_yellow[0] -%}
+              {%- if f1.preview_image -%}{%- assign yellow_primary = f1.preview_image | image_url: width: 600 -%}
+              {%- else -%}{%- assign yellow_primary = f1 | image_url: width: 600 -%}{%- endif -%}
+              {%- if mf_yellow.size > 1 -%}
+                {%- assign f2 = mf_yellow[1] -%}
+                {%- if f2.preview_image -%}{%- assign yellow_hover = f2.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign yellow_hover = f2 | image_url: width: 600 -%}{%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+            {%- if yellow_primary == nil -%}
+              {%- for img in product.images -%}
+                {%- assign alt_lc = img.alt | downcase -%}
+                {%- assign src_lc = img.src | downcase -%}
+                {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}
+                  {%- if yellow_primary == nil -%}
+                    {%- assign yellow_primary = img | img_url: '600x' -%}
+                  {%- elsif yellow_hover == nil -%}
+                    {%- assign yellow_hover = img | img_url: '600x' -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- unless yellow_primary -%}{%- assign yellow_primary = product.featured_image | img_url: '600x' -%}{%- endunless -%}
+            {%- unless yellow_hover -%}
+              {%- if product.images[1] -%}{%- assign yellow_hover = product.images[1] | img_url: '600x' -%}
+              {%- else -%}{%- assign yellow_hover = yellow_primary -%}{%- endif -%}
+            {%- endunless -%}
+
+            {%- assign white_primary = nil -%}
+            {%- assign white_hover = nil -%}
+            {%- assign mf_white = product.metafields.custom.media_white_gold.value -%}
+            {%- if mf_white != blank -%}
+              {%- assign f1 = mf_white[0] -%}
+              {%- if f1.preview_image -%}{%- assign white_primary = f1.preview_image | image_url: width: 600 -%}
+              {%- else -%}{%- assign white_primary = f1 | image_url: width: 600 -%}{%- endif -%}
+              {%- if mf_white.size > 1 -%}
+                {%- assign f2 = mf_white[1] -%}
+                {%- if f2.preview_image -%}{%- assign white_hover = f2.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign white_hover = f2 | image_url: width: 600 -%}{%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+            {%- if white_primary == nil -%}
+              {%- for img in product.images -%}
+                {%- assign alt_lc = img.alt | downcase -%}
+                {%- assign src_lc = img.src | downcase -%}
+                {%- if alt_lc contains 'white' or src_lc contains 'white' -%}
+                  {%- if white_primary == nil -%}
+                    {%- assign white_primary = img | img_url: '600x' -%}
+                  {%- elsif white_hover == nil -%}
+                    {%- assign white_hover = img | img_url: '600x' -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- unless white_primary -%}{%- assign white_primary = product.featured_image | img_url: '600x' -%}{%- endunless -%}
+            {%- unless white_hover -%}
+              {%- if product.images[1] -%}{%- assign white_hover = product.images[1] | img_url: '600x' -%}
+              {%- else -%}{%- assign white_hover = white_primary -%}{%- endif -%}
+            {%- endunless -%}
+
+            {%- assign plat_primary = white_primary -%}
+            {%- assign plat_hover = white_hover -%}
 
             <div class="product-image-container">
               {%- assign badge_text = "" -%}
@@ -338,10 +359,8 @@
 
               <a href="{{ product.url }}">
                 {% if product.featured_image %}
-                  <img src="{{ rose_img }}" class="img-primary" alt="{{ product.title | escape }}">
-                  {% if product.images[1] %}
-                    <img src="{{ product.images[1] | img_url: '600x' }}" class="img-hover" alt="{{ product.title | escape }}">
-                  {% endif %}
+                  <img src="{{ rose_primary }}" class="img-primary" alt="{{ product.title | escape }}">
+                  <img src="{{ rose_hover }}" class="img-hover" alt="{{ product.title | escape }}">
                 {% else %}
                   {{ 'product-1' | placeholder_svg_tag: 'img-primary' }}
                 {% endif %}
@@ -350,16 +369,16 @@
 
             <a href="{{ product.url }}" class="product-details-wrap">
               <div class="product-swatches">
-                <div class="swatch-dot active" title="Rose Gold" data-color-img="{{ rose_img }}">
+                <div class="swatch-dot active" title="Rose Gold" data-color-primary="{{ rose_primary }}" data-color-hover="{{ rose_hover }}">
                   <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
                 </div>
-                <div class="swatch-dot" title="Yellow Gold" data-color-img="{{ yellow_img }}">
+                <div class="swatch-dot" title="Yellow Gold" data-color-primary="{{ yellow_primary }}" data-color-hover="{{ yellow_hover }}">
                   <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
                 </div>
-                <div class="swatch-dot" title="White Gold" data-color-img="{{ white_img }}">
+                <div class="swatch-dot" title="White Gold" data-color-primary="{{ white_primary }}" data-color-hover="{{ white_hover }}">
                   <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
                 </div>
-                <div class="swatch-dot" title="Platinum" data-color-img="{{ plat_img }}">
+                <div class="swatch-dot" title="Platinum" data-color-primary="{{ plat_primary }}" data-color-hover="{{ plat_hover }}">
                   <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
                 </div>
               </div>
