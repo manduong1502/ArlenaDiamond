@@ -270,74 +270,111 @@
             </div>
 
             <a href="{{ product.url }}" class="product-details-wrap">
-              {%- assign stone_option = nil -%}
-              {%- for option in product.options_with_values -%}
-                {%- assign opt_name = option.name | downcase -%}
-                {%- if opt_name == 'color' or opt_name == 'stone' or opt_name == 'gemstone' or opt_name == 'metal' -%}
-                  {%- assign stone_option = option -%}
-                  {%- assign stone_opt_index = forloop.index0 -%}
-                  {%- break -%}
+              {%- comment -%} SMART COLOR IMAGE RESOLUTION (Metafields, Variants, Alt, Filenames) {%- endcomment -%}
+              {%- assign yellow_img = nil -%}
+              {%- assign rose_img = nil -%}
+              {%- assign white_img = nil -%}
+              {%- assign plat_img = nil -%}
+
+              {%- comment -%} 1. Metafields {%- endcomment -%}
+              {%- assign mf_yellow = product.metafields.custom.media_yellow_gold.value.first -%}
+              {%- if mf_yellow -%}
+                {%- if mf_yellow.preview_image -%}
+                  {%- assign yellow_img = mf_yellow.preview_image | image_url: width: 600 -%}
+                {%- else -%}
+                  {%- assign yellow_img = mf_yellow | image_url: width: 600 -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- assign mf_rose = product.metafields.custom.media_rose_gold.value.first -%}
+              {%- if mf_rose -%}
+                {%- if mf_rose.preview_image -%}
+                  {%- assign rose_img = mf_rose.preview_image | image_url: width: 600 -%}
+                {%- else -%}
+                  {%- assign rose_img = mf_rose | image_url: width: 600 -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- assign mf_white = product.metafields.custom.media_white_gold.value.first -%}
+              {%- if mf_white -%}
+                {%- if mf_white.preview_image -%}
+                  {%- assign white_img = mf_white.preview_image | image_url: width: 600 -%}
+                {%- else -%}
+                  {%- assign white_img = mf_white | image_url: width: 600 -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- comment -%} 2. Variants {%- endcomment -%}
+              {%- for v in product.variants -%}
+                {%- assign v_title = v.title | downcase -%}
+                {%- if yellow_img == nil and v_title contains 'yellow' and v.featured_image -%}
+                  {%- assign yellow_img = v.featured_image | img_url: '600x' -%}
+                {%- endif -%}
+                {%- if rose_img == nil and v_title contains 'rose' and v.featured_image -%}
+                  {%- assign rose_img = v.featured_image | img_url: '600x' -%}
+                {%- endif -%}
+                {%- if white_img == nil and v_title contains 'white' and v.featured_image -%}
+                  {%- assign white_img = v.featured_image | img_url: '600x' -%}
+                {%- endif -%}
+                {%- if plat_img == nil and v_title contains 'plat' and v.featured_image -%}
+                  {%- assign plat_img = v.featured_image | img_url: '600x' -%}
                 {%- endif -%}
               {%- endfor -%}
 
-              <div class="product-swatches">
-                {%- if stone_option -%}
-                  {%- assign seen_colors = "" -%}
-                  {%- for value in stone_option.values -%}
-                    {%- assign val_lc = value | downcase -%}
-                    {%- assign color_key = "" -%}
-                    {%- if val_lc contains 'yellow' -%}{%- assign color_key = "yellow" -%}
-                    {%- elsif val_lc contains 'rose' -%}{%- assign color_key = "rose" -%}
-                    {%- elsif val_lc contains 'white' -%}{%- assign color_key = "white" -%}
-                    {%- elsif val_lc contains 'platinum' -%}{%- assign color_key = "platinum" -%}
-                    {%- endif -%}
-                    
-                    {%- if color_key != "" -%}
-                      {%- unless seen_colors contains color_key -%}
-                        {%- assign seen_colors = seen_colors | append: color_key | append: "," -%}
-                      {%- endunless -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                  {%- assign unique_colors = seen_colors | split: "," -%}
-
-                  {%- for color in unique_colors -%}
-                    {%- assign swatch_bg = '#ccc' -%}
-                    {%- if color == 'yellow' -%}{%- assign swatch_bg = '#e5d0a4' -%}{%- assign color_name = 'Yellow Gold' -%}
-                    {%- elsif color == 'rose' -%}{%- assign swatch_bg = '#e0b39f' -%}{%- assign color_name = 'Rose Gold' -%}
-                    {%- elsif color == 'white' -%}{%- assign swatch_bg = '#e2e2e2' -%}{%- assign color_name = 'White Gold' -%}
-                    {%- elsif color == 'platinum' -%}{%- assign swatch_bg = '#dfdfdf' -%}{%- assign color_name = 'Platinum' -%}
-                    {%- endif -%}
-
-                    {%- assign matched_img_url = nil -%}
-                    {%- for img in product.images -%}
-                      {%- assign img_alt_lc = img.alt | downcase -%}
-                      {%- if img_alt_lc contains color -%}
-                        {%- assign matched_img_url = img | img_url: '600x' -%}
-                        {%- break -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                    {%- unless matched_img_url -%}
-                      {%- assign matched_img_url = product.featured_image | img_url: '600x' -%}
-                    {%- endunless -%}
-
-                    <div class="swatch-dot {% if forloop.first %}active{% endif %}" title="{{ color_name }}" data-color-img="{{ matched_img_url }}">
-                      <span class="swatch-dot-inner" style="background-color: {{ swatch_bg }};"></span>
-                    </div>
-                  {%- endfor -%}
-                {%- else -%}
-                  <div class="swatch-dot active" title="Yellow Gold" data-color-img="">
-                    <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
-                  </div>
-                  <div class="swatch-dot" title="Rose Gold" data-color-img="">
-                    <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
-                  </div>
-                  <div class="swatch-dot" title="White Gold" data-color-img="">
-                    <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
-                  </div>
-                  <div class="swatch-dot" title="Platinum" data-color-img="">
-                    <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
-                  </div>
+              {%- comment -%} 3. Gallery Images (alt or filename) {%- endcomment -%}
+              {%- for img in product.images -%}
+                {%- assign alt_lc = img.alt | downcase -%}
+                {%- assign src_lc = img.src | downcase -%}
+                {%- if yellow_img == nil -%}
+                  {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}
+                    {%- assign yellow_img = img | img_url: '600x' -%}
+                  {%- endif -%}
                 {%- endif -%}
+                {%- if rose_img == nil -%}
+                  {%- if alt_lc contains 'rose' or src_lc contains 'rose' -%}
+                    {%- assign rose_img = img | img_url: '600x' -%}
+                  {%- endif -%}
+                {%- endif -%}
+                {%- if white_img == nil -%}
+                  {%- if alt_lc contains 'white' or src_lc contains 'white' -%}
+                    {%- assign white_img = img | img_url: '600x' -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- comment -%} Fallbacks to featured image {%- endcomment -%}
+              {%- assign feat_img_url = product.featured_image | img_url: '600x' -%}
+              {%- assign feat_src_lc = product.featured_image.src | downcase -%}
+              {%- assign feat_alt_lc = product.featured_image.alt | downcase -%}
+
+              {%- unless yellow_img -%}{%- assign yellow_img = feat_img_url -%}{%- endunless -%}
+              {%- unless rose_img -%}{%- assign rose_img = feat_img_url -%}{%- endunless -%}
+              {%- unless white_img -%}{%- assign white_img = feat_img_url -%}{%- endunless -%}
+              {%- unless plat_img -%}{%- assign plat_img = white_img -%}{%- endunless -%}
+
+              {%- comment -%} Determine initial active color based on featured image {%- endcomment -%}
+              {%- assign active_color = 'yellow' -%}
+              {%- if feat_src_lc contains 'rose' or feat_alt_lc contains 'rose' -%}
+                {%- assign active_color = 'rose' -%}
+              {%- elsif feat_src_lc contains 'white' or feat_alt_lc contains 'white' -%}
+                {%- assign active_color = 'white' -%}
+              {%- elsif feat_src_lc contains 'yellow' or feat_alt_lc contains 'yellow' -%}
+                {%- assign active_color = 'yellow' -%}
+              {%- endif -%}
+
+              <div class="product-swatches">
+                <div class="swatch-dot {% if active_color == 'yellow' %}active{% endif %}" title="Yellow Gold" data-color-img="{{ yellow_img }}">
+                  <span class="swatch-dot-inner" style="background-color: #e5d0a4;"></span>
+                </div>
+                <div class="swatch-dot {% if active_color == 'rose' %}active{% endif %}" title="Rose Gold" data-color-img="{{ rose_img }}">
+                  <span class="swatch-dot-inner" style="background-color: #e0b39f;"></span>
+                </div>
+                <div class="swatch-dot {% if active_color == 'white' %}active{% endif %}" title="White Gold" data-color-img="{{ white_img }}">
+                  <span class="swatch-dot-inner" style="background-color: #e2e2e2;"></span>
+                </div>
+                <div class="swatch-dot {% if active_color == 'platinum' %}active{% endif %}" title="Platinum" data-color-img="{{ plat_img }}">
+                  <span class="swatch-dot-inner" style="background-color: #dfdfdf;"></span>
+                </div>
               </div>
 
               <span class="product-title-text">{{ product.title }}</span>
