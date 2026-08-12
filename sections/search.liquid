@@ -285,43 +285,70 @@
             {%- assign white_primary = nil -%}
             {%- assign white_hover = nil -%}
 
-            {%- comment -%} 1. Metafields {%- endcomment -%}
+            {%- comment -%} 1. Metafields (Skip Videos) {%- endcomment -%}
             {%- assign mf_rose = product.metafields.custom.media_rose_gold.value -%}
             {%- if mf_rose != blank -%}
               {%- for file in mf_rose -%}
-                {%- assign img_u = nil -%}
-                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
-                {%- if img_u != blank -%}
-                  {%- if rose_primary == nil -%}{%- assign rose_primary = img_u -%}
-                  {%- elsif rose_hover == nil -%}{%- assign rose_hover = img_u -%}{%- endif -%}
+                {%- assign f_type = file.media_type | default: file.mime_type | downcase -%}
+                {%- assign f_url = file.url | downcase -%}
+                {%- assign is_video = false -%}
+                {%- if f_type contains 'video' or f_url contains '.mp4' or file.sources != blank -%}
+                  {%- assign is_video = true -%}
                 {%- endif -%}
+
+                {%- unless is_video -%}
+                  {%- assign img_u = nil -%}
+                  {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                  {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                  {%- if img_u != blank -%}
+                    {%- if rose_primary == nil -%}{%- assign rose_primary = img_u -%}
+                    {%- elsif rose_hover == nil -%}{%- assign rose_hover = img_u -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endunless -%}
               {%- endfor -%}
             {%- endif -%}
 
             {%- assign mf_yellow = product.metafields.custom.media_yellow_gold.value -%}
             {%- if mf_yellow != blank -%}
               {%- for file in mf_yellow -%}
-                {%- assign img_u = nil -%}
-                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
-                {%- if img_u != blank -%}
-                  {%- if yellow_primary == nil -%}{%- assign yellow_primary = img_u -%}
-                  {%- elsif yellow_hover == nil -%}{%- assign yellow_hover = img_u -%}{%- endif -%}
+                {%- assign f_type = file.media_type | default: file.mime_type | downcase -%}
+                {%- assign f_url = file.url | downcase -%}
+                {%- assign is_video = false -%}
+                {%- if f_type contains 'video' or f_url contains '.mp4' or file.sources != blank -%}
+                  {%- assign is_video = true -%}
                 {%- endif -%}
+
+                {%- unless is_video -%}
+                  {%- assign img_u = nil -%}
+                  {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                  {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                  {%- if img_u != blank -%}
+                    {%- if yellow_primary == nil -%}{%- assign yellow_primary = img_u -%}
+                    {%- elsif yellow_hover == nil -%}{%- assign yellow_hover = img_u -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endunless -%}
               {%- endfor -%}
             {%- endif -%}
 
             {%- assign mf_white = product.metafields.custom.media_white_gold.value -%}
             {%- if mf_white != blank -%}
               {%- for file in mf_white -%}
-                {%- assign img_u = nil -%}
-                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
-                {%- if img_u != blank -%}
-                  {%- if white_primary == nil -%}{%- assign white_primary = img_u -%}
-                  {%- elsif white_hover == nil -%}{%- assign white_hover = img_u -%}{%- endif -%}
+                {%- assign f_type = file.media_type | default: file.mime_type | downcase -%}
+                {%- assign f_url = file.url | downcase -%}
+                {%- assign is_video = false -%}
+                {%- if f_type contains 'video' or f_url contains '.mp4' or file.sources != blank -%}
+                  {%- assign is_video = true -%}
                 {%- endif -%}
+
+                {%- unless is_video -%}
+                  {%- assign img_u = nil -%}
+                  {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                  {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                  {%- if img_u != blank -%}
+                    {%- if white_primary == nil -%}{%- assign white_primary = img_u -%}
+                    {%- elsif white_hover == nil -%}{%- assign white_hover = img_u -%}{%- endif -%}
+                  {%- endif -%}
+                {%- endunless -%}
               {%- endfor -%}
             {%- endif -%}
 
