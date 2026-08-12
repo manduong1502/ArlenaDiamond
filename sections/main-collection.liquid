@@ -1024,7 +1024,7 @@
                data-tags="{{ product.tags | join: ',' | downcase }}"
                data-type="{{ product.type | downcase }}"
                data-options="{% for opt in product.options_with_values %}{{ opt.values | join: ',' | downcase }},{% endfor %}">
-            {%- comment -%} SMART COLOR IMAGE RESOLUTION (Metafields -> Text Match -> Gallery Index Fallback) {%- endcomment -%}
+            {%- comment -%} SMART COLOR IMAGE RESOLUTION (Independent Metal Matching) {%- endcomment -%}
             {%- assign rose_primary = nil -%}
             {%- assign rose_hover = nil -%}
             {%- assign yellow_primary = nil -%}
@@ -1035,111 +1035,94 @@
             {%- comment -%} 1. Metafields {%- endcomment -%}
             {%- assign mf_rose = product.metafields.custom.media_rose_gold.value -%}
             {%- if mf_rose != blank -%}
-              {%- assign f1 = mf_rose[0] -%}
-              {%- if f1.preview_image -%}{%- assign rose_primary = f1.preview_image | image_url: width: 600 -%}
-              {%- else -%}{%- assign rose_primary = f1 | image_url: width: 600 -%}{%- endif -%}
-              {%- if mf_rose.size > 1 -%}
-                {%- assign f2 = mf_rose[1] -%}
-                {%- if f2.preview_image -%}{%- assign rose_hover = f2.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign rose_hover = f2 | image_url: width: 600 -%}{%- endif -%}
-              {%- endif -%}
+              {%- for file in mf_rose -%}
+                {%- assign img_u = nil -%}
+                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                {%- if img_u != blank -%}
+                  {%- if rose_primary == nil -%}{%- assign rose_primary = img_u -%}
+                  {%- elsif rose_hover == nil -%}{%- assign rose_hover = img_u -%}{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- endif -%}
 
             {%- assign mf_yellow = product.metafields.custom.media_yellow_gold.value -%}
             {%- if mf_yellow != blank -%}
-              {%- assign f1 = mf_yellow[0] -%}
-              {%- if f1.preview_image -%}{%- assign yellow_primary = f1.preview_image | image_url: width: 600 -%}
-              {%- else -%}{%- assign yellow_primary = f1 | image_url: width: 600 -%}{%- endif -%}
-              {%- if mf_yellow.size > 1 -%}
-                {%- assign f2 = mf_yellow[1] -%}
-                {%- if f2.preview_image -%}{%- assign yellow_hover = f2.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign yellow_hover = f2 | image_url: width: 600 -%}{%- endif -%}
-              {%- endif -%}
+              {%- for file in mf_yellow -%}
+                {%- assign img_u = nil -%}
+                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                {%- if img_u != blank -%}
+                  {%- if yellow_primary == nil -%}{%- assign yellow_primary = img_u -%}
+                  {%- elsif yellow_hover == nil -%}{%- assign yellow_hover = img_u -%}{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- endif -%}
 
             {%- assign mf_white = product.metafields.custom.media_white_gold.value -%}
             {%- if mf_white != blank -%}
-              {%- assign f1 = mf_white[0] -%}
-              {%- if f1.preview_image -%}{%- assign white_primary = f1.preview_image | image_url: width: 600 -%}
-              {%- else -%}{%- assign white_primary = f1 | image_url: width: 600 -%}{%- endif -%}
-              {%- if mf_white.size > 1 -%}
-                {%- assign f2 = mf_white[1] -%}
-                {%- if f2.preview_image -%}{%- assign white_hover = f2.preview_image | image_url: width: 600 -%}
-                {%- else -%}{%- assign white_hover = f2 | image_url: width: 600 -%}{%- endif -%}
-              {%- endif -%}
+              {%- for file in mf_white -%}
+                {%- assign img_u = nil -%}
+                {%- if file.preview_image -%}{%- assign img_u = file.preview_image | image_url: width: 600 -%}
+                {%- else -%}{%- assign img_u = file | image_url: width: 600 -%}{%- endif -%}
+                {%- if img_u != blank -%}
+                  {%- if white_primary == nil -%}{%- assign white_primary = img_u -%}
+                  {%- elsif white_hover == nil -%}{%- assign white_hover = img_u -%}{%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
             {%- endif -%}
 
-            {%- comment -%} 2. Text Matching in Gallery Images & Alt {%- endcomment -%}
+            {%- comment -%} 2. Product Variants {%- endcomment -%}
+            {%- for v in product.variants -%}
+              {%- assign vt = v.title | downcase -%}
+              {%- if v.featured_image -%}
+                {%- assign v_img = v.featured_image | img_url: '600x' -%}
+                {%- if rose_primary == nil and vt contains 'rose' -%}{%- assign rose_primary = v_img -%}{%- endif -%}
+                {%- if yellow_primary == nil and vt contains 'yellow' -%}{%- assign yellow_primary = v_img -%}{%- endif -%}
+                {%- if white_primary == nil and vt contains 'white' -%}{%- assign white_primary = v_img -%}{%- endif -%}
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- comment -%} 3. Text Matching in Gallery Images & Alt {%- endcomment -%}
             {%- for img in product.images -%}
               {%- assign alt_lc = img.alt | downcase -%}
               {%- assign src_lc = img.src | downcase -%}
 
               {%- assign is_rose = false -%}
-              {%- if alt_lc contains 'rose' or src_lc contains 'rose' -%}
-                {%- assign is_rose = true -%}
-              {%- endif -%}
+              {%- if alt_lc contains 'rose' or src_lc contains 'rose' -%}{%- assign is_rose = true -%}{%- endif -%}
               {%- if is_rose -%}
-                {%- if rose_primary == nil -%}
-                  {%- assign rose_primary = img | img_url: '600x' -%}
-                {%- elsif rose_hover == nil -%}
-                  {%- assign rose_hover = img | img_url: '600x' -%}
-                {%- endif -%}
+                {%- if rose_primary == nil -%}{%- assign rose_primary = img | img_url: '600x' -%}
+                {%- elsif rose_hover == nil -%}{%- assign rose_hover = img | img_url: '600x' -%}{%- endif -%}
               {%- endif -%}
 
               {%- assign is_yellow = false -%}
-              {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}
-                {%- assign is_yellow = true -%}
-              {%- endif -%}
+              {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}{%- assign is_yellow = true -%}{%- endif -%}
               {%- if is_yellow -%}
-                {%- if yellow_primary == nil -%}
-                  {%- assign yellow_primary = img | img_url: '600x' -%}
-                {%- elsif yellow_hover == nil -%}
-                  {%- assign yellow_hover = img | img_url: '600x' -%}
-                {%- endif -%}
+                {%- if yellow_primary == nil -%}{%- assign yellow_primary = img | img_url: '600x' -%}
+                {%- elsif yellow_hover == nil -%}{%- assign yellow_hover = img | img_url: '600x' -%}{%- endif -%}
               {%- endif -%}
 
               {%- assign is_white = false -%}
-              {%- if alt_lc contains 'white' or src_lc contains 'white' -%}
-                {%- assign is_white = true -%}
-              {%- endif -%}
+              {%- if alt_lc contains 'white' or src_lc contains 'white' -%}{%- assign is_white = true -%}{%- endif -%}
               {%- if is_white -%}
-                {%- if white_primary == nil -%}
-                  {%- assign white_primary = img | img_url: '600x' -%}
-                {%- elsif white_hover == nil -%}
-                  {%- assign white_hover = img | img_url: '600x' -%}
-                {%- endif -%}
+                {%- if white_primary == nil -%}{%- assign white_primary = img | img_url: '600x' -%}
+                {%- elsif white_hover == nil -%}{%- assign white_hover = img | img_url: '600x' -%}{%- endif -%}
               {%- endif -%}
             {%- endfor -%}
 
-            {%- comment -%} 3. Gallery Index Fallbacks (Rose: 0&1, Yellow: 2&3, White: 4&5) {%- endcomment -%}
-            {%- unless rose_primary -%}
-              {%- if product.images[0] -%}{%- assign rose_primary = product.images[0] | img_url: '600x' -%}
-              {%- else -%}{%- assign rose_primary = product.featured_image | img_url: '600x' -%}{%- endif -%}
-            {%- endunless -%}
-            {%- unless rose_hover -%}
-              {%- if product.images[1] -%}{%- assign rose_hover = product.images[1] | img_url: '600x' -%}
-              {%- else -%}{%- assign rose_hover = rose_primary -%}{%- endif -%}
-            {%- endunless -%}
+            {%- comment -%} 4. Safe Independent Fallbacks {%- endcomment -%}
+            {%- assign feat_img_url = product.featured_image | img_url: '600x' -%}
+            {%- assign second_img_url = product.featured_image | img_url: '600x' -%}
+            {%- if product.images[1] -%}{%- assign second_img_url = product.images[1] | img_url: '600x' -%}{%- endif -%}
 
-            {%- unless yellow_primary -%}
-              {%- if product.images[2] -%}{%- assign yellow_primary = product.images[2] | img_url: '600x' -%}
-              {%- else -%}{%- assign yellow_primary = rose_primary -%}{%- endif -%}
-            {%- endunless -%}
-            {%- unless yellow_hover -%}
-              {%- if product.images[3] -%}{%- assign yellow_hover = product.images[3] | img_url: '600x' -%}
-              {%- else -%}{%- assign yellow_hover = yellow_primary -%}{%- endif -%}
-            {%- endunless -%}
+            {%- unless rose_primary -%}{%- assign rose_primary = feat_img_url -%}{%- endunless -%}
+            {%- unless rose_hover -%}{%- assign rose_hover = second_img_url -%}{%- endunless -%}
 
-            {%- unless white_primary -%}
-              {%- if product.images[4] -%}{%- assign white_primary = product.images[4] | img_url: '600x' -%}
-              {%- elsif product.images[2] -%}{%- assign white_primary = product.images[2] | img_url: '600x' -%}
-              {%- else -%}{%- assign white_primary = rose_primary -%}{%- endif -%}
-            {%- endunless -%}
-            {%- unless white_hover -%}
-              {%- if product.images[5] -%}{%- assign white_hover = product.images[5] | img_url: '600x' -%}
-              {%- elsif product.images[3] -%}{%- assign white_hover = product.images[3] | img_url: '600x' -%}
-              {%- else -%}{%- assign white_hover = white_primary -%}{%- endif -%}
-            {%- endunless -%}
+            {%- unless yellow_primary -%}{%- assign yellow_primary = feat_img_url -%}{%- endunless -%}
+            {%- unless yellow_hover -%}{%- assign yellow_hover = second_img_url -%}{%- endunless -%}
+
+            {%- unless white_primary -%}{%- assign white_primary = feat_img_url -%}{%- endunless -%}
+            {%- unless white_hover -%}{%- assign white_hover = second_img_url -%}{%- endunless -%}
 
             {%- assign plat_primary = white_primary -%}
             {%- assign plat_hover = white_hover -%}
