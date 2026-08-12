@@ -32,7 +32,7 @@ Dưới đây là các yêu cầu chi tiết về giao diện và chức năng c
   - 2 nút CTA nổi bật: "SHOP ENGAGEMENT RINGS" (nút có màu đồng/vàng sang trọng) và "SHOP ALL JEWELLERY" (nút viền trong suốt).
 - **Trust Badges Row 1**:
   - Hàng gồm 5 cam kết kèm icon thanh lịch:
-    1. AUSTRALIAN MADE - Handcrafted in our Australian workshop.
+    1. AUSTRALIAN MADE - Crafted in our Australian workshop.
     2. 20+ YEARS EXPERIENCE - Expert craftsmanship you can trust.
     3. MADE TO ORDER - Each piece is crafted especially for you.
     4. LIFETIME WARRANTY - Quality you can wear, for a lifetime.
