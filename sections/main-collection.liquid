@@ -1069,20 +1069,41 @@
             {%- for img in product.images -%}
               {%- assign alt_lc = img.alt | downcase -%}
               {%- assign src_lc = img.src | downcase -%}
-              {%- if rose_primary == nil and (alt_lc contains 'rose' or src_lc contains 'rose') -%}
-                {%- assign rose_primary = img | img_url: '600x' -%}
-              {%- elsif rose_hover == nil and (alt_lc contains 'rose' or src_lc contains 'rose') -%}
-                {%- assign rose_hover = img | img_url: '600x' -%}
+
+              {%- assign is_rose = false -%}
+              {%- if alt_lc contains 'rose' or src_lc contains 'rose' -%}
+                {%- assign is_rose = true -%}
               {%- endif -%}
-              {%- if yellow_primary == nil and (alt_lc contains 'yellow' or src_lc contains 'yellow') -%}
-                {%- assign yellow_primary = img | img_url: '600x' -%}
-              {%- elsif yellow_hover == nil and (alt_lc contains 'yellow' or src_lc contains 'yellow') -%}
-                {%- assign yellow_hover = img | img_url: '600x' -%}
+              {%- if is_rose -%}
+                {%- if rose_primary == nil -%}
+                  {%- assign rose_primary = img | img_url: '600x' -%}
+                {%- elsif rose_hover == nil -%}
+                  {%- assign rose_hover = img | img_url: '600x' -%}
+                {%- endif -%}
               {%- endif -%}
-              {%- if white_primary == nil and (alt_lc contains 'white' or src_lc contains 'white') -%}
-                {%- assign white_primary = img | img_url: '600x' -%}
-              {%- elsif white_hover == nil and (alt_lc contains 'white' or src_lc contains 'white') -%}
-                {%- assign white_hover = img | img_url: '600x' -%}
+
+              {%- assign is_yellow = false -%}
+              {%- if alt_lc contains 'yellow' or src_lc contains 'yellow' -%}
+                {%- assign is_yellow = true -%}
+              {%- endif -%}
+              {%- if is_yellow -%}
+                {%- if yellow_primary == nil -%}
+                  {%- assign yellow_primary = img | img_url: '600x' -%}
+                {%- elsif yellow_hover == nil -%}
+                  {%- assign yellow_hover = img | img_url: '600x' -%}
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- assign is_white = false -%}
+              {%- if alt_lc contains 'white' or src_lc contains 'white' -%}
+                {%- assign is_white = true -%}
+              {%- endif -%}
+              {%- if is_white -%}
+                {%- if white_primary == nil -%}
+                  {%- assign white_primary = img | img_url: '600x' -%}
+                {%- elsif white_hover == nil -%}
+                  {%- assign white_hover = img | img_url: '600x' -%}
+                {%- endif -%}
               {%- endif -%}
             {%- endfor -%}
 
