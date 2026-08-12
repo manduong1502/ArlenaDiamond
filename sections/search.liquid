@@ -90,6 +90,17 @@
     display: block;
     text-decoration: none;
   }
+  .product-image-container {
+    position: relative;
+    aspect-ratio: 1/1;
+    background-color: #fafaf9;
+    border: none;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .product-swatches {
     display: flex;
     align-items: center;
@@ -98,22 +109,25 @@
     margin-bottom: 8px;
   }
   .swatch-dot {
-    width: 14px;
-    height: 14px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    border: 1px solid #ddd;
-    padding: 1px;
+    border: 1px solid #e0e0e0;
+    padding: 1.5px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: border-color 0.2s ease;
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   }
   .swatch-dot:hover {
-    border-color: #999;
+    border-color: #666;
+    transform: scale(1.2);
   }
   .swatch-dot.active {
     border-color: #111;
+    transform: scale(1.15);
+    box-shadow: 0 0 0 1px #111;
   }
   .swatch-dot-inner {
     width: 100%;
@@ -208,13 +222,24 @@
         });
       });
 
+      /* Swatch Color Image Preloader & Smooth Cross-dissolve Switching */
       var swatchDots = document.querySelectorAll('.swatch-dot');
+      
+      // Preload all swatch images into browser RAM cache instantly
       swatchDots.forEach(function(dot) {
-        var handler = function(e) {
+        var pUrl = dot.getAttribute('data-color-primary');
+        var hUrl = dot.getAttribute('data-color-hover');
+        if (pUrl) { var i1 = new Image(); i1.src = pUrl; }
+        if (hUrl) { var i2 = new Image(); i2.src = hUrl; }
+      });
+
+      swatchDots.forEach(function(dot) {
+        dot.addEventListener('click', function(e) {
           e.preventDefault();
           e.stopPropagation();
           var card = this.closest('.product-card-arlena');
           if (!card) return;
+          
           var parentSwatches = this.closest('.product-swatches');
           if (parentSwatches) {
             parentSwatches.querySelectorAll('.swatch-dot').forEach(function(d) {
@@ -222,16 +247,26 @@
             });
           }
           this.classList.add('active');
-          var newImg = this.getAttribute('data-color-img');
-          if (newImg && newImg !== '') {
-            var primaryImg = card.querySelector('.img-primary');
-            if (primaryImg) {
-              primaryImg.src = newImg;
-            }
+
+          var primaryUrl = this.getAttribute('data-color-primary');
+          var hoverUrl = this.getAttribute('data-color-hover');
+          var primaryImg = card.querySelector('.img-primary');
+          var hoverImg = card.querySelector('.img-hover');
+          var imgContainer = card.querySelector('.product-image-container');
+
+          if (imgContainer && primaryImg && primaryUrl) {
+            // Smooth cross-dissolve fade
+            imgContainer.style.opacity = '0.35';
+            setTimeout(function() {
+              if (primaryImg && primaryUrl) primaryImg.src = primaryUrl;
+              if (hoverImg && hoverUrl) hoverImg.src = hoverUrl;
+              imgContainer.style.opacity = '1';
+            }, 90);
+          } else {
+            if (primaryImg && primaryUrl) primaryImg.src = primaryUrl;
+            if (hoverImg && hoverUrl) hoverImg.src = hoverUrl;
           }
-        };
-        dot.addEventListener('mouseenter', handler);
-        dot.addEventListener('click', handler);
+        });
       });
     });
   </script>
