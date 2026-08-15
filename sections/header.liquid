@@ -905,9 +905,13 @@
         <span>FREE INSURED DELIVERY</span>
       </div>
 
-      <div class="cart-total-row">
+      <div class="cart-total-row" style="margin-bottom: 4px;">
         <span>TOTAL</span>
         <span class="cart-total-price">{{ cart.total_price | money_without_trailing_zeros }}</span>
+      </div>
+      {%- assign gst_amt = cart.total_price | divided_by: 11 -%}
+      <div class="cart-gst-notice" style="font-size: 11px; color: #777; margin-bottom: 14px; text-align: left; letter-spacing: 0.2px;">
+        Including <span class="cart-gst-amount">{{ gst_amt | money }}</span> in GST
       </div>
 
       <!-- Checkout button -->
@@ -953,11 +957,16 @@
     var container = document.querySelector('.cart-items');
     var headerCount = document.querySelector('.cart-header-count');
     var totalEl = document.querySelector('.cart-total-price');
+    var gstEl = document.querySelector('.cart-gst-amount');
     var badge = document.querySelector('.cart-badge');
     var cartBtn = document.getElementById('cartBtn');
 
     if (headerCount) headerCount.textContent = '(' + cart.item_count + ')';
     if (totalEl) totalEl.textContent = cartFormatMoney(cart.total_price);
+    if (gstEl) {
+      var gstCents = Math.round(cart.total_price / 11);
+      gstEl.textContent = cartFormatMoney(gstCents);
+    }
 
     // Badge
     if (cart.item_count > 0) {
