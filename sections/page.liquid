@@ -5,12 +5,36 @@
   https://shopify.dev/docs/storefronts/themes/architecture/templates/page
 {% endcomment %}
 
-<main class="margin-top" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 40px 20px; font-size: 13px; line-height: 1.6;">
-  <h1 class="text-center" style="font-size: 24px; margin-bottom: 30px; text-transform: uppercase;">{{ page.title }}</h1>
-  <div class="page-content" style="color: #333;">
-    {{ page.content }}
-  </div>
-</main>
+{%- if page.handle == 'ring-size-guide' or page.handle == 'size-guide' -%}
+  {% section 'main-size-guide' %}
+{%- elsif page.handle == 'craftsmanship' or page.handle == 'our-craftsmanship' -%}
+  {% section 'main-our-craftsmanship' %}
+{%- elsif page.handle == 'about-us' -%}
+  {% section 'main-about-us' %}
+{%- elsif page.handle == 'our-story' -%}
+  {% section 'main-our-story' %}
+{%- elsif page.handle == 'faqs' -%}
+  {% section 'main-faqs' %}
+{%- elsif page.handle == 'warranty' -%}
+  {% section 'main-warranty' %}
+{%- elsif page.handle == 'shipping-delivery' -%}
+  {% section 'main-shipping-delivery' %}
+{%- elsif page.handle == 'returns-exchanges' -%}
+  {% section 'main-returns-exchanges' %}
+{%- elsif page.handle == 'payment-policy' -%}
+  {% section 'main-payment-policy' %}
+{%- elsif page.handle == 'contact' or page.handle == 'contact-us' -%}
+  {% section 'main-contact-us' %}
+{%- elsif page.handle == 'billing-terms' -%}
+  {% section 'main-billing-terms' %}
+{%- else -%}
+  <main class="margin-top" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 140px 20px 60px 20px; font-size: 13px; line-height: 1.6;">
+    <h1 class="text-center" style="font-family: 'Cinzel', serif; font-size: 24px; margin-bottom: 30px; text-transform: uppercase;">{{ page.title }}</h1>
+    <div class="page-content" style="color: #333;">
+      {{ page.content }}
+    </div>
+  </main>
+{%- endif -%}
 
 {% schema %}
 {
