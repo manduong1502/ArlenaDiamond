@@ -375,11 +375,19 @@
     padding-bottom: 0;
     border-bottom: none;
   }
-  .crafted-bullet-item i {
-    color: #c5a880;
-    font-size: 24px;
-    margin-top: 2px;
+  .crafted-bullet-icon-wrap {
+    width: 44px;
+    height: 44px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .crafted-bullet-icon-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
   }
   .crafted-bullet-text {
     display: flex;
@@ -784,24 +792,30 @@
       <div class="crafted-bullets-block">
         <div class="crafted-bullets">
           <div class="crafted-bullet-item">
-            <i class="fa-regular fa-gem"></i>
+            <div class="crafted-bullet-icon-wrap">
+              <img src="{{ 'Untitled-1-02.png' | asset_url }}" alt="Exceptional Gemstones" loading="lazy">
+            </div>
             <div class="crafted-bullet-text">
-              <strong>Carefully Selected Materials</strong>
-              <span>Diamonds, gemstones & precious metals chosen for their beauty and quality.</span>
+              <strong>Exceptional Gemstones</strong>
+              <span>Carefully selected diamonds & precious metals chosen for their quality and brilliance.</span>
             </div>
           </div>
           <div class="crafted-bullet-item">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <div class="crafted-bullet-icon-wrap">
+              <img src="{{ 'Untitled-1-03.png' | asset_url }}" alt="20+ Years of Expertise" loading="lazy">
+            </div>
             <div class="crafted-bullet-text">
-              <strong>Master Craftsmanship</strong>
-              <span>Led by our Master Jeweller with more than 20 years of experience.</span>
+              <strong>20+ Years of Expertise</strong>
+              <span>Led by our Master Jeweller with more than two decades of fine jewellery experience.</span>
             </div>
           </div>
           <div class="crafted-bullet-item">
-            <i class="fa-regular fa-heart"></i>
+            <div class="crafted-bullet-icon-wrap">
+              <img src="{{ 'Untitled-1-05.png' | asset_url }}" alt="Made Just for You" loading="lazy">
+            </div>
             <div class="crafted-bullet-text">
-              <strong>Made To Order</strong>
-              <span>Every piece is crafted exclusively for you, never mass produced.</span>
+              <strong>Made Just for You</strong>
+              <span>Created to your chosen specifications, individually crafted and never mass produced.</span>
             </div>
           </div>
         </div>
