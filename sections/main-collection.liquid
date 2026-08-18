@@ -725,7 +725,7 @@
   {%- assign current_handle = collection.handle | downcase -%}
 
   {%- assign page_title = collection.title -%}
-  {%- if page_title == blank or page_title == 'Products' or page_title == 'All' or page_title == 'Rings' -%}
+  {%- if page_title == blank or page_title == 'Products' or page_title == 'All' -%}
     {%- if current_handle contains 'engagement' -%}
       {%- assign page_title = "Engagement Rings" -%}
     {%- elsif current_handle contains 'wedding' -%}
@@ -736,6 +736,8 @@
       {%- assign page_title = "Pendants" -%}
     {%- elsif current_handle contains 'bracelet' -%}
       {%- assign page_title = "Bracelets" -%}
+    {%- elsif current_handle == 'ring' or current_handle == 'rings' or current_handle contains 'ring' -%}
+      {%- assign page_title = "Rings" -%}
     {%- elsif current_handle contains 'gift' -%}
       {%- assign page_title = "Gifts" -%}
     {%- else -%}
@@ -755,6 +757,8 @@
       {%- assign page_desc = "Discover Arlena's solitaire and halo Diamond Pendants, thoughtfully designed and crafted in Australia to celebrate life's special moments." -%}
     {%- elsif current_handle contains 'bracelet' -%}
       {%- assign page_desc = "Explore Arlena's collection of diamond Tennis Bracelets, crafted in Australia in yellow gold, white gold, rose gold and platinum." -%}
+    {%- elsif current_handle == 'ring' or current_handle == 'rings' or current_handle contains 'ring' -%}
+      {%- assign page_desc = "Explore Arlena's collection of handcrafted fine diamond and gemstone Rings, thoughtfully designed and crafted to order in Australia." -%}
     {%- else -%}
       {%- assign page_desc = "Arlena's fine jewellery brings together crafted designs across gemstones and diamonds, including solitaire, halo, three-stone and contemporary styles set in gold and platinum." -%}
     {%- endif -%}
