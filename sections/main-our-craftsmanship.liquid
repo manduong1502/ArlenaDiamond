@@ -22,6 +22,7 @@
 
     <div class="process-list">
       <!-- Step 01 -->
+      <!-- Step 01 -->
       <div class="process-item">
         <div class="process-text-col">
           <span class="process-num">01</span>
@@ -29,7 +30,7 @@
           <p class="process-step-desc">Every piece begins with thoughtful design and carefully selected diamonds, gemstones and precious metals chosen for their beauty, quality and durability.</p>
         </div>
         <div class="process-img-col">
-          <img src="{{ 'sub_classic.png' | asset_url }}" alt="Design and Stone Selection" loading="lazy">
+          <img src="{{ 'Craftsmanship_1.jpg' | asset_url }}" alt="Design and Stone Selection" loading="lazy">
         </div>
       </div>
 
@@ -41,7 +42,7 @@
           <p class="process-step-desc">Using advanced jewellery-making technology, each design is accurately produced before being expertly finished by hand where craftsmanship matters most.</p>
         </div>
         <div class="process-img-col">
-          <img src="{{ 'sub_side_stones.png' | asset_url }}" alt="Precision Manufacturing" loading="lazy">
+          <img src="{{ 'Craftsmanship_2.jpg' | asset_url }}" alt="Precision Manufacturing" loading="lazy">
         </div>
       </div>
 
@@ -53,7 +54,7 @@
           <p class="process-step-desc">Our Master Jeweller personally oversees the skilled craftsmanship of every piece, including stone setting, finishing and final quality inspection.</p>
         </div>
         <div class="process-img-col">
-          <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="Master Craftsmanship" loading="lazy">
+          <img src="{{ 'Craftsmanship_3.jpg' | asset_url }}" alt="Master Craftsmanship" loading="lazy">
         </div>
       </div>
 
@@ -65,7 +66,7 @@
           <p class="process-step-desc">Before your jewellery leaves our workshop, every detail is carefully inspected to ensure it meets our quality standards.</p>
         </div>
         <div class="process-img-col">
-          <img src="{{ 'sub_infinity.png' | asset_url }}" alt="Final Quality Inspection" loading="lazy">
+          <img src="{{ 'Craftsmanship_4.jpg' | asset_url }}" alt="Final Quality Inspection" loading="lazy">
         </div>
       </div>
 
@@ -77,7 +78,7 @@
           <p class="process-step-desc">Your jewellery is carefully cleaned, beautifully presented and prepared for its journey to you, ready to celebrate life's most meaningful moments.</p>
         </div>
         <div class="process-img-col">
-          <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="Made for You" loading="lazy">
+          <img src="{{ 'Craftsmanship_5.jpg' | asset_url }}" alt="Made for You" loading="lazy">
         </div>
       </div>
     </div>
@@ -301,10 +302,13 @@
     margin: 0;
   }
   .process-img-col {
-    height: 100%;
-    min-height: 240px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     overflow: hidden;
     background-color: #f5f0ea;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .process-img-col img {
     width: 100%;
