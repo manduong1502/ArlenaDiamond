@@ -298,6 +298,48 @@
     font-weight: bold;
     box-shadow: inset 0 0 0 1px #000;
   }
+
+  /* Dual Ring Sizes / Luxury Select Dropdown */
+  .luxury-select-box-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .luxury-pdp-select {
+    width: 100%;
+    height: 46px;
+    padding: 0 40px 0 16px;
+    border: 1.5px solid #dcdad5;
+    border-radius: 3px;
+    background-color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 400;
+    color: #111;
+    cursor: pointer;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+  }
+  .luxury-pdp-select:hover {
+    border-color: #c5a880;
+  }
+  .luxury-pdp-select:focus {
+    border-color: #000;
+    box-shadow: 0 0 0 1px #000;
+  }
+  .select-chevron-icon {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    font-size: 11px;
+    color: #777;
+    transition: transform 0.2s ease;
+  }
   .slider-arrow {
     background: #fff;
     border: 1px solid #dcdad5;
@@ -1423,38 +1465,84 @@
 
         </div>
 
-        <!-- Custom Ring Size & Engraving options (if product is a Ring) -->
+        <!-- Custom Ring Size & Engraving options (if product is a Ring / Wedding Band) -->
         {%- assign is_ring = false -%}
+        {%- assign is_wedding_band = false -%}
         {%- assign product_type_dc = product.type | downcase -%}
-        {%- if product_type_dc == 'ring' or product_type_dc == 'rings' or product_type_dc == 'engagement rings' or product_type_dc == 'wedding bands' -%}
+        {%- assign p_handle_dc = product.handle | downcase -%}
+        {%- assign p_title_dc = product.title | downcase -%}
+
+        {%- if product_type_dc contains 'wedding' or p_handle_dc contains 'wedding' or p_handle_dc contains 'band-set' or p_title_dc contains 'wedding band' or p_title_dc contains 'band set' or product.tags contains 'Wedding Bands' or product.tags contains 'wedding band' or product.tags contains 'Wedding Band Set' -%}
+          {%- assign is_wedding_band = true -%}
           {%- assign is_ring = true -%}
-        {%- elsif product.handle contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' -%}
-          {%- unless product.handle contains 'earring' or product.tags contains 'Earrings' or product.tags contains 'earring' or product.tags contains 'Earrings' or product.handle contains 'pendant' or product.tags contains 'pendant' or product.tags contains 'Pendant' or product.handle contains 'bracelet' or product.tags contains 'bracelet' -%}
+        {%- elsif product_type_dc == 'ring' or product_type_dc == 'rings' or product_type_dc == 'engagement rings' or p_handle_dc contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' -%}
+          {%- unless product.handle contains 'earring' or product.tags contains 'Earrings' or product.tags contains 'earring' or product.tags contains 'pendant' or product.tags contains 'Pendant' or product.handle contains 'bracelet' or product.tags contains 'bracelet' -%}
             {%- assign is_ring = true -%}
           {%- endunless -%}
         {%- endif -%}
 
         {% if is_ring %}
-          <!-- Ring Size Selection -->
-          <div class="arlena-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
-            <div class="arlena-option-label" style="display:flex; justify-content:space-between; align-items:center;">
-              <span>Select Ring Size (Free Resizing): <strong id="lbl-ring-size">O</strong></span>
-              <a href="#" class="size-guide-link" id="pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
-            </div>
-            
-            <input type="hidden" name="properties[Ring Size]" id="pdp-ring-size-property" value="O">
-            
-            <div class="ring-size-slider-wrapper">
-              <button type="button" class="slider-arrow prev-size" id="prev-size-btn"><i class="fa-solid fa-chevron-left"></i></button>
-              <div class="ring-size-buttons-container" id="ring-size-buttons">
-                {% assign sizes = "H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3" | split: "," %}
-                {% for s in sizes %}
-                  <button type="button" class="size-btn {% if s == 'O' %}active{% endif %}" data-value="{{ s }}">{{ s }}</button>
-                {% endfor %}
+          {% if is_wedding_band %}
+            <!-- Wedding Band Set: Dual Ring Sizes (Women's & Men's) -->
+            <div class="arlena-option-block wedding-sizes-section" style="margin-bottom:20px; margin-top: 15px; display: flex; flex-direction: column; gap: 15px;">
+              <!-- Women's Ring Size -->
+              <div class="dual-size-item">
+                <div class="arlena-option-label" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                  <span>WOMEN'S RING SIZE: <strong id="lbl-womens-size">O</strong></span>
+                  <a href="#" class="size-guide-link pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
+                </div>
+                <div class="luxury-select-box-wrap">
+                  <select id="pdp-womens-size-select" name="properties[Women's Ring Size]" class="luxury-pdp-select">
+                    <option value="" disabled>Select Your Size</option>
+                    {% assign sizes = "H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3" | split: "," %}
+                    {% for s in sizes %}
+                      <option value="{{ s }}" {% if s == 'O' %}selected{% endif %}>Size {{ s }} (Free Resizing)</option>
+                    {% endfor %}
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-chevron-icon"></i>
+                </div>
               </div>
-              <button type="button" class="slider-arrow next-size" id="next-size-btn"><i class="fa-solid fa-chevron-right"></i></button>
+
+              <!-- Men's Ring Size -->
+              <div class="dual-size-item">
+                <div class="arlena-option-label" style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px;">
+                  <span>MEN'S RING SIZE: <strong id="lbl-mens-size">T</strong></span>
+                  <a href="#" class="size-guide-link pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
+                </div>
+                <div class="luxury-select-box-wrap">
+                  <select id="pdp-mens-size-select" name="properties[Men's Ring Size]" class="luxury-pdp-select">
+                    <option value="" disabled>Select Your Size</option>
+                    {% assign sizes = "H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3" | split: "," %}
+                    {% for s in sizes %}
+                      <option value="{{ s }}" {% if s == 'T' %}selected{% endif %}>Size {{ s }} (Free Resizing)</option>
+                    {% endfor %}
+                  </select>
+                  <i class="fa-solid fa-chevron-down select-chevron-icon"></i>
+                </div>
+              </div>
             </div>
-          </div>
+          {% else %}
+            <!-- Single Ring Size Selection -->
+            <div class="arlena-option-block ring-size-section" style="margin-bottom:20px; margin-top: 15px;">
+              <div class="arlena-option-label" style="display:flex; justify-content:space-between; align-items:center;">
+                <span>SELECT RING SIZE (FREE RESIZING): <strong id="lbl-ring-size">O</strong></span>
+                <a href="#" class="size-guide-link pdp-size-guide-trigger" style="font-size:11px; color:#666; text-decoration:underline; text-transform: none; font-weight: 500;">Size Guide</a>
+              </div>
+              
+              <input type="hidden" name="properties[Ring Size]" id="pdp-ring-size-property" value="O">
+              
+              <div class="ring-size-slider-wrapper">
+                <button type="button" class="slider-arrow prev-size" id="prev-size-btn"><i class="fa-solid fa-chevron-left"></i></button>
+                <div class="ring-size-buttons-container" id="ring-size-buttons">
+                  {% assign sizes = "H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,Z.5,Z+1,Z+1.5,Z+2,Z+2.5,Z+3" | split: "," %}
+                  {% for s in sizes %}
+                    <button type="button" class="size-btn {% if s == 'O' %}active{% endif %}" data-value="{{ s }}">{{ s }}</button>
+                  {% endfor %}
+                </div>
+                <button type="button" class="slider-arrow next-size" id="next-size-btn"><i class="fa-solid fa-chevron-right"></i></button>
+              </div>
+            </div>
+          {% endif %}
 
           <!-- Size Information Note -->
           <div class="size-information-note" style="margin-bottom: 22px; font-size: 11px; line-height: 1.5; color: #555; font-family: inherit; margin-top: -5px; padding: 2px 0;">
@@ -1470,8 +1558,19 @@
               <span class="toggle-icon">+</span> Add Free Engraving
             </div>
             <div class="engraving-input-panel" id="engraving-panel" style="display:none;">
-              <input type="text" name="properties[Engraving]" id="pdp-engraving-input" placeholder="Enter engraving text (e.g., FOREVER YOURS)" maxlength="20" class="engraving-text-input">
-              <div class="engraving-limit-text">Max 20 characters. Letters, numbers, and basic symbols only. Free sizing.</div>
+              {% if is_wedding_band %}
+                <div style="margin-bottom: 10px;">
+                  <label style="display:block; font-size:11px; font-weight:600; text-transform:uppercase; margin-bottom:4px; color:#333;">Women's Ring Engraving:</label>
+                  <input type="text" name="properties[Women's Engraving]" id="pdp-engraving-womens" placeholder="Enter text (e.g., FOREVER YOURS)" maxlength="20" class="engraving-text-input">
+                </div>
+                <div>
+                  <label style="display:block; font-size:11px; font-weight:600; text-transform:uppercase; margin-bottom:4px; color:#333;">Men's Ring Engraving:</label>
+                  <input type="text" name="properties[Men's Engraving]" id="pdp-engraving-mens" placeholder="Enter text (e.g., ALWAYS & FOREVER)" maxlength="20" class="engraving-text-input">
+                </div>
+              {% else %}
+                <input type="text" name="properties[Engraving]" id="pdp-engraving-input" placeholder="Enter engraving text (e.g., FOREVER YOURS)" maxlength="20" class="engraving-text-input">
+              {% endif %}
+              <div class="engraving-limit-text">Max 20 characters per ring. Letters, numbers, and basic symbols only. Free sizing.</div>
             </div>
           </div>
         {% endif %}
@@ -2387,7 +2486,24 @@
       });
     }
 
-    // Custom Ring Size buttons logic
+    // Dual Ring Size selectors for Wedding Bands
+    var womensSizeSelect = document.getElementById('pdp-womens-size-select');
+    var mensSizeSelect = document.getElementById('pdp-mens-size-select');
+    var lblWomensSize = document.getElementById('lbl-womens-size');
+    var lblMensSize = document.getElementById('lbl-mens-size');
+
+    if (womensSizeSelect && lblWomensSize) {
+      womensSizeSelect.addEventListener('change', function() {
+        lblWomensSize.textContent = this.value;
+      });
+    }
+    if (mensSizeSelect && lblMensSize) {
+      mensSizeSelect.addEventListener('change', function() {
+        lblMensSize.textContent = this.value;
+      });
+    }
+
+    // Custom Ring Size buttons logic for single rings
     var sizeBtns = document.querySelectorAll('#ring-size-buttons .size-btn');
     var lblRingSize = document.getElementById('lbl-ring-size');
     var sizeContainer = document.getElementById('ring-size-buttons');
@@ -2466,14 +2582,35 @@
         atcBtn.disabled = true;
 
         var payloadProperties = {};
+        
+        // Single ring size
         var ringSizeVal = ringSizeInput ? ringSizeInput.value : '';
         if (ringSizeVal) {
           payloadProperties['Ring Size'] = ringSizeVal;
         }
 
+        // Dual ring sizes for wedding bands
+        if (womensSizeSelect && womensSizeSelect.value) {
+          payloadProperties["Women's Ring Size"] = womensSizeSelect.value;
+        }
+        if (mensSizeSelect && mensSizeSelect.value) {
+          payloadProperties["Men's Ring Size"] = mensSizeSelect.value;
+        }
+
+        // Chain option for pendants
         var chainVal = chainInput ? chainInput.value : '';
         if (chainVal) {
           payloadProperties['Chain Option'] = chainVal;
+        }
+
+        // Engraving single vs wedding bands
+        var engravingWomens = document.getElementById('pdp-engraving-womens');
+        var engravingMens = document.getElementById('pdp-engraving-mens');
+        if (engravingWomens && engravingWomens.value.trim() !== '') {
+          payloadProperties["Women's Engraving"] = engravingWomens.value.trim();
+        }
+        if (engravingMens && engravingMens.value.trim() !== '') {
+          payloadProperties["Men's Engraving"] = engravingMens.value.trim();
         }
 
         var engravingTxtInput = document.getElementById('pdp-engraving-input');
@@ -2512,15 +2649,17 @@
     }
 
     /* --- 6. Size Guide Modal Toggle --- */
-    var sizeGuideTrigger = document.getElementById('pdp-size-guide-trigger');
+    var sizeGuideTriggers = document.querySelectorAll('.pdp-size-guide-trigger');
     var sizeGuideModal = document.getElementById('pdp-size-guide-modal');
     var sizeGuideClose = document.getElementById('pdp-size-guide-close');
     
-    if (sizeGuideTrigger && sizeGuideModal) {
-      sizeGuideTrigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        sizeGuideModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+    if (sizeGuideTriggers.length > 0 && sizeGuideModal) {
+      sizeGuideTriggers.forEach(function(trigger) {
+        trigger.addEventListener('click', function(e) {
+          e.preventDefault();
+          sizeGuideModal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
       });
     }
     
