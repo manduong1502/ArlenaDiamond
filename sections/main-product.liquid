@@ -378,6 +378,136 @@
     margin-top: 6px;
   }
 
+  /* Select Chain Section for Pendants */
+  .chain-selection-section {
+    margin-bottom: 22px;
+    margin-top: 15px;
+  }
+  .chain-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .chain-header-left {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: #111;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.5px;
+  }
+  .chain-info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-family: var(--font-base);
+    font-size: 12px;
+    color: #888;
+    cursor: pointer;
+    font-style: normal;
+    transition: color 0.2s;
+  }
+  .chain-info-icon:hover {
+    color: #000;
+  }
+  .chain-header-icon {
+    display: flex;
+    align-items: center;
+  }
+  .chain-header-icon svg {
+    width: 36px;
+    height: 18px;
+    stroke: #c5a880;
+  }
+  .chain-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .chain-option-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border: 1.5px solid #eaeaea;
+    border-radius: 4px;
+    background-color: #ffffff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    user-select: none;
+  }
+  .chain-option-card:hover {
+    border-color: #c5a880;
+    background-color: #faf8f5;
+  }
+  .chain-option-card.active {
+    border-color: #c5a880;
+    background-color: #fdfaf7;
+    box-shadow: 0 0 0 1px #c5a880;
+  }
+  .chain-card-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .chain-radio-circle {
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid #bbb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    background: #fff;
+  }
+  .chain-option-card.active .chain-radio-circle {
+    border-color: #c5a880;
+  }
+  .chain-radio-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #c5a880;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.2s ease;
+  }
+  .chain-option-card.active .chain-radio-dot {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .chain-card-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .chain-card-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #111;
+    letter-spacing: 0.2px;
+  }
+  .chain-card-desc {
+    font-size: 11px;
+    color: #666;
+    line-height: 1.35;
+  }
+  .chain-card-price {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #111;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+  }
+
   /* Purchase Info Row */
   .pdp-purchase-details {
     display: flex;
@@ -1348,6 +1478,66 @@
           </div>
         {% endif %}
 
+        <!-- Custom Chain Selection (if product is a Pendant / Necklace) -->
+        {%- assign is_pendant = false -%}
+        {%- assign product_type_dc = product.type | downcase -%}
+        {%- if product_type_dc contains 'pendant' or product_type_dc contains 'necklace' or product.handle contains 'pendant' or product.handle contains 'necklace' or product.tags contains 'Pendant' or product.tags contains 'pendant' or product.tags contains 'Necklace' or product.tags contains 'necklace' -%}
+          {%- assign is_pendant = true -%}
+        {%- endif -%}
+
+        {% if is_pendant %}
+          <div class="chain-selection-section">
+            <div class="chain-section-header">
+              <div class="chain-header-left">
+                <span>Select Chain</span>
+                <span class="chain-info-icon" title="Choose whether to include a matching adjustable chain">ⓘ</span>
+              </div>
+              <div class="chain-header-icon">
+                <svg viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="1.2">
+                  <path d="M2 10 Q 10 18, 20 18 Q 30 18, 38 10" stroke-dasharray="2 2"/>
+                  <circle cx="20" cy="18" r="1.5" fill="#c5a880"/>
+                </svg>
+              </div>
+            </div>
+
+            <input type="hidden" name="properties[Chain Option]" id="pdp-chain-property" value="Pendant Only (Chain not included)">
+
+            <div class="chain-cards-container" id="chain-options-container">
+              <!-- Option 1: Pendant Only -->
+              <div class="chain-option-card active" data-chain-value="Pendant Only (Chain not included)" data-chain-price="0">
+                <div class="chain-card-left">
+                  <div class="chain-radio-circle">
+                    <span class="chain-radio-dot"></span>
+                  </div>
+                  <div class="chain-card-text">
+                    <span class="chain-card-title">Pendant Only</span>
+                    <span class="chain-card-desc">Chain not included</span>
+                  </div>
+                </div>
+                <div class="chain-card-price" id="chain-pendant-only-price">
+                  {{ current_variant.price | money_without_trailing_zeros }}
+                </div>
+              </div>
+
+              <!-- Option 2: Add Adjustable Chain -->
+              <div class="chain-option-card" data-chain-value="Add Adjustable Chain (Adjustable to 45cm, 50cm & 56cm) (+AUD $150)" data-chain-price="15000">
+                <div class="chain-card-left">
+                  <div class="chain-radio-circle">
+                    <span class="chain-radio-dot"></span>
+                  </div>
+                  <div class="chain-card-text">
+                    <span class="chain-card-title">Add Adjustable Chain</span>
+                    <span class="chain-card-desc">Adjustable to 45cm, 50cm & 56cm</span>
+                  </div>
+                </div>
+                <div class="chain-card-price">
+                  +$150
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+
         <!-- Purchase details / Delivery summary -->
         <div class="pdp-purchase-details">
           <div class="purchase-detail-item">
@@ -2072,10 +2262,22 @@
       });
 
       if (matchedVariant) {
-        // Update price
-        var formattedPrice = 'AUD $' + (matchedVariant.price / 100).toLocaleString('en-US');
-        if (priceEl) priceEl.textContent = formattedPrice;
-        if (summaryPriceEl) summaryPriceEl.textContent = formattedPrice;
+        // Dynamic price calculation taking into account Pendant Chain Option
+        var baseCents = matchedVariant.price;
+        var selectedChainCard = document.querySelector('.chain-option-card.active');
+        var chainExtraCents = selectedChainCard ? parseInt(selectedChainCard.getAttribute('data-chain-price') || '0') : 0;
+        var totalCents = baseCents + chainExtraCents;
+
+        var baseFormatted = 'AUD $' + (baseCents / 100).toLocaleString('en-US');
+        var totalFormatted = 'AUD $' + (totalCents / 100).toLocaleString('en-US');
+
+        var chainBasePriceEl = document.getElementById('chain-pendant-only-price');
+        if (chainBasePriceEl) {
+          chainBasePriceEl.textContent = baseFormatted;
+        }
+
+        if (priceEl) priceEl.textContent = totalFormatted;
+        if (summaryPriceEl) summaryPriceEl.textContent = totalFormatted;
         
         // Update input ID for Add To Cart
         if (variantInput) variantInput.value = matchedVariant.id;
@@ -2167,6 +2369,30 @@
     // Run once at start to bind initial values
     updateSelectedVariant();
 
+    // Select Chain toggle logic for Pendants
+    var chainCards = document.querySelectorAll('.chain-option-card');
+    var chainInput = document.getElementById('pdp-chain-property');
+    if (chainCards.length > 0) {
+      chainCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          chainCards.forEach(function(c) { c.classList.remove('active'); });
+          this.classList.add('active');
+          if (chainInput) {
+            chainInput.value = this.getAttribute('data-chain-value');
+          }
+          updateSelectedVariant();
+        });
+      });
+    }
+
+    var chainInfoIcon = document.querySelector('.chain-info-icon');
+    if (chainInfoIcon) {
+      chainInfoIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        alert('Our adjustable cable chain is crafted in solid matching gold/platinum with 3 versatile length settings (45cm, 50cm & 56cm) to perfectly complement any neckline.');
+      });
+    }
+
     // Custom Ring Size buttons logic
     var sizeBtns = document.querySelectorAll('#ring-size-buttons .size-btn');
     var lblRingSize = document.getElementById('lbl-ring-size');
@@ -2249,6 +2475,11 @@
         var ringSizeVal = ringSizeInput ? ringSizeInput.value : '';
         if (ringSizeVal) {
           payloadProperties['Ring Size'] = ringSizeVal;
+        }
+
+        var chainVal = chainInput ? chainInput.value : '';
+        if (chainVal) {
+          payloadProperties['Chain Option'] = chainVal;
         }
 
         var engravingTxtInput = document.getElementById('pdp-engraving-input');
