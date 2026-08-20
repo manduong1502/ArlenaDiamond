@@ -1847,6 +1847,44 @@
               </tr>
             {%- endif -%}
 
+            {%- assign band_w = product.metafields.custom.band_width.value | default: product.metafields.custom.band_width | default: product.metafields.custom.bandwidth.value | default: product.metafields.custom.bandwidth -%}
+            {%- assign w_band_w = product.metafields.custom.womens_band_width.value | default: product.metafields.custom.womens_band_width -%}
+            {%- assign m_band_w = product.metafields.custom.mens_band_width.value | default: product.metafields.custom.mens_band_width -%}
+            {%- if band_w != blank -%}
+              <tr>
+                <td class="spec-label">Band Width</td>
+                <td class="spec-val">{{ band_w }}</td>
+              </tr>
+            {%- elsif w_band_w != blank or m_band_w != blank -%}
+              <tr>
+                <td class="spec-label">Band Width</td>
+                <td class="spec-val">
+                  {%- if w_band_w != blank -%}Women's: {{ w_band_w }}{%- endif -%}
+                  {%- if w_band_w != blank and m_band_w != blank %} / {% endif -%}
+                  {%- if m_band_w != blank -%}Men's: {{ m_band_w }}{%- endif -%}
+                </td>
+              </tr>
+            {%- endif -%}
+
+            {%- assign band_t = product.metafields.custom.band_thickness.value | default: product.metafields.custom.band_thickness | default: product.metafields.custom.bandthickness.value | default: product.metafields.custom.bandthickness -%}
+            {%- assign w_band_t = product.metafields.custom.womens_band_thickness.value | default: product.metafields.custom.womens_band_thickness -%}
+            {%- assign m_band_t = product.metafields.custom.mens_band_thickness.value | default: product.metafields.custom.mens_band_thickness -%}
+            {%- if band_t != blank -%}
+              <tr>
+                <td class="spec-label">Band Thickness</td>
+                <td class="spec-val">{{ band_t }}</td>
+              </tr>
+            {%- elsif w_band_t != blank or m_band_t != blank -%}
+              <tr>
+                <td class="spec-label">Band Thickness</td>
+                <td class="spec-val">
+                  {%- if w_band_t != blank -%}Women's: {{ w_band_t }}{%- endif -%}
+                  {%- if w_band_t != blank and m_band_t != blank %} / {% endif -%}
+                  {%- if m_band_t != blank -%}Men's: {{ m_band_t }}{%- endif -%}
+                </td>
+              </tr>
+            {%- endif -%}
+
             {%- if product.type == 'Earrings' or product.handle contains 'earring' or product.tags contains 'Earrings' -%}
               <tr>
                 <td class="spec-label">Earring Back</td>
@@ -1857,7 +1895,13 @@
             {%- if is_ring -%}
               <tr>
                 <td class="spec-label">Ring Size</td>
-                <td class="spec-val" id="spec-val-ring-size">O (based on selection)</td>
+                <td class="spec-val" id="spec-val-ring-size">
+                  {%- if is_wedding_band -%}
+                    Women's: O / Men's: T (based on selection)
+                  {%- else -%}
+                    O (based on selection)
+                  {%- endif -%}
+                </td>
               </tr>
             {%- endif -%}
 
@@ -2495,11 +2539,17 @@
     if (womensSizeSelect && lblWomensSize) {
       womensSizeSelect.addEventListener('change', function() {
         lblWomensSize.textContent = this.value;
+        if (specValRingSize && mensSizeSelect) {
+          specValRingSize.textContent = "Women's: " + this.value + " / Men's: " + mensSizeSelect.value + " (based on selection)";
+        }
       });
     }
     if (mensSizeSelect && lblMensSize) {
       mensSizeSelect.addEventListener('change', function() {
         lblMensSize.textContent = this.value;
+        if (specValRingSize && womensSizeSelect) {
+          specValRingSize.textContent = "Women's: " + womensSizeSelect.value + " / Men's: " + this.value + " (based on selection)";
+        }
       });
     }
 
