@@ -380,41 +380,39 @@
 
   /* Select Chain Section for Pendants */
   .chain-selection-section {
-    margin-bottom: 22px;
+    margin-bottom: 20px;
     margin-top: 15px;
   }
   .chain-section-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
   .chain-header-left {
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     color: #111;
     display: flex;
     align-items: center;
     gap: 6px;
-    letter-spacing: 0.5px;
   }
   .chain-info-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    font-family: var(--font-base);
-    font-size: 12px;
-    color: #888;
     cursor: pointer;
-    font-style: normal;
-    transition: color 0.2s;
+    line-height: 1;
   }
-  .chain-info-icon:hover {
-    color: #000;
+  .chain-info-icon i {
+    font-size: 13px;
+    color: #888;
+    transition: color 0.2s ease;
+  }
+  .chain-info-icon:hover i {
+    color: #111;
   }
   .chain-header-icon {
     display: flex;
@@ -1489,14 +1487,10 @@
           <div class="chain-selection-section">
             <div class="chain-section-header">
               <div class="chain-header-left">
-                <span>Select Chain</span>
-                <span class="chain-info-icon" title="Choose whether to include a matching adjustable chain">ⓘ</span>
-              </div>
-              <div class="chain-header-icon">
-                <svg viewBox="0 0 40 20" fill="none" stroke="currentColor" stroke-width="1.2">
-                  <path d="M2 10 Q 10 18, 20 18 Q 30 18, 38 10" stroke-dasharray="2 2"/>
-                  <circle cx="20" cy="18" r="1.5" fill="#c5a880"/>
-                </svg>
+                <span>SELECT CHAIN:</span>
+                <span class="chain-info-icon" title="Choose whether to include a matching adjustable chain">
+                  <i class="fa-solid fa-circle-info"></i>
+                </span>
               </div>
             </div>
 
