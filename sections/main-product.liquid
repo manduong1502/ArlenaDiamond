@@ -1840,13 +1840,6 @@
               <td class="spec-val" id="spec-val-metal">Gold or Platinum (based on selection)</td>
             </tr>
 
-            {%- if product.metafields.custom.setting_style != blank -%}
-              <tr>
-                <td class="spec-label">Setting Style</td>
-                <td class="spec-val">{{ product.metafields.custom.setting_style }}</td>
-              </tr>
-            {%- endif -%}
-
             {%- assign band_w = product.metafields.custom.band_width.value | default: product.metafields.custom.band_width | default: product.metafields.custom.bandwidth.value | default: product.metafields.custom.bandwidth -%}
             {%- assign w_band_w = product.metafields.custom.womens_band_width.value | default: product.metafields.custom.womens_band_width -%}
             {%- assign m_band_w = product.metafields.custom.mens_band_width.value | default: product.metafields.custom.mens_band_width -%}
@@ -1902,6 +1895,13 @@
                     O (based on selection)
                   {%- endif -%}
                 </td>
+              </tr>
+            {%- endif -%}
+
+            {%- if product.metafields.custom.setting_style != blank -%}
+              <tr>
+                <td class="spec-label">Setting Style</td>
+                <td class="spec-val">{{ product.metafields.custom.setting_style }}</td>
               </tr>
             {%- endif -%}
 
