@@ -1043,6 +1043,14 @@
     color: #c5a880;
     margin-bottom: 12px;
   }
+  .look-promo-diamond-img {
+    width: 32px;
+    height: auto;
+    max-height: 28px;
+    object-fit: contain;
+    margin-bottom: 14px;
+    display: block;
+  }
   .look-promo-card h4 {
     font-family: 'Cinzel', serif;
     font-size: 12px;
@@ -2072,7 +2080,7 @@
       
       <!-- Promo brand card matching mockup -->
       <div class="look-promo-card">
-        <i class="fa-solid fa-gem"></i>
+        <img src="{{ 'Untitled-1-02.png' | asset_url }}" alt="Diamond" class="look-promo-diamond-img" loading="lazy">
         <h4>Made For Moments</h4>
         <p>Designed in Australia. Crafted individually. Treasured forever.</p>
         <button type="button" class="look-promo-btn" onclick="window.location.href='/collections/all'">Explore Collection</button>
