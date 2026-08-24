@@ -13,7 +13,7 @@
           <p class="story-highlight">That's why every piece we create is Made for Moments.</p>
         </div>
         <div class="story-hero-img">
-          <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="Made for Moments - Arlena Fine Jewellery" loading="lazy">
+          <img src="{{ 'ourstory_1.jpg' | asset_url }}" alt="Made for Moments - Arlena Fine Jewellery" loading="lazy">
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
     <div class="story-container">
       <div class="story-split-grid">
         <div class="story-img-col">
-          <img src="{{ 'moments_necklace.png' | asset_url }}" alt="Inspired by Family - Arlena" loading="lazy">
+          <img src="{{ 'ourstory_2.jpg' | asset_url }}" alt="Inspired by Family - Arlena" loading="lazy">
         </div>
         <div class="story-text-col">
           <h2 class="story-heading">Inspired by Family.<br><span class="gold-text">Crafted in Australia.</span></h2>
@@ -42,7 +42,7 @@
     <div class="story-container">
       <div class="story-split-grid story-reverse">
         <div class="story-img-col">
-          <img src="{{ 'handcraft_jewelry.png' | asset_url }}" alt="Crafted with Care - Arlena Master Jeweller" loading="lazy">
+          <img src="{{ 'ourstory_3.jpg' | asset_url }}" alt="Crafted with Care - Arlena Master Jeweller" loading="lazy">
         </div>
         <div class="story-text-col">
           <h2 class="story-heading">Crafted with <span class="gold-text">Care</span></h2>
@@ -118,7 +118,7 @@
     <div class="story-container">
       <div class="story-split-grid">
         <div class="story-img-col">
-          <img src="{{ 'Engagement Rings.jpg' | asset_url }}" alt="Our Promise - Solitaire Diamond Ring" loading="lazy">
+          <img src="{{ 'ourstory_4.jpg' | asset_url }}" alt="Our Promise - Arlena Fine Jewellery" loading="lazy">
         </div>
         <div class="story-text-col">
           <h2 class="story-heading">Our <span class="gold-text">Promise</span></h2>
@@ -192,17 +192,19 @@
   }
   .story-hero-section {
     background-color: #faf7f2;
+    padding-top: 120px !important;
+    padding-bottom: 0 !important;
   }
   .story-hero-grid,
   .story-split-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0;
-    align-items: start;
+    align-items: center;
     width: 100%;
   }
   .story-hero-text {
-    padding: 135px 40px 40px 0;
+    padding: 40px 40px 40px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -450,6 +452,9 @@
 
   /* Responsive */
   @media (max-width: 991px) {
+    .story-hero-section {
+      padding-top: 105px !important;
+    }
     .story-hero-grid,
     .story-split-grid,
     .story-split-grid.story-reverse {
@@ -457,7 +462,7 @@
       gap: 0;
     }
     .story-hero-text {
-      padding: 130px 20px 35px;
+      padding: 25px 20px 35px;
     }
     .story-text-col,
     .story-split-grid.story-reverse .story-text-col {
