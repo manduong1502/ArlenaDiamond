@@ -145,9 +145,9 @@
   }
   .collections-grid {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    max-width: 1200px;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    max-width: 1280px;
     margin: 0 auto;
   }
   .collection-card {
@@ -187,28 +187,34 @@
   .collection-card-content {
     position: relative;
     z-index: 2;
-    padding: 20px 10px;
+    padding: 16px 8px;
     text-align: center;
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 5px;
   }
   .collection-card-content h4 {
     color: #ffffff;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 600;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     margin: 0;
   }
   .collection-card-content span {
     color: #c5a880;
-    font-size: 10px;
+    font-size: 9px;
     text-decoration: underline;
     text-underline-offset: 3px;
     letter-spacing: 0.5px;
     display: inline-block;
+  }
+  @media (max-width: 1100px) {
+    .collections-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
   }
   @media (max-width: 991px) {
     .collections-grid {
@@ -216,7 +222,7 @@
       gap: 12px;
     }
     .collection-card img {
-      object-position: center 20%;
+      object-position: center center;
     }
     .collection-card-content {
       padding: 10px 6px 8px;
@@ -240,9 +246,6 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    .collections-grid a:last-child {
-      grid-column: span 2;
-    }
     .collection-card-content {
       padding: 8px 4px 6px;
       gap: 2px;
@@ -253,24 +256,6 @@
     }
     .collection-card-content span {
       font-size: 8px;
-    }
-    /* Exclude last card (Bracelets full-width banner) from super-small text styling */
-    .collections-grid a:last-child img {
-      object-position: center center;
-    }
-    .collections-grid a:last-child .collection-card-content {
-      padding: 18px 12px 14px;
-      gap: 4px;
-    }
-    .collections-grid a:last-child .collection-card-content h4 {
-      font-size: 11.5px;
-      letter-spacing: 1px;
-    }
-    .collections-grid a:last-child .collection-card-content span {
-      font-size: 9.5px;
-    }
-    .collections-grid a:last-child::after {
-      height: 48%;
     }
   }
 
@@ -744,6 +729,13 @@
         <img src="{{ 'Wedding Bands.jpg' | asset_url }}" alt="Wedding Bands" loading="lazy">
         <div class="collection-card-content">
           <h4>Wedding Bands</h4>
+          <span>View Collection</span>
+        </div>
+      </a>
+      <a href="/collections/rings" class="collection-card">
+        <img src="{{ 'Rings.jpg' | asset_url }}" alt="Rings" loading="lazy">
+        <div class="collection-card-content">
+          <h4>Rings</h4>
           <span>View Collection</span>
         </div>
       </a>
