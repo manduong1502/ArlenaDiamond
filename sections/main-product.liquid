@@ -1475,22 +1475,47 @@
 
         <!-- Custom Ring Size & Engraving options (if product is a Ring / Wedding Band) -->
         {%- assign is_ring = false -%}
-        {%- assign is_wedding_band = false -%}
+        {%- assign is_wedding_band_set = false -%}
         {%- assign product_type_dc = product.type | downcase -%}
         {%- assign p_handle_dc = product.handle | downcase -%}
         {%- assign p_title_dc = product.title | downcase -%}
 
-        {%- if product_type_dc contains 'wedding' or p_handle_dc contains 'wedding' or p_handle_dc contains 'band-set' or p_title_dc contains 'wedding band' or p_title_dc contains 'band set' or product.tags contains 'Wedding Bands' or product.tags contains 'wedding band' or product.tags contains 'Wedding Band Set' -%}
-          {%- assign is_wedding_band = true -%}
-          {%- assign is_ring = true -%}
-        {%- elsif product_type_dc == 'ring' or product_type_dc == 'rings' or product_type_dc == 'engagement rings' or p_handle_dc contains 'ring' or product.tags contains 'Ring' or product.tags contains 'ring' -%}
-          {%- unless product.handle contains 'earring' or product.tags contains 'Earrings' or product.tags contains 'earring' or product.tags contains 'pendant' or product.tags contains 'Pendant' or product.handle contains 'bracelet' or product.tags contains 'bracelet' -%}
+        {%- for c in product.collections -%}
+          {%- assign c_handle = c.handle | downcase -%}
+          {%- if c_handle contains 'wedding' or c_handle contains 'ring' or c_handle contains 'engagement' or c_handle contains 'band' -%}
             {%- assign is_ring = true -%}
-          {%- endunless -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- for t in product.tags -%}
+          {%- assign t_dc = t | downcase -%}
+          {%- if t_dc contains 'wedding' or t_dc contains 'ring' or t_dc contains 'band' or t_dc contains 'engagement' or t_dc contains 'solitaire' or t_dc contains 'eternity' or t_dc contains 'halo' or t_dc contains 'trilogy' -%}
+            {%- assign is_ring = true -%}
+          {%- endif -%}
+          {%- if t_dc contains 'band-set' or t_dc contains 'band set' or t_dc contains 'pair' or t_dc contains 'couple' or t_dc contains 'his & hers' or t_dc contains 'his and hers' or t_dc contains 'duo' -%}
+            {%- assign is_wedding_band_set = true -%}
+          {%- endif -%}
+        {%- endfor -%}
+
+        {%- if product_type_dc contains 'ring' or product_type_dc contains 'wedding' or product_type_dc contains 'band' or product_type_dc contains 'engagement' or p_handle_dc contains 'ring' or p_handle_dc contains 'band' or p_handle_dc contains 'wedding' or p_title_dc contains 'ring' or p_title_dc contains 'band' or p_title_dc contains 'wedding' -%}
+          {%- assign is_ring = true -%}
+        {%- endif -%}
+
+        {%- if p_handle_dc contains 'band-set' or p_handle_dc contains 'couple' or p_title_dc contains 'band set' or p_title_dc contains 'couple' or p_title_dc contains 'pair' or p_title_dc contains 'his & hers' or p_title_dc contains 'his and hers' -%}
+          {%- assign is_wedding_band_set = true -%}
+        {%- endif -%}
+
+        {%- if p_handle_dc contains 'earring' or product_type_dc contains 'earring' or product.tags contains 'Earrings' or product.tags contains 'earring' or p_handle_dc contains 'pendant' or product_type_dc contains 'pendant' or p_handle_dc contains 'necklace' or product_type_dc contains 'necklace' or p_handle_dc contains 'bracelet' or product_type_dc contains 'bracelet' -%}
+          {%- assign is_ring = false -%}
+          {%- assign is_wedding_band_set = false -%}
+        {%- endif -%}
+
+        {%- if product == empty or product == nil -%}
+          {%- assign is_ring = true -%}
         {%- endif -%}
 
         {% if is_ring %}
-          {% if is_wedding_band %}
+          {% if is_wedding_band_set %}
             <!-- Wedding Band Set: Dual Ring Sizes (Women's & Men's) -->
             <div class="arlena-option-block wedding-sizes-section" style="margin-bottom:20px; margin-top: 15px; display: flex; flex-direction: column; gap: 15px;">
               <!-- Women's Ring Size -->
@@ -1566,7 +1591,7 @@
               <span class="toggle-icon">+</span> Add Free Engraving
             </div>
             <div class="engraving-input-panel" id="engraving-panel" style="display:none;">
-              {% if is_wedding_band %}
+              {% if is_wedding_band_set %}
                 <div style="margin-bottom: 10px;">
                   <label style="display:block; font-size:11px; font-weight:600; text-transform:uppercase; margin-bottom:4px; color:#333;">Women's Ring Engraving:</label>
                   <input type="text" name="properties[Women's Engraving]" id="pdp-engraving-womens" placeholder="Enter text (e.g., FOREVER YOURS)" maxlength="20" class="engraving-text-input">
