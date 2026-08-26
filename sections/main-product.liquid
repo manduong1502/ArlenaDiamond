@@ -1792,10 +1792,6 @@
               <td class="spec-val">Four-Prong</td>
             </tr>
             <tr>
-              <td class="spec-label">Earring Back</td>
-              <td class="spec-val" id="spec-val-backing">Butterfly or Screw Back</td>
-            </tr>
-            <tr>
               <td class="spec-label">Crafted In</td>
               <td class="spec-val">Australia</td>
             </tr>
@@ -1883,13 +1879,6 @@
                   {%- if w_band_t != blank and m_band_t != blank %} / {% endif -%}
                   {%- if m_band_t != blank -%}Men's: {{ m_band_t }}{%- endif -%}
                 </td>
-              </tr>
-            {%- endif -%}
-
-            {%- if product.type == 'Earrings' or product.handle contains 'earring' or product.tags contains 'Earrings' -%}
-              <tr>
-                <td class="spec-label">Earring Back</td>
-                <td class="spec-val" id="spec-val-backing">Butterfly or Screw Back</td>
               </tr>
             {%- endif -%}
 

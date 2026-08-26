@@ -101,20 +101,20 @@
       margin-left: 5px;
     }
 
-    /* Subcategories Grid - Centered 5 Collections */
+    /* Subcategories Grid - Centered 6 Collections */
     .subcategories-grid {
       display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 20px;
-      max-width: 900px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
+      max-width: 1080px;
       margin: 0 auto 45px auto;
       justify-content: center;
     }
     @media (max-width: 991px) {
       .subcategories-grid {
-        grid-template-columns: repeat(5, 1fr);
-        max-width: 750px;
-        gap: 12px;
+        grid-template-columns: repeat(6, 1fr);
+        max-width: 860px;
+        gap: 10px;
       }
     }
     @media (max-width: 768px) {
@@ -818,23 +818,29 @@
         </div>
         <span class="subcategory-name">Wedding Bands</span>
       </a>
+      <a href="/collections/rings" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'Rings.jpg' | asset_url }}" alt="Rings">
+        </div>
+        <span class="subcategory-name">Rings</span>
+      </a>
       <a href="/collections/earrings" class="subcategory-card">
         <div class="subcategory-img-wrap">
           <img src="{{ 'Earrings.jpg' | asset_url }}" alt="Earrings">
         </div>
         <span class="subcategory-name">Earrings</span>
       </a>
-      <a href="/collections/pendants" class="subcategory-card">
-        <div class="subcategory-img-wrap">
-          <img src="{{ 'Pendants.jpg' | asset_url }}" alt="Pendants">
-        </div>
-        <span class="subcategory-name">Pendants</span>
-      </a>
       <a href="/collections/bracelets" class="subcategory-card">
         <div class="subcategory-img-wrap">
           <img src="{{ 'Bracelets.jpg' | asset_url }}" alt="Bracelets">
         </div>
         <span class="subcategory-name">Bracelets</span>
+      </a>
+      <a href="/collections/pendants" class="subcategory-card">
+        <div class="subcategory-img-wrap">
+          <img src="{{ 'Pendants.jpg' | asset_url }}" alt="Pendants">
+        </div>
+        <span class="subcategory-name">Pendants</span>
       </a>
     </section>
 
