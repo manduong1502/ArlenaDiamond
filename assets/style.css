@@ -3006,3 +3006,300 @@
       background 1.95s ease,
       opacity 1.95s cubic-bezier(0.4, 0, 0.2, 1);
   }
+
+/* ==========================================================================
+   ARLENA DIAMOND - JUDGE.ME LUXURY REVIEWS CUSTOM STYLING
+   ========================================================================== */
+
+/* ── Container & Header ── */
+.jdgm-widget.jdgm-review-widget,
+.jdgm-review-widget {
+  max-width: 1200px !important;
+  margin: 60px auto 40px auto !important;
+  padding: 0 20px !important;
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  color: #111111 !important;
+}
+
+.jdgm-rev-widg__header {
+  border-bottom: 1px solid #eaeaea !important;
+  padding-bottom: 30px !important;
+  margin-bottom: 35px !important;
+}
+
+.jdgm-rev-widg__title {
+  font-family: 'Cinzel', serif !important;
+  font-size: 26px !important;
+  font-weight: 500 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  color: #111111 !important;
+  margin-bottom: 12px !important;
+}
+
+/* ── Summary & Score ── */
+.jdgm-rev-widg__summary {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.jdgm-rev-widg__summary-score {
+  font-family: 'Cinzel', serif !important;
+  font-size: 28px !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+}
+
+.jdgm-rev-widg__summary-text {
+  font-size: 13px !important;
+  color: #666666 !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* ── Luxury Gold Stars ── */
+.jdgm-star,
+.jdgm-star.jdgm--on,
+.jdgm-star.jdgm--half,
+.jdgm-histogram__star,
+.jdgm-preview-badge .jdgm-star,
+.jdgm-row-stars .jdgm-star {
+  color: #c5a880 !important;
+}
+
+.jdgm-star.jdgm--off {
+  color: #e0deda !important;
+}
+
+/* ── Buttons (Write a Review / Submit / Filters) ── */
+.jdgm-btn,
+.jdgm-write-rev-link,
+.jdgm-rev-widg__btn {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #111111 !important;
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  padding: 12px 28px !important;
+  border-radius: 0px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.jdgm-btn:hover,
+.jdgm-write-rev-link:hover,
+.jdgm-rev-widg__btn:hover {
+  background-color: #c5a880 !important;
+  border-color: #c5a880 !important;
+  color: #111111 !important;
+}
+
+.jdgm-submit-rev {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #111111 !important;
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+  padding: 13px 32px !important;
+  border-radius: 0px !important;
+  transition: all 0.3s ease !important;
+}
+
+.jdgm-submit-rev:hover {
+  background-color: #c5a880 !important;
+  border-color: #c5a880 !important;
+  color: #111111 !important;
+}
+
+/* ── Filter / Sort / Search Controls ── */
+.jdgm-rev-widg__controls-btn {
+  border: 1px solid #eaeaea !important;
+  border-radius: 0px !important;
+  color: #333333 !important;
+  font-size: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.jdgm-rev-widg__controls-btn:hover {
+  border-color: #c5a880 !important;
+  color: #111111 !important;
+}
+
+.jdgm-sort-dropdown {
+  border: 1px solid #eaeaea !important;
+  border-radius: 0px !important;
+  font-size: 12px !important;
+  padding: 8px 12px !important;
+}
+
+/* ── Write Review Form ── */
+.jdgm-form {
+  background-color: #faf8f5 !important;
+  border: 1px solid rgba(197, 168, 128, 0.3) !important;
+  padding: 30px !important;
+  margin-bottom: 35px !important;
+  border-radius: 0px !important;
+}
+
+.jdgm-form__title {
+  font-family: 'Cinzel', serif !important;
+  font-size: 18px !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: #111111 !important;
+  margin-bottom: 20px !important;
+}
+
+.jdgm-form-input {
+  border: 1px solid #e0dfdb !important;
+  border-radius: 0px !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  color: #111111 !important;
+  background-color: #ffffff !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.jdgm-form-input:focus {
+  border-color: #c5a880 !important;
+  outline: none !important;
+}
+
+/* ── Review Cards / Items ── */
+.jdgm-rev {
+  border-bottom: 1px solid #f0eee9 !important;
+  padding: 25px 0 !important;
+}
+
+.jdgm-rev__header {
+  margin-bottom: 10px !important;
+}
+
+.jdgm-rev__author {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: #111111 !important;
+}
+
+.jdgm-rev__buyer-badge {
+  background-color: #fdfaf6 !important;
+  color: #c5a880 !important;
+  border: 1px solid rgba(197, 168, 128, 0.4) !important;
+  font-size: 10.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  padding: 2px 8px !important;
+  border-radius: 2px !important;
+}
+
+.jdgm-rev__timestamp {
+  font-size: 11.5px !important;
+  color: #888888 !important;
+}
+
+.jdgm-rev__title {
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #111111 !important;
+  margin: 10px 0 6px 0 !important;
+}
+
+.jdgm-rev__body p {
+  font-size: 13.5px !important;
+  line-height: 1.75 !important;
+  color: #444444 !important;
+}
+
+/* ── Media / Photos Gallery ── */
+.jdgm-media-strip {
+  margin-bottom: 30px !important;
+}
+
+.jdgm-media-strip__thumb {
+  border-radius: 2px !important;
+  border: 1px solid #eaeaea !important;
+  transition: transform 0.2s ease, border-color 0.2s ease !important;
+}
+
+.jdgm-media-strip__thumb:hover {
+  transform: scale(1.03) !important;
+  border-color: #c5a880 !important;
+}
+
+/* ── Histogram Progress Bars ── */
+.jdgm-histogram__bar {
+  background-color: #f4f3f0 !important;
+  border-radius: 2px !important;
+}
+
+.jdgm-histogram__bar-fill {
+  background-color: #c5a880 !important;
+  border-radius: 2px !important;
+}
+
+/* ── Pagination ── */
+.jdgm-paginate__page {
+  border: 1px solid #eaeaea !important;
+  border-radius: 0px !important;
+  color: #111111 !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  transition: all 0.2s ease !important;
+}
+
+.jdgm-paginate__page:hover,
+.jdgm-paginate__page.jdgm-currt {
+  background-color: #111111 !important;
+  border-color: #111111 !important;
+  color: #ffffff !important;
+}
+
+/* ── Preview Badge under Product Title ── */
+.jdgm-preview-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-size: 12px !important;
+}
+
+.jdgm-preview-badge .jdgm-prev-badge__text {
+  color: #666666 !important;
+  font-size: 12px !important;
+}
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .jdgm-widget.jdgm-review-widget {
+    margin: 40px auto 30px auto !important;
+    padding: 0 16px !important;
+  }
+  .jdgm-rev-widg__title {
+    font-size: 20px !important;
+  }
+  .jdgm-rev-widg__summary-score {
+    font-size: 24px !important;
+  }
+  .jdgm-btn,
+  .jdgm-write-rev-link,
+  .jdgm-rev-widg__btn {
+    padding: 10px 18px !important;
+    font-size: 11px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+  .jdgm-form {
+    padding: 20px 15px !important;
+  }
+}
