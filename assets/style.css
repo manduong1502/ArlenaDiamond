@@ -3057,36 +3057,51 @@
   letter-spacing: 0.5px !important;
 }
 
-@font-face {
-  font-family: 'judgeme-star';
-  src: url('https://cdn.judge.me/fonts/judgeme-star.woff2') format('woff2'),
-       url('https://cdn.judge.me/fonts/judgeme-star.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-  font-display: block;
-}
-
-/* ── Luxury Gold Stars ── */
+/* ── Luxury Gold Stars (Universal Solid Fallback) ── */
 .jdgm-star,
-.jdgm-star.jdgm--on,
-.jdgm-star.jdgm--half,
-.jdgm-star.jdgm--off,
-.jdgm-histogram__star,
-.jdgm-preview-badge .jdgm-star,
-.jdgm-row-stars .jdgm-star,
 .jdgm-form__rating .jdgm-star,
-.jdgm-form-rating .jdgm-star {
-  font-family: 'judgeme-star' !important;
-  font-style: normal !important;
-  font-weight: normal !important;
+.jdgm-row-stars .jdgm-star,
+.jdgm-preview-badge .jdgm-star {
+  font-size: 20px !important;
   color: #c5a880 !important;
+  cursor: pointer !important;
   display: inline-block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  margin-right: 3px !important;
+  transition: transform 0.15s ease, color 0.15s ease !important;
 }
 
-.jdgm-star.jdgm--off {
-  color: #dcdad5 !important;
+.jdgm-star:before,
+.jdgm-form__rating .jdgm-star:before,
+.jdgm-row-stars .jdgm-star:before,
+.jdgm-preview-badge .jdgm-star:before {
+  content: "★" !important;
+  font-family: 'Font Awesome 6 Free', 'Arial', sans-serif !important;
+  font-weight: 900 !important;
+  display: inline-block !important;
+  font-style: normal !important;
+  color: #c5a880 !important;
+}
+
+.jdgm-star.jdgm--off:before,
+.jdgm-form__rating .jdgm-star.jdgm--off:before {
+  color: #e2dfd9 !important;
+}
+
+.jdgm-star.jdgm--on:before,
+.jdgm-star.jdgm--half:before,
+.jdgm-form__rating .jdgm-star.jdgm--on:before {
+  color: #c5a880 !important;
+}
+
+.jdgm-form__rating .jdgm-star:hover:before,
+.jdgm-form__rating .jdgm-star.jdgm--hover:before {
+  color: #c5a880 !important;
+}
+
+.jdgm-form__rating .jdgm-star:hover {
+  transform: scale(1.2) !important;
 }
 
 /* ── Buttons (Write a Review / Submit / Filters) ── */
