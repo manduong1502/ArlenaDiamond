@@ -3057,6 +3057,15 @@
   letter-spacing: 0.5px !important;
 }
 
+@font-face {
+  font-family: 'judgeme-star';
+  src: url('https://cdn.judge.me/fonts/judgeme-star.woff2') format('woff2'),
+       url('https://cdn.judge.me/fonts/judgeme-star.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
 /* ── Luxury Gold Stars ── */
 .jdgm-star,
 .jdgm-star.jdgm--on,
@@ -3065,7 +3074,8 @@
 .jdgm-histogram__star,
 .jdgm-preview-badge .jdgm-star,
 .jdgm-row-stars .jdgm-star,
-.jdgm-form__rating .jdgm-star {
+.jdgm-form__rating .jdgm-star,
+.jdgm-form-rating .jdgm-star {
   font-family: 'judgeme-star' !important;
   font-style: normal !important;
   font-weight: normal !important;
@@ -3207,13 +3217,21 @@
   border-bottom: 1px solid rgba(197, 168, 128, 0.25) !important;
 }
 
-.jdgm-form-fieldset {
+.jdgm-form-fieldset,
+.jdgm-form__fieldset,
+.jdgm-form__rating-fieldset,
+.jdgm-form__title-fieldset,
+.jdgm-form__body-fieldset,
+.jdgm-form__picture-fieldset {
   width: 100% !important;
   flex: 0 0 100% !important;
   margin-bottom: 20px !important;
+  display: block !important;
 }
 
 /* 2-Column Name & Email */
+.jdgm-form__name-fieldset,
+.jdgm-form__email-fieldset,
 .jdgm-form-fieldset:nth-of-type(1),
 .jdgm-form-fieldset:nth-of-type(2),
 .jdgm-form__fieldset--name,
@@ -3227,6 +3245,8 @@
 }
 
 @media (max-width: 768px) {
+  .jdgm-form__name-fieldset,
+  .jdgm-form__email-fieldset,
   .jdgm-form-fieldset:nth-of-type(1),
   .jdgm-form-fieldset:nth-of-type(2),
   .jdgm-form__fieldset--name,
