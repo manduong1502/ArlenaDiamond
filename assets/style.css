@@ -3283,14 +3283,15 @@ label.jdgm-form-label {
   text-transform: uppercase !important;
   color: #222222 !important;
   margin-bottom: 8px !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
+  display: block !important;
+  line-height: 1.6 !important;
 }
 
 /* Style name format dropdown */
 .jdgm-form-dropdown,
-select.jdgm-form-dropdown {
+.jdgm-form__dropdown,
+select.jdgm-form-dropdown,
+select.jdgm-form__dropdown {
   font-size: 11px !important;
   font-weight: 500 !important;
   color: #555555 !important;
@@ -3302,19 +3303,26 @@ select.jdgm-form-dropdown {
   cursor: pointer !important;
   text-transform: none !important;
   letter-spacing: 0 !important;
-  margin-left: 6px !important;
+  margin: 0 4px !important;
+  display: inline-block !important;
+  vertical-align: middle !important;
   transition: border-color 0.2s ease !important;
 }
 
 .jdgm-form-dropdown:focus,
-select.jdgm-form-dropdown:focus {
+.jdgm-form__dropdown:focus,
+select.jdgm-form-dropdown:focus,
+select.jdgm-form__dropdown:focus {
   border-color: #c5a880 !important;
 }
 
 /* Input fields & Textarea - Bulletproof luxury padding */
 .jdgm-form__input,
+.jdgm-form__input--text,
+.jdgm-form__input--textarea,
 input.jdgm-form__input,
 textarea.jdgm-form__input,
+textarea.jdgm-form__input--textarea,
 .jdgm-form-input,
 input.jdgm-form-input,
 textarea.jdgm-form-input,
@@ -3337,6 +3345,20 @@ textarea.jdgm-form-input,
   box-sizing: border-box !important;
   text-indent: 0 !important;
   line-height: 1.5 !important;
+}
+
+.jdgm-form textarea,
+.jdgm-form textarea.jdgm-form__input,
+.jdgm-form textarea.jdgm-form__input--textarea,
+.jdgm-form .jdgm-form__input--textarea,
+textarea.jdgm-form__input--textarea,
+textarea.jdgm-form-input {
+  min-height: 120px !important;
+  padding: 14px 18px !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+  line-height: 1.6 !important;
+  resize: vertical !important;
 }
 
 .jdgm-form__input::placeholder,
