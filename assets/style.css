@@ -3146,33 +3146,158 @@
 .jdgm-form {
   background-color: #faf8f5 !important;
   border: 1px solid rgba(197, 168, 128, 0.3) !important;
-  padding: 30px !important;
-  margin-bottom: 35px !important;
-  border-radius: 0px !important;
+  padding: 35px 40px !important;
+  margin: 25px 0 35px 0 !important;
+  border-radius: 4px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
 }
 
 .jdgm-form__title {
   font-family: 'Cinzel', serif !important;
-  font-size: 18px !important;
+  font-size: 20px !important;
+  font-weight: 500 !important;
   letter-spacing: 1.5px !important;
   text-transform: uppercase !important;
   color: #111111 !important;
+  margin-bottom: 25px !important;
+  padding-bottom: 15px !important;
+  border-bottom: 1px solid rgba(197, 168, 128, 0.2) !important;
+}
+
+.jdgm-form-fieldset {
   margin-bottom: 20px !important;
 }
 
-.jdgm-form-input {
-  border: 1px solid #e0dfdb !important;
-  border-radius: 0px !important;
-  padding: 10px 14px !important;
-  font-size: 13px !important;
-  color: #111111 !important;
+.jdgm-form__fieldset--name,
+.jdgm-form__fieldset--email,
+.jdgm-form-fieldset.jdgm-form-fieldset--name,
+.jdgm-form-fieldset.jdgm-form-fieldset--email {
+  width: calc(50% - 10px) !important;
+  display: inline-block !important;
+  vertical-align: top !important;
+}
+
+.jdgm-form__fieldset--name,
+.jdgm-form-fieldset.jdgm-form-fieldset--name {
+  margin-right: 16px !important;
+}
+
+@media (max-width: 768px) {
+  .jdgm-form__fieldset--name,
+  .jdgm-form__fieldset--email,
+  .jdgm-form-fieldset.jdgm-form-fieldset--name,
+  .jdgm-form-fieldset.jdgm-form-fieldset--email {
+    width: 100% !important;
+    display: block !important;
+    margin-right: 0 !important;
+  }
+}
+
+.jdgm-form-label,
+label.jdgm-form-label {
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  font-size: 11.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #222222 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+/* Style name format dropdown */
+.jdgm-form-dropdown,
+select.jdgm-form-dropdown {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  color: #555555 !important;
   background-color: #ffffff !important;
+  border: 1px solid #dcdad5 !important;
+  border-radius: 2px !important;
+  padding: 3px 8px !important;
+  outline: none !important;
+  cursor: pointer !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-left: 6px !important;
   transition: border-color 0.2s ease !important;
 }
 
-.jdgm-form-input:focus {
+.jdgm-form-dropdown:focus,
+select.jdgm-form-dropdown:focus {
   border-color: #c5a880 !important;
+}
+
+/* Input fields & Textarea */
+.jdgm-form-input,
+input.jdgm-form-input,
+textarea.jdgm-form-input {
+  width: 100% !important;
+  border: 1px solid #dcdad5 !important;
+  border-radius: 2px !important;
+  padding: 12px 16px !important;
+  font-size: 13px !important;
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  color: #111111 !important;
+  background-color: #ffffff !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+
+.jdgm-form-input::placeholder,
+input.jdgm-form-input::placeholder,
+textarea.jdgm-form-input::placeholder {
+  color: #999999 !important;
+  font-size: 12.5px !important;
+  font-style: italic !important;
+}
+
+.jdgm-form-input:focus,
+input.jdgm-form-input:focus,
+textarea.jdgm-form-input:focus {
+  border-color: #c5a880 !important;
+  box-shadow: 0 0 0 1px #c5a880 !important;
   outline: none !important;
+}
+
+textarea.jdgm-form-input {
+  min-height: 120px !important;
+  line-height: 1.6 !important;
+  resize: vertical !important;
+}
+
+/* Rating Stars inside form */
+.jdgm-form__rating {
+  margin: 6px 0 10px 0 !important;
+}
+
+.jdgm-form__rating .jdgm-star {
+  font-size: 24px !important;
+  color: #c5a880 !important;
+  cursor: pointer !important;
+  margin-right: 4px !important;
+  transition: transform 0.15s ease !important;
+}
+
+.jdgm-form__rating .jdgm-star:hover {
+  transform: scale(1.15) !important;
+}
+
+/* Disclaimer text */
+.jdgm-form__disclaimer {
+  font-size: 11.5px !important;
+  color: #777777 !important;
+  line-height: 1.6 !important;
+  margin: 18px 0 22px 0 !important;
+}
+
+.jdgm-form__disclaimer a {
+  color: #111111 !important;
+  text-decoration: underline !important;
+}
+
+.jdgm-form__disclaimer a:hover {
+  color: #c5a880 !important;
 }
 
 /* ── Review Cards / Items ── */
