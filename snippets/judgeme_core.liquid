@@ -1,6 +1,6 @@
 <script type="text/javascript">
   window.jdgm = window.jdgm || {};
-  window.jdgm.SHOP_DOMAIN = '{{ shop.permanent_domain }}';
+  window.jdgm.SHOP_DOMAIN = '{{ shop.permanent_domain | default: "arlena-9.myshopify.com" }}';
   window.jdgm.PLATFORM = 'shopify';
   window.jdgm.PUBLIC_TOKEN = '{{ shop.metafields.judgeme.public_token }}';
   window.jdgmSettings = window.jdgmSettings || {
