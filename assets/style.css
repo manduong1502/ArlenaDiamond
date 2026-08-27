@@ -3311,40 +3311,65 @@ select.jdgm-form-dropdown:focus {
   border-color: #c5a880 !important;
 }
 
-/* Input fields & Textarea */
+/* Input fields & Textarea - Bulletproof luxury padding */
+.jdgm-form__input,
+input.jdgm-form__input,
+textarea.jdgm-form__input,
 .jdgm-form-input,
 input.jdgm-form-input,
-textarea.jdgm-form-input {
+textarea.jdgm-form-input,
+.jdgm-form input[type="text"],
+.jdgm-form input[type="email"],
+.jdgm-form input[type="password"],
+.jdgm-form textarea,
+.jdgm-form select {
   width: 100% !important;
   border: 1px solid #dcdad5 !important;
   border-radius: 2px !important;
-  padding: 12px 16px !important;
+  padding: 13px 18px !important;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
   font-size: 13px !important;
   font-family: var(--font-base, 'Jost', sans-serif) !important;
   color: #111111 !important;
   background-color: #ffffff !important;
   transition: all 0.25s ease !important;
   box-sizing: border-box !important;
+  text-indent: 0 !important;
+  line-height: 1.5 !important;
 }
 
+.jdgm-form__input::placeholder,
+input.jdgm-form__input::placeholder,
+textarea.jdgm-form__input::placeholder,
 .jdgm-form-input::placeholder,
 input.jdgm-form-input::placeholder,
-textarea.jdgm-form-input::placeholder {
+textarea.jdgm-form-input::placeholder,
+.jdgm-form input::placeholder,
+.jdgm-form textarea::placeholder {
   color: #999999 !important;
   font-size: 12px !important;
   font-style: italic !important;
 }
 
+.jdgm-form__input:focus,
+input.jdgm-form__input:focus,
+textarea.jdgm-form__input:focus,
 .jdgm-form-input:focus,
 input.jdgm-form-input:focus,
-textarea.jdgm-form-input:focus {
+textarea.jdgm-form-input:focus,
+.jdgm-form input:focus,
+.jdgm-form textarea:focus {
   border-color: #c5a880 !important;
   box-shadow: 0 0 0 1px #c5a880 !important;
   outline: none !important;
 }
 
-textarea.jdgm-form-input {
-  min-height: 110px !important;
+textarea.jdgm-form__input,
+textarea.jdgm-form-input,
+.jdgm-form textarea {
+  min-height: 120px !important;
+  padding: 14px 18px !important;
   line-height: 1.6 !important;
   resize: vertical !important;
 }
@@ -3492,7 +3517,7 @@ textarea.jdgm-form-input {
 @media (max-width: 768px) {
   .jdgm-widget.jdgm-review-widget {
     margin: 40px auto 30px auto !important;
-    padding: 0 16px !important;
+    padding: 0 20px !important;
   }
   .jdgm-rev-widg__title {
     font-size: 20px !important;
@@ -3509,6 +3534,6 @@ textarea.jdgm-form-input {
     text-align: center !important;
   }
   .jdgm-form {
-    padding: 20px 15px !important;
+    padding: 25px 18px !important;
   }
 }
