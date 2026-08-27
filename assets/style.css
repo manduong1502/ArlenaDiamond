@@ -3316,21 +3316,22 @@ select.jdgm-form__dropdown:focus {
   border-color: #c5a880 !important;
 }
 
-/* Input fields & Textarea - Bulletproof luxury padding */
-.jdgm-form__input,
-.jdgm-form__input--text,
-.jdgm-form__input--textarea,
-input.jdgm-form__input,
-textarea.jdgm-form__input,
-textarea.jdgm-form__input--textarea,
-.jdgm-form-input,
-input.jdgm-form-input,
-textarea.jdgm-form-input,
-.jdgm-form input[type="text"],
-.jdgm-form input[type="email"],
-.jdgm-form input[type="password"],
-.jdgm-form textarea,
-.jdgm-form select {
+/* Input fields & Textarea - High Specificity luxury padding */
+body .jdgm-widget input[type="text"],
+body .jdgm-widget input[type="email"],
+body .jdgm-widget input[type="password"],
+body .jdgm-widget textarea,
+body .jdgm-widget select,
+body .jdgm-form__input,
+body .jdgm-form__input--text,
+body .jdgm-form__input--textarea,
+body input.jdgm-form__input,
+body textarea.jdgm-form__input,
+body textarea.jdgm-form__input--textarea,
+body .jdgm-form-input,
+body input.jdgm-form-input,
+body textarea.jdgm-form-input,
+body .jdgm-form textarea {
   width: 100% !important;
   border: 1px solid #dcdad5 !important;
   border-radius: 2px !important;
@@ -3347,18 +3348,20 @@ textarea.jdgm-form-input,
   line-height: 1.5 !important;
 }
 
-.jdgm-form textarea,
-.jdgm-form textarea.jdgm-form__input,
-.jdgm-form textarea.jdgm-form__input--textarea,
-.jdgm-form .jdgm-form__input--textarea,
-textarea.jdgm-form__input--textarea,
-textarea.jdgm-form-input {
+body .jdgm-widget textarea,
+body .jdgm-form textarea,
+body textarea.jdgm-form__input,
+body textarea.jdgm-form__input--textarea,
+body .jdgm-form .jdgm-form__input--textarea,
+body textarea.jdgm-form-input {
   min-height: 120px !important;
-  padding: 14px 18px !important;
+  padding: 15px 18px !important;
   padding-left: 18px !important;
   padding-right: 18px !important;
+  padding-top: 15px !important;
   line-height: 1.6 !important;
   resize: vertical !important;
+  box-sizing: border-box !important;
 }
 
 .jdgm-form__input::placeholder,
