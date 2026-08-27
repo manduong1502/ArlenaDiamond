@@ -1958,70 +1958,84 @@
       <!-- 3. Shipping & Returns Tab -->
       <div id="tab-shipping-returns" class="tab-pane">
         <div class="text-pane-content">
-          <p>We provide **free insured express shipping** Australia-wide. All orders are packed in unmarked security boxes for safe and discreet transport.</p>
-          <p>Since each item is crafted, please allow 18 to 22 business days for crafting and dispatch. We also support **30-day returns** with prepaid labels if your purchase doesn't exceed your expectations.</p>
+          <p>Each Arlena piece is made to order and carefully inspected before dispatch. Your estimated delivery timeframe is shown above, and tracking details will be provided once your order is on its way.</p>
+          <p>Eligible pieces may be returned within 30 days of delivery, subject to the conditions outlined in our <a href="/pages/returns-exchanges" style="color: #111; text-decoration: underline; font-weight: 500;">Returns & Exchanges Policy</a>. Personalised or bespoke pieces may not be eligible for change-of-mind returns.</p>
+          <p>For full information on delivery, return eligibility and return shipping, please see our <a href="/pages/shipping-delivery" style="color: #111; text-decoration: underline; font-weight: 500;">Shipping & Delivery Policy</a> and <a href="/pages/returns-exchanges" style="color: #111; text-decoration: underline; font-weight: 500;">Returns & Exchanges Policy</a>.</p>
         </div>
       </div>
 
       <!-- 4. Warranty Tab -->
       <div id="tab-warranty" class="tab-pane">
         <div class="text-pane-content">
-          <p>All Arlena creations are backed by our **Limited Lifetime Warranty** against manufacturing defects.</p>
-          <p>To ensure your stones remain safe, we recommend sending your piece to our workshops annually for complimentary inspection, professional cleaning, and polishing.</p>
+          <p>All Arlena creations are backed by our <strong>Limited Lifetime Warranty</strong> against manufacturing defects.</p>
+          <p>We also offer complimentary lifetime jewellery care, including professional cleaning, inspection of settings and stone security, and stone tightening where required and technically appropriate.</p>
+          <p>Please refer to our <a href="/pages/warranty" style="color: #111; text-decoration: underline; font-weight: 500;">Limited Lifetime Warranty</a> for full coverage, exclusions and care details.</p>
         </div>
       </div>
 
-      <!-- 5. FAQs Tab -->
+      <!-- 5. FAQs Tab (Dynamic per product category) -->
+      {%- assign product_type_dc = product.type | downcase -%}
+      {%- assign p_handle_dc = product.handle | downcase -%}
+      {%- assign p_title_dc = product.title | downcase -%}
+      {%- assign is_earring = false -%}
+      {%- assign is_pendant = false -%}
+      {%- assign is_bracelet = false -%}
+
+      {%- for c in product.collections -%}
+        {%- assign c_handle = c.handle | downcase -%}
+        {%- if c_handle contains 'earring' or c_handle contains 'stud' or c_handle contains 'drop' or c_handle contains 'hoop' -%}
+          {%- assign is_earring = true -%}
+        {%- elsif c_handle contains 'pendant' or c_handle contains 'necklace' or c_handle contains 'chain' -%}
+          {%- assign is_pendant = true -%}
+        {%- elsif c_handle contains 'bracelet' or c_handle contains 'bangle' -%}
+          {%- assign is_bracelet = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- for t in product.tags -%}
+        {%- assign t_dc = t | downcase -%}
+        {%- if t_dc contains 'earring' or t_dc contains 'stud' or t_dc contains 'drop' or t_dc contains 'hoop' -%}
+          {%- assign is_earring = true -%}
+        {%- elsif t_dc contains 'pendant' or t_dc contains 'necklace' -%}
+          {%- assign is_pendant = true -%}
+        {%- elsif t_dc contains 'bracelet' or t_dc contains 'bangle' -%}
+          {%- assign is_bracelet = true -%}
+        {%- endif -%}
+      {%- endfor -%}
+
+      {%- if product_type_dc contains 'earring' or p_handle_dc contains 'earring' or p_title_dc contains 'earring' -%}
+        {%- assign is_earring = true -%}
+      {%- elsif product_type_dc contains 'pendant' or p_handle_dc contains 'pendant' or p_title_dc contains 'pendant' or p_title_dc contains 'necklace' -%}
+        {%- assign is_pendant = true -%}
+      {%- elsif product_type_dc contains 'bracelet' or p_handle_dc contains 'bracelet' or p_title_dc contains 'bracelet' -%}
+        {%- assign is_bracelet = true -%}
+      {%- endif -%}
+
       <div id="tab-faqs" class="tab-pane">
         <div class="text-pane-content">
-          <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled lab environments rather than mined from the earth.</p>
-          <p><strong>Q: Can I change my backing style after ordering?</strong><br>A: Yes, if you choose Butterfly or Screw Back and find it uncomfortable, you can return them within 30 days and we will modify the backing style for you free of charge.</p>
-          <p><strong>Q: Can I customize other gemstone shapes?</strong><br>A: Absolutely! We specialize in custom designs. Please click "Book A Consultation" to speak with our design team.</p>
+          {%- if is_earring -%}
+            <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled laboratory environments rather than mined from the earth.</p>
+            <p><strong>Q: Can I change my backing style after ordering?</strong><br>A: Yes, if you choose Butterfly or Screw Back and find it uncomfortable, you can return them within 30 days and we will modify the backing style for you free of charge.</p>
+            <p><strong>Q: Are your earrings hypoallergenic and suitable for sensitive ears?</strong><br>A: Yes. All our earrings are crafted from solid 10K, 14K, 18K gold or platinum with no nickel or harmful alloys, ensuring maximum comfort for daily wear.</p>
+            <p><strong>Q: Can I customize other gemstone shapes or sizes?</strong><br>A: Absolutely! We specialize in custom designs. Please click "Book A Consultation" to speak with our design team.</p>
+          {%- elsif is_pendant -%}
+            <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled laboratory environments rather than mined from the earth.</p>
+            <p><strong>Q: What chain options and lengths are available?</strong><br>A: We offer matching solid gold Cable, Box, and Wheat chains in standard 45cm (18") adjustable lengths. You can select your preferred chain style above.</p>
+            <p><strong>Q: Can I purchase the pendant without a chain?</strong><br>A: Yes, you can choose the "Pendant Only" option if you already have your own chain.</p>
+            <p><strong>Q: Can I customize the design or gemstones?</strong><br>A: Absolutely! We specialize in bespoke commissions. Please click "Book A Consultation" to customize your piece.</p>
+          {%- elsif is_bracelet -%}
+            <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled laboratory environments rather than mined from the earth.</p>
+            <p><strong>Q: How do I determine my bracelet size?</strong><br>A: Measure your wrist circumference snugly with a flexible tape and add 1.5 cm for a comfortable fit. Contact us if you need custom sizing.</p>
+            <p><strong>Q: What type of clasp is used for security?</strong><br>A: Our tennis and chain bracelets feature double-safety security clasps to ensure your piece stays safely fastened at all times.</p>
+            <p><strong>Q: Can I customize the length or diamond size?</strong><br>A: Absolutely! We can tailor the length and total carat weight to your exact preference. Click "Book A Consultation" to learn more.</p>
+          {%- else -%}
+            <!-- Rings / Wedding Bands / Engagement Rings -->
+            <p><strong>Q: What is the difference between Lab Grown and Natural Diamonds?</strong><br>A: Lab grown diamonds are chemically, physically, and optically identical to mined diamonds. They are real diamonds created in highly controlled laboratory environments rather than mined from the earth.</p>
+            <p><strong>Q: How do I choose the correct ring size?</strong><br>A: You can refer to our Size Information guide and downloadable printable ring size chart. We also provide <strong>Complimentary Free Ring Resizing</strong> within 30 days of delivery to ensure a perfect fit.</p>
+            <p><strong>Q: Can I add custom engraving to my ring?</strong><br>A: Yes! We offer complimentary custom laser engraving on our rings and wedding bands. You can enter your personal inscription directly above before adding to cart.</p>
+            <p><strong>Q: Can I customize this ring design or choose a different gemstone shape?</strong><br>A: Absolutely! We specialize in bespoke fine jewellery and custom commissions. Please click "Book A Consultation" to speak directly with our Master Jeweller.</p>
+          {%- endif -%}
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- --- LOVE STORIES (REVIEWS) --- -->
-  <section class="reviews-section">
-    <div class="reviews-section-header">
-      <h3>Love Stories</h3>
-      <button type="button" class="reviews-btn-all">View All Reviews</button>
-    </div>
-    
-    <div class="reviews-grid">
-      <div class="review-card">
-        <div class="review-rating-row">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <p class="review-text">"Absolutely stunning. The craftsmanship exceeded every expectation. I wear them every day and they still take my breath away."</p>
-        <span class="review-author">— Sarah, Melbourne</span>
-      </div>
-      <div class="review-card">
-        <div class="review-rating-row">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <p class="review-text">"The sparkle is incredible. Even more beautiful than the photos. The team at Arlena were so helpful throughout."</p>
-        <span class="review-author">— James, Sydney</span>
-      </div>
-      <div class="review-card">
-        <div class="review-rating-row">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <p class="review-text">"Amazing communication and the presentation was flawless. Such a special experience from start to finish."</p>
-        <span class="review-author">— Emily, Brisbane</span>
       </div>
     </div>
   </section>

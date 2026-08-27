@@ -3237,11 +3237,37 @@
 .jdgm-form__rating-fieldset,
 .jdgm-form__title-fieldset,
 .jdgm-form__body-fieldset,
-.jdgm-form__picture-fieldset {
+.jdgm-form__picture-fieldset,
+.jdgm-picture-fieldset {
   width: 100% !important;
   flex: 0 0 100% !important;
   margin-bottom: 20px !important;
   display: block !important;
+}
+
+/* Photo/Media Upload Dropzone */
+.jdgm-picture-fieldset,
+.jdgm-form__picture-fieldset {
+  margin: 15px 0 20px 0 !important;
+}
+
+.jdgm-picture-fieldset__box,
+.jdgm-form__picture-fieldset .jdgm-input-file-wrapper,
+.jdgm-form-input-file-wrapper {
+  border: 1px dashed rgba(197, 168, 128, 0.6) !important;
+  background-color: #ffffff !important;
+  border-radius: 2px !important;
+  padding: 16px 20px !important;
+  text-align: center !important;
+  transition: all 0.25s ease !important;
+  cursor: pointer !important;
+}
+
+.jdgm-picture-fieldset__box:hover,
+.jdgm-form__picture-fieldset .jdgm-input-file-wrapper:hover,
+.jdgm-form-input-file-wrapper:hover {
+  border-color: #c5a880 !important;
+  background-color: #fdfaf7 !important;
 }
 
 /* 2-Column Name & Email */
