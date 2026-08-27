@@ -3011,9 +3011,11 @@
    ARLENA DIAMOND - JUDGE.ME LUXURY REVIEWS CUSTOM STYLING
    ========================================================================== */
 
-/* ── Container & Header ── */
-.jdgm-widget.jdgm-review-widget,
-.jdgm-review-widget {
+/* ── Container & Universal Scoping ── */
+body .jdgm-widget.jdgm-review-widget,
+body .jdgm-review-widget,
+body #judgeme_product_reviews,
+body .arlena-reviews-section {
   max-width: 1200px !important;
   margin: 60px auto 40px auto !important;
   padding: 0 20px !important;
@@ -3021,13 +3023,15 @@
   color: #111111 !important;
 }
 
-.jdgm-rev-widg__header {
+body .jdgm-rev-widg__header {
   border-bottom: 1px solid #eaeaea !important;
   padding-bottom: 30px !important;
   margin-bottom: 35px !important;
 }
 
-.jdgm-rev-widg__title {
+body .jdgm-rev-widg__title,
+body .jdgm-widget h2,
+body .jdgm-widget h3 {
   font-family: 'Cinzel', serif !important;
   font-size: 26px !important;
   font-weight: 500 !important;
@@ -3038,30 +3042,30 @@
 }
 
 /* ── Summary & Score ── */
-.jdgm-rev-widg__summary {
+body .jdgm-rev-widg__summary {
   display: flex !important;
   align-items: center !important;
   gap: 12px !important;
 }
 
-.jdgm-rev-widg__summary-score {
+body .jdgm-rev-widg__summary-score {
   font-family: 'Cinzel', serif !important;
   font-size: 28px !important;
   font-weight: 600 !important;
   color: #111111 !important;
 }
 
-.jdgm-rev-widg__summary-text {
+body .jdgm-rev-widg__summary-text {
   font-size: 13px !important;
   color: #666666 !important;
   letter-spacing: 0.5px !important;
 }
 
 /* ── Luxury Gold Stars (Universal Solid Fallback) ── */
-.jdgm-star,
-.jdgm-form__rating .jdgm-star,
-.jdgm-row-stars .jdgm-star,
-.jdgm-preview-badge .jdgm-star {
+body .jdgm-star,
+body .jdgm-form__rating .jdgm-star,
+body .jdgm-row-stars .jdgm-star,
+body .jdgm-preview-badge .jdgm-star {
   font-size: 20px !important;
   color: #c5a880 !important;
   cursor: pointer !important;
@@ -3072,10 +3076,10 @@
   transition: transform 0.15s ease, color 0.15s ease !important;
 }
 
-.jdgm-star:before,
-.jdgm-form__rating .jdgm-star:before,
-.jdgm-row-stars .jdgm-star:before,
-.jdgm-preview-badge .jdgm-star:before {
+body .jdgm-star:before,
+body .jdgm-form__rating .jdgm-star:before,
+body .jdgm-row-stars .jdgm-star:before,
+body .jdgm-preview-badge .jdgm-star:before {
   content: "★" !important;
   font-family: 'Font Awesome 6 Free', 'Arial', sans-serif !important;
   font-weight: 900 !important;
@@ -3084,31 +3088,35 @@
   color: #c5a880 !important;
 }
 
-.jdgm-star.jdgm--off:before,
-.jdgm-form__rating .jdgm-star.jdgm--off:before {
+body .jdgm-star.jdgm--off:before,
+body .jdgm-form__rating .jdgm-star.jdgm--off:before {
   color: #e2dfd9 !important;
 }
 
-.jdgm-star.jdgm--on:before,
-.jdgm-star.jdgm--half:before,
-.jdgm-form__rating .jdgm-star.jdgm--on:before {
+body .jdgm-star.jdgm--on:before,
+body .jdgm-star.jdgm--half:before,
+body .jdgm-form__rating .jdgm-star.jdgm--on:before {
   color: #c5a880 !important;
 }
 
-.jdgm-form__rating .jdgm-star:hover:before,
-.jdgm-form__rating .jdgm-star.jdgm--hover:before {
+body .jdgm-form__rating .jdgm-star:hover:before,
+body .jdgm-form__rating .jdgm-star.jdgm--hover:before {
   color: #c5a880 !important;
 }
 
-.jdgm-form__rating .jdgm-star:hover {
+body .jdgm-form__rating .jdgm-star:hover {
   transform: scale(1.2) !important;
 }
 
-/* ── Buttons (Write a Review / Submit / Filters) ── */
-.jdgm-btn,
-.jdgm-write-rev-link,
-.jdgm-rev-widg__btn {
+/* ── Luxury Buttons (Write a Review / Submit / Filters) ── */
+body .jdgm-btn,
+body .jdgm-write-rev-link,
+body .jdgm-btn--primary,
+body a.jdgm-btn,
+body button.jdgm-btn,
+body .jdgm-rev-widg__btn {
   background-color: #111111 !important;
+  background: #111111 !important;
   color: #ffffff !important;
   border: 1px solid #111111 !important;
   font-family: var(--font-base, 'Jost', sans-serif) !important;
@@ -3126,10 +3134,14 @@
   justify-content: center !important;
 }
 
-.jdgm-btn:hover,
-.jdgm-write-rev-link:hover,
-.jdgm-rev-widg__btn:hover {
+body .jdgm-btn:hover,
+body .jdgm-write-rev-link:hover,
+body .jdgm-btn--primary:hover,
+body a.jdgm-btn:hover,
+body button.jdgm-btn:hover,
+body .jdgm-rev-widg__btn:hover {
   background-color: #c5a880 !important;
+  background: #c5a880 !important;
   border-color: #c5a880 !important;
   color: #111111 !important;
 }
