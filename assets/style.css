@@ -3317,14 +3317,19 @@ label.jdgm-form-label {
 .jdgm-form-dropdown,
 .jdgm-form__dropdown,
 select.jdgm-form-dropdown,
-select.jdgm-form__dropdown {
+select.jdgm-form__dropdown,
+body .jdgm-widget select.jdgm-form-dropdown,
+body .jdgm-widget select.jdgm-form__dropdown {
+  width: auto !important;
+  max-width: 130px !important;
+  height: 26px !important;
   font-size: 11px !important;
   font-weight: 500 !important;
   color: #555555 !important;
   background-color: #ffffff !important;
   border: 1px solid #dcdad5 !important;
   border-radius: 2px !important;
-  padding: 3px 8px !important;
+  padding: 2px 8px !important;
   outline: none !important;
   cursor: pointer !important;
   text-transform: none !important;
@@ -3333,6 +3338,7 @@ select.jdgm-form__dropdown {
   display: inline-block !important;
   vertical-align: middle !important;
   transition: border-color 0.2s ease !important;
+  box-sizing: border-box !important;
 }
 
 .jdgm-form-dropdown:focus,
@@ -3347,7 +3353,6 @@ body .jdgm-widget input[type="text"],
 body .jdgm-widget input[type="email"],
 body .jdgm-widget input[type="password"],
 body .jdgm-widget textarea,
-body .jdgm-widget select,
 body .jdgm-form__input,
 body .jdgm-form__input--text,
 body .jdgm-form__input--textarea,
