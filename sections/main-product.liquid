@@ -2101,6 +2101,13 @@
       </div>
     </div>
   </section>
+
+  <!-- Judge.me Product Reviews Section -->
+  <section class="arlena-reviews-section" style="max-width: 1200px; margin: 60px auto 40px auto; padding: 0;">
+    <div id='judgeme_product_reviews' class='jdgm-widget jdgm-review-widget' data-product-title='{{ product.title | escape }}' data-id='{{ product.id }}'>
+      {{ product.metafields.judgeme.widget }}
+    </div>
+  </section>
 </div>
 
 <!-- Size Guide Modal -->
