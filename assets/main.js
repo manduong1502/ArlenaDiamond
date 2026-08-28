@@ -408,14 +408,20 @@ fixFooterDesktop();
 
     if (!bodyFieldset) return;
 
+    // Clean up messy Name label
+    var nameLabel = form.querySelector('.jdgm-form__name-fieldset label, .jdgm-form-fieldset--name label, .jdgm-form__fieldset--name label');
+    if (nameLabel) {
+      nameLabel.textContent = 'Name';
+    }
+
     var zone = document.createElement('div');
     zone.className = 'arlena-review-photo-zone';
     zone.innerHTML = [
       '<label class="jdgm-form-label">Photos & Videos (Optional)</label>',
       '<div class="arlena-review-photo-box" id="arlenaPhotoDropBox">',
       '  <i class="fa-solid fa-camera arlena-photo-drop-icon"></i>',
-      '  <div class="arlena-photo-drop-title">Drag & drop your diamond jewelry photos here</div>',
-      '  <div class="arlena-photo-drop-sub">or click to browse files (Up to 5 files, PNG/JPG/MP4 max 10MB each)</div>',
+      '  <div class="arlena-photo-drop-title">Drag & drop your jewelry photos here</div>',
+      '  <div class="arlena-photo-drop-sub">or click to browse files (Up to 5 files, PNG/JPG/MP4)</div>',
       '  <input type="file" id="arlenaCustomPhotoInput" accept="image/*,video/*" multiple style="display: none;">',
       '</div>',
       '<div class="arlena-photo-preview-grid" id="arlenaPhotoPreviewGrid"></div>'
