@@ -533,14 +533,24 @@ fixFooterDesktop();
     }
   }
 
+  function cleanNameLabels() {
+    var nameLabels = document.querySelectorAll('.jdgm-form__name-fieldset label, .jdgm-form-fieldset--name label, .jdgm-form-fieldset.jdgm-form-fieldset--name label, .jdgm-form__fieldset--name label');
+    nameLabels.forEach(function(lbl) {
+      if (lbl && (lbl.innerHTML !== 'NAME' || lbl.children.length > 0)) {
+        lbl.innerHTML = 'NAME';
+      }
+    });
+  }
+
   // Observer to catch Judge.me form dynamic render
   function checkForReviewForm() {
+    cleanNameLabels();
     var forms = document.querySelectorAll('.jdgm-form form, .jdgm-form, #judgeme_product_reviews form');
     forms.forEach(function(f) {
       enhanceReviewForm(f);
     });
   }
 
-  setInterval(checkForReviewForm, 600);
+  setInterval(checkForReviewForm, 300);
   document.addEventListener('DOMContentLoaded', checkForReviewForm);
 })();
