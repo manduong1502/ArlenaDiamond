@@ -3214,14 +3214,14 @@ body .jdgm-rev-widg__btn:hover {
   padding: 8px 12px !important;
 }
 
-/* ── Write Review Form ── */
+/* ── Write Review Form Container ── */
 .jdgm-form {
-  background-color: #faf8f5 !important;
+  background-color: #faf9f6 !important;
   border: 1px solid rgba(197, 168, 128, 0.35) !important;
   padding: 35px 40px !important;
   margin: 25px 0 35px 0 !important;
   border-radius: 4px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
 }
 
 .jdgm-form form,
@@ -3229,10 +3229,12 @@ body .jdgm-rev-widg__btn:hover {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: space-between !important;
+  align-items: stretch !important;
 }
 
 .jdgm-form__title {
   width: 100% !important;
+  flex: 0 0 100% !important;
   font-family: 'Cinzel', serif !important;
   font-size: 20px !important;
   font-weight: 500 !important;
@@ -3250,39 +3252,15 @@ body .jdgm-rev-widg__btn:hover {
 .jdgm-form__title-fieldset,
 .jdgm-form__body-fieldset,
 .jdgm-form__picture-fieldset,
-.jdgm-picture-fieldset {
+.jdgm-picture-fieldset,
+.arlena-review-photo-zone {
   width: 100% !important;
   flex: 0 0 100% !important;
   margin-bottom: 20px !important;
   display: block !important;
 }
 
-/* Photo/Media Upload Dropzone */
-.jdgm-picture-fieldset,
-.jdgm-form__picture-fieldset {
-  margin: 15px 0 20px 0 !important;
-}
-
-.jdgm-picture-fieldset__box,
-.jdgm-form__picture-fieldset .jdgm-input-file-wrapper,
-.jdgm-form-input-file-wrapper {
-  border: 1px dashed rgba(197, 168, 128, 0.6) !important;
-  background-color: #ffffff !important;
-  border-radius: 2px !important;
-  padding: 16px 20px !important;
-  text-align: center !important;
-  transition: all 0.25s ease !important;
-  cursor: pointer !important;
-}
-
-.jdgm-picture-fieldset__box:hover,
-.jdgm-form__picture-fieldset .jdgm-input-file-wrapper:hover,
-.jdgm-form-input-file-wrapper:hover {
-  border-color: #c5a880 !important;
-  background-color: #fdfaf7 !important;
-}
-
-/* 2-Column Name & Email */
+/* 2-Column Name & Email - Perfectly Balanced & Aligned */
 .jdgm-form__name-fieldset,
 .jdgm-form__email-fieldset,
 .jdgm-form-fieldset:nth-of-type(1),
@@ -3291,10 +3269,13 @@ body .jdgm-rev-widg__btn:hover {
 .jdgm-form__fieldset--email,
 .jdgm-form-fieldset.jdgm-form-fieldset--name,
 .jdgm-form-fieldset.jdgm-form-fieldset--email {
-  width: calc(50% - 10px) !important;
-  flex: 0 0 calc(50% - 10px) !important;
-  display: inline-block !important;
-  vertical-align: top !important;
+  width: calc(50% - 12px) !important;
+  flex: 0 0 calc(50% - 12px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  margin-bottom: 22px !important;
+  box-sizing: border-box !important;
 }
 
 @media (max-width: 768px) {
@@ -3308,12 +3289,13 @@ body .jdgm-rev-widg__btn:hover {
   .jdgm-form-fieldset.jdgm-form-fieldset--email {
     width: 100% !important;
     flex: 0 0 100% !important;
-    display: block !important;
   }
 }
 
 .jdgm-form-label,
-label.jdgm-form-label {
+label.jdgm-form-label,
+.jdgm-form__name-fieldset label,
+.jdgm-form__email-fieldset label {
   font-family: var(--font-base, 'Jost', sans-serif) !important;
   font-size: 11px !important;
   font-weight: 600 !important;
@@ -3321,8 +3303,11 @@ label.jdgm-form-label {
   text-transform: uppercase !important;
   color: #222222 !important;
   margin-bottom: 8px !important;
-  display: block !important;
-  line-height: 1.6 !important;
+  min-height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  line-height: 1.4 !important;
 }
 
 /* Style name format dropdown */
@@ -3333,15 +3318,15 @@ select.jdgm-form__dropdown,
 body .jdgm-widget select.jdgm-form-dropdown,
 body .jdgm-widget select.jdgm-form__dropdown {
   width: auto !important;
-  max-width: 130px !important;
-  height: 26px !important;
+  max-width: 140px !important;
+  height: 24px !important;
   font-size: 11px !important;
   font-weight: 500 !important;
-  color: #555555 !important;
+  color: #444444 !important;
   background-color: #ffffff !important;
   border: 1px solid #dcdad5 !important;
   border-radius: 2px !important;
-  padding: 2px 8px !important;
+  padding: 1px 6px !important;
   outline: none !important;
   cursor: pointer !important;
   text-transform: none !important;
@@ -3358,6 +3343,128 @@ body .jdgm-widget select.jdgm-form__dropdown {
 select.jdgm-form-dropdown:focus,
 select.jdgm-form__dropdown:focus {
   border-color: #c5a880 !important;
+}
+
+/* Rating Stars inside Form */
+.jdgm-form__rating-fieldset {
+  margin-bottom: 22px !important;
+}
+
+.jdgm-form__rating-fieldset .jdgm-form-label {
+  margin-bottom: 6px !important;
+}
+
+.jdgm-form__rating .jdgm-star {
+  font-size: 24px !important;
+  color: #c5a880 !important;
+  margin-right: 5px !important;
+  cursor: pointer !important;
+  transition: transform 0.15s ease, color 0.15s ease !important;
+}
+
+.jdgm-form__rating .jdgm-star:hover {
+  transform: scale(1.2) !important;
+}
+
+/* Photo & Media Upload Dropzone */
+.jdgm-picture-fieldset,
+.jdgm-form__picture-fieldset,
+.arlena-review-photo-zone {
+  margin: 10px 0 25px 0 !important;
+  width: 100% !important;
+  flex: 0 0 100% !important;
+}
+
+.jdgm-picture-fieldset__box,
+.jdgm-form__picture-fieldset .jdgm-input-file-wrapper,
+.jdgm-form-input-file-wrapper,
+.arlena-review-photo-box {
+  border: 1.5px dashed rgba(197, 168, 128, 0.7) !important;
+  background-color: #ffffff !important;
+  border-radius: 4px !important;
+  padding: 24px 20px !important;
+  text-align: center !important;
+  transition: all 0.25s ease !important;
+  cursor: pointer !important;
+  position: relative !important;
+}
+
+.jdgm-picture-fieldset__box:hover,
+.jdgm-form__picture-fieldset .jdgm-input-file-wrapper:hover,
+.jdgm-form-input-file-wrapper:hover,
+.arlena-review-photo-box:hover,
+.arlena-review-photo-box.drag-over {
+  border-color: #c5a880 !important;
+  background-color: #fdfaf7 !important;
+  box-shadow: 0 4px 12px rgba(197, 168, 128, 0.12) !important;
+}
+
+.arlena-photo-drop-icon {
+  font-size: 26px !important;
+  color: #c5a880 !important;
+  margin-bottom: 8px !important;
+  display: block !important;
+}
+
+.arlena-photo-drop-title {
+  font-family: var(--font-base, 'Jost', sans-serif) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px !important;
+  color: #111111 !important;
+  margin-bottom: 4px !important;
+}
+
+.arlena-photo-drop-sub {
+  font-size: 11.5px !important;
+  color: #777777 !important;
+}
+
+/* Photo Thumbnail Preview Grid */
+.arlena-photo-preview-grid {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin-top: 15px !important;
+  justify-content: center !important;
+}
+
+.arlena-photo-preview-item {
+  position: relative !important;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(197, 168, 128, 0.5) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+.arlena-photo-preview-item img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+.arlena-photo-preview-remove {
+  position: absolute !important;
+  top: 2px !important;
+  right: 2px !important;
+  width: 18px !important;
+  height: 18px !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  color: #ffffff !important;
+  border-radius: 50% !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.arlena-photo-preview-remove:hover {
+  background: #c5a880 !important;
+  color: #111111 !important;
 }
 
 /* Input fields & Textarea - High Specificity luxury padding */

@@ -390,3 +390,151 @@ window.addEventListener('resize', fixFooterDesktop);
 document.addEventListener('DOMContentLoaded', fixFooterDesktop);
 // Run immediately as well
 fixFooterDesktop();
+
+/* ══════════════════════════════════════════════
+   ARLENA LUXURY REVIEW FORM PHOTO UPLOADER ENHANCER
+   ══════════════════════════════════════════════ */
+(function initArlenaReviewPhotoEnhancer() {
+  var selectedFiles = [];
+
+  function enhanceReviewForm(form) {
+    if (!form || form.querySelector('.arlena-review-photo-zone') || form.querySelector('.jdgm-picture-fieldset')) {
+      return;
+    }
+
+    var bodyFieldset = form.querySelector('.jdgm-form__body-fieldset') || 
+                      form.querySelector('textarea')?.closest('.jdgm-form-fieldset') ||
+                      form.querySelector('textarea')?.parentElement;
+
+    if (!bodyFieldset) return;
+
+    var zone = document.createElement('div');
+    zone.className = 'arlena-review-photo-zone';
+    zone.innerHTML = [
+      '<label class="jdgm-form-label">Photos & Videos (Optional)</label>',
+      '<div class="arlena-review-photo-box" id="arlenaPhotoDropBox">',
+      '  <i class="fa-solid fa-camera arlena-photo-drop-icon"></i>',
+      '  <div class="arlena-photo-drop-title">Drag & drop your diamond jewelry photos here</div>',
+      '  <div class="arlena-photo-drop-sub">or click to browse files (Up to 5 files, PNG/JPG/MP4 max 10MB each)</div>',
+      '  <input type="file" id="arlenaCustomPhotoInput" accept="image/*,video/*" multiple style="display: none;">',
+      '</div>',
+      '<div class="arlena-photo-preview-grid" id="arlenaPhotoPreviewGrid"></div>'
+    ].join('');
+
+    // Insert right below review content textarea
+    bodyFieldset.parentNode.insertBefore(zone, bodyFieldset.nextSibling);
+
+    var dropBox = zone.querySelector('#arlenaPhotoDropBox');
+    var fileInput = zone.querySelector('#arlenaCustomPhotoInput');
+    var previewGrid = zone.querySelector('#arlenaPhotoPreviewGrid');
+
+    dropBox.addEventListener('click', function(e) {
+      if (e.target.closest('.arlena-photo-preview-remove')) return;
+      fileInput.click();
+    });
+
+    ['dragenter', 'dragover'].forEach(function(eventName) {
+      dropBox.addEventListener(eventName, function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropBox.classList.add('drag-over');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(function(eventName) {
+      dropBox.addEventListener(eventName, function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        dropBox.classList.remove('drag-over');
+      }, false);
+    });
+
+    dropBox.addEventListener('drop', function(e) {
+      var dt = e.dataTransfer;
+      var files = dt ? dt.files : null;
+      if (files && files.length) {
+        handleFiles(files);
+      }
+    }, false);
+
+    fileInput.addEventListener('change', function() {
+      if (this.files && this.files.length) {
+        handleFiles(this.files);
+      }
+    });
+
+    function handleFiles(files) {
+      for (var i = 0; i < files.length; i++) {
+        if (selectedFiles.length >= 5) break;
+        var file = files[i];
+        if (file.size > 10 * 1024 * 1024) continue;
+        selectedFiles.push(file);
+      }
+      renderPreviews();
+      syncFilesToJudgeMe(form);
+    }
+
+    function renderPreviews() {
+      previewGrid.innerHTML = '';
+      selectedFiles.forEach(function(file, index) {
+        var item = document.createElement('div');
+        item.className = 'arlena-photo-preview-item';
+        
+        var img = document.createElement('img');
+        if (file.type.startsWith('image/')) {
+          img.src = URL.createObjectURL(file);
+        } else {
+          img.src = 'https://cdn.jsdelivr.net/npm/bootstrap-icons/icons/play-circle-fill.svg';
+        }
+        item.appendChild(img);
+
+        var removeBtn = document.createElement('button');
+        removeBtn.type = 'button';
+        removeBtn.className = 'arlena-photo-preview-remove';
+        removeBtn.innerHTML = '&times;';
+        removeBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          selectedFiles.splice(index, 1);
+          renderPreviews();
+          syncFilesToJudgeMe(form);
+        });
+        item.appendChild(removeBtn);
+
+        previewGrid.appendChild(item);
+      });
+    }
+
+    function syncFilesToJudgeMe(f) {
+      var targetInput = f.querySelector('input[type="file"][name="picture"]') ||
+                        f.querySelector('input[type="file"].jdgm-picture-fieldset__input');
+      
+      if (!targetInput) {
+        targetInput = document.createElement('input');
+        targetInput.type = 'file';
+        targetInput.name = 'picture';
+        targetInput.multiple = true;
+        targetInput.style.display = 'none';
+        f.appendChild(targetInput);
+      }
+
+      if (window.DataTransfer) {
+        var dt = new DataTransfer();
+        selectedFiles.forEach(function(file) {
+          dt.items.add(file);
+        });
+        targetInput.files = dt.files;
+      }
+    }
+  }
+
+  // Observer to catch Judge.me form dynamic render
+  function checkForReviewForm() {
+    var forms = document.querySelectorAll('.jdgm-form form, .jdgm-form, #judgeme_product_reviews form');
+    forms.forEach(function(f) {
+      enhanceReviewForm(f);
+    });
+  }
+
+  setInterval(checkForReviewForm, 600);
+  document.addEventListener('DOMContentLoaded', checkForReviewForm);
+})();
