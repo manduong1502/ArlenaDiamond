@@ -534,10 +534,30 @@ fixFooterDesktop();
   }
 
   function cleanNameLabels() {
-    var nameLabels = document.querySelectorAll('.jdgm-form__name-fieldset label, .jdgm-form-fieldset--name label, .jdgm-form-fieldset.jdgm-form-fieldset--name label, .jdgm-form__fieldset--name label');
-    nameLabels.forEach(function(lbl) {
-      if (lbl && (lbl.innerHTML !== 'NAME' || lbl.children.length > 0)) {
-        lbl.innerHTML = 'NAME';
+    var nameFieldsets = document.querySelectorAll('.jdgm-form__name-fieldset, .jdgm-form-fieldset--name, .jdgm-form-fieldset.jdgm-form-fieldset--name, .jdgm-form__fieldset--name');
+    nameFieldsets.forEach(function(fs) {
+      if (!fs) return;
+
+      // 1. Remove all direct text nodes like "(" and ")" from fieldset
+      Array.from(fs.childNodes).forEach(function(node) {
+        if (node.nodeType === 3) { // Node.TEXT_NODE
+          if (node.nodeValue && node.nodeValue.trim().length > 0) {
+            node.nodeValue = '';
+          }
+        }
+      });
+
+      // 2. Hide any dropdowns
+      var select = fs.querySelector('select, .jdgm-form__reviewer-name-format-dropdown, .jdgm-form-dropdown');
+      if (select) {
+        select.style.display = 'none';
+        select.style.visibility = 'hidden';
+      }
+
+      // 3. Ensure label is clean "NAME"
+      var label = fs.querySelector('label');
+      if (label) {
+        label.innerHTML = 'NAME';
       }
     });
   }
