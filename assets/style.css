@@ -3269,12 +3269,23 @@ body .jdgm-rev-widg__btn:hover {
 
 /* 2-Column Name & Email - Perfectly Balanced & Aligned */
 .jdgm-form__name-fieldset,
+.jdgm-form-fieldset--name,
+.jdgm-form-fieldset.jdgm-form-fieldset--name {
+  width: calc(50% - 10px) !important;
+  flex: 0 0 calc(50% - 10px) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  margin-bottom: 14px !important;
+  box-sizing: border-box !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+  color: transparent !important;
+}
+
 .jdgm-form__email-fieldset,
-.jdgm-form-fieldset:nth-of-type(1),
 .jdgm-form-fieldset:nth-of-type(2),
-.jdgm-form__fieldset--name,
 .jdgm-form__fieldset--email,
-.jdgm-form-fieldset.jdgm-form-fieldset--name,
 .jdgm-form-fieldset.jdgm-form-fieldset--email {
   width: calc(50% - 10px) !important;
   flex: 0 0 calc(50% - 10px) !important;
@@ -3316,12 +3327,21 @@ label.jdgm-form-label,
   line-height: 1.3 !important;
 }
 
-/* Hide all sub-elements, parentheses and dropdowns inside Name label */
-.jdgm-form__name-fieldset label span,
-.jdgm-form__name-fieldset label select,
+/* Explicit text color and font size for name input field */
+.jdgm-form__name-fieldset input,
+.jdgm-form-fieldset--name input,
+.jdgm-form-fieldset.jdgm-form-fieldset--name input {
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+  color: #111111 !important;
+}
+
+/* Hide ALL non-label, non-input elements in Name fieldset */
+.jdgm-form__name-fieldset span,
 .jdgm-form__name-fieldset select,
-.jdgm-form-fieldset.jdgm-form-fieldset--name label span,
-.jdgm-form-fieldset.jdgm-form-fieldset--name label select,
+.jdgm-form-fieldset--name span,
+.jdgm-form-fieldset--name select,
+.jdgm-form-fieldset.jdgm-form-fieldset--name span,
 .jdgm-form-fieldset.jdgm-form-fieldset--name select,
 .jdgm-form__reviewer-name-format-dropdown,
 .jdgm-form-dropdown,
@@ -3335,6 +3355,7 @@ select.jdgm-form__dropdown {
   pointer-events: none !important;
   height: 0 !important;
   width: 0 !important;
+  overflow: hidden !important;
   margin: 0 !important;
   padding: 0 !important;
 }
