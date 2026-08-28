@@ -1,12 +1,14 @@
 <script type="text/javascript">
   window.jdgm = window.jdgm || {};
-  window.jdgm.SHOP_DOMAIN = '{{ shop.permanent_domain | default: "arlena-9.myshopify.com" }}';
+  window.jdgm.SHOP_DOMAIN = '{{ shop.permanent_domain | default: "s3nryw-qi.myshopify.com" }}';
   window.jdgm.PLATFORM = 'shopify';
   window.jdgm.PUBLIC_TOKEN = '{{ shop.metafields.judgeme.public_token }}';
-  window.jdgmSettings = window.jdgmSettings || {
-    widget_version: 'v2',
-    locale: 'en'
-  };
+  window.jdgmSettings = window.jdgmSettings || {};
+  window.jdgmSettings.widget_version = 'v2';
+  window.jdgmSettings.locale = 'en';
+  window.jdgmSettings.widget_pictures_field_text = 'Picture/Video (optional)';
+  window.jdgmSettings.widget_file_upload_enabled = true;
+  window.jdgmSettings.enable_media = true;
 </script>
 <link rel="stylesheet" href="https://cdn.judge.me/shopify_v2.css" type="text/css" media="all">
 <script type="text/javascript" src="https://cdn.judge.me/shopify_v2.js" defer></script>
