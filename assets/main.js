@@ -574,3 +574,138 @@ fixFooterDesktop();
   setInterval(checkForReviewForm, 300);
   document.addEventListener('DOMContentLoaded', checkForReviewForm);
 })();
+
+/* ══════════════════════════════════════════════
+   VIETNAMESE AUTO-TRANSLATION & ROUTE PRESERVATION
+   ══════════════════════════════════════════════ */
+(function() {
+  function isVietnameseLocale() {
+    return window.location.pathname === '/vi' || 
+           window.location.pathname.startsWith('/vi/') || 
+           document.documentElement.lang === 'vi' ||
+           (window.Shopify && window.Shopify.locale === 'vi');
+  }
+
+  // Preserve /vi in internal navigation links
+  function preserveVietnameseRoutes() {
+    if (!isVietnameseLocale()) return;
+
+    var links = document.querySelectorAll('a[href^="/"]');
+    links.forEach(function(a) {
+      var href = a.getAttribute('href');
+      if (!href) return;
+      if (href.startsWith('/vi') || href.startsWith('//') || href.startsWith('/cdn') || href.startsWith('#') || href.startsWith('javascript:')) {
+        return;
+      }
+      if (a.closest('form') || a.classList.contains('header-lang-option')) return;
+      a.setAttribute('href', '/vi' + href);
+    });
+  }
+
+  // Auto-translate dictionary for luxury storefront
+  var viTranslations = [
+    // Navigation & Header
+    { match: /^Engagement Rings$/i, text: 'Nhẫn Cầu Hôn' },
+    { match: /^Wedding Bands$/i, text: 'Nhẫn Cưới' },
+    { match: /^Earrings$/i, text: 'Bông Tai' },
+    { match: /^Pendants$/i, text: 'Mặt Dây Chuyền' },
+    { match: /^Bracelets$/i, text: 'Lắc & Vòng Tay' },
+    { match: /^Rings$/i, text: 'Nhẫn Kim Cương' },
+    { match: /^Our Story$/i, text: 'Câu Chuyện Arlena' },
+    { match: /^Craftsmanship$/i, text: 'Nghệ Thuật Chế Tác' },
+    { match: /^Gifts$/i, text: 'Quà Tặng' },
+    { match: /^My Account$/i, text: 'Tài Khoản Của Tôi' },
+    { match: /^Search$/i, text: 'Tìm kiếm' },
+    { match: /^Cart$/i, text: 'Giỏ hàng' },
+    { match: /^AUSTRALIAN MADE$/i, text: 'CHẾ TÁC TẠI ÚC' },
+    { match: /^20\+ YEARS OF EXPERTISE$/i, text: '20+ NĂM KINH NGHIỆM' },
+    { match: /^MADE TO ORDER$/i, text: 'CHẾ TÁC THEO YÊU CẦU' },
+    { match: /^FREE INSURED DELIVERY$/i, text: 'GIAO HÀNG BẢO HIỂM MIỄN PHÍ' },
+
+    // Trust Row & Footer
+    { match: /^30-DAY RETURNS$/i, text: 'ĐỔI TRẢ TRONG 30 NGÀY' },
+    { match: /^Shop with confidence with 30-day returns on eligible pieces\.$/i, text: 'Mua sắm an tâm tuyệt đối với chính sách đổi trả 30 ngày cho sản phẩm hợp lệ.' },
+    { match: /^Tracked and insured delivery for added peace of mind\.$/i, text: 'Giao hàng bảo hiểm và theo dõi hành trình minh bạch, an tâm tối đa.' },
+    { match: /^LIMITED LIFETIME WARRANTY$/i, text: 'BẢO HÀNH TRỌN ĐỜI CÓ ĐIỀU KIỆN' },
+    { match: /^Our craftsmanship is backed by a limited lifetime warranty\.$/i, text: 'Nghệ thuật chế tác kim hoàn được bảo chứng bởi chế độ bảo hành trọn đời.' },
+    { match: /^SECURE PAYMENTS$/i, text: 'THANH TOÁN AN TOÀN BẢO MẬT' },
+    { match: /^Safe and secure checkout with trusted payment methods\.$/i, text: 'Thanh toán an toàn, bảo mật tuyệt đối qua các cổng thanh toán uy tín.' },
+    { match: /^SHOP$/i, text: 'DANH MỤC' },
+    { match: /^CUSTOMER CARE$/i, text: 'CHĂM SÓC KHÁCH HÀNG' },
+    { match: /^ABOUT US$/i, text: 'VỀ CHÚNG TÔI' },
+    { match: /^STAY CONNECTED$/i, text: 'KẾT NỐI VỚI CHÚNG TÔI' },
+    { match: /^Discover new collections, jewellery inspiration and exclusive offers$/i, text: 'Khám phá các bộ sưu tập mới, cảm hứng trang sức và ưu đãi đặc quyền.' },
+    { match: /^Shipping & Delivery$/i, text: 'Giao Hàng & Vận Chuyển' },
+    { match: /^Returns & Exchanges$/i, text: 'Đổi Trả & Hoàn Tiền' },
+    { match: /^Warranty$/i, text: 'Chính Sách Bảo Hành' },
+    { match: /^Ring Size Guide$/i, text: 'Hướng Dẫn Đo Size Nhẫn' },
+    { match: /^FAQs$/i, text: 'Câu Hỏi Thường Gặp' },
+    { match: /^Contact Us$/i, text: 'Liên Hệ Chúng Tôi' },
+    { match: /^Privacy Policy$/i, text: 'Chính Sách Bảo Mật' },
+    { match: /^Terms & Conditions$/i, text: 'Điều Khoản & Dịch Vụ' },
+
+    // Homepage & Collection
+    { match: /^EXPLORE OUR COLLECTIONS$/i, text: 'KHÁM PHÁ CÁC BỘ SƯU TẬP' },
+    { match: /^TIMELESS PIECES, CRAFTED FOR YOU$/i, text: 'TUYỆT TÁC VƯỢT THỜI GIAN, CHẾ TÁC CHO BẠN' },
+    { match: /^CRAFTED IN AUSTRALIA$/i, text: 'CHẾ TÁC THỦ CÔNG TẠI ÚC' },
+    { match: /^CRAFTED WITH EXPERIENCE AND PRECISION$/i, text: 'CHẾ TÁC VỚI KINH NGHIỆM VÀ ĐỘ CHÍNH XÁC TUYỆT ĐỐI' },
+    { match: /^EXCEPTIONAL GEMSTONES$/i, text: 'ĐÁ QUÝ & KIM CƯƠNG ĐẲNG CẤP' },
+    { match: /^BESPOKE CRAFTSMANSHIP$/i, text: 'CHẾ TÁC ĐỘC BẢN RIÊNG BIỆT' },
+    { match: /^SUSTAINABLY SOURCED$/i, text: 'NGUỒN GỐC BỀN VỮNG & ĐẠO ĐỨC' },
+    { match: /^MADE FOR MOMENTS\.$/i, text: 'DÀNH CHO TỪNG KHOẢNH KHẮC.' },
+    { match: /^FILTER & SORT$/i, text: 'BỘ LỌC & SẮP XẾP' },
+    { match: /^Metal Type$/i, text: 'Loại Vàng / Kim Loại' },
+    { match: /^Natural Gemstones$/i, text: 'Đá Quý Tự Nhiên' },
+    { match: /^Lab Grown Gemstones$/i, text: 'Kim Cương Lab Grown' },
+    { match: /^Gemstone Shape$/i, text: 'Dáng Đá / Giác Cắt' },
+    { match: /^Jewelry Styles$/i, text: 'Kiểu Dáng Trang Sức' },
+    { match: /^Price$/i, text: 'Mức Giá' },
+    { match: /^Lab Grown Only$/i, text: 'Chỉ Kim Cương Lab' },
+    { match: /^View Collection$/i, text: 'Xem Bộ Sưu Tập' },
+    { match: /^View All$/i, text: 'Xem Tất Cả' },
+    { match: /^Add to Cart$/i, text: 'Thêm vào giỏ' },
+    { match: /^ADD TO CART$/i, text: 'THÊM VÀO GIỎ HÀNG' },
+    { match: /^Buy Now$/i, text: 'Mua Ngay' },
+    { match: /^BUY NOW$/i, text: 'MUA NGAY' },
+    { match: /^CUSTOMER REVIEWS$/i, text: 'ĐÁNH GIÁ TỪ KHÁCH HÀNG' },
+    { match: /^WRITE A REVIEW$/i, text: 'VIẾT ĐÁNH GIÁ' },
+    { match: /^Be the first to write a review$/i, text: 'Hãy là người đầu tiên viết đánh giá' }
+  ];
+
+  function applyVietnameseTranslations() {
+    if (!isVietnameseLocale()) return;
+
+    // 1. Text nodes in headings, links, buttons, spans, strong
+    var selectors = 'h1, h2, h3, h4, h5, a, button, span, strong, p, label, .arlena-col-title, .announcement-item span, .footer-trust-text strong, .footer-trust-text span';
+    document.querySelectorAll(selectors).forEach(function(el) {
+      if (el.children.length === 0 && el.textContent) {
+        var trimmed = el.textContent.trim();
+        for (var i = 0; i < viTranslations.length; i++) {
+          if (viTranslations[i].match.test(trimmed)) {
+            el.textContent = viTranslations[i].text;
+            break;
+          }
+        }
+      }
+    });
+
+    // 2. Placeholders
+    document.querySelectorAll('input[placeholder]').forEach(function(input) {
+      if (/Enter your email/i.test(input.placeholder)) {
+        input.placeholder = 'Nhập email của bạn';
+      }
+      if (/Search/i.test(input.placeholder)) {
+        input.placeholder = 'Tìm kiếm trang sức...';
+      }
+    });
+  }
+
+  function runLocalizationTasks() {
+    preserveVietnameseRoutes();
+    applyVietnameseTranslations();
+  }
+
+  document.addEventListener('DOMContentLoaded', runLocalizationTasks);
+  setInterval(runLocalizationTasks, 800);
+})();
+
