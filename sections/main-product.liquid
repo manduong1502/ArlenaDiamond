@@ -665,22 +665,26 @@
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     background-color: #fdfaf6; /* Warm cream background */
-    padding: 40px 20px;
+    padding: 35px 20px;
     border-top: 1px solid rgba(197, 168, 128, 0.2);
     border-bottom: 1px solid rgba(197, 168, 128, 0.2);
-    margin: 50px 0;
+    margin: 40px 0;
     box-sizing: border-box;
   }
   @media (max-width: 991px) {
     .brand-icons-row {
       grid-template-columns: repeat(2, 1fr);
-      gap: 30px;
+      gap: 20px 15px;
+      padding: 25px 15px;
+      margin: 30px 0;
     }
   }
   @media (max-width: 575px) {
     .brand-icons-row {
-      grid-template-columns: 1fr;
-      gap: 25px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px 10px;
+      padding: 20px 10px;
+      margin: 25px 0;
     }
   }
   .icon-block-item {
@@ -688,24 +692,24 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 0 15px;
+    padding: 0 10px;
   }
   .icon-block-item img {
-    width: 95px;
-    height: 95px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
-    margin-bottom: 25px;
+    margin-bottom: 14px;
   }
   .icon-block-item h4 {
     font-family: 'Cinzel', 'Playfair Display', serif;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 500;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
     margin: 0;
     color: #111;
     line-height: 1.4;
-    min-height: 38px;
+    min-height: 34px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -715,28 +719,58 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 80px;
+    width: 60px;
     height: 1px;
     background-color: #eae1d4;
-    margin: 15px auto;
+    margin: 12px auto;
     position: relative;
   }
   .icon-divider::after {
     content: "";
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
     background-color: #c5a880;
     transform: rotate(45deg);
     position: absolute;
-    top: -3px;
+    top: -2px;
   }
   
   .icon-block-item p {
-    font-size: 12px;
-    line-height: 1.6;
+    font-size: 11.5px;
+    line-height: 1.5;
     color: #555;
     margin: 0;
     font-weight: 300;
+  }
+
+  @media (max-width: 768px) {
+    .icon-block-item {
+      padding: 0 4px;
+    }
+    .icon-block-item img {
+      width: 42px;
+      height: 42px;
+      margin-bottom: 8px;
+    }
+    .icon-block-item h4 {
+      font-size: 10.5px !important;
+      letter-spacing: 0.8px !important;
+      min-height: auto !important;
+      line-height: 1.3 !important;
+    }
+    .icon-divider {
+      width: 30px !important;
+      margin: 6px auto !important;
+    }
+    .icon-divider::after {
+      width: 4px !important;
+      height: 4px !important;
+      top: -2px !important;
+    }
+    .icon-block-item p {
+      font-size: 10px !important;
+      line-height: 1.35 !important;
+    }
   }
 
   /* --- TAB ACCORDION LAYOUT SECTION --- */
@@ -1413,16 +1447,9 @@
 
       <h1 class="arlena-title">{{ product.title }}</h1>
 
-      <!-- Star ratings -->
-      <div class="arlena-rating-row">
-        <div class="arlena-stars">
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-          <i class="fa-solid fa-star"></i>
-        </div>
-        <span>4.8 (25 reviews)</span>
+      <!-- Star ratings / Judge.me Preview Badge -->
+      <div class="arlena-rating-row" style="margin-bottom: 12px; min-height: 20px;">
+        {% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
       </div>
 
       <!-- Pricing -->
