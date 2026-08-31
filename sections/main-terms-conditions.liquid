@@ -1,0 +1,74 @@
+<div class="policy-page full-width">
+  <div class="policy-page-inner">
+    <h1 class="policy-page-title">{{ page.title | default: "Terms & Conditions" }}</h1>
+    <div class="policy-page-content">
+      {% if page.content != blank %}
+        {{ page.content }}
+      {% elsif shop.terms_of_service.body != blank %}
+        {{ shop.terms_of_service.body }}
+      {% else %}
+        <p><em>Last updated: August 2026</em></p>
+        <p>Welcome to <strong>ARLENA Jewellery</strong>. By accessing or using our website, purchasing products, or commissioning bespoke jewelry from us, you agree to be bound by these Terms &amp; Conditions and all applicable Australian laws.</p>
+
+        <h2>1. General Conditions</h2>
+        <p>We reserve the right to refuse service to anyone for any reason at any time. Prices for our products are subject to change without prior notice. All prices displayed on our website are in Australian Dollars (AUD) and include Goods and Services Tax (GST) unless stated otherwise.</p>
+
+        <h2>2. Products &amp; Bespoke Commissions</h2>
+        <p>Every piece of ARLENA jewelry is crafted individually with meticulous attention to detail. Because we use natural diamonds, certified lab-grown diamonds, and precious solid gold/platinum:</p>
+        <ul>
+          <li>Carat weights, diamond dimensions, and metal weights may vary slightly within certified industry tolerances.</li>
+          <li>Custom, bespoke, or personalized pieces (including engraved items and custom ring sizes) are handcrafted specifically for you upon order confirmation.</li>
+        </ul>
+
+        <h2>3. Orders &amp; Payment</h2>
+        <p>When you place an order, you agree to provide current, complete, and accurate purchase and account information. We accept major credit cards, PayPal, and approved interest-free installment options. We reserve the right to limit or cancel quantities purchased per person or per order.</p>
+
+        <h2>4. Shipping, Delivery &amp; Insurance</h2>
+        <p>All jewelry orders dispatched by ARLENA are sent via fully tracked and insured shipping. Risk of loss passes to you upon confirmed delivery to the address provided during checkout. For full delivery details, please visit our <a href="/pages/shipping-delivery">Shipping &amp; Delivery policy</a>.</p>
+
+        <h2>5. Returns, Resizing &amp; Lifetime Warranty</h2>
+        <p>We stand behind our craftsmanship:</p>
+        <ul>
+          <li><strong>30-Day Returns:</strong> Ready-to-wear items in original unworn condition are eligible for returns within 30 days. See our full <a href="/pages/returns-exchanges">Returns &amp; Exchanges policy</a>.</li>
+          <li><strong>Complimentary 30-Day Resizing:</strong> We offer one complimentary ring resize within 30 days of delivery.</li>
+          <li><strong>Limited Lifetime Warranty:</strong> All fine jewelry is protected by our <a href="/pages/warranty">Limited Lifetime Warranty</a> against manufacturing defects.</li>
+        </ul>
+
+        <h2>6. Intellectual Property &amp; Governing Law</h2>
+        <p>All content, designs, imagery, trademarks, and branding on this website are the exclusive property of ARLENA Jewellery. These Terms shall be governed by and construed in accordance with the laws of Australia.</p>
+
+        <h2>7. Contact Us</h2>
+        <p>If you have any questions regarding these Terms &amp; Conditions, please reach out to our team at <a href="mailto:info@arlena.com.au">info@arlena.com.au</a> or through our <a href="/pages/contact">Contact page</a>.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .policy-page { background: #fff; min-height: 60vh; }
+  .policy-page-inner { max-width: 860px; margin: 0 auto; padding: 130px 40px 80px; }
+  .policy-page-title {
+    font-family: 'Cinzel', serif; font-size: 28px; font-weight: 500;
+    letter-spacing: 2px; text-transform: uppercase; color: #111;
+    margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid rgba(197, 168, 128, 0.3);
+  }
+  .policy-page-content { font-family: var(--font-base, 'Jost', sans-serif); font-size: 14px; line-height: 1.85; color: #333; }
+  .policy-page-content h2 { font-family: 'Cinzel', serif; font-size: 18px; font-weight: 600; margin: 32px 0 14px; color: #111; letter-spacing: 1px; }
+  .policy-page-content h3 { font-size: 15px; font-weight: 600; margin: 24px 0 10px; color: #222; }
+  .policy-page-content p { margin-bottom: 16px; }
+  .policy-page-content a { color: #c5a880; text-decoration: underline; text-underline-offset: 3px; font-weight: 500; }
+  .policy-page-content ul, .policy-page-content ol { padding-left: 22px; margin-bottom: 18px; }
+  .policy-page-content li { margin-bottom: 8px; }
+  @media (max-width: 768px) {
+    .policy-page-inner { padding: 100px 20px 60px; }
+    .policy-page-title { font-size: 22px; letter-spacing: 1.5px; margin-bottom: 25px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Terms and Conditions",
+  "settings": [],
+  "presets": [{ "name": "Terms and Conditions" }]
+}
+{% endschema %}

@@ -27,6 +27,10 @@
   {% section 'main-contact-us' %}
 {%- elsif page.handle == 'billing-terms' -%}
   {% section 'main-billing-terms' %}
+{%- elsif page.handle == 'privacy-policy' or page.handle == 'privacy' -%}
+  {% section 'main-privacy-policy' %}
+{%- elsif page.handle == 'terms-and-conditions' or page.handle == 'terms-of-service' or page.handle == 'terms' or page.handle == 'conditions' -%}
+  {% section 'main-terms-conditions' %}
 {%- else -%}
   <main class="margin-top" style="max-width: 800px; margin-left: auto; margin-right: auto; padding: 140px 20px 60px 20px; font-size: 13px; line-height: 1.6;">
     <h1 class="text-center" style="font-family: 'Cinzel', serif; font-size: 24px; margin-bottom: 30px; text-transform: uppercase;">{{ page.title }}</h1>
