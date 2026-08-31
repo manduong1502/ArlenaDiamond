@@ -378,6 +378,22 @@
 
   <div class="arlena-footer-bottom">
     <p class="copyright-text">© 2026 ARLENA Jewellery. All rights reserved.</p>
+    {%- if localization.available_languages.size > 1 -%}
+      <div class="footer-language-switcher" style="display: flex; align-items: center; gap: 8px;">
+        {%- form 'localization', id: 'FooterLanguageForm' -%}
+          <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(197, 168, 128, 0.3);">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="#c5a880" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+            <select name="locale_code" onchange="this.form.submit()" style="background: transparent; border: none; color: #ccc; font-size: 11px; font-family: inherit; letter-spacing: 0.5px; cursor: pointer; outline: none; padding-right: 4px;">
+              {%- for language in localization.available_languages -%}
+                <option value="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}selected{% endif %} style="background: #111; color: #fff;">
+                  {{ language.endonym_name | capitalize }} ({{ language.iso_code | upcase }})
+                </option>
+              {%- endfor -%}
+            </select>
+          </div>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
     <div class="footer-legal-links">
       <a href="{{ shop.privacy_policy.url | default: '/policies/privacy-policy' }}">Privacy Policy</a>
       <a href="{{ shop.terms_of_service.url | default: '/policies/terms-of-service' }}">Terms &amp; Conditions</a>
