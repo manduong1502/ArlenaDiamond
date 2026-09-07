@@ -411,11 +411,9 @@
               {%- assign badge_text = "" -%}
               {%- for tag in product.tags -%}
                 {%- assign tag_lc = tag | downcase -%}
-                {%- if tag_lc contains 'lab-grown' or tag_lc contains 'lab grown' -%}
-                  {%- assign badge_text = "LAB GROWN" -%}
-                  {%- break -%}
-                {%- elsif tag_lc contains 'best' or tag_lc contains 'hot' -%}
+                {%- if tag_lc contains 'best' or tag_lc contains 'hot' -%}
                   {%- assign badge_text = "BEST SELLER" -%}
+                  {%- break -%}
                 {%- endif -%}
               {%- endfor -%}
               {%- if badge_text != "" -%}
