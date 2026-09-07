@@ -724,6 +724,21 @@
 
   {%- assign current_handle = collection.handle | downcase -%}
 
+  {%- assign col_type = 'all' -%}
+  {%- if current_handle contains 'engagement' -%}
+    {%- assign col_type = 'engagement_rings' -%}
+  {%- elsif current_handle contains 'wedding' -%}
+    {%- assign col_type = 'wedding_bands' -%}
+  {%- elsif current_handle contains 'earring' -%}
+    {%- assign col_type = 'earrings' -%}
+  {%- elsif current_handle contains 'pendant' or current_handle contains 'necklace' -%}
+    {%- assign col_type = 'pendants' -%}
+  {%- elsif current_handle contains 'bracelet' -%}
+    {%- assign col_type = 'bracelets' -%}
+  {%- elsif current_handle == 'ring' or current_handle == 'rings' or current_handle contains 'ring' -%}
+    {%- assign col_type = 'rings' -%}
+  {%- endif -%}
+
   {%- assign page_title = collection.title -%}
   {%- if page_title == blank or page_title == 'Products' or page_title == 'All' -%}
     {%- if current_handle contains 'engagement' -%}
@@ -846,7 +861,7 @@
       </section>
     {%- endif -%}
 
-    <!-- FILTER & SORT BAR -->
+    <!-- FILTER & SORT BAR (Tailored per Collection) -->
     <section class="filter-sort-bar">
       <div class="filter-left">
         <button class="filter-btn-main" id="btnFilterMain">
@@ -854,103 +869,414 @@
           <span>Filter & Sort</span>
         </button>
 
-        <!-- 1. Metal Type Popover -->
-        <div class="filter-dropdown" data-filter-category="metal">
-          <button class="filter-dropdown-btn"><span>Metal Type</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-          <div class="filter-popover">
-            <div class="filter-popover-header">Metal Type</div>
-            <div class="filter-popover-body">
-              <label class="filter-checkbox-item"><input type="checkbox" value="yellow gold"> Yellow Gold</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="rose gold"> Rose Gold</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="white gold"> White Gold</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="platinum"> Platinum</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="10k"> 10K Gold</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="14k"> 14K Gold</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="18k"> 18K Gold</label>
+        {%- case col_type -%}
+          {%- when 'engagement_rings' -%}
+            <!-- 1. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Radiant"> Radiant</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Princess"> Princess</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Marquise"> Marquise</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-popover-footer">
-              <button type="button" class="btn-filter-reset">Clear</button>
-              <button type="button" class="btn-filter-apply">Apply</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- 2. Natural Gemstones Popover -->
-        <div class="filter-dropdown" data-filter-category="natural">
-          <button class="filter-dropdown-btn"><span>Natural Gemstones</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-          <div class="filter-popover">
-            <div class="filter-popover-header">Natural Gemstones</div>
-            <div class="filter-popover-body">
-              <label class="filter-checkbox-item"><input type="checkbox" value="natural"> Natural Diamond</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="sapphire"> Sapphire</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="emerald"> Emerald</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="ruby"> Ruby</label>
+            <!-- 2. Setting Style -->
+            <div class="filter-dropdown" data-filter-category="setting_style">
+              <button class="filter-dropdown-btn"><span>Setting Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Setting Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Solitaire"> Solitaire</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Hidden Halo"> Hidden Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Three Stone"> Three Stone</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Side Stone"> Side Stone</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pavé"> Pavé</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-popover-footer">
-              <button type="button" class="btn-filter-reset">Clear</button>
-              <button type="button" class="btn-filter-apply">Apply</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- 3. Lab Grown Gemstones Popover -->
-        <div class="filter-dropdown" data-filter-category="labgrown">
-          <button class="filter-dropdown-btn"><span>Lab Grown Gemstones</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-          <div class="filter-popover">
-            <div class="filter-popover-header">Lab Grown Gemstones</div>
-            <div class="filter-popover-body">
-              <label class="filter-checkbox-item"><input type="checkbox" value="lab grown"> Lab Grown Diamond</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="lab emerald"> Lab Grown Emerald</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="lab ruby"> Lab Grown Ruby</label>
+            <!-- 3. Band Style -->
+            <div class="filter-dropdown" data-filter-category="band_style">
+              <button class="filter-dropdown-btn"><span>Band Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Band Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Plain"> Plain</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pavé"> Pavé</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cathedral"> Cathedral</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Split Shank"> Split Shank</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Tapered"> Tapered</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-popover-footer">
-              <button type="button" class="btn-filter-reset">Clear</button>
-              <button type="button" class="btn-filter-apply">Apply</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- 4. Gemstone Shape Popover -->
-        <div class="filter-dropdown" data-filter-category="shape">
-          <button class="filter-dropdown-btn"><span>Gemstone Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-          <div class="filter-popover">
-            <div class="filter-popover-header">Gemstone Shape</div>
-            <div class="filter-popover-body">
-              <label class="filter-checkbox-item"><input type="checkbox" value="emerald"> Emerald Cut</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="round"> Round Brilliant</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="pear"> Pear Cut</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="trillion"> Trillion Cut</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="oval"> Oval Cut</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="princess"> Princess Cut</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="cushion"> Cushion Cut</label>
+          {%- when 'wedding_bands' -%}
+            <!-- 1. Band Style -->
+            <div class="filter-dropdown" data-filter-category="band_style">
+              <button class="filter-dropdown-btn"><span>Band Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Band Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Plain"> Plain</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pavé"> Pavé</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Eternity"> Eternity</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Half Eternity"> Half Eternity</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Curved"> Curved / Contoured</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Channel Set"> Channel Set</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-popover-footer">
-              <button type="button" class="btn-filter-reset">Clear</button>
-              <button type="button" class="btn-filter-apply">Apply</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- 5. Jewelry Styles Popover -->
-        <div class="filter-dropdown" data-filter-category="style">
-          <button class="filter-dropdown-btn"><span>Jewelry Styles</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
-          <div class="filter-popover">
-            <div class="filter-popover-header">Jewelry Styles</div>
-            <div class="filter-popover-body">
-              <label class="filter-checkbox-item"><input type="checkbox" value="solitaire"> Solitaire</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="three stone"> Three Stone</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="halo"> Halo</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="pavé"> Pavé</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="tennis"> Tennis</label>
+            <!-- 2. Band Profile / Fit -->
+            <div class="filter-dropdown" data-filter-category="band_profile">
+              <button class="filter-dropdown-btn"><span>Band Profile / Fit</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Band Profile / Fit</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Straight"> Straight</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Curved"> Curved</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Contoured"> Contoured / Notched</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
             </div>
-            <div class="filter-popover-footer">
-              <button type="button" class="btn-filter-reset">Clear</button>
-              <button type="button" class="btn-filter-apply">Apply</button>
-            </div>
-          </div>
-        </div>
 
-        <!-- 6. Price Popover -->
+            <!-- 3. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Radiant"> Radiant</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Princess"> Princess</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Marquise"> Marquise</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+          {%- when 'earrings' -%}
+            <!-- 1. Earring Style -->
+            <div class="filter-dropdown" data-filter-category="earring_style">
+              <button class="filter-dropdown-btn"><span>Earring Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Earring Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Stud"> Stud</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo Stud"> Halo Stud</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Drop"> Drop</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Huggie"> Huggie</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Hoop"> Hoop</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cluster"> Cluster / Floral</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Trillion"> Trillion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Design Style -->
+            <div class="filter-dropdown" data-filter-category="design_style">
+              <button class="filter-dropdown-btn"><span>Design Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Design Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Solitaire"> Solitaire</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Floral"> Floral</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Sculptural"> Sculptural</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Geometric"> Geometric</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+          {%- when 'pendants' -%}
+            <!-- 1. Pendant Style -->
+            <div class="filter-dropdown" data-filter-category="pendant_style">
+              <button class="filter-dropdown-btn"><span>Pendant Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Pendant Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Solitaire"> Solitaire</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cluster"> Cluster</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Statement"> Statement / Motif</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Radiant"> Radiant</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Princess"> Princess</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Marquise"> Marquise</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Trillion"> Trillion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+          {%- when 'bracelets' -%}
+            <!-- 1. Bracelet Style -->
+            <div class="filter-dropdown" data-filter-category="bracelet_style">
+              <button class="filter-dropdown-btn"><span>Bracelet Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Bracelet Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Tennis Bracelet"> Tennis Bracelet</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Bangle"> Bangle</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cuban Link"> Cuban Link</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Setting Style -->
+            <div class="filter-dropdown" data-filter-category="setting_style">
+              <button class="filter-dropdown-btn"><span>Setting Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Setting Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Classic"> Classic</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Channel Set"> Channel Set</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Graduated"> Graduated</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+          {%- when 'rings' -%}
+            <!-- 1. Ring Style -->
+            <div class="filter-dropdown" data-filter-category="ring_style">
+              <button class="filter-dropdown-btn"><span>Ring Style</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Ring Style</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Eternity"> Eternity</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Floral"> Floral</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Heart"> Heart</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Statement"> Statement</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Infinity"> Infinity</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Nature-Inspired"> Nature-Inspired</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Symbolic"> Symbolic</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Princess"> Princess</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Design Detail -->
+            <div class="filter-dropdown" data-filter-category="design_detail">
+              <button class="filter-dropdown-btn"><span>Design Detail</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Design Detail</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pavé"> Pavé</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Filigree"> Filigree</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Multi-Row"> Multi-Row</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Graduated"> Graduated</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+          {%- else -%}
+            <!-- ALL JEWELLERY / DEFAULT -->
+            <!-- 1. Metal Type -->
+            <div class="filter-dropdown" data-filter-category="metal">
+              <button class="filter-dropdown-btn"><span>Metal Type</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Metal Type</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Yellow Gold"> Yellow Gold</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Rose Gold"> Rose Gold</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="White Gold"> White Gold</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Platinum"> Platinum</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Diamond Shape -->
+            <div class="filter-dropdown" data-filter-category="shape">
+              <button class="filter-dropdown-btn"><span>Diamond Shape</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Diamond Shape</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Round"> Round</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Oval"> Oval</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Emerald"> Emerald</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Radiant"> Radiant</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Cushion"> Cushion</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pear"> Pear</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Princess"> Princess</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Marquise"> Marquise</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Trillion"> Trillion</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Jewelry Styles -->
+            <div class="filter-dropdown" data-filter-category="style">
+              <button class="filter-dropdown-btn"><span>Jewelry Styles</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
+              <div class="filter-popover">
+                <div class="filter-popover-header">Jewelry Styles</div>
+                <div class="filter-popover-body">
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Solitaire"> Solitaire</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Halo"> Halo</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Three Stone"> Three Stone</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Pavé"> Pavé</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Tennis"> Tennis</label>
+                  <label class="filter-checkbox-item"><input type="checkbox" value="Eternity"> Eternity</label>
+                </div>
+                <div class="filter-popover-footer">
+                  <button type="button" class="btn-filter-reset">Clear</button>
+                  <button type="button" class="btn-filter-apply">Apply</button>
+                </div>
+              </div>
+            </div>
+        {%- endcase -%}
+
+        <!-- Universal Price Popover -->
         <div class="filter-dropdown" data-filter-category="price">
           <button class="filter-dropdown-btn"><span>Price</span> <i class="fa-solid fa-chevron-down" style="font-size:8px;"></i></button>
           <div class="filter-popover">
@@ -959,7 +1285,7 @@
               <label class="filter-checkbox-item"><input type="checkbox" value="0-3000"> Under $3,000</label>
               <label class="filter-checkbox-item"><input type="checkbox" value="3000-5000"> $3,000 - $5,000</label>
               <label class="filter-checkbox-item"><input type="checkbox" value="5000-10000"> $5,000 - $10,000</label>
-              <label class="filter-checkbox-item"><input type="checkbox" value="10000-99999"> Above $10,000</label>
+              <label class="filter-checkbox-item"><input type="checkbox" value="10000-999999"> Above $10,000</label>
             </div>
             <div class="filter-popover-footer">
               <button type="button" class="btn-filter-reset">Clear</button>
@@ -998,37 +1324,268 @@
             <option value="title-az">Alphabetical: A-Z</option>
           </select>
         </div>
-        
-        <!-- Metal Type -->
-        <div class="drawer-filter-group">
-          <h4 class="drawer-group-title">Metal Type</h4>
-          <div class="drawer-checkbox-list" data-drawer-cat="metal">
-            <label><input type="checkbox" value="yellow gold"> Yellow Gold</label>
-            <label><input type="checkbox" value="rose gold"> Rose Gold</label>
-            <label><input type="checkbox" value="white gold"> White Gold</label>
-            <label><input type="checkbox" value="platinum"> Platinum</label>
-          </div>
-        </div>
 
-        <!-- Gemstone Type -->
-        <div class="drawer-filter-group">
-          <h4 class="drawer-group-title">Gemstone Type</h4>
-          <div class="drawer-checkbox-list" data-drawer-cat="gemstone">
-            <label><input type="checkbox" value="lab grown"> Lab Grown Diamond</label>
-            <label><input type="checkbox" value="natural"> Natural Diamond</label>
-            <label><input type="checkbox" value="emerald"> Emerald</label>
-            <label><input type="checkbox" value="sapphire"> Sapphire</label>
-          </div>
-        </div>
+        {%- case col_type -%}
+          {%- when 'engagement_rings' -%}
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Radiant"> Radiant</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Princess"> Princess</label>
+                <label><input type="checkbox" value="Marquise"> Marquise</label>
+              </div>
+            </div>
+            <!-- Setting Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Setting Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="setting_style">
+                <label><input type="checkbox" value="Solitaire"> Solitaire</label>
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Hidden Halo"> Hidden Halo</label>
+                <label><input type="checkbox" value="Three Stone"> Three Stone</label>
+                <label><input type="checkbox" value="Side Stone"> Side Stone</label>
+                <label><input type="checkbox" value="Pavé"> Pavé</label>
+              </div>
+            </div>
+            <!-- Band Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Band Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="band_style">
+                <label><input type="checkbox" value="Plain"> Plain</label>
+                <label><input type="checkbox" value="Pavé"> Pavé</label>
+                <label><input type="checkbox" value="Cathedral"> Cathedral</label>
+                <label><input type="checkbox" value="Split Shank"> Split Shank</label>
+                <label><input type="checkbox" value="Tapered"> Tapered</label>
+              </div>
+            </div>
 
-        <!-- Gemstone Shape -->
+          {%- when 'wedding_bands' -%}
+            <!-- Band Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Band Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="band_style">
+                <label><input type="checkbox" value="Plain"> Plain</label>
+                <label><input type="checkbox" value="Pavé"> Pavé</label>
+                <label><input type="checkbox" value="Eternity"> Eternity</label>
+                <label><input type="checkbox" value="Half Eternity"> Half Eternity</label>
+                <label><input type="checkbox" value="Curved"> Curved / Contoured</label>
+                <label><input type="checkbox" value="Channel Set"> Channel Set</label>
+              </div>
+            </div>
+            <!-- Band Profile / Fit -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Band Profile / Fit</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="band_profile">
+                <label><input type="checkbox" value="Straight"> Straight</label>
+                <label><input type="checkbox" value="Curved"> Curved</label>
+                <label><input type="checkbox" value="Contoured"> Contoured / Notched</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Radiant"> Radiant</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Princess"> Princess</label>
+                <label><input type="checkbox" value="Marquise"> Marquise</label>
+              </div>
+            </div>
+
+          {%- when 'earrings' -%}
+            <!-- Earring Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Earring Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="earring_style">
+                <label><input type="checkbox" value="Stud"> Stud</label>
+                <label><input type="checkbox" value="Halo Stud"> Halo Stud</label>
+                <label><input type="checkbox" value="Drop"> Drop</label>
+                <label><input type="checkbox" value="Huggie"> Huggie</label>
+                <label><input type="checkbox" value="Hoop"> Hoop</label>
+                <label><input type="checkbox" value="Cluster"> Cluster / Floral</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Trillion"> Trillion</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+              </div>
+            </div>
+            <!-- Design Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Design Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="design_style">
+                <label><input type="checkbox" value="Solitaire"> Solitaire</label>
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Floral"> Floral</label>
+                <label><input type="checkbox" value="Sculptural"> Sculptural</label>
+                <label><input type="checkbox" value="Geometric"> Geometric</label>
+              </div>
+            </div>
+
+          {%- when 'pendants' -%}
+            <!-- Pendant Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Pendant Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="pendant_style">
+                <label><input type="checkbox" value="Solitaire"> Solitaire</label>
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Cluster"> Cluster</label>
+                <label><input type="checkbox" value="Statement"> Statement / Motif</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Radiant"> Radiant</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Princess"> Princess</label>
+                <label><input type="checkbox" value="Marquise"> Marquise</label>
+                <label><input type="checkbox" value="Trillion"> Trillion</label>
+                <label><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+              </div>
+            </div>
+
+          {%- when 'bracelets' -%}
+            <!-- Bracelet Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Bracelet Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="bracelet_style">
+                <label><input type="checkbox" value="Tennis Bracelet"> Tennis Bracelet</label>
+                <label><input type="checkbox" value="Bangle"> Bangle</label>
+                <label><input type="checkbox" value="Cuban Link"> Cuban Link</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+              </div>
+            </div>
+            <!-- Setting Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Setting Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="setting_style">
+                <label><input type="checkbox" value="Classic"> Classic</label>
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Channel Set"> Channel Set</label>
+                <label><input type="checkbox" value="Graduated"> Graduated</label>
+              </div>
+            </div>
+
+          {%- when 'rings' -%}
+            <!-- Ring Style -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Ring Style</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="ring_style">
+                <label><input type="checkbox" value="Eternity"> Eternity</label>
+                <label><input type="checkbox" value="Floral"> Floral</label>
+                <label><input type="checkbox" value="Heart"> Heart</label>
+                <label><input type="checkbox" value="Statement"> Statement</label>
+                <label><input type="checkbox" value="Infinity"> Infinity</label>
+                <label><input type="checkbox" value="Nature-Inspired"> Nature-Inspired</label>
+                <label><input type="checkbox" value="Symbolic"> Symbolic</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Princess"> Princess</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Mixed Cut"> Mixed Cut</label>
+              </div>
+            </div>
+            <!-- Design Detail -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Design Detail</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="design_detail">
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Pavé"> Pavé</label>
+                <label><input type="checkbox" value="Filigree"> Filigree</label>
+                <label><input type="checkbox" value="Multi-Row"> Multi-Row</label>
+                <label><input type="checkbox" value="Graduated"> Graduated</label>
+              </div>
+            </div>
+
+          {%- else -%}
+            <!-- Metal Type -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Metal Type</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="metal">
+                <label><input type="checkbox" value="Yellow Gold"> Yellow Gold</label>
+                <label><input type="checkbox" value="Rose Gold"> Rose Gold</label>
+                <label><input type="checkbox" value="White Gold"> White Gold</label>
+                <label><input type="checkbox" value="Platinum"> Platinum</label>
+              </div>
+            </div>
+            <!-- Diamond Shape -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Diamond Shape</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="shape">
+                <label><input type="checkbox" value="Round"> Round</label>
+                <label><input type="checkbox" value="Oval"> Oval</label>
+                <label><input type="checkbox" value="Emerald"> Emerald</label>
+                <label><input type="checkbox" value="Radiant"> Radiant</label>
+                <label><input type="checkbox" value="Cushion"> Cushion</label>
+                <label><input type="checkbox" value="Pear"> Pear</label>
+                <label><input type="checkbox" value="Princess"> Princess</label>
+                <label><input type="checkbox" value="Marquise"> Marquise</label>
+                <label><input type="checkbox" value="Trillion"> Trillion</label>
+              </div>
+            </div>
+            <!-- Jewelry Styles -->
+            <div class="drawer-filter-group">
+              <h4 class="drawer-group-title">Jewelry Styles</h4>
+              <div class="drawer-checkbox-list" data-drawer-cat="style">
+                <label><input type="checkbox" value="Solitaire"> Solitaire</label>
+                <label><input type="checkbox" value="Halo"> Halo</label>
+                <label><input type="checkbox" value="Three Stone"> Three Stone</label>
+                <label><input type="checkbox" value="Pavé"> Pavé</label>
+                <label><input type="checkbox" value="Tennis"> Tennis</label>
+                <label><input type="checkbox" value="Eternity"> Eternity</label>
+              </div>
+            </div>
+        {%- endcase -%}
+
+        <!-- Universal Price -->
         <div class="drawer-filter-group">
-          <h4 class="drawer-group-title">Gemstone Shape</h4>
-          <div class="drawer-checkbox-list" data-drawer-cat="shape">
-            <label><input type="checkbox" value="emerald"> Emerald Cut</label>
-            <label><input type="checkbox" value="round"> Round Brilliant</label>
-            <label><input type="checkbox" value="pear"> Pear Cut</label>
-            <label><input type="checkbox" value="trillion"> Trillion Cut</label>
+          <h4 class="drawer-group-title">Price Range</h4>
+          <div class="drawer-checkbox-list" data-drawer-cat="price">
+            <label><input type="checkbox" value="0-3000"> Under $3,000</label>
+            <label><input type="checkbox" value="3000-5000"> $3,000 - $5,000</label>
+            <label><input type="checkbox" value="5000-10000"> $5,000 - $10,000</label>
+            <label><input type="checkbox" value="10000-999999"> Above $10,000</label>
           </div>
         </div>
       </div>
@@ -1045,9 +1602,12 @@
           <div class="product-card-arlena" 
                data-price="{{ product.price | divided_by: 100 }}"
                data-title="{{ product.title | downcase | escape }}"
-               data-tags="{{ product.tags | join: ',' | downcase }}"
-               data-type="{{ product.type | downcase }}"
-               data-options="{% for opt in product.options_with_values %}{{ opt.values | join: ',' | downcase }},{% endfor %}">
+               data-tags="{{ product.tags | join: ',' | downcase | escape }}"
+               data-type="{{ product.type | downcase | escape }}"
+               data-options="{% for opt in product.options_with_values %}{{ opt.values | join: ',' | downcase }},{% endfor %}"
+               data-description="{{ product.description | strip_html | downcase | escape }}"
+               data-meta-shape="{{ product.metafields.custom.diamond_shape.value | default: product.metafields.custom.diamond_shape | downcase | escape }}"
+               data-meta-setting="{{ product.metafields.custom.setting_style.value | default: product.metafields.custom.setting_style | downcase | escape }}">
             {%- comment -%} SMART COLOR IMAGE RESOLUTION (Independent Metal Matching) {%- endcomment -%}
             {%- assign rose_primary = nil -%}
             {%- assign rose_hover = nil -%}
@@ -1309,8 +1869,25 @@
       });
     });
 
-    /* 3. Filter Popover Open / Close */
+    /* 3. Filter Popover Open / Close & Sync */
     var dropdowns = document.querySelectorAll('.filter-dropdown');
+    var drawerLists = document.querySelectorAll('.drawer-checkbox-list');
+
+    function syncCheckboxes(catName, value, isChecked) {
+      // Sync between dropdown popover and drawer
+      var dd = document.querySelector('.filter-dropdown[data-filter-category="' + catName + '"]');
+      if (dd) {
+        var ddCb = dd.querySelector('input[type="checkbox"][value="' + value + '"]');
+        if (ddCb) ddCb.checked = isChecked;
+        updatePillState(dd);
+      }
+      var dr = document.querySelector('.drawer-checkbox-list[data-drawer-cat="' + catName + '"]');
+      if (dr) {
+        var drCb = dr.querySelector('input[type="checkbox"][value="' + value + '"]');
+        if (drCb) drCb.checked = isChecked;
+      }
+    }
+
     dropdowns.forEach(function(dd) {
       var btn = dd.querySelector('.filter-dropdown-btn');
       if (btn) {
@@ -1323,6 +1900,14 @@
           }
         });
       }
+
+      var checkboxes = dd.querySelectorAll('input[type="checkbox"]');
+      var catName = dd.getAttribute('data-filter-category');
+      checkboxes.forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          syncCheckboxes(catName, cb.value, cb.checked);
+        });
+      });
 
       var btnApply = dd.querySelector('.btn-filter-apply');
       if (btnApply) {
@@ -1337,12 +1922,25 @@
       if (btnReset) {
         btnReset.addEventListener('click', function(e) {
           e.stopPropagation();
-          var checkboxes = dd.querySelectorAll('input[type="checkbox"]');
-          checkboxes.forEach(function(cb) { cb.checked = false; });
+          var cbs = dd.querySelectorAll('input[type="checkbox"]');
+          cbs.forEach(function(cb) {
+            cb.checked = false;
+            syncCheckboxes(catName, cb.value, false);
+          });
           updatePillState(dd);
           applyAllFilters();
         });
       }
+    });
+
+    drawerLists.forEach(function(list) {
+      var catName = list.getAttribute('data-drawer-cat');
+      var checkboxes = list.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(function(cb) {
+        cb.addEventListener('change', function() {
+          syncCheckboxes(catName, cb.value, cb.checked);
+        });
+      });
     });
 
     document.addEventListener('click', function(e) {
@@ -1411,37 +2009,109 @@
       var btn = dd.querySelector('.filter-dropdown-btn span');
       var checked = dd.querySelectorAll('input[type="checkbox"]:checked');
       var btnEl = dd.querySelector('.filter-dropdown-btn');
-      var originalName = dd.getAttribute('data-filter-category');
-      
-      var nameMap = {
-        'metal': 'Metal Type',
-        'natural': 'Natural Gemstones',
-        'labgrown': 'Lab Grown Gemstones',
-        'shape': 'Gemstone Shape',
-        'style': 'Jewelry Styles',
-        'price': 'Price'
-      };
+      var headerEl = dd.querySelector('.filter-popover-header');
+      var baseLabel = headerEl ? headerEl.textContent.trim() : 'Filter';
 
-      var label = nameMap[originalName] || 'Filter';
       if (checked.length > 0) {
-        if (btn) btn.textContent = label + ' (' + checked.length + ')';
+        if (btn) btn.textContent = baseLabel + ' (' + checked.length + ')';
         if (btnEl) btnEl.classList.add('active-filter');
       } else {
-        if (btn) btn.textContent = label;
+        if (btn) btn.textContent = baseLabel;
         if (btnEl) btnEl.classList.remove('active-filter');
       }
     }
 
-    /* 7. Master Filter Engine */
+    /* 7. Master Filter Engine with Accent/Diacritic Normalization */
+    function normalizeStr(str) {
+      if (!str) return '';
+      return str.toString()
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // remove diacritics (e.g. pavé -> pave)
+        .replace(/[^a-z0-9\s]/g, ' ')   // replace non-alphanumeric with spaces
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function matchCategory(selectedArr, cardDataNorm) {
+      if (!selectedArr || selectedArr.length === 0) return true;
+
+      return selectedArr.some(function(rawVal) {
+        var cleanVal = normalizeStr(rawVal);
+        if (!cleanVal) return true;
+
+        // Exact or substring match in normalized bundle
+        if (cardDataNorm.includes(cleanVal)) return true;
+
+        // Specific aliases & compound options
+        var tokens = cleanVal.split(' ');
+        if (tokens.length > 1) {
+          if (tokens.some(function(tok) { return tok.length > 3 && cardDataNorm.includes(tok); })) {
+            return true;
+          }
+        }
+
+        if (cleanVal === 'round' && (cardDataNorm.includes('round') || cardDataNorm.includes('brilliant'))) return true;
+        if (cleanVal === 'mixed cut' && (cardDataNorm.includes('mixed') || cardDataNorm.includes('sequence'))) return true;
+        if (cleanVal === 'split shank' && cardDataNorm.includes('split')) return true;
+        if (cleanVal === 'multi row' && (cardDataNorm.includes('double row') || cardDataNorm.includes('multi row') || cardDataNorm.includes('two row'))) return true;
+        if (cleanVal === 'tennis bracelet' && cardDataNorm.includes('tennis')) return true;
+        if (cleanVal === 'cuban link' && cardDataNorm.includes('cuban')) return true;
+        if (cleanVal === 'halo stud' && (cardDataNorm.includes('halo') && cardDataNorm.includes('stud'))) return true;
+        if (cleanVal === 'nature inspired' && cardDataNorm.includes('nature')) return true;
+
+        return false;
+      });
+    }
+
+    function matchPrice(priceArr, price) {
+      if (!priceArr || priceArr.length === 0) return true;
+      return priceArr.some(function(rangeStr) {
+        var parts = rangeStr.split('-');
+        var min = parseFloat(parts[0]);
+        var max = parseFloat(parts[1]);
+        return price >= min && price <= max;
+      });
+    }
+
+    function getCheckedValues(catName) {
+      var arr = [];
+      var dd = document.querySelector('.filter-dropdown[data-filter-category="' + catName + '"]');
+      if (dd) {
+        var checked = dd.querySelectorAll('input[type="checkbox"]:checked');
+        checked.forEach(function(cb) {
+          if (!arr.includes(cb.value)) arr.push(cb.value);
+        });
+      }
+      var drawerCat = document.querySelector('.drawer-checkbox-list[data-drawer-cat="' + catName + '"]');
+      if (drawerCat) {
+        var drawerChecked = drawerCat.querySelectorAll('input[type="checkbox"]:checked');
+        drawerChecked.forEach(function(cb) {
+          if (!arr.includes(cb.value)) arr.push(cb.value);
+        });
+      }
+      return arr;
+    }
+
     function applyAllFilters() {
       dropdowns.forEach(updatePillState);
 
-      var selectedMetals = getCheckedValues('metal');
-      var selectedNaturals = getCheckedValues('natural');
-      var selectedLabGrowns = getCheckedValues('labgrown');
-      var selectedShapes = getCheckedValues('shape');
-      var selectedStyles = getCheckedValues('style');
-      var selectedPrices = getCheckedValues('price');
+      // Collect all active categories on this page
+      var activeCategories = [];
+      dropdowns.forEach(function(dd) {
+        var cat = dd.getAttribute('data-filter-category');
+        if (cat && !activeCategories.includes(cat)) activeCategories.push(cat);
+      });
+      drawerLists.forEach(function(dr) {
+        var cat = dr.getAttribute('data-drawer-cat');
+        if (cat && !activeCategories.includes(cat)) activeCategories.push(cat);
+      });
+
+      var categorySelections = {};
+      activeCategories.forEach(function(cat) {
+        categorySelections[cat] = getCheckedValues(cat);
+      });
+
       var isLabGrownOnly = labGrownToggle ? labGrownToggle.checked : false;
 
       var cards = document.querySelectorAll('.product-card-arlena');
@@ -1453,21 +2123,36 @@
         var tags = card.getAttribute('data-tags') || '';
         var type = card.getAttribute('data-type') || '';
         var options = card.getAttribute('data-options') || '';
+        var description = card.getAttribute('data-description') || '';
+        var metaShape = card.getAttribute('data-meta-shape') || '';
+        var metaSetting = card.getAttribute('data-meta-setting') || '';
         var price = parseFloat(card.getAttribute('data-price')) || 0;
 
-        var matchesMetal = matchArrayOrEmpty(selectedMetals, [title, tags, options]);
-        var matchesNatural = matchArrayOrEmpty(selectedNaturals, [title, tags, options]);
-        var matchesLabGrown = matchArrayOrEmpty(selectedLabGrowns, [title, tags, options]);
-        var matchesShape = matchArrayOrEmpty(selectedShapes, [title, tags, type, options]);
-        var matchesStyle = matchArrayOrEmpty(selectedStyles, [title, tags, type]);
-        var matchesPrice = matchPrice(selectedPrices, price);
-        var matchesToggle = true;
+        var cardDataNorm = normalizeStr([title, tags, type, options, description, metaShape, metaSetting].join(' '));
 
-        if (isLabGrownOnly) {
-          matchesToggle = title.includes('lab grown') || tags.includes('lab grown') || options.includes('lab grown') || tags.includes('lab-grown');
+        var matchesAllCategories = true;
+        for (var i = 0; i < activeCategories.length; i++) {
+          var catName = activeCategories[i];
+          var selectedVals = categorySelections[catName];
+          if (catName === 'price') {
+            if (!matchPrice(selectedVals, price)) {
+              matchesAllCategories = false;
+              break;
+            }
+          } else {
+            if (!matchCategory(selectedVals, cardDataNorm)) {
+              matchesAllCategories = false;
+              break;
+            }
+          }
         }
 
-        if (matchesMetal && matchesNatural && matchesLabGrown && matchesShape && matchesStyle && matchesPrice && matchesToggle) {
+        var matchesToggle = true;
+        if (isLabGrownOnly) {
+          matchesToggle = cardDataNorm.includes('lab grown') || cardDataNorm.includes('lab');
+        }
+
+        if (matchesAllCategories && matchesToggle) {
           card.style.display = 'flex';
           card.style.opacity = '1';
           visibleCount++;
@@ -1519,43 +2204,6 @@
           grid.appendChild(card);
         });
       }
-    }
-
-    function getCheckedValues(catName) {
-      var arr = [];
-      var dd = document.querySelector('.filter-dropdown[data-filter-category="' + catName + '"]');
-      if (dd) {
-        var checked = dd.querySelectorAll('input[type="checkbox"]:checked');
-        checked.forEach(function(cb) { arr.push(cb.value.toLowerCase()); });
-      }
-      var drawerCat = document.querySelector('.drawer-checkbox-list[data-drawer-cat="' + catName + '"]');
-      if (drawerCat) {
-        var drawerChecked = drawerCat.querySelectorAll('input[type="checkbox"]:checked');
-        drawerChecked.forEach(function(cb) {
-          if (!arr.includes(cb.value.toLowerCase())) {
-            arr.push(cb.value.toLowerCase());
-          }
-        });
-      }
-      return arr;
-    }
-
-    function matchArrayOrEmpty(arr, searchFields) {
-      if (arr.length === 0) return true;
-      var combined = searchFields.join(' ').toLowerCase();
-      return arr.some(function(val) {
-        return combined.includes(val);
-      });
-    }
-
-    function matchPrice(priceArr, price) {
-      if (priceArr.length === 0) return true;
-      return priceArr.some(function(rangeStr) {
-        var parts = rangeStr.split('-');
-        var min = parseFloat(parts[0]);
-        var max = parseFloat(parts[1]);
-        return price >= min && price <= max;
-      });
     }
   });
 </script>
