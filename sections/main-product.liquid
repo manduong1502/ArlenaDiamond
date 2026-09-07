@@ -1319,9 +1319,7 @@
       <!-- Main Image Viewport -->
       <div class="arlena-viewport" style="position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 400px; background: #fff;">
         <span class="arlena-tag" style="z-index: 2;">Made to Order</span>
-        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <img id="arlena-main-img" src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
-        {% elsif product.featured_image %}
+        {% if product.featured_image %}
           <img id="arlena-main-img" src="{{ product.featured_image | img_url: '1200x' }}" alt="{{ product.title | escape }}" style="width:100%; height:auto; display:block; object-fit:contain;">
         {% else %}
           <img id="arlena-main-img" src="" alt="Placeholder" style="width:100%; height:auto; display:block; object-fit:contain;">
@@ -1330,21 +1328,9 @@
       </div>
 
       <div class="arlena-thumbs">
-        <!-- If handle is our stud earrings, load the generated local asset as primary -->
-        {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-          <div class="arlena-thumb active" data-src="{{ 'aurora_earrings_main.png' | asset_url }}" data-media-type="image" data-alt="">
-            <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="{{ product.title | escape }}">
-          </div>
-          <div class="arlena-thumb" data-src="{{ 'moments_ring_box.png' | asset_url }}" data-media-type="image" data-alt="">
-            <img src="{{ 'moments_ring_box.png' | asset_url }}" alt="{{ product.title | escape }}">
-          </div>
-          <div class="arlena-thumb" data-src="{{ 'moments_ring_hand.png' | asset_url }}" data-media-type="image" data-alt="">
-            <img src="{{ 'moments_ring_hand.png' | asset_url }}" alt="{{ product.title | escape }}">
-          </div>
-        {% else %}
-          {% assign yellow_files = product.metafields.custom.media_yellow_gold.value %}
-          {% assign white_files = product.metafields.custom.media_white_gold.value %}
-          {% assign rose_files = product.metafields.custom.media_rose_gold.value %}
+        {% assign yellow_files = product.metafields.custom.media_yellow_gold.value %}
+        {% assign white_files = product.metafields.custom.media_white_gold.value %}
+        {% assign rose_files = product.metafields.custom.media_rose_gold.value %}
 
           {% assign has_metafield_media = false %}
           {% if yellow_files != blank or white_files != blank or rose_files != blank %}
@@ -1455,11 +1441,7 @@
       <!-- Pricing -->
       <div class="arlena-price-row">
         <span class="arlena-price" id="visible-price">
-          {%- if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' -%}
-            From AUD $2,490
-          {%- else -%}
-            {{ current_variant.price | money_without_trailing_zeros }}
-          {%- endif -%}
+          {{ current_variant.price | money_without_trailing_zeros }}
         </span>
         {% if current_variant.compare_at_price > current_variant.price %}
           <span class="arlena-price-compare" id="compare-price">{{ current_variant.compare_at_price | money_without_trailing_zeros }}</span>
@@ -1724,30 +1706,16 @@
   <section class="about-piece-section">
     <div class="about-content">
       <h2>About This Piece</h2>
-      {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-        <p>
-          The Aurora Emerald & Pear Diamond Stud Earrings celebrate the timeless beauty of the iconic Toi et Moi design, pairing a striking emerald-cut diamond with a brilliant pear-cut diamond in perfect harmony.
-        </p>
-        <p>
-          Expertly crafted in Australia, each pair is meticulously created using ethically sourced natural or lab-grown diamonds and your choice of premium precious metals.
-        </p>
-        <p>
-          Elegant yet contemporary, Aurora is designed to become a treasured piece for everyday sophistication and life's most meaningful occasions.
-        </p>
-      {% else %}
-        <div class="about-piece-description-wrapper" style="font-size: 13px; line-height: 1.8; color: #555;">
-          {% if product.description contains '<!-- split -->' %}
-            {{ product.description | split: '<!-- split -->' | last }}
-          {% else %}
-            <p>Every piece of Arlena jewellery is crafted in Australia using ethically sourced premium metals and conflict-free diamonds of exceptional brilliance. Meticulously made to order, our designs combine timeless elegance with contemporary sophistication to become a treasured part of your everyday story.</p>
-          {% endif %}
-        </div>
-      {% endif %}
+      <div class="about-piece-description-wrapper" style="font-size: 13px; line-height: 1.8; color: #555;">
+        {% if product.description contains '<!-- split -->' %}
+          {{ product.description | split: '<!-- split -->' | last }}
+        {% else %}
+          <p>{{ product.description | default: "Every piece of Arlena jewellery is crafted in Australia using ethically sourced premium metals and conflict-free diamonds of exceptional brilliance. Meticulously made to order, our designs combine timeless elegance with contemporary sophistication to become a treasured part of your everyday story." }}</p>
+        {% endif %}
+      </div>
     </div>
     <div class="about-img-wrap">
-      {% if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' %}
-        <img src="{{ 'aurora_earrings_main.png' | asset_url }}" alt="Aurora Earrings Detail">
-      {% elsif product.images.size > 1 %}
+      {% if product.images.size > 1 %}
         <img src="{{ product.images[1] | img_url: '800x' }}" alt="{{ product.title | escape }} detail">
       {% elsif product.featured_image %}
         <img src="{{ product.featured_image | img_url: '800x' }}" alt="{{ product.title | escape }}">
@@ -1820,48 +1788,13 @@
             {%- assign has_diamond = true -%}
           {%- endif -%}
 
-          {%- if product.handle == 'aurora-emerald-pear-diamond-stud-earrings' -%}
-            <!-- Sample product default layout specs -->
+          <!-- Dynamic layout specs -->
+          {%- if has_diamond -%}
             <tr>
               <td class="spec-label">Diamond Type</td>
               <td class="spec-val" id="spec-val-diamond-type">Lab Grown or Natural (based on selection)</td>
             </tr>
-            <tr>
-              <td class="spec-label">Diamond Shape</td>
-              <td class="spec-val">Emerald & Pear</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Total Carat Weight</td>
-              <td class="spec-val" id="spec-val-carat">1.00ct total (0.50ct Emerald + 0.50ct Pear)</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Diamond Colour</td>
-              <td class="spec-val" id="spec-val-diamond-colour">D - F</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Diamond Clarity</td>
-              <td class="spec-val" id="spec-val-diamond-clarity">VS1 - VS2</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Metal</td>
-              <td class="spec-val" id="spec-val-metal">9K, 14K, 18K Gold or Platinum</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Setting Style</td>
-              <td class="spec-val">Four-Prong</td>
-            </tr>
-            <tr>
-              <td class="spec-label">Crafted In</td>
-              <td class="spec-val">Australia</td>
-            </tr>
-          {%- else -%}
-            <!-- Dynamic layout specs for 200+ other products -->
-            {%- if has_diamond -%}
-              <tr>
-                <td class="spec-label">Diamond Type</td>
-                <td class="spec-val" id="spec-val-diamond-type">Lab Grown or Natural (based on selection)</td>
-              </tr>
-            {%- endif -%}
+          {%- endif -%}
 
             {%- if product.metafields.custom.diamond_shape != blank -%}
               <tr>
@@ -2536,14 +2469,7 @@
           });
           if (optionCaratIdx !== -1 && currentSelections[optionCaratIdx]) {
             var caratSelected = currentSelections[optionCaratIdx];
-            if (window.location.pathname.includes('aurora-emerald-pear-diamond-stud-earrings')) {
-              var halfCaratDetails = caratSelected === '0.50ct' ? '0.25ct Emerald + 0.25ct Pear' :
-                                     caratSelected === '2.00ct' ? '1.00ct Emerald + 1.00ct Pear' :
-                                     '0.50ct Emerald + 0.50ct Pear';
-              specCarat.textContent = caratSelected + ' total (' + halfCaratDetails + ')';
-            } else {
-              specCarat.textContent = caratSelected;
-            }
+            specCarat.textContent = caratSelected;
           }
         }
         if (specMetal) {
