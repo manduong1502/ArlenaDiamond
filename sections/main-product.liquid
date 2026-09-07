@@ -1417,13 +1417,8 @@
                   <img src="{{ media | img_url: '120x' }}" alt="{{ product.title | escape }}">
                 </div>
               {% endif %}
-            {% else %}
-              <div class="arlena-thumb active" data-src="">
-                {{ 'product-1' | placeholder_svg_tag }}
-              </div>
             {% endfor %}
           {% endif %}
-        {% endif %}
       </div>
     </section>
 
